@@ -207,7 +207,7 @@ class DataTable {
     const pages = [];
     const maxVisible = 5;
     let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+    const endPage = Math.min(totalPages, startPage + maxVisible - 1);
     if (endPage - startPage < maxVisible - 1) {
       startPage = Math.max(1, endPage - maxVisible + 1);
     }
@@ -375,9 +375,9 @@ class DataTable {
     this.filteredData.sort((a, b) => {
       const valA = a[this.sortColumn];
       const valB = b[this.sortColumn];
-      if (valA == null && valB == null) return 0;
-      if (valA == null) return 1;
-      if (valB == null) return -1;
+      if ((valA === null || valA === undefined) && (valB === null || valB === undefined)) return 0;
+      if (valA === null || valA === undefined) return 1;
+      if (valB === null || valB === undefined) return -1;
       if (typeof valA === 'number' && typeof valB === 'number') return (valA - valB) * dir;
       return String(valA).localeCompare(String(valB), 'ko') * dir;
     });
@@ -1043,7 +1043,7 @@ class Kanban {
             ` : ''}
             ${card.assignees?.length ? `
               <div class="kanban__card-assignees">
-                ${card.assignees.slice(0, 3).map(a => 
+                ${card.assignees.slice(0, 3).map(a =>
     a.avatar
       ? `<img class="kanban__avatar" src="${Security.escape(a.avatar)}" alt="${Security.escape(a.name || '')}" title="${Security.escape(a.name || '')}">`
       : `<span class="kanban__avatar kanban__avatar--initial" title="${Security.escape(a.name || '')}">${(a.name || '?')[0]}</span>`
@@ -1325,7 +1325,7 @@ class Calendar {
         <div class="calendar__nav">
           <button class="calendar__nav-btn" data-action="prev"><i class="material-icons-outlined">chevron_left</i></button>
           <button class="calendar__nav-btn" data-action="next"><i class="material-icons-outlined">chevron_right</i></button>
-          ${this.options.showToday ? `<button class="calendar__today-btn" data-action="today">오늘</button>` : ''}
+          ${this.options.showToday ? '<button class="calendar__today-btn" data-action="today">오늘</button>' : ''}
         </div>
         <h3 class="calendar__title">${year}년 ${monthNames[month]}</h3>
         <div class="calendar__view-toggle">
@@ -1375,7 +1375,7 @@ class Calendar {
         <div class="calendar__nav">
           <button class="calendar__nav-btn" data-action="prev"><i class="material-icons-outlined">chevron_left</i></button>
           <button class="calendar__nav-btn" data-action="next"><i class="material-icons-outlined">chevron_right</i></button>
-          ${this.options.showToday ? `<button class="calendar__today-btn" data-action="today">오늘</button>` : ''}
+          ${this.options.showToday ? '<button class="calendar__today-btn" data-action="today">오늘</button>' : ''}
         </div>
         <h3 class="calendar__title">${yearStr}년 ${startStr} ~ ${endStr}</h3>
         <div class="calendar__view-toggle">

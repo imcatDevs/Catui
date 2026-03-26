@@ -360,7 +360,7 @@ class Accordion {
     // 각 아이템 초기화
     itemElements.forEach((itemEl, index) => {
       // .accordion__header 또는 .accordion__trigger 모두 지원
-      let header = itemEl.querySelector('.accordion__trigger') || itemEl.querySelector('.accordion__header');
+      const header = itemEl.querySelector('.accordion__trigger') || itemEl.querySelector('.accordion__header');
       const content = itemEl.querySelector('.accordion__content');
 
       if (!header || !content) {
@@ -1637,19 +1637,19 @@ class Sidebar {
     // 사용자 프로필 영역
     if (this.options.showUserBox && this.options.user) {
       const u = this.options.user;
-      html += `<div class="sidebar__user">`;
+      html += '<div class="sidebar__user">';
       if (u.avatar) {
         html += `<img class="sidebar__user-avatar" src="${Security.escape(u.avatar)}" alt="avatar">`;
       } else {
         const initial = (u.name || '?').charAt(0).toUpperCase();
         html += `<div class="sidebar__user-avatar sidebar__user-avatar--initial">${initial}</div>`;
       }
-      html += `<div class="sidebar__user-info">`;
+      html += '<div class="sidebar__user-info">';
       html += `<div class="sidebar__user-name">${Security.escape(u.name || '')}</div>`;
       if (u.role) {
         html += `<div class="sidebar__user-role">${Security.escape(u.role)}</div>`;
       }
-      html += `</div></div>`;
+      html += '</div></div>';
     }
 
     // 토글 버튼
