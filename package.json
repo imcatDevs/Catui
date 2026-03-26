@@ -79,5 +79,13 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "serialize-javascript": ">=7.0.3",
+      "flatted": ">=3.4.2",
+      "picomatch": ">=4.0.4",
+      "esbuild": ">=0.25.0"
+    }
   }
 }
