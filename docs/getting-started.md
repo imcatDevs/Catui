@@ -40,7 +40,7 @@ my-project/
     ├── imcat-ui.css          ← 코어 CSS
     ├── imcat-ui.min.js       ← IIFE 번들 (전역 IMCAT)
     ├── imcat-ui.esm.js       ← ESM 번들
-    ├── fonts/                ← 내장 폰트
+    ├── fonts/                ← 내장 폰트 (Material Icons 포함, 별도 CDN 불필요)
     └── modules/
         ├── overlays.js       ← 개별 모듈 JS
         ├── overlays.css      ← 개별 모듈 CSS (자동 로드)
@@ -61,11 +61,8 @@ my-project/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My IMCAT App</title>
 
-  <!-- IMCAT UI CSS -->
+  <!-- IMCAT UI CSS (Material Icons 내장 — 별도 로드 불필요) -->
   <link rel="stylesheet" href="dist/imcat-ui.css">
-
-  <!-- Material Icons (아이콘 사용 시 필요) -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </head>
 <body>
 

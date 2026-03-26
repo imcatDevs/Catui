@@ -30,14 +30,14 @@
 
 **최소 필수:**
 
-```
+```text
 src/fonts/
   └── material-icons-v145-latin-regular.woff2   (필수, 50KB)
 ```
 
 **권장 (Outlined 포함):**
 
-```
+```text
 src/fonts/
   ├── material-icons-v145-latin-regular.woff2           (Filled)
   └── material-icons-outlined-v109-latin-regular.woff2  (Outlined)
@@ -45,7 +45,7 @@ src/fonts/
 
 **전체 (선택):**
 
-```
+```text
 src/fonts/
   ├── material-icons-v145-latin-regular.woff2           (Filled)
   ├── material-icons-outlined-v109-latin-regular.woff2  (Outlined)
@@ -92,16 +92,16 @@ src/fonts/
 ### 버튼에 사용
 
 ```html
-<button class="catui-btn catui-btn--primary">
+<button class="btn btn--primary">
   <i class="material-icons-outlined">add</i>
-  <span class="catui-btn__text">추가</span>
+  추가
 </button>
 ```
 
 ### 아이콘 버튼
 
 ```html
-<button class="catui-icon-btn">
+<button class="btn btn--icon">
   <i class="material-icons">search</i>
 </button>
 ```
