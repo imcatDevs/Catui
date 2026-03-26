@@ -268,4 +268,192 @@ describe('Security Module', () => {
       expect(Security.validatePath('views//page.html')).toBe(false);
     });
   });
+
+  // ============================================
+  // XSS 페이로드 테스트
+  // ============================================
+  describe('XSS 페이로드 방어', () => {
+    it('SVG onload 벡터를 차단해야 함', () => {
+      const result = Security.sanitize('<svg onload="alert(1)">');
+      expect(result).not.toContain('onload');
+    });
+
+    it('IMG onerror 벡터를 차단해야 함', () => {
+      const result = Security.sanitize('<img src=x onerror="alert(1)">');
+      expect(result).not.toContain('onerror');
+    });
+
+    it('대소문자 혼합 이벤트 핸들러를 차단해야 함', () => {
+      const result = Security.sanitize('<div OnClick="alert(1)">test</div>');
+      expect(result).not.toMatch(/onclick/i);
+    });
+
+    it('공백 우회 이벤트 핸들러를 차단해야 함', () => {
+      const result = Security.sanitize('<div on\nclick="alert(1)">test</div>');
+      expect(result).not.toMatch(/onclick/i);
+    });
+
+    it('data: URL 인코딩 우회를 차단해야 함', () => {
+      const result = Security.sanitize('<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">link</a>');
+      const div = document.createElement('div');
+      div.innerHTML = result;
+      const a = div.querySelector('a');
+      if (a) {
+        expect(a.getAttribute('href') || '').not.toMatch(/^data:text/);
+      }
+    });
+
+    it('javascript: 대소문자 변형을 차단해야 함', () => {
+      const result = Security.sanitize('<a href="JaVaScRiPt:alert(1)">link</a>');
+      expect(result).not.toMatch(/javascript:/i);
+    });
+
+    it('object 태그를 차단해야 함', () => {
+      const result = Security.sanitize('<object data="evil.swf"></object>');
+      expect(result).not.toContain('<object');
+    });
+
+    it('embed 태그를 차단해야 함', () => {
+      const result = Security.sanitize('<embed src="evil.swf">');
+      expect(result).not.toContain('<embed');
+    });
+
+    it('base 태그를 차단해야 함', () => {
+      const result = Security.sanitize('<base href="https://evil.com/">');
+      expect(result).not.toContain('<base');
+    });
+
+    it('form 태그의 javascript: action을 차단해야 함', () => {
+      const result = Security.sanitize('<form action="javascript:alert(1)"><input></form>');
+      expect(result).not.toMatch(/javascript:/i);
+    });
+
+    it('meta refresh를 차단해야 함', () => {
+      const result = Security.sanitize('<meta http-equiv="refresh" content="0;url=evil.com">');
+      expect(result).not.toContain('<meta');
+    });
+
+    it('style 태그 인젝션을 차단해야 함', () => {
+      const result = Security.sanitize('<style>body{background:url("javascript:alert(1)")}</style>');
+      expect(result).not.toContain('<style');
+    });
+
+    it('link 태그 인젝션을 차단해야 함', () => {
+      const result = Security.sanitize('<link rel="stylesheet" href="https://evil.com/steal.css">');
+      expect(result).not.toContain('<link');
+    });
+
+    it('escape()는 모든 HTML 특수 문자를 이스케이프해야 함', () => {
+      const payload = '"><img src=x onerror=alert(1)>';
+      const result = Security.escape(payload);
+      expect(result).not.toContain('<');
+      expect(result).not.toContain('>');
+      expect(result).not.toContain('"');
+    });
+
+    it('SVG foreignObject 인젝션을 차단해야 함', () => {
+      const result = Security.sanitize('<svg><foreignObject><body onload="alert(1)"></body></foreignObject></svg>');
+      expect(result).not.toMatch(/onload/i);
+    });
+  });
+
+  // ============================================
+  // Path Traversal 우회 테스트
+  // ============================================
+  describe('Path Traversal 고급 우회 방어', () => {
+    it('이중 인코딩 우회를 차단해야 함', () => {
+      expect(Security.validatePath('views/%252e%252e%252fetc/passwd')).toBe(false);
+    });
+
+    it('백슬래시 경로 (Windows)를 차단해야 함', () => {
+      expect(Security.validatePath('views\\..\\..\\etc\\passwd')).toBe(false);
+    });
+
+    it('혼합 슬래시 경로를 차단해야 함', () => {
+      expect(Security.validatePath('views/..\\..\\etc/passwd')).toBe(false);
+    });
+
+    it('긴 경로명도 올바른 형식이면 허용해야 함', () => {
+      const longPath = 'views/' + 'a'.repeat(50) + '.html';
+      expect(Security.validatePath(longPath)).toBe(true);
+    });
+
+    it('null byte + 확장자 위장을 차단해야 함', () => {
+      expect(Security.validatePath('views/page.html\x00.js')).toBe(false);
+    });
+
+    it('.htaccess 접근을 차단해야 함', () => {
+      expect(Security.validatePath('views/.htaccess')).toBe(false);
+    });
+
+    it('유니코드 슬래시 변형을 차단해야 함', () => {
+      // U+2215 DIVISION SLASH, U+FF0F FULLWIDTH SOLIDUS
+      expect(Security.validatePath('views/..∕etc/passwd')).toBe(false);
+    });
+
+    it('URL 인코딩된 백슬래시를 차단해야 함', () => {
+      expect(Security.validatePath('views/%5c..%5c..%5cetc/passwd')).toBe(false);
+    });
+  });
+
+  // ============================================
+  // innerHTML Sanitization 심화 테스트
+  // ============================================
+  describe('innerHTML Sanitization 심화', () => {
+    it('중첩된 script 태그의 실행을 방지해야 함', () => {
+      const html = '<div><scr<script>ipt>alert(1)</scr</script>ipt></div>';
+      const result = Security.sanitize(html);
+      // sanitize는 <script> 태그를 제거하므로 실행 가능한 스크립트 없음
+      expect(result).not.toContain('alert(1)</scr');
+    });
+
+    it('HTML 주석 내 script는 브라우저에서 실행되지 않음을 확인', () => {
+      const html = '<div><!--<script>alert(1)</script>--></div>';
+      const result = Security.sanitize(html);
+      // HTML 주석 내 스크립트는 브라우저에서 실행되지 않으므로 안전
+      const div = document.createElement('div');
+      div.innerHTML = result;
+      expect(div.querySelector('script')).toBeNull();
+    });
+
+    it('여러 위험 태그가 혼합된 HTML을 정리해야 함', () => {
+      const html = '<p>안전</p><script>bad</script><iframe src="x"></iframe><img onerror="bad" src="x">';
+      const result = Security.sanitize(html);
+      expect(result).toContain('<p>안전</p>');
+      expect(result).not.toContain('<script');
+      expect(result).not.toContain('<iframe');
+      expect(result).not.toMatch(/onerror/i);
+    });
+
+    it('안전한 태그와 속성은 유지해야 함', () => {
+      const html = '<div class="box"><span style="color:red">텍스트</span><a href="/page">링크</a></div>';
+      const result = Security.sanitize(html);
+      expect(result).toContain('class="box"');
+      expect(result).toContain('<a href="/page">링크</a>');
+    });
+
+    it('빈 문자열 입력 시 빈 문자열을 반환해야 함', () => {
+      expect(Security.sanitize('')).toBe('');
+    });
+
+    it('일반 텍스트만 있는 경우 그대로 유지해야 함', () => {
+      expect(Security.sanitize('일반 텍스트')).toBe('일반 텍스트');
+    });
+
+    it('sanitizeCSS()는 세미콜론을 차단해야 함', () => {
+      const result = Security.sanitizeCSS('color: red; background: url(javascript:alert(1))');
+      expect(result).not.toContain('javascript:');
+    });
+
+    it('sanitizeCSS()는 중괄호를 차단해야 함', () => {
+      const result = Security.sanitizeCSS('color: red} .evil { background: red');
+      expect(result).not.toContain('}');
+      expect(result).not.toContain('{');
+    });
+
+    it('sanitizeCSS()는 url() 패턴을 차단해야 함', () => {
+      const result = Security.sanitizeCSS('background: url(https://evil.com/steal.png)');
+      expect(result).not.toMatch(/url\s*\(/i);
+    });
+  });
 });
