@@ -67,10 +67,30 @@ const html2 = compiled({ name: '김철수' });
 | `.render(template, data)` | string, object | string | 템플릿 렌더링 |
 | `.compile(template)` | string | function(data) | 템플릿 컴파일 (캐싱) |
 
-## ⚠️ 주의사항
+## ⚠️ 보안 주의사항
 
-- ❌ `{{{변수}}}` 에 사용자 입력 전달 금지 → ✅ `{{변수}}` 사용
+### renderRaw() / {{{raw}}} 사용 시 필수 확인
+
+> **⛔ 사용자 입력을 renderRaw()에 직접 전달하면 XSS 공격에 노출됩니다.**
+
+```javascript
+// ❌ 금지: 사용자 입력 직접 전달
+Template.renderRaw('{{content}}', { content: userInput });
+
+// ✅ 안전: 서버 렌더링 HTML (신뢰 소스만)
+Template.renderRaw('{{content}}', { content: serverRenderedHTML });
+
+// ✅ 불가피한 경우: Security.sanitize()로 감싸기
+Template.renderRaw('{{content}}', {
+  content: IMCAT.security.sanitize(userInput)
+});
+```
+
+### 일반 규칙
+
+- ❌ `{{{변수}}}` / `renderRaw()`에 사용자 입력 전달 금지 → ✅ `{{변수}}` / `render()` 사용
 - ❌ 이벤트 핸들러를 템플릿 내 인라인으로 → ✅ 렌더 후 `.on()` 바인딩
+- ❌ `innerHTML`에 사용자 입력 직접 삽입 → ✅ `textContent` 또는 `Security.escape()` 사용
 
 ## 관련 문서
 

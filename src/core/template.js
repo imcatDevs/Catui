@@ -86,15 +86,30 @@ export class Template {
   /**
    * 안전하지 않은 렌더링 (이스케이프 없음)
    * 신뢰할 수 있는 HTML만 사용!
+   *
+   * @security ⛔ 사용자 입력을 data에 직접 전달하지 마세요.
+   * 서버 렌더링 HTML 등 신뢰할 수 있는 소스 전용입니다.
+   * 불가피한 경우 Security.sanitize()로 감싸세요.
+   *
    * @param {string} template - 템플릿 문자열
    * @param {Object} [data={}] - 데이터 객체
    * @returns {string} 렌더링된 HTML
    *
    * @example
+   * // ✅ 서버 렌더링 HTML (신뢰 소스)
    * const html = Template.renderRaw('{{content}}', {
    *   content: '<b>Bold</b>'
    * });
-   * // '<b>Bold</b>'
+   *
+   * @example
+   * // ✅ 불가피한 경우 sanitize로 감싸기
+   * const html = Template.renderRaw('{{content}}', {
+   *   content: Security.sanitize(userInput)
+   * });
+   *
+   * @example
+   * // ❌ 금지: 사용자 입력 직접 전달
+   * // Template.renderRaw('{{name}}', { name: userInput });
    */
   static renderRaw(template, data = {}) {
     if (typeof template !== 'string') {

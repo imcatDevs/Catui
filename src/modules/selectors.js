@@ -118,7 +118,7 @@ class Autocomplete {
       const highlighted = this.options.highlight ? this._highlight(text, query) : text;
 
       if (this.options.renderItem) {
-        return `<div class="autocomplete__item" data-index="${index}">${this.options.renderItem(item, highlighted)}</div>`;
+        return `<div class="autocomplete__item" data-index="${index}">${Security.sanitize(this.options.renderItem(item, highlighted))}</div>`;
       }
 
       return `<div class="autocomplete__item" data-index="${index}">${this.options.highlight ? highlighted : Security.escape(highlighted)}</div>`;

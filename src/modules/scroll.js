@@ -118,7 +118,7 @@ class VirtualScroll {
     const visibleItems = items.slice(startIndex, endIndex);
     this.content.innerHTML = visibleItems.map((item, idx) =>
       `<div class="virtual-scroll__item" style="height: ${itemHeight}px;" data-index="${startIndex + idx}">
-        ${renderItem(item, startIndex + idx)}
+        ${Security.sanitize(renderItem(item, startIndex + idx))}
       </div>`
     ).join('');
   }
@@ -524,29 +524,29 @@ class InfiniteScroll {
     if (!loadMore || this._loading || !this._hasMore) return;
 
     this._loading = true;
-    this._statusEl.innerHTML = loadingHTML;
+    if (this._statusEl) this._statusEl.innerHTML = Security.sanitize(loadingHTML);
 
     try {
       const items = await loadMore();
 
       if (!items || items.length === 0) {
         this._hasMore = false;
-        this._statusEl.innerHTML = endHTML;
+        if (this._statusEl) this._statusEl.innerHTML = Security.sanitize(endHTML);
       } else {
         // 아이템 렌더링
-        if (renderItem) {
+        if (renderItem && this.itemsContainer) {
           const fragment = document.createDocumentFragment();
           items.forEach((item, idx) => {
             const div = document.createElement('div');
             div.className = 'infinite-scroll__item';
-            div.innerHTML = renderItem(item, this._totalLoaded + idx);
+            div.innerHTML = Security.sanitize(renderItem(item, this._totalLoaded + idx));
             fragment.appendChild(div);
           });
           this.itemsContainer.appendChild(fragment);
         }
 
         this._totalLoaded += items.length;
-        this._statusEl.innerHTML = '';
+        if (this._statusEl) this._statusEl.innerHTML = '';
 
         if (onLoad) {
           onLoad(items, this._totalLoaded);
@@ -554,15 +554,17 @@ class InfiniteScroll {
       }
     } catch (error) {
       console.error('InfiniteScroll load error:', error);
-      this._statusEl.innerHTML = errorHTML;
+      if (this._statusEl) {
+        this._statusEl.innerHTML = Security.sanitize(errorHTML);
 
-      // 재시도 버튼
-      const retryBtn = this._statusEl.querySelector('.infinite-scroll__retry');
-      if (retryBtn) {
-        retryBtn.addEventListener('click', () => {
-          this._loading = false;
-          this._loadMore();
-        }, { once: true });
+        // 재시도 버튼
+        const retryBtn = this._statusEl.querySelector('.infinite-scroll__retry');
+        if (retryBtn) {
+          retryBtn.addEventListener('click', () => {
+            this._loading = false;
+            this._loadMore();
+          }, { once: true });
+        }
       }
     } finally {
       this._loading = false;
@@ -582,8 +584,8 @@ class InfiniteScroll {
    */
   setHasMore(hasMore) {
     this._hasMore = hasMore;
-    if (!hasMore) {
-      this._statusEl.innerHTML = this.options.endHTML;
+    if (!hasMore && this._statusEl) {
+      this._statusEl.innerHTML = Security.sanitize(this.options.endHTML);
     }
   }
 
@@ -591,11 +593,11 @@ class InfiniteScroll {
    * 리스트 초기화
    */
   reset() {
-    this.itemsContainer.innerHTML = '';
+    if (this.itemsContainer) this.itemsContainer.innerHTML = '';
     this._totalLoaded = 0;
     this._hasMore = true;
     this._loading = false;
-    this._statusEl.innerHTML = '';
+    if (this._statusEl) this._statusEl.innerHTML = '';
   }
 
   /**
@@ -610,10 +612,10 @@ class InfiniteScroll {
     items.forEach((item, idx) => {
       const div = document.createElement('div');
       div.className = 'infinite-scroll__item';
-      div.innerHTML = renderItem(item, this._totalLoaded + idx);
+      div.innerHTML = Security.sanitize(renderItem(item, this._totalLoaded + idx));
       fragment.appendChild(div);
     });
-    this.itemsContainer.appendChild(fragment);
+    if (this.itemsContainer) this.itemsContainer.appendChild(fragment);
     this._totalLoaded += items.length;
   }
 
