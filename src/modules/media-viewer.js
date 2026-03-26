@@ -225,42 +225,42 @@ class VideoPlayer {
     };
     this.video.addEventListener('error', this._handlers.error);
 
-    // 컨트롤 이벤트
+    // 컨트롤 이벤트 — 명명된 핸들러로 등록 (destroy 시 제거 가능)
+    this._controlRefs = [];
     if (this.controls) {
-      // 재생 버튼
-      const playBtn = this.controls.querySelector('.video-player__btn--play');
-      playBtn.addEventListener('click', () => this.togglePlay());
+      const bindCtrl = (selector, event, handler, target) => {
+        const el = (target || this.controls).querySelector(selector);
+        if (el) { el.addEventListener(event, handler); this._controlRefs.push({ el, event, handler }); }
+      };
 
-      // 오버레이 재생 버튼
-      const bigPlayBtn = this.overlay.querySelector('.video-player__big-play');
-      bigPlayBtn.addEventListener('click', () => this.play());
+      this._handlers.playBtnClick = () => this.togglePlay();
+      bindCtrl('.video-player__btn--play', 'click', this._handlers.playBtnClick);
 
-      // 볼륨
-      const volumeBtn = this.controls.querySelector('.video-player__btn--volume');
-      volumeBtn.addEventListener('click', () => this.toggleMute());
+      this._handlers.bigPlayClick = () => this.play();
+      bindCtrl('.video-player__big-play', 'click', this._handlers.bigPlayClick, this.overlay);
 
-      const volumeInput = this.controls.querySelector('.video-player__volume-input');
-      volumeInput.addEventListener('input', (e) => this.setVolume(e.target.value));
+      this._handlers.volumeBtnClick = () => this.toggleMute();
+      bindCtrl('.video-player__btn--volume', 'click', this._handlers.volumeBtnClick);
 
-      // 진행 바
-      const progressBar = this.controls.querySelector('.video-player__progress-bar');
-      progressBar.addEventListener('click', (e) => this._seekTo(e));
+      this._handlers.volumeInput = (e) => this.setVolume(e.target.value);
+      bindCtrl('.video-player__volume-input', 'input', this._handlers.volumeInput);
 
-      // 속도
-      const speedBtn = this.controls.querySelector('.video-player__btn--speed');
-      speedBtn.addEventListener('click', () => this._cycleSpeed());
+      this._handlers.progressClick = (e) => this._seekTo(e);
+      bindCtrl('.video-player__progress-bar', 'click', this._handlers.progressClick);
 
-      // PIP
-      const pipBtn = this.controls.querySelector('.video-player__btn--pip');
-      pipBtn.addEventListener('click', () => this.togglePIP());
+      this._handlers.speedClick = () => this._cycleSpeed();
+      bindCtrl('.video-player__btn--speed', 'click', this._handlers.speedClick);
 
-      // 전체 화면
-      const fullscreenBtn = this.controls.querySelector('.video-player__btn--fullscreen');
-      fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+      this._handlers.pipClick = () => this.togglePIP();
+      bindCtrl('.video-player__btn--pip', 'click', this._handlers.pipClick);
+
+      this._handlers.fullscreenClick = () => this.toggleFullscreen();
+      bindCtrl('.video-player__btn--fullscreen', 'click', this._handlers.fullscreenClick);
     }
 
     // 비디오 클릭으로 재생/일시정지
-    this.video.addEventListener('click', () => this.togglePlay());
+    this._handlers.videoClick = () => this.togglePlay();
+    this.video.addEventListener('click', this._handlers.videoClick);
 
     // 키보드 단축키
     this._handlers.keydown = (e) => {
@@ -483,17 +483,36 @@ class VideoPlayer {
   }
 
   destroy() {
-    // 이벤트 제거
-    Object.entries(this._handlers).forEach(([event, handler]) => {
-      if (event === 'keydown') {
-        document.removeEventListener('keydown', handler);
-      }
-    });
+    // document 이벤트 제거
+    if (this._handlers.keydown) {
+      document.removeEventListener('keydown', this._handlers.keydown);
+    }
+
+    // video 이벤트 제거
+    if (this.video) {
+      const videoEvents = ['play', 'pause', 'ended', 'timeupdate', 'loadedmetadata', 'waiting', 'canplay', 'error', 'videoClick'];
+      videoEvents.forEach(key => {
+        if (this._handlers[key]) this.video.removeEventListener(key === 'videoClick' ? 'click' : key, this._handlers[key]);
+      });
+    }
+
+    // container 이벤트 제거
+    if (this.container) {
+      if (this._handlers.mousemove) this.container.removeEventListener('mousemove', this._handlers.mousemove);
+      if (this._handlers.mouseleave) this.container.removeEventListener('mouseleave', this._handlers.mouseleave);
+    }
+
+    // 컨트롤 버튼 이벤트 제거
+    if (this._controlRefs) {
+      this._controlRefs.forEach(({ el, event, handler }) => el.removeEventListener(event, handler));
+      this._controlRefs = null;
+    }
 
     if (this._hideControlsTimer) {
       clearTimeout(this._hideControlsTimer);
     }
 
+    this._handlers = {};
     VideoPlayer.instances.delete(this.container);
 
     if (this.container) {
@@ -503,6 +522,8 @@ class VideoPlayer {
     this.container = null;
     this.video = null;
     this.controls = null;
+    this.overlay = null;
+    this.loading = null;
   }
 }
 
@@ -625,50 +646,59 @@ class AudioPlayer {
   }
 
   _bindEvents() {
+    this._handlers = {};
+    this._controlRefs = [];
+
+    const bindEl = (selector, event, handler) => {
+      const el = this.container.querySelector(selector);
+      if (el) { el.addEventListener(event, handler); this._controlRefs.push({ el, event, handler }); }
+    };
+
     // 재생 버튼
-    const playBtn = this.container.querySelector('.audio-player__btn--play');
-    playBtn.addEventListener('click', () => this.togglePlay());
+    this._handlers.playClick = () => this.togglePlay();
+    bindEl('.audio-player__btn--play', 'click', this._handlers.playClick);
 
     // 볼륨
-    const volumeSlider = this.container.querySelector('.audio-player__volume-slider');
-    volumeSlider.addEventListener('input', (e) => {
-      this.audio.volume = e.target.value;
-    });
+    this._handlers.volumeInput = (e) => { this.audio.volume = e.target.value; };
+    bindEl('.audio-player__volume-slider', 'input', this._handlers.volumeInput);
 
     // 진행 바
-    const progressBar = this.container.querySelector('.audio-player__progress-bar');
-    progressBar.addEventListener('click', (e) => {
-      const rect = progressBar.getBoundingClientRect();
+    this._handlers.progressClick = (e) => {
+      const bar = this.container.querySelector('.audio-player__progress-bar');
+      if (!bar) return;
+      const rect = bar.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
       this.audio.currentTime = percent * this.audio.duration;
-    });
+    };
+    bindEl('.audio-player__progress-bar', 'click', this._handlers.progressClick);
 
     // 오디오 이벤트
-    this.audio.addEventListener('play', () => {
+    this._handlers.play = () => {
       this._isPlaying = true;
       this._updatePlayButton();
       if (this.options.onPlay) this.options.onPlay();
-    });
+    };
+    this.audio.addEventListener('play', this._handlers.play);
 
-    this.audio.addEventListener('pause', () => {
+    this._handlers.pause = () => {
       this._isPlaying = false;
       this._updatePlayButton();
       if (this.options.onPause) this.options.onPause();
-    });
+    };
+    this.audio.addEventListener('pause', this._handlers.pause);
 
-    this.audio.addEventListener('ended', () => {
+    this._handlers.ended = () => {
       this._isPlaying = false;
       this._updatePlayButton();
       if (this.options.onEnded) this.options.onEnded();
-    });
+    };
+    this.audio.addEventListener('ended', this._handlers.ended);
 
-    this.audio.addEventListener('timeupdate', () => {
-      this._updateProgress();
-    });
+    this._handlers.timeupdate = () => { this._updateProgress(); };
+    this.audio.addEventListener('timeupdate', this._handlers.timeupdate);
 
-    this.audio.addEventListener('loadedmetadata', () => {
-      this._updateDuration();
-    });
+    this._handlers.loadedmetadata = () => { this._updateDuration(); };
+    this.audio.addEventListener('loadedmetadata', this._handlers.loadedmetadata);
   }
 
   _updatePlayButton() {
@@ -721,9 +751,23 @@ class AudioPlayer {
   }
 
   destroy() {
+    // 오디오 이벤트 제거
+    if (this.audio && this._handlers) {
+      ['play', 'pause', 'ended', 'timeupdate', 'loadedmetadata'].forEach(evt => {
+        if (this._handlers[evt]) this.audio.removeEventListener(evt, this._handlers[evt]);
+      });
+      this.audio.pause();
+    }
+
+    // 컨트롤 버튼 이벤트 제거
+    if (this._controlRefs) {
+      this._controlRefs.forEach(({ el, event, handler }) => el.removeEventListener(event, handler));
+      this._controlRefs = null;
+    }
+
+    this._handlers = null;
     AudioPlayer.instances.delete(this.container);
-    this.audio.pause();
-    this.container.innerHTML = '';
+    if (this.container) this.container.innerHTML = '';
     this.container = null;
     this.audio = null;
   }
@@ -834,43 +878,30 @@ class ImageViewer {
 
   _bindEvents() {
     // 툴바 버튼
-    this.container.addEventListener('click', (e) => {
+    this._onToolbarClick = (e) => {
       const btn = e.target.closest('.image-viewer__btn');
       if (!btn) return;
 
       const action = btn.dataset.action;
       switch (action) {
-        case 'zoom-in':
-          this.zoomIn();
-          break;
-        case 'zoom-out':
-          this.zoomOut();
-          break;
-        case 'rotate-left':
-          this.rotate(-90);
-          break;
-        case 'rotate-right':
-          this.rotate(90);
-          break;
-        case 'reset':
-          this.reset();
-          break;
-        case 'download':
-          this.download();
-          break;
+        case 'zoom-in': this.zoomIn(); break;
+        case 'zoom-out': this.zoomOut(); break;
+        case 'rotate-left': this.rotate(-90); break;
+        case 'rotate-right': this.rotate(90); break;
+        case 'reset': this.reset(); break;
+        case 'download': this.download(); break;
       }
-    });
+    };
+    this.container.addEventListener('click', this._onToolbarClick);
 
     // 마우스 휠 줌
-    this.container.querySelector('.image-viewer__wrapper').addEventListener('wheel', (e) => {
+    this._wrapper = this.container.querySelector('.image-viewer__wrapper');
+    this._onWheel = (e) => {
       if (!this.options.zoomable) return;
       e.preventDefault();
-      if (e.deltaY < 0) {
-        this.zoomIn();
-      } else {
-        this.zoomOut();
-      }
-    });
+      if (e.deltaY < 0) { this.zoomIn(); } else { this.zoomOut(); }
+    };
+    if (this._wrapper) this._wrapper.addEventListener('wheel', this._onWheel);
   }
 
   _updateTransform() {
@@ -926,10 +957,18 @@ class ImageViewer {
   }
 
   destroy() {
+    if (this.container && this._onToolbarClick) {
+      this.container.removeEventListener('click', this._onToolbarClick);
+    }
+    if (this._wrapper && this._onWheel) {
+      this._wrapper.removeEventListener('wheel', this._onWheel);
+    }
+
     ImageViewer.instances.delete(this.container);
-    this.container.innerHTML = '';
+    if (this.container) this.container.innerHTML = '';
     this.container = null;
     this.image = null;
+    this._wrapper = null;
   }
 }
 

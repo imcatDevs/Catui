@@ -128,7 +128,7 @@ class RichTextEditor {
 
   _bindEvents() {
     // 툴바 클릭
-    this.toolbar.addEventListener('click', (e) => {
+    this._onToolbarClick = (e) => {
       const btn = e.target.closest('.rich-text-editor__btn');
       if (!btn) return;
 
@@ -137,7 +137,8 @@ class RichTextEditor {
       const value = btn.dataset.value;
 
       this._execCommand(command, value);
-    });
+    };
+    this.toolbar.addEventListener('click', this._onToolbarClick);
 
     // 에디터 이벤트
     this._onInput = () => {
@@ -164,7 +165,7 @@ class RichTextEditor {
     this.editor.addEventListener('blur', this._onBlur);
 
     // 키보드 단축키
-    this.editor.addEventListener('keydown', (e) => {
+    this._onKeydown = (e) => {
       if (e.ctrlKey || e.metaKey) {
         switch (e.key.toLowerCase()) {
           case 'b':
@@ -181,7 +182,8 @@ class RichTextEditor {
             break;
         }
       }
-    });
+    };
+    this.editor.addEventListener('keydown', this._onKeydown);
   }
 
   _execCommand(command, value = '') {
@@ -242,14 +244,14 @@ class RichTextEditor {
   }
 
   destroy() {
-    if (this._onInput) {
-      this.editor.removeEventListener('input', this._onInput);
+    if (this.editor) {
+      if (this._onInput) this.editor.removeEventListener('input', this._onInput);
+      if (this._onFocus) this.editor.removeEventListener('focus', this._onFocus);
+      if (this._onBlur) this.editor.removeEventListener('blur', this._onBlur);
+      if (this._onKeydown) this.editor.removeEventListener('keydown', this._onKeydown);
     }
-    if (this._onFocus) {
-      this.editor.removeEventListener('focus', this._onFocus);
-    }
-    if (this._onBlur) {
-      this.editor.removeEventListener('blur', this._onBlur);
+    if (this.toolbar && this._onToolbarClick) {
+      this.toolbar.removeEventListener('click', this._onToolbarClick);
     }
 
     RichTextEditor.instances.delete(this.container);
@@ -434,14 +436,15 @@ class MarkdownEditor {
 
   _bindEvents() {
     // 툴바 클릭
-    this.toolbar.addEventListener('click', (e) => {
+    this._onToolbarClick = (e) => {
       const btn = e.target.closest('.markdown-editor__btn');
       if (!btn) return;
 
       e.preventDefault();
       const action = btn.dataset.action;
       this._handleToolbarAction(action);
-    });
+    };
+    this.toolbar.addEventListener('click', this._onToolbarClick);
 
     // 입력 이벤트
     this._onInput = () => {
@@ -453,18 +456,19 @@ class MarkdownEditor {
     this.textarea.addEventListener('input', this._onInput);
 
     // 탭 전환
-    const tabs = this.container.querySelector('.markdown-editor__tabs');
-    if (tabs) {
-      tabs.addEventListener('click', (e) => {
+    this._tabsEl = this.container.querySelector('.markdown-editor__tabs');
+    if (this._tabsEl) {
+      this._onTabsClick = (e) => {
         const tab = e.target.closest('.markdown-editor__tab');
         if (!tab) return;
 
         this._switchTab(tab.dataset.tab);
-      });
+      };
+      this._tabsEl.addEventListener('click', this._onTabsClick);
     }
 
     // 키보드 단축키
-    this.textarea.addEventListener('keydown', (e) => {
+    this._onKeydown = (e) => {
       if (e.ctrlKey || e.metaKey) {
         switch (e.key.toLowerCase()) {
           case 'b':
@@ -489,7 +493,8 @@ class MarkdownEditor {
         this.textarea.selectionStart = this.textarea.selectionEnd = start + 2;
         this._updatePreview();
       }
-    });
+    };
+    this.textarea.addEventListener('keydown', this._onKeydown);
   }
 
   _handleToolbarAction(action) {
@@ -593,11 +598,23 @@ class MarkdownEditor {
     // Horizontal rules
     html = html.replace(/^---$/gim, '<hr>');
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    // Links — javascript:/vbscript:/data: 프로토콜 차단
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
+      const trimmed = url.trim().toLowerCase();
+      if (trimmed.startsWith('javascript:') || trimmed.startsWith('vbscript:') || (trimmed.startsWith('data:') && !trimmed.startsWith('data:image/'))) {
+        return text;
+      }
+      return `<a href="${url}" target="_blank" rel="noopener">${text}</a>`;
+    });
 
-    // Images
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+    // Images — javascript:/vbscript:/data:(비이미지) 프로토콜 차단
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+      const trimmed = url.trim().toLowerCase();
+      if (trimmed.startsWith('javascript:') || trimmed.startsWith('vbscript:') || (trimmed.startsWith('data:') && !trimmed.startsWith('data:image/'))) {
+        return alt;
+      }
+      return `<img src="${url}" alt="${alt}">`;
+    });
 
     // Task lists
     html = html.replace(/^- \[x\] (.*$)/gim, '<div class="task-item"><input type="checkbox" checked disabled> $1</div>');
@@ -671,8 +688,15 @@ class MarkdownEditor {
   }
 
   destroy() {
-    if (this._onInput) {
-      this.textarea.removeEventListener('input', this._onInput);
+    if (this.textarea) {
+      if (this._onInput) this.textarea.removeEventListener('input', this._onInput);
+      if (this._onKeydown) this.textarea.removeEventListener('keydown', this._onKeydown);
+    }
+    if (this.toolbar && this._onToolbarClick) {
+      this.toolbar.removeEventListener('click', this._onToolbarClick);
+    }
+    if (this._tabsEl && this._onTabsClick) {
+      this._tabsEl.removeEventListener('click', this._onTabsClick);
     }
 
     MarkdownEditor.instances.delete(this.container);
@@ -685,6 +709,7 @@ class MarkdownEditor {
     this.toolbar = null;
     this.textarea = null;
     this.preview = null;
+    this._tabsEl = null;
   }
 }
 
@@ -844,13 +869,14 @@ class TextareaAutosize {
 
     // 툴바 클릭
     if (this.toolbarEl) {
-      this.toolbarEl.addEventListener('click', (e) => {
+      this._onToolbarClick = (e) => {
         const btn = e.target.closest('.textarea-autosize__btn');
         if (!btn) return;
 
         e.preventDefault();
         this._handleAction(btn.dataset.action);
-      });
+      };
+      this.toolbarEl.addEventListener('click', this._onToolbarClick);
     }
   }
 
@@ -946,14 +972,13 @@ class TextareaAutosize {
   }
 
   destroy() {
-    if (this._onInput) {
-      this.textarea.removeEventListener('input', this._onInput);
+    if (this.textarea) {
+      if (this._onInput) this.textarea.removeEventListener('input', this._onInput);
+      if (this._onFocus) this.textarea.removeEventListener('focus', this._onFocus);
+      if (this._onBlur) this.textarea.removeEventListener('blur', this._onBlur);
     }
-    if (this._onFocus) {
-      this.textarea.removeEventListener('focus', this._onFocus);
-    }
-    if (this._onBlur) {
-      this.textarea.removeEventListener('blur', this._onBlur);
+    if (this.toolbarEl && this._onToolbarClick) {
+      this.toolbarEl.removeEventListener('click', this._onToolbarClick);
     }
 
     // 래퍼에서 textarea를 다시 꺼내기

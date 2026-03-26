@@ -134,7 +134,7 @@ class SplitPane {
     document.addEventListener('touchend', this._onTouchEnd);
 
     // 키보드 이벤트
-    this._gutter.addEventListener('keydown', (e) => {
+    this._onKeydown = (e) => {
       const step = 5;
       const { direction } = this.options;
 
@@ -159,7 +159,8 @@ class SplitPane {
           this._updateSizes();
         }
       }
-    });
+    };
+    this._gutter.addEventListener('keydown', this._onKeydown);
   }
 
   _startDrag(e) {
@@ -287,17 +288,16 @@ class SplitPane {
   }
 
   destroy() {
-    if (this._onMouseDown) {
-      this._gutter.removeEventListener('mousedown', this._onMouseDown);
+    if (this._gutter) {
+      if (this._onMouseDown) this._gutter.removeEventListener('mousedown', this._onMouseDown);
+      if (this._onTouchStart) this._gutter.removeEventListener('touchstart', this._onTouchStart);
+      if (this._onKeydown) this._gutter.removeEventListener('keydown', this._onKeydown);
     }
     if (this._onMouseMove) {
       document.removeEventListener('mousemove', this._onMouseMove);
     }
     if (this._onMouseUp) {
       document.removeEventListener('mouseup', this._onMouseUp);
-    }
-    if (this._onTouchStart) {
-      this._gutter.removeEventListener('touchstart', this._onTouchStart);
     }
     if (this._onTouchMove) {
       document.removeEventListener('touchmove', this._onTouchMove);
