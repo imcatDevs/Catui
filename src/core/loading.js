@@ -281,10 +281,11 @@ export class LoadingIndicator {
 
     document.body.appendChild(this.element);
 
-    // 애니메이션을 위한 reflow
-    this.element.offsetHeight;
-
-    this.element.classList.add('imcat-loading-show');
+    // 애니메이션을 위한 다음 프레임 대기 (offsetHeight reflow 대신 rAF 사용)
+    requestAnimationFrame(() => {
+      if (!this.element) return;
+      this.element.classList.add('imcat-loading-show');
+    });
   }
 
   /**

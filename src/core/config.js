@@ -390,7 +390,12 @@ export class Config {
    * 깊은 병합
    * @private
    */
-  static _deepMerge(target, source) {
+  static _deepMerge(target, source, _depth = 0) {
+    // 깊이 제한: 무한 재귀 및 과도한 중첩 객체 병합 방지
+    if (_depth > 10) {
+      return Utils.clone(source);
+    }
+
     const result = Utils.clone(target);
 
     for (const key in source) {
@@ -403,7 +408,7 @@ export class Config {
           typeof result[key] === 'object' &&
           !Array.isArray(result[key])
         ) {
-          result[key] = Config._deepMerge(result[key], source[key]);
+          result[key] = Config._deepMerge(result[key], source[key], _depth + 1);
         } else {
           result[key] = Utils.clone(source[key]);
         }

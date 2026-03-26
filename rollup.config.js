@@ -76,7 +76,23 @@ const coreExternals = [
   '../core/helpers.js',
   '../core/formatters.js',
   '../core/form.js',
-  '../core/loading.js'
+  '../core/loading.js',
+  // 하위 모듈(data-viz/, navigation/)에서 사용하는 ../../core 경로
+  '../../core/dom.js',
+  '../../core/event.js',
+  '../../core/utils.js',
+  '../../core/security.js',
+  '../../core/animation.js',
+  '../../core/state.js',
+  '../../core/config.js',
+  '../../core/template.js',
+  '../../core/api.js',
+  '../../core/url.js',
+  '../../core/storage.js',
+  '../../core/helpers.js',
+  '../../core/formatters.js',
+  '../../core/form.js',
+  '../../core/loading.js'
 ];
 
 // 코어 개별 ESM 파일 빌드 (모듈의 ../core/*.js import 해소용)
@@ -130,6 +146,26 @@ function createModuleConfig(moduleName) {
   };
 }
 
+// 하위 모듈 번들 함수 (중첩 구조: src/modules/부모/자식.js → dist/modules/부모/자식.js)
+function createSubModuleConfig(parentName, subName) {
+  return {
+    input: `src/modules/${parentName}/${subName}.js`,
+    external: coreExternals,
+    output: {
+      file: `dist/modules/${parentName}/${subName}.js`,
+      format: 'esm',
+      sourcemap: !production
+    },
+    plugins: [
+      babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**'
+      }),
+      production && terser()
+    ].filter(Boolean)
+  };
+}
+
 // 각 모듈별 개별 config 생성
 const moduleConfigs = [
   'theme', 'overlays', 'dropdown', 'navigation', 'pickers', 'selectors', 
@@ -138,5 +174,13 @@ const moduleConfigs = [
   'media-viewer', 'social', 'imagelist', 'security-input', 'gantt', 'pagination'
 ].map(createModuleConfig);
 
-// 코어 + 모듈 빌드
-export default [coreConfig, ...coreFileConfigs, ...moduleConfigs];
+// 하위 모듈 개별 빌드 (트리쉐이킹 가능한 개별 파일)
+const subModuleConfigs = [
+  // data-viz 하위 모듈
+  ...['datatable', 'chart', 'masonry', 'kanban', 'calendar'].map(s => createSubModuleConfig('data-viz', s)),
+  // navigation 하위 모듈
+  ...['tabs', 'accordion', 'collapse', 'megamenu', 'treeview', 'sidebar'].map(s => createSubModuleConfig('navigation', s))
+];
+
+// 코어 + 모듈 + 하위 모듈 빌드
+export default [coreConfig, ...coreFileConfigs, ...moduleConfigs, ...subModuleConfigs];

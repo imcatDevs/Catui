@@ -460,8 +460,18 @@ class VideoPlayer {
   }
 
   setSrc(src, poster = '') {
+    if (!Security.isSafeUrl(src)) {
+      console.error('VideoPlayer: 안전하지 않은 URL입니다:', src);
+      return;
+    }
     this.video.src = src;
-    if (poster) this.video.poster = poster;
+    if (poster) {
+      if (!Security.isSafeUrl(poster)) {
+        console.error('VideoPlayer: 안전하지 않은 poster URL입니다:', poster);
+        return;
+      }
+      this.video.poster = poster;
+    }
   }
 
   getCurrentTime() {
@@ -694,6 +704,10 @@ class AudioPlayer {
   togglePlay() { this._isPlaying ? this.pause() : this.play(); }
 
   setTrack(src, title = '', artist = '', cover = '') {
+    if (!Security.isSafeUrl(src)) {
+      console.error('AudioPlayer: 안전하지 않은 URL입니다:', src);
+      return;
+    }
     this.audio.src = src;
     this.container.querySelector('.audio-player__title').textContent = title || '알 수 없는 제목';
     this.container.querySelector('.audio-player__artist').textContent = artist || '알 수 없는 아티스트';
@@ -900,6 +914,10 @@ class ImageViewer {
   }
 
   setSrc(src, alt = '') {
+    if (!Security.isSafeUrl(src)) {
+      console.error('ImageViewer: 안전하지 않은 URL입니다:', src);
+      return;
+    }
     this.options.src = src;
     this.options.alt = alt;
     this.image.src = src;

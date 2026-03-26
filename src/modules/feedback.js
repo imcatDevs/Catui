@@ -86,6 +86,18 @@ class Toast {
       });
     }
   }
+
+  /**
+   * 정적 컨테이너 완전 제거 (메모리 누수 방지)
+   */
+  static destroy() {
+    Toast.clear();
+    if (Toast.container) {
+      Toast.container.remove();
+      Toast.container = null;
+    }
+    Toast.queue = [];
+  }
 }
 
 // ============================================
@@ -224,6 +236,18 @@ class Notification {
         notification.remove();
       });
     }
+  }
+
+  /**
+   * 정적 컨테이너 완전 제거 (메모리 누수 방지)
+   */
+  static destroy() {
+    Notification.clear();
+    if (Notification.container) {
+      Notification.container.remove();
+      Notification.container = null;
+    }
+    Notification.position = 'top-right';
   }
 }
 
