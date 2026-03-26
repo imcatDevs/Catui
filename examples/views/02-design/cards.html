@@ -1,0 +1,564 @@
+<!-- Cards -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Cards</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Cards</h1>
+  <p class="page-desc">다양한 스타일의 카드 컴포넌트</p>
+</div>
+
+<div class="row">
+<div class="col-lg-12">
+
+<!-- ============================================ -->
+<!-- 1. 기본 카드                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">기본 카드</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">본문만, 제목+본문, 배경색, 그라디언트 배경</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem;">
+      <!-- 본문만 -->
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">간단한 본문 텍스트입니다. 카드의 기본 형태로 제목 없이 본문만 포함합니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+      <!-- 제목 + 본문 -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Basic Card with Title</h5>
+          <p class="card-text">제목과 본문이 있는 기본 카드입니다. 다양한 콘텐츠를 담을 수 있습니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+      <!-- 배경색 -->
+      <div class="card text-bg-primary" style="border:0">
+        <div class="card-body">
+          <h5 class="card-title">Card with Background Color</h5>
+          <p class="card-text">text-bg-primary 클래스로 배경과 텍스트를 동시에 설정합니다.</p>
+          <a href="javascript:void(0);" class="btn btn--light btn--sm">Button</a>
+        </div>
+      </div>
+      <!-- 그라디언트 -->
+      <div class="card text-bg-success bg-gradient">
+        <div class="card-body">
+          <h5 class="card-title">Card with Background Gradient</h5>
+          <p class="card-text">bg-gradient 유틸리티로 그라디언트 효과를 적용합니다.</p>
+          <a href="javascript:void(0);" class="btn btn--light btn--sm">Button</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment"></span>&lt;!-- 기본 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;
+    &lt;<span class="code-tag">h5</span> <span class="code-attr">class</span>=<span class="code-string">"card-title"</span>&gt;제목&lt;/<span class="code-tag">h5</span>&gt;
+    &lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"card-text"</span>&gt;본문&lt;/<span class="code-tag">p</span>&gt;
+  &lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 배경색 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card text-bg-primary"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 배경 그라디언트 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card text-bg-success bg-gradient"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. Header & Footer                           -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-header">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Header & Footer</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">카드 헤더, 서브 헤더, 푸터 조합</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem;">
+      <!-- Header -->
+      <div class="card">
+        <h5 class="card-header">Card with Header</h5>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">헤더가 있는 카드입니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Go somewhere</a>
+        </div>
+      </div>
+      <!-- Sub Header -->
+      <div class="card">
+        <div class="card-header d-block">
+          <h5 class="card-title" style="margin-bottom:0.25rem">Card with Sub Header</h5>
+          <h6 class="card-subtitle">Card subtitle</h6>
+        </div>
+        <div class="card-body">
+          <blockquote style="margin:0;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer style="font-size:0.8125rem;color:var(--text-secondary);">Someone famous in <cite>Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <!-- Header + Footer -->
+      <div class="card">
+        <div class="card-header">Featured Card Title</div>
+        <div class="card-body">
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Go somewhere</a>
+        </div>
+        <div class="card-footer">2 days ago</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 헤더 + 푸터 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+  &lt;<span class="code-tag">h5</span> <span class="code-attr">class</span>=<span class="code-string">"card-header"</span>&gt;Featured&lt;/<span class="code-tag">h5</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-footer"</span>&gt;2 days ago&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 서브 헤더 (d-block) --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-header d-block"</span>&gt;
+  &lt;<span class="code-tag">h5</span> <span class="code-attr">class</span>=<span class="code-string">"card-title"</span>&gt;Title&lt;/<span class="code-tag">h5</span>&gt;
+  &lt;<span class="code-tag">h6</span> <span class="code-attr">class</span>=<span class="code-string">"card-subtitle"</span>&gt;Subtitle&lt;/<span class="code-tag">h6</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. Advanced Card — Action Tools              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-action">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Advanced Card — Action Tools</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">헤더에 접기/새로고침/닫기 도구 아이콘</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem;">
+      <!-- Action Tools -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title" style="margin:0">Card with Action Tools</h5>
+          <div class="card-action">
+            <a href="javascript:void(0);" class="card-action-item" title="접기"><i class="material-icons-outlined">expand_less</i></a>
+            <a href="javascript:void(0);" class="card-action-item" title="새로고침"><i class="material-icons-outlined">refresh</i></a>
+            <a href="javascript:void(0);" class="card-action-item" title="닫기"><i class="material-icons-outlined">close</i></a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">액션 도구 아이콘(접기, 새로고침, 닫기)이 있는 고급 카드입니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Go somewhere</a>
+        </div>
+      </div>
+      <!-- Dark Background + Action Tools -->
+      <div class="card text-bg-dark" style="border:0">
+        <div class="card-header" style="border-color:rgba(255,255,255,0.15)">
+          <h5 class="card-title" style="margin:0;color:#fff">Action Tools & Dark BG</h5>
+          <div class="card-action">
+            <a href="javascript:void(0);" class="card-action-item" style="color:rgba(255,255,255,0.7)" title="접기"><i class="material-icons-outlined">expand_less</i></a>
+            <a href="javascript:void(0);" class="card-action-item" style="color:rgba(255,255,255,0.7)" title="새로고침"><i class="material-icons-outlined">refresh</i></a>
+            <a href="javascript:void(0);" class="card-action-item" style="color:rgba(255,255,255,0.7)" title="닫기"><i class="material-icons-outlined">close</i></a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">다크 배경에서도 액션 도구를 사용할 수 있습니다.</p>
+          <a href="javascript:void(0);" class="btn btn--light btn--sm">Go somewhere</a>
+        </div>
+      </div>
+      <!-- BEM 스타일 + Action -->
+      <div class="card card-filled">
+        <div class="card-header">
+          <h5 class="card-title" style="margin:0">Card Filled + Actions</h5>
+          <div class="card-action">
+            <a href="javascript:void(0);" class="card-action-item" title="접기"><i class="material-icons-outlined">expand_less</i></a>
+            <a href="javascript:void(0);" class="card-action-item" title="코드"><i class="material-icons-outlined">code</i></a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">card-filled 배경과 액션 도구를 조합한 카드입니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-header"</span>&gt;
+    &lt;<span class="code-tag">h5</span> <span class="code-attr">class</span>=<span class="code-string">"card-title"</span>&gt;Title&lt;/<span class="code-tag">h5</span>&gt;
+    &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-action"</span>&gt;
+      &lt;<span class="code-tag">a</span> <span class="code-attr">class</span>=<span class="code-string">"card-action-item"</span>&gt;&lt;<span class="code-tag">i</span> <span class="code-attr">class</span>=<span class="code-string">"material-icons-outlined"</span>&gt;expand_less&lt;/<span class="code-tag">i</span>&gt;&lt;/<span class="code-tag">a</span>&gt;
+      &lt;<span class="code-tag">a</span> <span class="code-attr">class</span>=<span class="code-string">"card-action-item"</span>&gt;&lt;<span class="code-tag">i</span> <span class="code-attr">class</span>=<span class="code-string">"material-icons-outlined"</span>&gt;refresh&lt;/<span class="code-tag">i</span>&gt;&lt;/<span class="code-tag">a</span>&gt;
+      &lt;<span class="code-tag">a</span> <span class="code-attr">class</span>=<span class="code-string">"card-action-item"</span>&gt;&lt;<span class="code-tag">i</span> <span class="code-attr">class</span>=<span class="code-string">"material-icons-outlined"</span>&gt;close&lt;/<span class="code-tag">i</span>&gt;&lt;/<span class="code-tag">a</span>&gt;
+    &lt;/<span class="code-tag">div</span>&gt;
+  &lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. 스타일 변형                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-variants">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">스타일 변형</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">BEM 방식 카드 변형: elevated, outlined, filled, flat</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem;">
+      <div class="card card--elevated">
+        <div class="card-body">
+          <h5 class="card-title">Elevated</h5>
+          <p class="card-text">그림자 효과, 보더 없음. 호버 시 그림자 강화.</p>
+        </div>
+      </div>
+      <div class="card card--outlined">
+        <div class="card-body">
+          <h5 class="card-title">Outlined</h5>
+          <p class="card-text">테두리만 있고 그림자 없음.</p>
+        </div>
+      </div>
+      <div class="card card--filled">
+        <div class="card-body">
+          <h5 class="card-title">Filled</h5>
+          <p class="card-text">연한 배경 채움, 보더 없음.</p>
+        </div>
+      </div>
+      <div class="card card--flat" style="background:var(--bg-tertiary)">
+        <div class="card-body">
+          <h5 class="card-title">Flat</h5>
+          <p class="card-text">투명 배경, 보더/그림자 없음.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card--elevated"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;  <span class="code-comment">&lt;!-- 그림자 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card--outlined"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;  <span class="code-comment">&lt;!-- 테두리만 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card--filled"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;    <span class="code-comment">&lt;!-- 배경 채움 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card--flat"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;      <span class="code-comment">&lt;!-- 투명 --&gt;</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. 색상 배경 카드                             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-colors">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">색상 배경 카드</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">text-bg-* 패턴과 시맨틱 색상(BEM card--*) 두 가지 방식</p>
+  </div>
+  <div class="demo-card__body">
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">text-bg-* (배경 + 텍스트 동시 설정)</p>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
+      <div class="card text-bg-primary" style="border:0"><div class="card-body"><h5 class="card-title">Primary</h5><p class="card-text">text-bg-primary</p></div></div>
+      <div class="card text-bg-success" style="border:0"><div class="card-body"><h5 class="card-title">Success</h5><p class="card-text">text-bg-success</p></div></div>
+      <div class="card text-bg-danger" style="border:0"><div class="card-body"><h5 class="card-title">Danger</h5><p class="card-text">text-bg-danger</p></div></div>
+      <div class="card text-bg-warning" style="border:0"><div class="card-body"><h5 class="card-title">Warning</h5><p class="card-text">text-bg-warning</p></div></div>
+      <div class="card text-bg-info" style="border:0"><div class="card-body"><h5 class="card-title">Info</h5><p class="card-text">text-bg-info</p></div></div>
+      <div class="card text-bg-dark" style="border:0"><div class="card-body"><h5 class="card-title">Dark</h5><p class="card-text">text-bg-dark</p></div></div>
+    </div>
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">BEM card--* (테두리 강조)</p>
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:1rem;">
+      <div class="card card--primary"><div class="card__header"><h4 class="card__title">Primary</h4></div><div class="card__body"><p class="card-text">주요 정보</p></div></div>
+      <div class="card card--success"><div class="card__header"><h4 class="card__title">Success</h4></div><div class="card__body"><p class="card-text">성공</p></div></div>
+      <div class="card card--warning"><div class="card__header"><h4 class="card__title">Warning</h4></div><div class="card__body"><p class="card-text">경고</p></div></div>
+      <div class="card card--danger"><div class="card__header"><h4 class="card__title">Danger</h4></div><div class="card__body"><p class="card-text">위험</p></div></div>
+      <div class="card card--info"><div class="card__header"><h4 class="card__title">Info</h4></div><div class="card__body"><p class="card-text">정보</p></div></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- text-bg-* : 배경 + 텍스트 동시 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card text-bg-primary"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card text-bg-success"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card text-bg-danger"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- BEM card--* : 테두리 강조 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card--primary"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card__header"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card__body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. Bordered Card                             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-border">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Bordered Card</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">테두리 색상, dashed, 두꺼운 보더, 좌측 액센트 보더</p>
+  </div>
+  <div class="demo-card__body">
+    <!-- 색상 테두리 -->
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">색상 테두리</p>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
+      <div class="card border-primary">
+        <div class="card-body">
+          <h5 class="card-title" style="color:var(--primary)">Colored Border</h5>
+          <p class="card-text">border-primary 클래스 적용.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+      <div class="card border-primary border-dashed">
+        <div class="card-body">
+          <h5 class="card-title" style="color:var(--primary)">Dashed Border</h5>
+          <p class="card-text">border-dashed 유틸리티 적용.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+      <div class="card border-primary border-2">
+        <div class="card-body">
+          <h5 class="card-title" style="color:var(--primary)">Double Border (2px)</h5>
+          <p class="card-text">border-2 유틸리티로 두꺼운 테두리.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <!-- 좌측 액센트 보더 -->
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">좌측 액센트 보더 (card-bordered)</p>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem;">
+      <div class="card card-bordered">
+        <div class="card-body">
+          <h5 class="card-title">Start Border</h5>
+          <p class="card-text">좌측에 기본 색상 액센트 보더가 적용됩니다.</p>
+          <a href="javascript:void(0);" class="btn btn--sm btn--outline">Button</a>
+        </div>
+      </div>
+      <div class="card border-primary card-bordered">
+        <div class="card-body">
+          <h5 class="card-title" style="color:var(--primary)">Primary Accent</h5>
+          <p class="card-text">border-primary와 card-bordered를 조합합니다.</p>
+          <a href="javascript:void(0);" class="btn btn--primary btn--sm">Button</a>
+        </div>
+      </div>
+      <div class="card border-info card-bordered">
+        <div class="card-body">
+          <h5 class="card-title" style="color:var(--info-color, #3B82F6)">Info Accent</h5>
+          <p class="card-text">border-info와 card-bordered를 조합합니다.</p>
+          <a href="javascript:void(0);" class="btn btn--sm" style="background:var(--info-color, #3B82F6);color:#fff">Button</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 색상 테두리 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card border-primary"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card border-primary border-dashed"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card border-primary border-2"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 좌측 액센트 보더 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card-bordered"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card border-primary card-bordered"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 7. 이미지 카드 & Stretched Link              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-image">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">이미지 카드 & Stretched Link</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">상단/하단 이미지, 오버레이, 클릭 가능한 카드</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem;">
+      <!-- Image Top -->
+      <div class="card">
+        <img class="card-img-top" src="https://picsum.photos/seed/card1/400/200" alt="Card image" style="height:150px;object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Image Top</h5>
+          <p class="card-text">상단 이미지 카드.</p>
+        </div>
+      </div>
+      <!-- Image Bottom -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Image Bottom</h5>
+          <p class="card-text">하단 이미지 카드.</p>
+        </div>
+        <img class="card-img-bottom" src="https://picsum.photos/seed/card2/400/200" alt="Card image" style="height:150px;object-fit:cover;">
+      </div>
+      <!-- Image Overlay -->
+      <div class="card" style="position:relative;overflow:hidden;">
+        <img class="card-img" src="https://picsum.photos/seed/card3/400/300" alt="Card image" style="height:250px;object-fit:cover;">
+        <div class="card-img-overlay">
+          <h5 class="card-title" style="color:#fff;">Image Overlay</h5>
+          <p style="color:rgba(255,255,255,0.85);margin:0;">이미지 위 오버레이 텍스트.</p>
+        </div>
+      </div>
+      <!-- Stretched Link -->
+      <div class="card">
+        <img class="card-img-top" src="https://picsum.photos/seed/card4/400/200" alt="Card image" style="height:150px;object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title"><a href="javascript:void(0);" class="stretched-link" style="color:inherit;text-decoration:none;">Stretched Link</a></h5>
+          <p class="card-text">카드 전체가 클릭 가능합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 상단 이미지 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+  &lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"card-img-top"</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 이미지 오버레이 --&gt;</span>
+&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"card-img"</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-img-overlay"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- Stretched Link — 카드 전체 클릭 --&gt;</span>
+&lt;<span class="code-tag">a</span> <span class="code-attr">class</span>=<span class="code-string">"stretched-link"</span>&gt;링크 텍스트&lt;/<span class="code-tag">a</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 8. 수평 카드                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-horizontal">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">수평 카드</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">좌측/우측 이미지 배치</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+      <div class="card card-horizontal">
+        <img src="https://picsum.photos/seed/hz1/300/200" alt="Card image">
+        <div class="card-body">
+          <h5 class="card-title">왼쪽 이미지</h5>
+          <p class="card-text">이미지가 왼쪽에 위치한 수평 카드입니다.</p>
+          <p class="text-muted" style="font-size:0.8125rem;margin:0;">Last updated 3 mins ago</p>
+        </div>
+      </div>
+      <div class="card card-horizontal">
+        <div class="card-body">
+          <h5 class="card-title">오른쪽 이미지</h5>
+          <p class="card-text">이미지가 오른쪽에 위치한 수평 카드입니다.</p>
+          <p class="text-muted" style="font-size:0.8125rem;margin:0;">Last updated 5 mins ago</p>
+        </div>
+        <img class="card-img-right" src="https://picsum.photos/seed/hz2/300/200" alt="Card image">
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 왼쪽 이미지 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card-horizontal"</span>&gt;
+  &lt;<span class="code-tag">img</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 오른쪽 이미지 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card card-horizontal"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"card-img-right"</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 9. Card Group                                 -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-group">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Card Group</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">이미지 포함 그룹과 Footer 포함 그룹</p>
+  </div>
+  <div class="demo-card__body">
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">이미지 + 본문 그룹</p>
+    <div class="card-group" style="margin-bottom:1.5rem;">
+      <div class="card">
+        <img class="card-img-top" src="https://picsum.photos/seed/grp1/400/200" alt="" style="height:160px;object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below.</p>
+          <p class="text-muted" style="font-size:0.8125rem;">Last updated 3 mins ago</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="https://picsum.photos/seed/grp2/400/200" alt="" style="height:160px;object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below.</p>
+          <p class="text-muted" style="font-size:0.8125rem;">Last updated 3 mins ago</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="https://picsum.photos/seed/grp3/400/200" alt="" style="height:160px;object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with even longer content than the first.</p>
+          <p class="text-muted" style="font-size:0.8125rem;">Last updated 3 mins ago</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-secondary" style="margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600">본문 + Footer 그룹</p>
+    <div class="card-group">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="card-footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in.</p>
+        </div>
+        <div class="card-footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has even longer content than the first to show equal height.</p>
+        </div>
+        <div class="card-footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-group"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;
+    &lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"card-img-top"</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;
+    &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-body"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 10. Card Grid                                -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-grid">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Card Grid</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">CSS Grid auto-fill로 자동 배치</p>
+  </div>
+  <div class="demo-card__body">
+    <div class="card-grid">
+      <div class="card"><div class="card-body"><h5 class="card-title">Card 1</h5><p class="card-text">그리드 자동 배치 카드입니다.</p></div></div>
+      <div class="card"><div class="card-body"><h5 class="card-title">Card 2</h5><p class="card-text">그리드 자동 배치 카드입니다.</p></div></div>
+      <div class="card"><div class="card-body"><h5 class="card-title">Card 3</h5><p class="card-text">더 긴 내용을 담고 있는 카드입니다. 높이가 자동 조절됩니다.</p></div></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card-grid"</span>&gt;  <span class="code-comment">&lt;!-- auto-fill, minmax(280px, 1fr) --&gt;</span>
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"card"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+</div>
+</div>

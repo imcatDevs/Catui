@@ -1,0 +1,193 @@
+<!-- Form Layouts: Basic, Horizontal, Inline, Form Row, Floating Labels -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Layouts</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Form Layouts</h1>
+  <p class="page-desc">폼 레이아웃 패턴: 기본, 수평, 인라인, 그리드, 플로팅 라벨</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Basic Form                           -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-basic">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Basic Form</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">기본 수직 레이아웃 폼. 라벨이 입력 위에 위치.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false" style="max-width:32rem">
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일</label>
+            <input type="email" class="form-control" placeholder="email@example.com">
+            <small class="text-muted" style="font-size:0.75rem">이메일은 절대 공유되지 않습니다.</small>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비밀번호</label>
+            <input type="password" class="form-control" placeholder="비밀번호">
+          </div>
+          <div style="margin-bottom:1rem">
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+              <input type="checkbox"> 로그인 상태 유지
+            </label>
+          </div>
+          <button type="submit" class="btn btn--primary">로그인</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: Horizontal Form                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-horizontal">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Horizontal Form</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">라벨이 입력 옆에 수평으로 배치되는 레이아웃</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false" style="max-width:40rem">
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+            <label style="min-width:8rem;text-align:right;font-weight:500;font-size:0.875rem">이름</label>
+            <input type="text" class="form-control" placeholder="이름" style="flex:1">
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+            <label style="min-width:8rem;text-align:right;font-weight:500;font-size:0.875rem">이메일</label>
+            <input type="email" class="form-control" placeholder="email@example.com" style="flex:1">
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+            <label style="min-width:8rem;text-align:right;font-weight:500;font-size:0.875rem">비밀번호</label>
+            <input type="password" class="form-control" placeholder="비밀번호" style="flex:1">
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+            <div style="min-width:8rem"></div>
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+              <input type="checkbox"> 이용 약관에 동의합니다
+            </label>
+          </div>
+          <div style="display:flex;gap:1rem">
+            <div style="min-width:8rem"></div>
+            <button type="submit" class="btn btn--primary">가입</button>
+            <button type="reset" class="btn btn--outline">초기화</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: Inline Form                          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-inline">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Inline Form</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">모든 요소가 한 줄에 배치되는 인라인 레이아웃</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false" style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap">
+          <input type="text" class="form-control" placeholder="이름" style="width:auto;flex:0 0 12rem">
+          <input type="email" class="form-control" placeholder="이메일" style="width:auto;flex:0 0 14rem">
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer;white-space:nowrap">
+            <input type="checkbox"> 기억하기
+          </label>
+          <button type="submit" class="btn btn--primary">전송</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 4: Form Row (Grid)                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-grid">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Form Row (Grid)</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">그리드 기반 다열 폼 레이아웃</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control" placeholder="홍길동">
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일</label>
+              <input type="email" class="form-control" placeholder="email@example.com">
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">주소</label>
+            <input type="text" class="form-control" placeholder="서울시 강남구 테헤란로 123">
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">도시</label>
+              <input type="text" class="form-control" placeholder="서울">
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">지역</label>
+              <select class="form-control">
+                <option>서울</option><option>경기</option><option>부산</option><option>대구</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control" placeholder="06235">
+            </div>
+          </div>
+          <button type="submit" class="btn btn--primary">저장</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 5: Floating Labels                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-floating">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Floating Labels</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">입력 내부에 라벨이 플로팅 되는 패턴</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false" style="max-width:32rem;display:flex;flex-direction:column;gap:1rem">
+          <div style="position:relative">
+            <input type="email" id="fl-email" class="form-control" placeholder=" " style="padding-top:1.25rem;padding-bottom:0.25rem">
+            <label for="fl-email" style="position:absolute;top:0.25rem;left:0.875rem;font-size:0.7rem;color:var(--text-tertiary);transition:all 0.2s;pointer-events:none">이메일 주소</label>
+          </div>
+          <div style="position:relative">
+            <input type="password" id="fl-pw" class="form-control" placeholder=" " style="padding-top:1.25rem;padding-bottom:0.25rem">
+            <label for="fl-pw" style="position:absolute;top:0.25rem;left:0.875rem;font-size:0.7rem;color:var(--text-tertiary);transition:all 0.2s;pointer-events:none">비밀번호</label>
+          </div>
+          <div style="position:relative">
+            <select id="fl-select" class="form-control" style="padding-top:1.25rem;padding-bottom:0.25rem">
+              <option selected>메뉴 열기</option>
+              <option>옵션 1</option><option>옵션 2</option><option>옵션 3</option>
+            </select>
+            <label for="fl-select" style="position:absolute;top:0.25rem;left:0.875rem;font-size:0.7rem;color:var(--text-tertiary);pointer-events:none">선택</label>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">Basic Form</a></li>
+    <li class="doc-toc__item"><a href="#s-horizontal" class="doc-toc__link">Horizontal Form</a></li>
+    <li class="doc-toc__item"><a href="#s-inline" class="doc-toc__link">Inline Form</a></li>
+    <li class="doc-toc__item"><a href="#s-grid" class="doc-toc__link">Form Row (Grid)</a></li>
+    <li class="doc-toc__item"><a href="#s-floating" class="doc-toc__link">Floating Labels</a></li>
+  </ul>
+</aside>
+</div>

@@ -1,0 +1,339 @@
+<!-- Stepper -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Stepper</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Stepper</h1>
+  <p class="page-desc">단계별 진행 표시 컴포넌트 — Form Wizard, 프로세스 흐름 등에 활용</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Basic Wizard -->
+<div class="demo-card" id="s-basic-wizard">
+  <div class="demo-card__header"><span class="demo-card__title">Basic Wizard</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">아이콘 + 폼 콘텐츠 + 이전/다음 버튼 구성의 기본 마법사 패턴입니다.</p>
+    <div id="stepper-basic"></div>
+    <div class="stepper__nav" id="stepper-basic-nav">
+      <button class="btn btn--outline btn--sm" id="basic-prev" disabled>
+        <i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">arrow_back</i> 이전
+      </button>
+      <span id="basic-step-info" style="font-size:0.8125rem;color:var(--text-tertiary);align-self:center"></span>
+      <button class="btn btn--primary btn--sm" id="basic-next">
+        다음 <i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">arrow_forward</i>
+      </button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Stepper } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'stepper'</span>);
+<span class="code-keyword">const</span> wizard = <span class="code-keyword">new</span> <span class="code-function">Stepper</span>(<span class="code-string">'#container'</span>, {
+  steps: [
+    { title: <span class="code-string">'계정'</span>, icon: <span class="code-string">'person'</span>, content: <span class="code-string">'&lt;form&gt;...&lt;/form&gt;'</span> },
+    { title: <span class="code-string">'프로필'</span>, icon: <span class="code-string">'badge'</span>, content: <span class="code-string">'...'</span> },
+    { title: <span class="code-string">'완료'</span>, icon: <span class="code-string">'check_circle'</span>, content: <span class="code-string">'...'</span> }
+  ]
+});
+wizard.<span class="code-function">next</span>();   <span class="code-comment">// 다음 단계 (현재 단계 완료 처리 후 이동)</span>
+wizard.<span class="code-function">prev</span>();   <span class="code-comment">// 이전 단계</span>
+wizard.<span class="code-function">goTo</span>(<span class="code-number">2</span>);  <span class="code-comment">// 특정 단계로 이동</span>
+wizard.<span class="code-function">reset</span>();  <span class="code-comment">// 초기화</span></pre>
+  </div>
+</div>
+
+<!-- Icon Stepper (아이콘 + subtitle) -->
+<div class="demo-card" id="s-icon-stepper">
+  <div class="demo-card__header"><span class="demo-card__title">Icon Stepper (Large)</span></div>
+  <div class="demo-card__body">
+    <div id="stepper-icon"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+      <button class="btn btn--outline btn--sm" id="icon-prev">이전</button>
+      <button class="btn btn--primary btn--sm" id="icon-next">다음</button>
+      <button class="btn btn--outline btn--sm" id="icon-reset">초기화</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Stepper</span>(<span class="code-string">'#container'</span>, {
+  size: <span class="code-string">'lg'</span>,          <span class="code-comment">// 'sm' | 'md' | 'lg'</span>
+  steps: [
+    { title: <span class="code-string">'장바구니'</span>, subtitle: <span class="code-string">'상품 선택'</span>, icon: <span class="code-string">'shopping_cart'</span> },
+    { title: <span class="code-string">'배송 정보'</span>, subtitle: <span class="code-string">'주소 입력'</span>, icon: <span class="code-string">'local_shipping'</span> },
+    { title: <span class="code-string">'결제'</span>, subtitle: <span class="code-string">'카드 정보'</span>, icon: <span class="code-string">'payment'</span> },
+    { title: <span class="code-string">'확인'</span>, subtitle: <span class="code-string">'주문 완료'</span>, icon: <span class="code-string">'verified'</span> }
+  ]
+});</pre>
+  </div>
+</div>
+
+<!-- Dot / Small 변형 -->
+<div class="demo-card" id="s-variants">
+  <div class="demo-card__header"><span class="demo-card__title">변형: Dot / Small</span></div>
+  <div class="demo-card__body">
+    <h4 style="font-size:0.875rem;margin-bottom:0.5rem;font-weight:600">Dot 스타일</h4>
+    <div id="stepper-dot"></div>
+    <h4 style="font-size:0.875rem;margin:1.25rem 0 0.5rem;font-weight:600">Small 사이즈</h4>
+    <div id="stepper-sm"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// Dot 스타일</span>
+<span class="code-keyword">new</span> <span class="code-function">Stepper</span>(<span class="code-string">'#dot'</span>, { variant: <span class="code-string">'dots'</span>, clickable: <span class="code-keyword">true</span>, ... });
+<span class="code-comment">// Small 사이즈</span>
+<span class="code-keyword">new</span> <span class="code-function">Stepper</span>(<span class="code-string">'#sm'</span>, { size: <span class="code-string">'sm'</span>, ... });</pre>
+  </div>
+</div>
+
+<!-- Vertical Stepper (인라인 콘텐츠) -->
+<div class="demo-card" id="s-vertical">
+  <div class="demo-card__header"><span class="demo-card__title">Vertical Stepper</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">각 단계에 콘텐츠가 인라인 표시. 이전/다음 버튼, 편집 기능 포함.</p>
+    <div id="stepper-vertical"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { VerticalStepper } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'stepper'</span>);
+<span class="code-keyword">new</span> <span class="code-function">VerticalStepper</span>(<span class="code-string">'#container'</span>, {
+  steps: [
+    { title: <span class="code-string">'계정 설정'</span>, subtitle: <span class="code-string">'사용자 정보'</span>, content: <span class="code-string">'&lt;form&gt;...&lt;/form&gt;'</span> },
+    { title: <span class="code-string">'프로필'</span>, subtitle: <span class="code-string">'상세 정보'</span>, content: <span class="code-string">'...'</span> },
+    { title: <span class="code-string">'완료'</span>, subtitle: <span class="code-string">'확인'</span>, content: <span class="code-string">'...'</span> }
+  ],
+  editable: <span class="code-keyword">true</span>,     <span class="code-comment">// 완료 단계 수정 가능</span>
+  expandable: <span class="code-keyword">true</span>   <span class="code-comment">// 클릭으로 펼치기/접기</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Linear 모드 -->
+<div class="demo-card" id="s-linear">
+  <div class="demo-card__header"><span class="demo-card__title">Linear 모드 (순차 진행)</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">linear: true — 이전 단계를 완료해야만 다음 단계로 이동 가능.</p>
+    <div id="stepper-linear"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" id="linear-next">다음 단계로</button>
+      <button class="btn btn--outline btn--sm" id="linear-reset">초기화</button>
+      <span id="linear-status" style="font-size:0.8125rem;color:var(--text-tertiary);align-self:center"></span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Stepper</span>(<span class="code-string">'#container'</span>, {
+  linear: <span class="code-keyword">true</span>,
+  clickable: <span class="code-keyword">true</span>,
+  onComplete: () => alert(<span class="code-string">'모든 단계 완료!'</span>)
+});</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic-wizard" class="doc-toc__link is-active">Basic Wizard</a></li>
+    <li class="doc-toc__item"><a href="#s-icon-stepper" class="doc-toc__link">Icon Stepper</a></li>
+    <li class="doc-toc__item"><a href="#s-variants" class="doc-toc__link">Dot / Small</a></li>
+    <li class="doc-toc__item"><a href="#s-vertical" class="doc-toc__link">Vertical</a></li>
+    <li class="doc-toc__item"><a href="#s-linear" class="doc-toc__link">Linear</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var S = await IMCAT.use('stepper');
+
+    // ================================
+    // Basic Wizard
+    // ================================
+    var basicWizard = new S.Stepper('#stepper-basic', {
+      steps: [
+        {
+          title: '계정', subtitle: '사용자 정보', icon: 'person',
+          content: '<form onsubmit="return false" style="max-width:480px">' +
+            '<div style="margin-bottom:1rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">사용자 이름</label><input type="text" class="form-control" value="IMCAT User" style="width:100%"></div>' +
+            '<div style="margin-bottom:1rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비밀번호</label><input type="password" class="form-control" value="123456789" style="width:100%"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비밀번호 확인</label><input type="password" class="form-control" value="123456789" style="width:100%"></div>' +
+            '</form>'
+        },
+        {
+          title: '프로필', subtitle: '상세 정보', icon: 'badge',
+          content: '<div style="max-width:480px">' +
+            '<div style="margin-bottom:1rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label><input type="text" class="form-control" value="홍길동" style="width:100%"></div>' +
+            '<div style="margin-bottom:1rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일</label><input type="email" class="form-control" value="hong@imcat.dev" style="width:100%"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">연락처</label><input type="tel" class="form-control" value="010-1234-5678" style="width:100%"></div>' +
+            '</div>'
+        },
+        {
+          title: '완료', subtitle: '확인', icon: 'check_circle',
+          content: '<div style="text-align:center;padding:2rem 0">' +
+            '<i class="material-icons-outlined" style="font-size:3rem;color:var(--success,#22c55e)">check_circle</i>' +
+            '<h3 style="margin:1rem 0 0.5rem;font-size:1.25rem">감사합니다!</h3>' +
+            '<p style="color:var(--text-secondary);max-width:400px;margin:0 auto">등록이 완료되었습니다. 입력하신 정보를 확인한 후 안내 이메일을 보내드리겠습니다.</p>' +
+            '</div>'
+        }
+      ],
+      currentStep: 0,
+      onChange: function(step) {
+        updateBasicNav(step);
+      }
+    });
+
+    function updateBasicNav(step) {
+      var total = basicWizard.options.steps.length;
+      document.getElementById('basic-prev').disabled = step === 0;
+      var nextBtn = document.getElementById('basic-next');
+      nextBtn.innerHTML = step === total - 1
+        ? '완료 <i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">done</i>'
+        : '다음 <i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">arrow_forward</i>';
+      document.getElementById('basic-step-info').textContent = 'Step ' + (step + 1) + ' / ' + total;
+    }
+    updateBasicNav(0);
+
+    document.getElementById('basic-prev').addEventListener('click', function() { basicWizard.prev(); });
+    document.getElementById('basic-next').addEventListener('click', function() {
+      var cur = basicWizard.getCurrentStep();
+      if (cur === basicWizard.options.steps.length - 1) {
+        basicWizard.complete(cur);
+      } else {
+        basicWizard.next();
+      }
+    });
+
+    // ================================
+    // Icon Stepper (Large + subtitle)
+    // ================================
+    var iconStepper = new S.Stepper('#stepper-icon', {
+      size: 'lg',
+      steps: [
+        { title: '장바구니', subtitle: '상품 선택', icon: 'shopping_cart' },
+        { title: '배송 정보', subtitle: '주소 입력', icon: 'local_shipping' },
+        { title: '결제', subtitle: '카드 정보', icon: 'payment' },
+        { title: '확인', subtitle: '주문 완료', icon: 'verified' }
+      ],
+      currentStep: 0
+    });
+    // 0번 완료 처리 (1번이 현재)
+    iconStepper.complete(0);
+    iconStepper.goTo(1);
+
+    document.getElementById('icon-prev').addEventListener('click', function() { iconStepper.prev(); });
+    document.getElementById('icon-next').addEventListener('click', function() { iconStepper.next(); });
+    document.getElementById('icon-reset').addEventListener('click', function() { iconStepper.reset(); });
+
+    // ================================
+    // Dot 스타일
+    // ================================
+    var dotStepper = new S.Stepper('#stepper-dot', {
+      variant: 'dots',
+      steps: [
+        { title: '시작' },
+        { title: '진행 중' },
+        { title: '검토' },
+        { title: '승인' },
+        { title: '완료' }
+      ],
+      currentStep: 2
+    });
+    dotStepper.complete(0);
+    dotStepper.complete(1);
+
+    // ================================
+    // Small 사이즈
+    // ================================
+    var smStepper = new S.Stepper('#stepper-sm', {
+      size: 'sm',
+      steps: [
+        { title: '1단계', subtitle: '기본 정보' },
+        { title: '2단계', subtitle: '세부 설정' },
+        { title: '3단계', subtitle: '확인 및 제출' }
+      ],
+      currentStep: 1
+    });
+    smStepper.complete(0);
+
+    // ================================
+    // Vertical Stepper (인라인 콘텐츠)
+    // ================================
+    new S.VerticalStepper('#stepper-vertical', {
+      steps: [
+        {
+          title: '계정 설정', subtitle: '사용자 정보 입력',
+          content: '<form onsubmit="return false" style="max-width:400px">' +
+            '<div style="margin-bottom:0.75rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">사용자 이름</label><input type="text" class="form-control form-control-sm" value="IMCAT User" style="width:100%"></div>' +
+            '<div style="margin-bottom:0.75rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">이메일</label><input type="email" class="form-control form-control-sm" value="user@imcat.dev" style="width:100%"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">비밀번호</label><input type="password" class="form-control form-control-sm" value="password" style="width:100%"></div>' +
+            '</form>'
+        },
+        {
+          title: '프로필 설정', subtitle: '개인 정보 입력',
+          content: '<div style="max-width:400px">' +
+            '<div style="margin-bottom:0.75rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">이름</label><input type="text" class="form-control form-control-sm" value="홍길동" style="width:100%"></div>' +
+            '<div style="margin-bottom:0.75rem"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">직책</label><input type="text" class="form-control form-control-sm" value="프론트엔드 개발자" style="width:100%"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.8125rem">소개</label><textarea class="form-control form-control-sm" rows="2" style="width:100%">IMCAT UI 프레임워크를 사용하는 개발자입니다.</textarea></div>' +
+            '</div>'
+        },
+        {
+          title: '알림 설정', subtitle: '알림 방식 선택',
+          content: '<div style="max-width:400px">' +
+            '<div style="margin-bottom:0.5rem"><label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer"><input type="checkbox" checked> 이메일 알림</label></div>' +
+            '<div style="margin-bottom:0.5rem"><label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer"><input type="checkbox"> SMS 알림</label></div>' +
+            '<div><label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer"><input type="checkbox" checked> 푸시 알림</label></div>' +
+            '</div>'
+        },
+        {
+          title: '완료', subtitle: '설정 저장',
+          content: '<div style="text-align:center;padding:1rem 0">' +
+            '<i class="material-icons-outlined" style="font-size:2.5rem;color:var(--success,#22c55e)">task_alt</i>' +
+            '<p style="margin:0.75rem 0 0;color:var(--text-secondary)">모든 설정이 완료되었습니다.</p>' +
+            '</div>'
+        }
+      ],
+      currentStep: 0,
+      editable: true,
+      expandable: true,
+      onComplete: function() {
+        alert('모든 설정이 완료되었습니다!');
+      }
+    });
+
+    // ================================
+    // Linear 모드 (순차 진행)
+    // ================================
+    var linearStepper = new S.Stepper('#stepper-linear', {
+      linear: true,
+      clickable: true,
+      steps: [
+        { title: '요구사항 분석', icon: 'description' },
+        { title: '설계', icon: 'architecture' },
+        { title: '구현', icon: 'code' },
+        { title: '테스트', icon: 'bug_report' },
+        { title: '배포', icon: 'rocket_launch' }
+      ],
+      currentStep: 0,
+      onChange: function(step) { updateLinearStatus(); },
+      onComplete: function() {
+        document.getElementById('linear-status').textContent = '모든 단계 완료!';
+        document.getElementById('linear-status').style.color = 'var(--success,#22c55e)';
+      }
+    });
+
+    function updateLinearStatus() {
+      var completed = linearStepper.getCompletedSteps().length;
+      var total = linearStepper.options.steps.length;
+      document.getElementById('linear-status').textContent = '완료: ' + completed + ' / ' + total;
+      document.getElementById('linear-status').style.color = 'var(--text-tertiary)';
+    }
+    updateLinearStatus();
+
+    document.getElementById('linear-next').addEventListener('click', function() { linearStepper.next(); });
+    document.getElementById('linear-reset').addEventListener('click', function() {
+      linearStepper.reset();
+      updateLinearStatus();
+    });
+
+  })();
+</script>

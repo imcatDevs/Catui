@@ -1,0 +1,110 @@
+<!-- Router -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Router</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Router</h1>
+  <p class="page-desc">Hash 기반 SPA 라우터. <code>catui-href</code> 속성으로 자동 네비게이션합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 사용법</span></div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- HTML 속성으로 라우팅 --&gt;</span>
+&lt;<span class="code-tag">body</span> <span class="code-attr">catui-target</span>=<span class="code-string">"main-content"</span>&gt;
+  &lt;<span class="code-tag">a</span> <span class="code-attr">catui-href</span>=<span class="code-string">"views/home.html"</span>&gt;홈&lt;/<span class="code-tag">a</span>&gt;
+  &lt;<span class="code-tag">a</span> <span class="code-attr">catui-href</span>=<span class="code-string">"views/about.html"</span>&gt;소개&lt;/<span class="code-tag">a</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">id</span>=<span class="code-string">"main-content"</span>&gt;&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">body</span>&gt;</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">JS API</span></div>
+  <div class="demo-card__body">
+    <div style="margin-bottom:0.75rem">
+      <div class="alert alert--info" id="router-current" style="font-size:0.875rem;font-family:monospace"></div>
+    </div>
+    <div class="btn-group" style="flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" onclick="IMCAT.toast.info('현재 경로: ' + (IMCAT.view.current() || '(홈)'))">현재 경로 조회</button>
+      <button class="btn btn--outline btn--sm" onclick="routerNavDemo('views/01-start/dom.html')">DOM 페이지로 이동</button>
+      <button class="btn btn--outline btn--sm" onclick="routerNavDemo('views/01-start/event.html')">Event 페이지로 이동</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 프로그래밍 방식 네비게이션</span>
+IMCAT.view.<span class="code-function">navigate</span>(<span class="code-string">'views/dashboard.html'</span>);
+
+<span class="code-comment">// 현재 경로 조회</span>
+<span class="code-keyword">const</span> path = IMCAT.view.<span class="code-function">current</span>();
+
+<span class="code-comment">// URL 파라미터 조회</span>
+<span class="code-comment">// URL: #views/product.html?id=123</span>
+<span class="code-keyword">const</span> params = IMCAT.view.<span class="code-function">params</span>();
+console.log(params.id); <span class="code-comment">// '123'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-hooks">
+  <div class="demo-card__header"><span class="demo-card__title">라이프사이클 훅</span></div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 뷰 로드 후 콜백</span>
+IMCAT.view.<span class="code-function">afterLoad</span>((path) => {
+  console.log(<span class="code-string">'뷰 로드됨:'</span>, path);
+});
+
+<span class="code-comment">// 인스턴스 자동 정리</span>
+<span class="code-keyword">const</span> modal = <span class="code-keyword">new</span> Modal({ ... });
+IMCAT.view.<span class="code-function">registerInstance</span>(modal);
+<span class="code-comment">// → 다른 뷰로 이동 시 modal.destroy() 자동 호출</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-nav-demo">
+  <div class="demo-card__header"><span class="demo-card__title">네비게이션 실습</span></div>
+  <div class="demo-card__desc"><code>catui-href</code> 속성으로 SPA 네비게이션을 직접 체험해 보세요.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <a href="#" catui-href="views/01-start/security.html" class="btn btn--outline-primary btn--sm">Security 페이지</a>
+      <a href="#" catui-href="views/01-start/template.html" class="btn btn--outline-primary btn--sm">Template 페이지</a>
+      <a href="#" catui-href="views/01-start/state.html" class="btn btn--outline-primary btn--sm">State 페이지</a>
+      <a href="#" catui-href="views/02-design/buttons.html" class="btn btn--outline-success btn--sm">Buttons 디자인</a>
+    </div>
+    <p style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">위 링크는 <code>catui-href</code> 속성으로 SPA 라우팅됩니다. 페이지 전환 시 전체 리로드 없이 콘텐츠만 교체됩니다.</p>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 사용법</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">JS API</a></li>
+    <li class="doc-toc__item"><a href="#s-hooks" class="doc-toc__link">라이프사이클</a></li>
+    <li class="doc-toc__item"><a href="#s-nav-demo" class="doc-toc__link">네비게이션 실습</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  // 현재 경로 표시
+  var routerEl = document.getElementById('router-current');
+  if (routerEl) {
+    routerEl.textContent = '현재 경로: ' + (IMCAT.view.current() || '(홈)');
+  }
+
+  // navigate 데모
+  function routerNavDemo(path) {
+    IMCAT.toast.info('이동: ' + path);
+    setTimeout(function() {
+      IMCAT.view.navigate(path);
+    }, 300);
+  }
+</script>

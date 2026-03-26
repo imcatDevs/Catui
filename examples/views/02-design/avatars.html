@@ -1,0 +1,255 @@
+<!-- Avatars 데모 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Avatars</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Avatars</h1>
+  <p class="page-desc">아바타 컴포넌트 — 이미지, 이니셜, 크기, 모양, 그룹, 상태 인디케이터</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- 크기 — 이미지 -->
+<div class="demo-card" id="s-sizing-img">
+  <div class="demo-card__header"><span class="demo-card__title">크기 — 이미지</span></div>
+  <div class="demo-card__desc"><code>.avatar-xs</code> ~ <code>.avatar-2xl</code>로 아바타 크기를 지정합니다. <code>.rounded</code>를 추가하면 모서리가 둥글어집니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <img src="assets/images/01.jpg" alt="avatar" class="avatar-xs rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xs</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/02.jpg" alt="avatar" class="avatar-sm rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-sm</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/03.jpg" alt="avatar" class="avatar-md rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-md</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/1066-160x120.jpg" alt="avatar" class="avatar-lg rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-lg</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/667-160x120.jpg" alt="avatar" class="avatar-xl rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xl</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/785-160x120.jpg" alt="avatar" class="avatar-2xl rounded">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-2xl</code></p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;img src="..." class="<span class="code-string">avatar-xs rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-sm rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-md rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-lg rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-xl rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-2xl rounded</span>"&gt;</pre>
+  </div>
+</div>
+
+<!-- 원형 아바타 -->
+<div class="demo-card" id="s-circle">
+  <div class="demo-card__header"><span class="demo-card__title">원형 아바타</span></div>
+  <div class="demo-card__desc"><code>.rounded-circle</code>로 완전한 원형 아바타를 만듭니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <img src="assets/images/785-160x120.jpg" alt="avatar" class="avatar-md rounded-circle">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-md</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/794-160x120.jpg" alt="avatar" class="avatar-lg rounded-circle">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-lg</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/01.jpg" alt="avatar" class="avatar-xl rounded-circle">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xl</code></p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;img src="..." class="<span class="code-string">avatar-md rounded-circle</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-lg rounded-circle</span>"&gt;
+&lt;img src="..." class="<span class="code-string">avatar-xl rounded-circle</span>"&gt;</pre>
+  </div>
+</div>
+
+<!-- 이니셜 아바타 (배경색) -->
+<div class="demo-card" id="s-initials">
+  <div class="demo-card__header"><span class="demo-card__title">이니셜 아바타</span></div>
+  <div class="demo-card__desc"><code>.avatar-title</code>에 배경색 스타일을 지정하여 이니셜 텍스트 아바타를 만듭니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div class="avatar-xs"><span class="avatar-title rounded" style="background:var(--primary, #3B82F6);">XS</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xs</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-sm"><span class="avatar-title rounded" style="background:var(--success-color, #22C55E);">SM</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-sm</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-md"><span class="avatar-title rounded" style="background:var(--info-color, #3B82F6);">MD</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-md</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-lg"><span class="avatar-title rounded" style="background:var(--danger-color, #EF4444);">LG</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-lg</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-xl"><span class="avatar-title rounded" style="background:var(--warning-color, #EAB308);color:#1F2937;">XL</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xl</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-2xl"><span class="avatar-title rounded" style="background:var(--secondary-color, #6B7280);">2XL</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-2xl</code></p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">avatar-md</span>"&gt;
+  &lt;span class="<span class="code-string">avatar-title rounded</span>" style="background:var(--primary, #3B82F6)"&gt;MD&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 원형 이니셜 -->
+<div class="demo-card" id="s-circle-initials">
+  <div class="demo-card__header"><span class="demo-card__title">원형 이니셜 아바타</span></div>
+  <div class="demo-card__desc"><code>.rounded-circle</code>을 추가하면 원형 이니셜 아바타가 됩니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div class="avatar-md"><span class="avatar-title rounded-circle" style="background:var(--secondary-color, #6B7280);">AB</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-md</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-lg"><span class="avatar-title rounded-circle" style="background:var(--info-color, #3B82F6);">CD</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-lg</code></p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-xl"><span class="avatar-title rounded-circle" style="background:var(--primary, #3B82F6);">EF</span></div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.avatar-xl</code></p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">avatar-lg</span>"&gt;
+  &lt;span class="<span class="code-string">avatar-title rounded-circle</span>" style="background:var(--info-color, #3B82F6)"&gt;CD&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 아바타 그룹 -->
+<div class="demo-card" id="s-group">
+  <div class="demo-card__header"><span class="demo-card__title">아바타 그룹</span></div>
+  <div class="demo-card__desc"><code>.avatar-group</code>으로 아바타를 겹쳐서 그룹으로 표시합니다.</div>
+  <div class="demo-card__body">
+    <div class="avatar-group">
+      <img src="assets/images/01.jpg" alt="avatar" class="avatar-md rounded-circle avatar-group__item">
+      <img src="assets/images/02.jpg" alt="avatar" class="avatar-md rounded-circle avatar-group__item">
+      <img src="assets/images/03.jpg" alt="avatar" class="avatar-md rounded-circle avatar-group__item">
+      <img src="assets/images/1066-160x120.jpg" alt="avatar" class="avatar-md rounded-circle avatar-group__item">
+      <div class="avatar-md avatar-group__item">
+        <span class="avatar-title rounded-circle" style="background:var(--primary, #3B82F6);font-size:0.75rem;">+5</span>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">avatar-group</span>"&gt;
+  &lt;img src="..." class="<span class="code-string">avatar-md rounded-circle avatar-group__item</span>"&gt;
+  &lt;img src="..." class="<span class="code-string">avatar-md rounded-circle avatar-group__item</span>"&gt;
+  &lt;div class="<span class="code-string">avatar-md avatar-group__item</span>"&gt;
+    &lt;span class="<span class="code-string">avatar-title rounded-circle</span>"&gt;+5&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 상태 인디케이터 -->
+<div class="demo-card" id="s-status">
+  <div class="demo-card__header"><span class="demo-card__title">상태 인디케이터</span></div>
+  <div class="demo-card__desc"><code>.avatar-status</code>로 온라인/부재/바쁨/오프라인 상태를 표시합니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div class="avatar-status">
+        <img src="assets/images/01.jpg" alt="avatar" class="avatar-md rounded-circle">
+        <span class="avatar-status__indicator avatar-status__indicator--online"></span>
+      </div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;">온라인</p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-status">
+        <img src="assets/images/02.jpg" alt="avatar" class="avatar-md rounded-circle">
+        <span class="avatar-status__indicator avatar-status__indicator--away"></span>
+      </div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;">부재</p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-status">
+        <img src="assets/images/03.jpg" alt="avatar" class="avatar-md rounded-circle">
+        <span class="avatar-status__indicator avatar-status__indicator--busy"></span>
+      </div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;">바쁨</p>
+    </div>
+    <div style="text-align:center;">
+      <div class="avatar-status">
+        <img src="assets/images/667-160x120.jpg" alt="avatar" class="avatar-md rounded-circle">
+        <span class="avatar-status__indicator avatar-status__indicator--offline"></span>
+      </div>
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;">오프라인</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">avatar-status</span>"&gt;
+  &lt;img src="..." class="<span class="code-string">avatar-md rounded-circle</span>"&gt;
+  &lt;span class="<span class="code-string">avatar-status__indicator avatar-status__indicator--online</span>"&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 이미지 셰이프 -->
+<div class="demo-card" id="s-shapes">
+  <div class="demo-card__header"><span class="demo-card__title">이미지 셰이프</span></div>
+  <div class="demo-card__desc"><code>.rounded</code>, <code>.rounded-circle</code>, <code>.img-thumbnail</code> 유틸리티 클래스로 이미지 모양을 조절합니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <img src="assets/images/01.jpg" alt="image" class="img-fluid rounded" style="width:80px;">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.rounded</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/02.jpg" alt="image" class="img-fluid rounded-circle" style="width:80px;">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.rounded-circle</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/03.jpg" alt="image" class="img-fluid img-thumbnail" style="width:80px;">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.img-thumbnail</code></p>
+    </div>
+    <div style="text-align:center;">
+      <img src="assets/images/1066-160x120.jpg" alt="image" class="img-fluid rounded-circle img-thumbnail" style="width:80px;">
+      <p style="margin:0.5rem 0 0;font-size:0.75rem;"><code>.rounded-circle<br>.img-thumbnail</code></p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;img src="..." class="<span class="code-string">img-fluid rounded</span>"&gt;
+&lt;img src="..." class="<span class="code-string">img-fluid rounded-circle</span>"&gt;
+&lt;img src="..." class="<span class="code-string">img-fluid img-thumbnail</span>"&gt;
+&lt;img src="..." class="<span class="code-string">img-fluid rounded-circle img-thumbnail</span>"&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-sizing-img" class="doc-toc__link is-active">크기 — 이미지</a></li>
+    <li class="doc-toc__item"><a href="#s-circle" class="doc-toc__link">원형 아바타</a></li>
+    <li class="doc-toc__item"><a href="#s-initials" class="doc-toc__link">이니셜 아바타</a></li>
+    <li class="doc-toc__item"><a href="#s-circle-initials" class="doc-toc__link">원형 이니셜</a></li>
+    <li class="doc-toc__item"><a href="#s-group" class="doc-toc__link">아바타 그룹</a></li>
+    <li class="doc-toc__item"><a href="#s-status" class="doc-toc__link">상태 인디케이터</a></li>
+    <li class="doc-toc__item"><a href="#s-shapes" class="doc-toc__link">이미지 셰이프</a></li>
+  </ul>
+</aside>
+</div>

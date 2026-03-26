@@ -1,0 +1,519 @@
+<!-- Data Viz — DataTable, Chart, Kanban, Calendar, Masonry -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Data Viz</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Data Visualization</h1>
+  <p class="page-desc">DataTable, Chart, Kanban, Calendar, Masonry — 데이터 시각화 컴포넌트 모음</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. DataTable                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-datatable">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">DataTable</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">정렬, 검색, 페이지네이션, 행 선택, CSV 내보내기, 커스텀 렌더러</p>
+  </div>
+  <div class="demo-card__body"><div id="dt-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { DataTable } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'data-viz'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">DataTable</span>(<span class="code-string">'#container'</span>, {
+  columns: [
+    { field: <span class="code-string">'name'</span>, title: <span class="code-string">'이름'</span>, sortable: <span class="code-keyword">true</span> },
+    { field: <span class="code-string">'role'</span>, title: <span class="code-string">'직책'</span> },
+    { field: <span class="code-string">'status'</span>, title: <span class="code-string">'상태'</span>,
+      render: (v) =&gt; <span class="code-string">`&lt;span class="badge"&gt;${v}&lt;/span&gt;`</span> }
+  ],
+  data: [...],
+  paginate: <span class="code-keyword">true</span>,
+  pageSize: <span class="code-number">5</span>,
+  searchable: <span class="code-keyword">true</span>,
+  selectable: <span class="code-keyword">true</span>,
+  exportable: <span class="code-keyword">true</span>,
+  striped: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. Chart — Bar & Horizontal Bar              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-chart-bar">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Chart — Bar</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">수직/수평 바 차트, 멀티 데이터셋, 툴팁, 레전드, 그리드</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">수직 Bar</p>
+        <div id="chart-bar"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">수평 Bar</p>
+        <div id="chart-hbar"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Chart</span>(<span class="code-string">'#container'</span>, {
+  type: <span class="code-string">'bar'</span>,  <span class="code-comment">// 또는 'horizontalBar'</span>
+  data: {
+    labels: [<span class="code-string">'1월'</span>, <span class="code-string">'2월'</span>, ...],
+    datasets: [
+      { label: <span class="code-string">'매출'</span>, data: [<span class="code-number">120</span>, <span class="code-number">190</span>, ...] },
+      { label: <span class="code-string">'비용'</span>, data: [<span class="code-number">80</span>, <span class="code-number">120</span>, ...] }
+    ]
+  },
+  showValues: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. Chart — Line & Area                       -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-chart-line">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Chart — Line &amp; Area</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">라인 차트와 영역 차트, SVG 기반 애니메이션</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">Line</p>
+        <div id="chart-line"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">Area</p>
+        <div id="chart-area"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Chart</span>(<span class="code-string">'#container'</span>, {
+  type: <span class="code-string">'line'</span>,  <span class="code-comment">// 또는 'area'</span>
+  data: { labels: [...], datasets: [...] },
+  animate: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. Chart — Pie & Doughnut                    -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-chart-pie">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Chart — Pie &amp; Doughnut</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">파이/도넛 차트, 퍼센트 툴팁, 중앙 합계 표시</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">Pie</p>
+        <div id="chart-pie"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">Doughnut</p>
+        <div id="chart-doughnut"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Chart</span>(<span class="code-string">'#container'</span>, {
+  type: <span class="code-string">'doughnut'</span>,
+  data: {
+    labels: [<span class="code-string">'프론트엔드'</span>, <span class="code-string">'백엔드'</span>, <span class="code-string">'디자인'</span>, <span class="code-string">'기획'</span>],
+    datasets: [{ data: [<span class="code-number">35</span>, <span class="code-number">25</span>, <span class="code-number">20</span>, <span class="code-number">20</span>] }]
+  },
+  showValues: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. Kanban                                    -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-kanban">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Kanban</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">드래그 앤 드롭, 우선순위, 태그, 담당자, WIP 제한, 체크박스</p>
+  </div>
+  <div class="demo-card__body" style="overflow-x:auto;"><div id="kanban-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Kanban</span>(<span class="code-string">'#container'</span>, {
+  columns: [
+    {
+      id: <span class="code-string">'todo'</span>, title: <span class="code-string">'할 일'</span>, color: <span class="code-string">'#667eea'</span>,
+      cards: [{
+        id: <span class="code-string">'1'</span>, title: <span class="code-string">'UI 디자인'</span>,
+        priority: <span class="code-string">'high'</span>,
+        tags: [{ text: <span class="code-string">'디자인'</span>, color: <span class="code-string">'#8b5cf6'</span> }],
+        assignees: [{ name: <span class="code-string">'홍길동'</span> }],
+        date: <span class="code-string">'3/20'</span>
+      }]
+    },
+    { id: <span class="code-string">'doing'</span>, title: <span class="code-string">'진행 중'</span>, color: <span class="code-string">'#f59e0b'</span>, wipLimit: <span class="code-number">3</span>, cards: [] },
+    { id: <span class="code-string">'done'</span>, title: <span class="code-string">'완료'</span>, color: <span class="code-string">'#22c55e'</span>, cards: [] }
+  ],
+  onMove: (cardId, from, to) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'이동:'</span>, cardId, from, <span class="code-string">'→'</span>, to)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. Calendar                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-calendar">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Calendar</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">월간/주간 뷰 전환, 오늘 버튼, 이벤트 카테고리, 날짜/이벤트 클릭</p>
+  </div>
+  <div class="demo-card__body"><div id="cal-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Calendar</span>(<span class="code-string">'#container'</span>, {
+  view: <span class="code-string">'month'</span>,  <span class="code-comment">// 'month' | 'week'</span>
+  events: [
+    { id: <span class="code-string">'1'</span>, date: <span class="code-string">'2025-03-20'</span>, title: <span class="code-string">'회의'</span>, category: <span class="code-string">'primary'</span> },
+    { id: <span class="code-string">'2'</span>, date: <span class="code-string">'2025-03-25'</span>, title: <span class="code-string">'마감'</span>, category: <span class="code-string">'danger'</span> }
+  ],
+  maxEventsPerCell: <span class="code-number">2</span>,
+  onDateClick: (date) =&gt; <span class="code-function">console.log</span>(date),
+  onEventClick: (id) =&gt; <span class="code-function">console.log</span>(id)
+});
+
+<span class="code-comment">// API</span>
+cal.<span class="code-function">addEvent</span>({ id: <span class="code-string">'3'</span>, date: <span class="code-string">'2025-04-01'</span>, title: <span class="code-string">'출시'</span> });
+cal.<span class="code-function">setView</span>(<span class="code-string">'week'</span>);
+cal.<span class="code-function">goToToday</span>();</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 7. Masonry                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-masonry">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Masonry</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">CSS Grid 기반 타일 레이아웃, 필터, 애니메이션</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="margin-bottom:0.75rem; display:flex; gap:0.5rem;" id="masonry-filters"></div>
+    <div id="masonry-demo"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Masonry</span>(<span class="code-string">'#container'</span>, {
+  columnWidth: <span class="code-number">280</span>,
+  gap: <span class="code-number">16</span>,
+  animate: <span class="code-keyword">true</span>,
+  filterKey: <span class="code-string">'category'</span>,
+  items: [...],
+  render: (item) =&gt; <span class="code-string">`&lt;div class="card"&gt;...&lt;/div&gt;`</span>
+});
+
+masonry.<span class="code-function">filter</span>(<span class="code-string">'디자인'</span>);   <span class="code-comment">// 카테고리 필터</span>
+masonry.<span class="code-function">clearFilter</span>();      <span class="code-comment">// 필터 해제</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 8. API 레퍼런스                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>클래스</th><th>주요 옵션</th><th>주요 메서드</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>DataTable</code></td>
+            <td><code>columns</code>, <code>data</code>, <code>sortable</code>, <code>searchable</code>, <code>paginate</code>, <code>selectable</code>, <code>exportable</code></td>
+            <td><code>setData()</code>, <code>search()</code>, <code>exportCSV()</code>, <code>addRow()</code>, <code>deleteRow()</code>, <code>selectAll()</code></td>
+          </tr>
+          <tr>
+            <td><code>Chart</code></td>
+            <td><code>type</code>, <code>data</code>, <code>colors</code>, <code>height</code>, <code>showLegend</code>, <code>showValues</code>, <code>showGrid</code>, <code>animate</code></td>
+            <td><code>update(data)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>Kanban</code></td>
+            <td><code>columns</code>, <code>allowAddCard</code>, <code>onMove</code>, <code>onCardClick</code>, <code>onCardAdd</code>, <code>onCardDelete</code></td>
+            <td><code>addCard(colId, card)</code>, <code>removeCard(id)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>Calendar</code></td>
+            <td><code>events</code>, <code>view</code>, <code>maxEventsPerCell</code>, <code>onDateClick</code>, <code>onEventClick</code>, <code>onMonthChange</code></td>
+            <td><code>addEvent()</code>, <code>removeEvent()</code>, <code>setView()</code>, <code>goToToday()</code>, <code>goToDate()</code></td>
+          </tr>
+          <tr>
+            <td><code>Masonry</code></td>
+            <td><code>columnWidth</code>, <code>gap</code>, <code>items</code>, <code>render</code>, <code>filterKey</code>, <code>animate</code></td>
+            <td><code>filter(cat)</code>, <code>clearFilter()</code>, <code>addItem()</code>, <code>removeItem()</code>, <code>getCategories()</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-datatable" class="doc-toc__link is-active">DataTable</a></li>
+    <li class="doc-toc__item"><a href="#s-chart-bar" class="doc-toc__link">Chart — Bar</a></li>
+    <li class="doc-toc__item"><a href="#s-chart-line" class="doc-toc__link">Chart — Line</a></li>
+    <li class="doc-toc__item"><a href="#s-chart-pie" class="doc-toc__link">Chart — Pie</a></li>
+    <li class="doc-toc__item"><a href="#s-kanban" class="doc-toc__link">Kanban</a></li>
+    <li class="doc-toc__item"><a href="#s-calendar" class="doc-toc__link">Calendar</a></li>
+    <li class="doc-toc__item"><a href="#s-masonry" class="doc-toc__link">Masonry</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var DV = await IMCAT.use('data-viz');
+
+    // ── DataTable (고급) ──
+    var dtData = [];
+    var names = ['홍길동','김영희','이철수','박지민','최수진','정민호','강서연','윤태영','조은지','한승우','임지혜','오동훈','배수아','노현우','송지은'];
+    var roles = ['선임 개발자','디자이너','PM','백엔드 개발자','QA','풀스택 개발자','UX 디자이너','DevOps','데이터 분석가','인턴'];
+    var depts = ['프론트엔드','백엔드','UX','기획','품질','인프라','데이터'];
+    var statuses = ['재직','휴직','퇴사'];
+    for (var i = 0; i < names.length; i++) {
+      dtData.push({
+        id: i + 1,
+        name: names[i],
+        role: roles[i % roles.length],
+        dept: depts[i % depts.length],
+        salary: Math.floor(4000 + Math.random() * 5000),
+        status: statuses[i < 12 ? 0 : i < 14 ? 1 : 2]
+      });
+    }
+
+    new DV.DataTable('#dt-demo', {
+      columns: [
+        { field: 'id', title: '#', width: '3rem', align: 'center', sortable: true },
+        { field: 'name', title: '이름', sortable: true },
+        { field: 'role', title: '직책', sortable: true },
+        { field: 'dept', title: '부서', sortable: true },
+        { field: 'salary', title: '연봉(만)', sortable: true, align: 'right',
+          render: function(v) { return '<strong>' + Number(v).toLocaleString() + '</strong>'; } },
+        { field: 'status', title: '상태', align: 'center',
+          render: function(v) {
+            var cls = v === '재직' ? 'bg-success' : v === '휴직' ? 'bg-warning' : 'bg-danger';
+            return '<span class="badge ' + cls + ' text-white" style="font-size:0.6875rem;padding:0.2rem 0.5rem;border-radius:9999px;">' + v + '</span>';
+          }
+        }
+      ],
+      data: dtData,
+      paginate: true,
+      pageSize: 5,
+      searchable: true,
+      selectable: true,
+      exportable: true,
+      striped: true,
+      onRowClick: function(row) { console.log('행 클릭:', row); }
+    });
+
+    // ── Chart — Bar ──
+    new DV.Chart('#chart-bar', {
+      type: 'bar',
+      height: 280,
+      data: {
+        labels: ['1월','2월','3월','4월','5월','6월'],
+        datasets: [
+          { label: '매출', data: [120, 190, 300, 250, 400, 350] },
+          { label: '비용', data: [80, 120, 200, 180, 250, 200] }
+        ]
+      }
+    });
+
+    new DV.Chart('#chart-hbar', {
+      type: 'horizontalBar',
+      height: 280,
+      data: {
+        labels: ['React', 'Vue', 'Angular', 'Svelte', 'IMCAT'],
+        datasets: [{ label: '사용률 (%)', data: [42, 28, 18, 8, 4] }]
+      },
+      showValues: true,
+      colors: ['#667eea']
+    });
+
+    // ── Chart — Line & Area ──
+    new DV.Chart('#chart-line', {
+      type: 'line',
+      height: 260,
+      data: {
+        labels: ['1월','2월','3월','4월','5월','6월','7월'],
+        datasets: [
+          { label: '방문자', data: [1200, 1900, 3000, 2500, 4000, 3500, 4200] },
+          { label: '신규 가입', data: [400, 600, 900, 700, 1200, 1000, 1500] }
+        ]
+      }
+    });
+
+    new DV.Chart('#chart-area', {
+      type: 'area',
+      height: 260,
+      data: {
+        labels: ['월','화','수','목','금','토','일'],
+        datasets: [
+          { label: 'CPU', data: [45, 60, 55, 70, 65, 40, 35], color: '#667eea' },
+          { label: '메모리', data: [30, 45, 40, 55, 50, 35, 30], color: '#22c55e' }
+        ]
+      }
+    });
+
+    // ── Chart — Pie & Doughnut ──
+    new DV.Chart('#chart-pie', {
+      type: 'pie',
+      height: 260,
+      data: {
+        labels: ['프론트엔드', '백엔드', '디자인', '기획', '인프라'],
+        datasets: [{ data: [35, 25, 20, 12, 8] }]
+      }
+    });
+
+    new DV.Chart('#chart-doughnut', {
+      type: 'doughnut',
+      height: 260,
+      data: {
+        labels: ['완료', '진행 중', '대기', '보류'],
+        datasets: [{ data: [42, 28, 18, 12] }]
+      },
+      showValues: true,
+      colors: ['#22c55e', '#667eea', '#f59e0b', '#ef4444']
+    });
+
+    // ── Kanban (고급) ──
+    new DV.Kanban('#kanban-demo', {
+      columns: [
+        {
+          id: 'backlog', title: '백로그', color: '#94a3b8',
+          cards: [
+            { id: 'k1', title: 'API 문서 작성', description: 'RESTful API 엔드포인트 문서화', priority: 'low',
+              tags: [{ text: '문서', color: '#06b6d4' }], date: '3/30' },
+            { id: 'k2', title: '성능 최적화', priority: 'medium',
+              tags: [{ text: '최적화', color: '#f59e0b' }] }
+          ]
+        },
+        {
+          id: 'todo', title: '할 일', color: '#667eea', wipLimit: 4,
+          cards: [
+            { id: 'k3', title: 'UI 디자인 리뷰', description: '소셜 모듈 디자인 검토', priority: 'high',
+              tags: [{ text: '디자인', color: '#8b5cf6' }, { text: '긴급', color: '#ef4444' }],
+              assignees: [{ name: '김영희' }, { name: '강서연' }], date: '3/20' },
+            { id: 'k4', title: '단위 테스트 작성', priority: 'medium', checked: false,
+              tags: [{ text: '테스트', color: '#22c55e' }],
+              assignees: [{ name: '이철수' }], date: '3/22' }
+          ]
+        },
+        {
+          id: 'doing', title: '진행 중', color: '#f59e0b', wipLimit: 3,
+          cards: [
+            { id: 'k5', title: '캐러셀 모듈 개발', description: '5가지 전환 효과 구현 완료', priority: 'high',
+              tags: [{ text: '개발', color: '#667eea' }],
+              assignees: [{ name: '홍길동' }, { name: '박지민' }, { name: '최수진' }], date: '3/18' }
+          ]
+        },
+        {
+          id: 'done', title: '완료', color: '#22c55e',
+          cards: [
+            { id: 'k6', title: '프로젝트 셋업', checked: true,
+              tags: [{ text: '인프라', color: '#94a3b8' }],
+              assignees: [{ name: '윤태영' }], date: '3/10' },
+            { id: 'k7', title: '요구사항 분석', checked: true,
+              tags: [{ text: '기획', color: '#ec4899' }], date: '3/08' }
+          ]
+        }
+      ],
+      onMove: function(cardId, from, to) { console.log('이동:', cardId, from, '→', to); },
+      onCardClick: function(cardId) { console.log('카드 클릭:', cardId); }
+    });
+
+    // ── Calendar ──
+    var today = new Date();
+    var fmt = function(d) {
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    };
+    var d = function(offset) { var dt = new Date(today); dt.setDate(today.getDate() + offset); return fmt(dt); };
+
+    new DV.Calendar('#cal-demo', {
+      events: [
+        { id: 'e1', date: d(0), title: '팀 스탠드업', category: 'primary' },
+        { id: 'e2', date: d(0), title: '코드 리뷰', category: 'info' },
+        { id: 'e3', date: d(2), title: '디자인 미팅', category: 'success' },
+        { id: 'e4', date: d(5), title: '스프린트 마감', category: 'danger' },
+        { id: 'e5', date: d(7), title: '회고 미팅', category: 'warning' },
+        { id: 'e6', date: d(10), title: 'v1.2 배포', category: 'primary' },
+        { id: 'e7', date: d(14), title: '기획 워크숍', category: 'info' },
+        { id: 'e8', date: d(-3), title: 'QA 테스트', category: 'success' },
+        { id: 'e9', date: d(-7), title: '킥오프', category: 'primary' }
+      ],
+      maxEventsPerCell: 2,
+      onDateClick: function(date) { console.log('날짜:', date); },
+      onEventClick: function(id) { console.log('이벤트:', id); }
+    });
+
+    // ── Masonry (필터) ──
+    var masonryItems = [
+      { title: 'SCSS 변수 시스템', category: '디자인', desc: 'CSS 변수와 SCSS 변수를 결합한 테마 시스템', h: 120 },
+      { title: 'XSS 방어 모듈', category: '보안', desc: 'Security.escape() 기반 자동 새니타이징', h: 100 },
+      { title: '동적 모듈 로딩', category: '코어', desc: 'IMCAT.use()로 필요한 모듈만 런타임 로드', h: 140 },
+      { title: '타이포그래피', category: '디자인', desc: 'Display, Heading, Body 스타일 체계', h: 90 },
+      { title: 'SPA 라우터', category: '코어', desc: 'catui-href 기반 뷰 전환', h: 110 },
+      { title: 'CSP 정책', category: '보안', desc: 'Content-Security-Policy 헤더 가이드', h: 130 },
+      { title: 'EventBus', category: '코어', desc: '글로벌 pub/sub 이벤트 시스템', h: 95 },
+      { title: '컬러 토큰', category: '디자인', desc: 'Primary~Neutral 시맨틱 팔레트', h: 105 },
+      { title: '경로 검증', category: '보안', desc: 'Path Traversal 공격 방어', h: 85 }
+    ];
+
+    var masonry = new DV.Masonry('#masonry-demo', {
+      columnWidth: 280,
+      gap: 16,
+      animate: true,
+      filterKey: 'category',
+      items: masonryItems,
+      render: function(item) {
+        var colors = { '디자인': '#8b5cf6', '보안': '#ef4444', '코어': '#667eea' };
+        return '<div class="card card--flat" style="height:' + item.h + 'px;">' +
+          '<div class="card__body">' +
+            '<span style="display:inline-block;font-size:0.6875rem;padding:0.125rem 0.5rem;border-radius:9999px;color:white;background:' + (colors[item.category]||'#94a3b8') + ';margin-bottom:0.5rem;">' + item.category + '</span>' +
+            '<h5 class="card__title" style="font-size:0.9375rem;">' + item.title + '</h5>' +
+            '<p class="text-secondary" style="font-size:0.8125rem;margin:0;">' + item.desc + '</p>' +
+          '</div></div>';
+      }
+    });
+
+    // 필터 버튼
+    var filterWrap = document.getElementById('masonry-filters');
+    var cats = ['전체', '코어', '디자인', '보안'];
+    cats.forEach(function(cat) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn--sm ' + (cat === '전체' ? 'btn--primary' : 'btn--outline');
+      btn.textContent = cat;
+      btn.addEventListener('click', function() {
+        filterWrap.querySelectorAll('.btn').forEach(function(b) { b.className = 'btn btn--sm btn--outline'; });
+        btn.className = 'btn btn--sm btn--primary';
+        if (cat === '전체') masonry.clearFilter();
+        else masonry.filter(cat);
+      });
+      filterWrap.appendChild(btn);
+    });
+  })();
+</script>

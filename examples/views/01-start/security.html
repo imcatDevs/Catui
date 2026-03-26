@@ -1,0 +1,120 @@
+<!-- Security API -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Security</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Security</h1>
+  <p class="page-desc">XSS 방어, HTML 새니타이징, 경로 검증 등 보안 유틸리티를 제공합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-escape">
+  <div class="demo-card__header"><span class="demo-card__title">XSS 이스케이프</span></div>
+  <div class="demo-card__body">
+    <div class="form-group">
+      <label class="form-label">입력 (HTML 포함)</label>
+      <input type="text" class="form-input" id="sec-input" value='&lt;img onerror=alert(1) src=x&gt;'>
+    </div>
+    <button class="btn btn--primary" onclick="secEscape()">escape()</button>
+    <div class="alert alert--success" id="sec-output"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// HTML 특수문자 이스케이프</span>
+IMCAT.security.<span class="code-function">escape</span>(<span class="code-string">'&lt;script&gt;alert("xss")&lt;/script&gt;'</span>);
+<span class="code-comment">// → '&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;)&amp;lt;/script&amp;gt;'</span>
+
+<span class="code-comment">// 단축 호출</span>
+IMCAT.<span class="code-function">escape</span>(userInput);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-sanitize">
+  <div class="demo-card__header"><span class="demo-card__title">HTML 새니타이징</span></div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 위험한 태그/속성 제거, 안전한 HTML만 유지</span>
+IMCAT.security.<span class="code-function">sanitize</span>(
+  <span class="code-string">'&lt;p&gt;안전&lt;/p&gt;&lt;script&gt;위험&lt;/script&gt;&lt;img onerror="hack()"&gt;'</span>
+);
+<span class="code-comment">// → '&lt;p&gt;안전&lt;/p&gt;'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-validate">
+  <div class="demo-card__header"><span class="demo-card__title">경로 & URL 검증</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table" id="sec-table">
+        <thead><tr><th>함수</th><th>입력</th><th>결과</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT.security.<span class="code-function">validatePath</span>(<span class="code-string">'views/home.html'</span>);   <span class="code-comment">// true</span>
+IMCAT.security.<span class="code-function">validatePath</span>(<span class="code-string">'../../etc/passwd'</span>);   <span class="code-comment">// false</span>
+IMCAT.security.<span class="code-function">isSafeUrl</span>(<span class="code-string">'https://example.com'</span>);  <span class="code-comment">// true</span>
+IMCAT.security.<span class="code-function">isSafeUrl</span>(<span class="code-string">'javascript:alert(1)'</span>);  <span class="code-comment">// false</span>
+IMCAT.security.<span class="code-function">isSafeFilename</span>(<span class="code-string">'doc.pdf'</span>);          <span class="code-comment">// true</span>
+IMCAT.security.<span class="code-function">sanitizeCSS</span>(<span class="code-string">'expression(evil)'</span>);   <span class="code-comment">// ''</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-rules">
+  <div class="demo-card__header"><span class="demo-card__title">보안 규칙 요약</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--warning">
+      <strong>필수 규칙</strong>
+      <ul>
+        <li><code>innerHTML</code>에 사용자 입력 삽입 시 반드시 <code>Security.escape()</code> 처리</li>
+        <li><code>textContent</code> 사용 시에는 이스케이프 불필요 (브라우저가 자동 처리)</li>
+        <li><code>eval()</code>, <code>new Function()</code> 사용 절대 금지</li>
+        <li>URL 파라미터 값은 이스케이프되지 않은 원본 — DOM 삽입 시 주의</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-escape" class="doc-toc__link is-active">XSS 이스케이프</a></li>
+    <li class="doc-toc__item"><a href="#s-sanitize" class="doc-toc__link">HTML 새니타이징</a></li>
+    <li class="doc-toc__item"><a href="#s-validate" class="doc-toc__link">경로 & URL 검증</a></li>
+    <li class="doc-toc__item"><a href="#s-rules" class="doc-toc__link">보안 규칙</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  function secEscape() {
+    var input = document.getElementById('sec-input').value;
+    var result = IMCAT.security.escape(input);
+    document.getElementById('sec-output').textContent = result;
+  }
+  secEscape();
+
+  // 검증 테이블
+  var tests = [
+    ['validatePath', 'views/home.html', function() { return IMCAT.security.validatePath('views/home.html'); }],
+    ['validatePath', '../../etc/passwd', function() { return IMCAT.security.validatePath('../../etc/passwd'); }],
+    ['isSafeUrl', 'https://example.com', function() { return IMCAT.security.isSafeUrl('https://example.com'); }],
+    ['isSafeUrl', 'javascript:alert(1)', function() { return IMCAT.security.isSafeUrl('javascript:alert(1)'); }],
+    ['isSafeFilename', 'doc.pdf', function() { return IMCAT.security.isSafeFilename('doc.pdf'); }]
+  ];
+  var tbody = document.querySelector('#sec-table tbody');
+  tests.forEach(function(item) {
+    var fn = item[0], input = item[1], exec = item[2];
+    var tr = document.createElement('tr');
+    var result = exec();
+    tr.innerHTML = '<td><code>' + fn + '</code></td><td><code>' + IMCAT.security.escape(input) + '</code></td><td>' +
+      '<span class="badge ' + (result ? 'badge--success' : 'badge--danger') + '">' + result + '</span></td>';
+    tbody.appendChild(tr);
+  });
+</script>

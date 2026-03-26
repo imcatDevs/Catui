@@ -1,0 +1,144 @@
+<!-- Storage -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Storage</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Storage</h1>
+  <p class="page-desc">localStorage 래퍼. JSON 직렬화/역직렬화, 만료 시간, 네임스페이스를 지원합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 사용</span></div>
+  <div class="demo-card__body">
+    <div class="form-group">
+      <label class="form-label">키</label>
+      <input type="text" class="form-input" id="storage-key" value="demo-key">
+    </div>
+    <div class="form-group">
+      <label class="form-label">값</label>
+      <input type="text" class="form-input" id="storage-val" value="Hello IMCAT">
+    </div>
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="storageSet()">저장</button>
+      <button class="btn btn--secondary" onclick="storageGet()">조회</button>
+      <button class="btn btn--danger" onclick="storageRemove()">삭제</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 저장 (JSON 자동 직렬화)</span>
+IMCAT.storage.<span class="code-function">set</span>(<span class="code-string">'user'</span>, { name: <span class="code-string">'홍길동'</span>, age: <span class="code-number">30</span> });
+
+<span class="code-comment">// 조회 (JSON 자동 역직렬화)</span>
+<span class="code-keyword">const</span> user = IMCAT.storage.<span class="code-function">get</span>(<span class="code-string">'user'</span>);
+<span class="code-comment">// { name: '홍길동', age: 30 }</span>
+
+<span class="code-comment">// 기본값 지정</span>
+<span class="code-keyword">const</span> theme = IMCAT.storage.<span class="code-function">get</span>(<span class="code-string">'theme'</span>, <span class="code-string">'light'</span>);
+
+<span class="code-comment">// 삭제</span>
+IMCAT.storage.<span class="code-function">remove</span>(<span class="code-string">'user'</span>);
+
+<span class="code-comment">// 전체 초기화</span>
+IMCAT.storage.<span class="code-function">clear</span>();</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-json">
+  <div class="demo-card__header"><span class="demo-card__title">JSON 객체 저장</span></div>
+  <div class="demo-card__body">
+    <div class="btn-group" style="margin-bottom:0.75rem">
+      <button class="btn btn--primary btn--sm" onclick="storageJsonSave()">객체 저장</button>
+      <button class="btn btn--secondary btn--sm" onclick="storageJsonLoad()">객체 조회</button>
+    </div>
+    <div class="alert alert--info" id="storage-json-output" style="font-size:0.8125rem;font-family:monospace">저장된 데이터 없음</div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 객체/배열도 자동 JSON 직렬화</span>
+IMCAT.storage.<span class="code-function">set</span>(<span class="code-string">'user'</span>, { name: <span class="code-string">'홍길동'</span>, age: <span class="code-number">30</span>, roles: [<span class="code-string">'admin'</span>] });
+
+<span class="code-comment">// 조회 시 자동 역직렬화 (JSON.parse)</span>
+<span class="code-keyword">var</span> user = IMCAT.storage.<span class="code-function">get</span>(<span class="code-string">'user'</span>);
+console.log(user.name); <span class="code-comment">// '홍길동'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-manage">
+  <div class="demo-card__header"><span class="demo-card__title">저장소 관리</span></div>
+  <div class="demo-card__body">
+    <div class="btn-group" style="margin-bottom:0.75rem">
+      <button class="btn btn--warning btn--sm" onclick="storageClearAll()">전체 초기화 (clear)</button>
+    </div>
+    <div id="storage-keys-list" style="font-size:0.8125rem;color:var(--text-secondary)"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 전체 초기화</span>
+IMCAT.storage.<span class="code-function">clear</span>();</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-helpers">
+  <div class="demo-card__header"><span class="demo-card__title">Helpers 단축 접근</span></div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// helpers 네임스페이스로도 접근 가능</span>
+IMCAT.helpers.<span class="code-function">setStorage</span>(<span class="code-string">'key'</span>, { data: <span class="code-number">123</span> });
+IMCAT.helpers.<span class="code-function">getStorage</span>(<span class="code-string">'key'</span>, defaultValue);</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 사용</a></li>
+    <li class="doc-toc__item"><a href="#s-json" class="doc-toc__link">JSON 객체</a></li>
+    <li class="doc-toc__item"><a href="#s-manage" class="doc-toc__link">저장소 관리</a></li>
+    <li class="doc-toc__item"><a href="#s-helpers" class="doc-toc__link">Helpers 단축</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  function storageSet() {
+    var key = document.getElementById('storage-key').value;
+    var val = document.getElementById('storage-val').value;
+    IMCAT.storage.set(key, val);
+    IMCAT.toast.success('저장됨: ' + key);
+  }
+  function storageGet() {
+    var key = document.getElementById('storage-key').value;
+    var val = IMCAT.storage.get(key, '(없음)');
+    IMCAT.toast.info(key + ' = ' + val);
+  }
+  function storageRemove() {
+    var key = document.getElementById('storage-key').value;
+    IMCAT.storage.remove(key);
+    IMCAT.toast.warning('삭제됨: ' + key);
+  }
+
+  // JSON 객체 저장/조회
+  function storageJsonSave() {
+    var userData = { name: '홍길동', age: 30, roles: ['admin', 'editor'], settings: { theme: 'dark', lang: 'ko' } };
+    IMCAT.storage.set('demo-user', userData);
+    IMCAT.toast.success('JSON 객체 저장 완료');
+  }
+  function storageJsonLoad() {
+    var data = IMCAT.storage.get('demo-user', null);
+    var el = document.getElementById('storage-json-output');
+    if (data) {
+      el.textContent = JSON.stringify(data, null, 2);
+    } else {
+      el.textContent = '저장된 데이터 없음 (먼저 "객체 저장" 버튼 클릭)';
+    }
+  }
+  function storageClearAll() {
+    IMCAT.storage.clear();
+    IMCAT.toast.warning('전체 저장소 초기화 완료');
+  }
+</script>

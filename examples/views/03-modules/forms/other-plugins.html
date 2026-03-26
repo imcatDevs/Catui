@@ -1,0 +1,186 @@
+<!-- Other Plugins: Rating, SignaturePad -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Other Plugins</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Other Plugins</h1>
+  <p class="page-desc">Rating(별점), SignaturePad(서명) 등 폼 확장 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Rating                               -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-rating">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Rating</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">별점 평가 컴포넌트. 클릭/호버로 점수 선택.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Basic -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic (5점)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new Rating('#el', { max: 5, value: 3 })</code></p>
+          </div>
+          <div style="flex:1">
+            <div id="rt-basic"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 10-star -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">10점 만점</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>max: 10, value: 7</code> — 10점 스케일.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rt-10"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Readonly -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Readonly</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>readonly: true</code> — 읽기 전용 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rt-readonly"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (value) => { ... }</code> — 선택 시 콜백.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rt-callback"></div>
+            <p id="rt-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">선택: 0점</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> F = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> F.<span class="code-function">Rating</span>(<span class="code-string">'#el'</span>, {
+  max: <span class="code-number">5</span>,
+  value: <span class="code-number">3</span>,
+  onChange: (v) => console.log(v)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: SignaturePad                         -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-signature">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">SignaturePad</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">마우스/터치 서명 패드. 지우기, 저장(PNG) 지원.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Basic -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new SignaturePad('#el')</code> — 기본 서명 패드. 지우기/저장 버튼 포함.</p>
+          </div>
+          <div style="flex:1">
+            <div id="sp-basic"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Custom Size & Color -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Custom Size & Pen Color</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>width: 300, penColor: '#2563EB', penWidth: 3</code></p>
+          </div>
+          <div style="flex:1">
+            <div id="sp-custom"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Background Color -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Background Color</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>backgroundColor: '#F0FDF4'</code> — 배경색 커스터마이징.</p>
+          </div>
+          <div style="flex:1">
+            <div id="sp-bg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> F = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">const</span> pad = <span class="code-keyword">new</span> F.<span class="code-function">SignaturePad</span>(<span class="code-string">'#el'</span>, {
+  width: <span class="code-number">400</span>,
+  height: <span class="code-number">200</span>,
+  penColor: <span class="code-string">'#000'</span>,
+  penWidth: <span class="code-number">2</span>
+});
+pad.<span class="code-function">toDataURL</span>();  <span class="code-comment">// base64 이미지</span>
+pad.<span class="code-function">clear</span>();       <span class="code-comment">// 지우기</span></pre>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-rating" class="doc-toc__link is-active">Rating</a></li>
+    <li class="doc-toc__item"><a href="#s-signature" class="doc-toc__link">SignaturePad</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var F = await IMCAT.use('forms');
+
+    // ================================
+    // Rating
+    // ================================
+    new F.Rating('#rt-basic', { max: 5, value: 3 });
+    new F.Rating('#rt-10', { max: 10, value: 7 });
+    new F.Rating('#rt-readonly', { max: 5, value: 4, readonly: true });
+    new F.Rating('#rt-callback', {
+      max: 5,
+      value: 0,
+      onChange: function(v) {
+        document.getElementById('rt-result').textContent = '선택: ' + v + '점';
+        document.getElementById('rt-result').style.color = 'var(--primary)';
+      }
+    });
+
+    // ================================
+    // SignaturePad
+    // ================================
+    new F.SignaturePad('#sp-basic', { width: 400, height: 150 });
+    new F.SignaturePad('#sp-custom', { width: 300, height: 120, penColor: '#2563EB', penWidth: 3 });
+    new F.SignaturePad('#sp-bg', { width: 400, height: 150, backgroundColor: '#F0FDF4', penColor: '#166534' });
+  })();
+</script>

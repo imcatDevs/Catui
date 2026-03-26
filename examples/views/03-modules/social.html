@@ -1,0 +1,418 @@
+<!-- Social — SocialFeed, ChatUI, Comments, ShareButtons, Reactions -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Social</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Social</h1>
+  <p class="page-desc">SocialFeed, ChatUI, Comments, ShareButtons, Reactions 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. SocialFeed                                 -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-feed">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">SocialFeed</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">포스트 작성, 좋아요, 댓글, 공유 기능을 제공합니다</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="feed-demo" style="max-width:560px;"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { SocialFeed } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'social'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">SocialFeed</span>(<span class="code-string">'#container'</span>, {
+  currentUser: { id: <span class="code-string">'me'</span>, name: <span class="code-string">'나'</span>, avatar: <span class="code-string">''</span> },
+  showCompose: <span class="code-keyword">true</span>,
+  posts: [
+    {
+      id: <span class="code-string">'1'</span>,
+      userName: <span class="code-string">'홍길동'</span>,
+      text: <span class="code-string">'프로젝트가 완성되었습니다!'</span>,
+      createdAt: <span class="code-string">'2025-03-14T14:30:00'</span>,
+      likes: <span class="code-number">12</span>,
+      commentCount: <span class="code-number">3</span>
+    }
+  ],
+  onPost: (post) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'게시:'</span>, post),
+  onLike: (id) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'좋아요:'</span>, id)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. ChatUI                                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-chat">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ChatUI</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">실시간 채팅 인터페이스 — 메시지 그룹화, 날짜 구분, 타이핑 인디케이터</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="chat-demo" style="height:400px; max-width:560px;"></div>
+    <div style="margin-top:0.75rem; display:flex; gap:0.5rem;">
+      <button class="btn btn--outline btn--sm" id="chat-typing-btn">타이핑 표시 토글</button>
+      <button class="btn btn--outline btn--sm" id="chat-add-btn">자동 응답 추가</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ChatUI } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'social'</span>);
+
+<span class="code-keyword">const</span> chat = <span class="code-keyword">new</span> <span class="code-function">ChatUI</span>(<span class="code-string">'#container'</span>, {
+  currentUser: { id: <span class="code-string">'me'</span>, name: <span class="code-string">'나'</span> },
+  messages: [
+    { userId: <span class="code-string">'hong'</span>, userName: <span class="code-string">'홍길동'</span>, text: <span class="code-string">'안녕하세요!'</span>,
+      timestamp: <span class="code-string">'2025-03-14T14:30:00'</span> },
+    { userId: <span class="code-string">'me'</span>, userName: <span class="code-string">'나'</span>, text: <span class="code-string">'반갑습니다!'</span>,
+      timestamp: <span class="code-string">'2025-03-14T14:31:00'</span> }
+  ],
+  showTimestamp: <span class="code-keyword">true</span>,
+  groupMessages: <span class="code-keyword">true</span>,
+  onSend: (msg) =&gt; <span class="code-function">console.log</span>(msg)
+});
+
+<span class="code-comment">// 타이핑 인디케이터</span>
+chat.<span class="code-function">showTyping</span>([{ name: <span class="code-string">'홍길동'</span> }]);
+
+<span class="code-comment">// 메시지 추가</span>
+chat.<span class="code-function">addMessage</span>({ userId: <span class="code-string">'hong'</span>, userName: <span class="code-string">'홍길동'</span>,
+  text: <span class="code-string">'새 메시지'</span>, timestamp: <span class="code-keyword">new</span> <span class="code-function">Date</span>().<span class="code-function">toISOString</span>() });</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. Comments                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-comments">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Comments</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">댓글/답글 시스템 — 좋아요, 수정, 삭제, 중첩 답글 지원</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="comments-demo" style="max-width:560px;"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Comments } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'social'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">Comments</span>(<span class="code-string">'#container'</span>, {
+  currentUser: { id: <span class="code-string">'me'</span>, name: <span class="code-string">'나'</span> },
+  comments: [
+    {
+      id: <span class="code-string">'c1'</span>, userId: <span class="code-string">'hong'</span>, userName: <span class="code-string">'홍길동'</span>,
+      text: <span class="code-string">'좋은 글입니다!'</span>,
+      createdAt: <span class="code-string">'2025-03-14T10:00:00'</span>,
+      likes: <span class="code-number">5</span>,
+      replies: [
+        { id: <span class="code-string">'r1'</span>, userId: <span class="code-string">'kim'</span>, userName: <span class="code-string">'김영희'</span>,
+          text: <span class="code-string">'동의합니다!'</span>, createdAt: <span class="code-string">'2025-03-14T11:00:00'</span> }
+      ]
+    }
+  ],
+  allowReplies: <span class="code-keyword">true</span>,
+  maxDepth: <span class="code-number">3</span>,
+  onSubmit: (c) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'댓글:'</span>, c)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. ShareButtons                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-share">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ShareButtons</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">소셜 공유 버튼 — 8개 플랫폼 지원, 수평/수직 레이아웃</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">수평 (기본)</p>
+        <div id="share-h"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">라벨 포함</p>
+        <div id="share-labels"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ShareButtons } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'social'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">ShareButtons</span>(<span class="code-string">'#container'</span>, {
+  url: <span class="code-string">'https://imcat.dev'</span>,
+  title: <span class="code-string">'IMCAT UI Framework'</span>,
+  platforms: [<span class="code-string">'copy'</span>, <span class="code-string">'twitter'</span>, <span class="code-string">'facebook'</span>, <span class="code-string">'linkedin'</span>, <span class="code-string">'email'</span>],
+  showLabels: <span class="code-keyword">true</span>,
+  onShare: (p) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'공유:'</span>, p)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. Reactions                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-reactions">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">Reactions</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">이모지 리액션 — 토글, 카운터, 커스텀 이모지</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">기본</p>
+        <div id="reactions-1"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">커스텀 이모지</p>
+        <div id="reactions-2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Reactions } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'social'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">Reactions</span>(<span class="code-string">'#container'</span>, {
+  reactions: [
+    { emoji: <span class="code-string">'👍'</span>, label: <span class="code-string">'좋아요'</span>, count: <span class="code-number">12</span> },
+    { emoji: <span class="code-string">'❤️'</span>, label: <span class="code-string">'사랑해요'</span>, count: <span class="code-number">8</span> },
+    { emoji: <span class="code-string">'😂'</span>, label: <span class="code-string">'웃겨요'</span>, count: <span class="code-number">3</span> }
+  ],
+  onReact: (emoji, active) =&gt; <span class="code-function">console.log</span>(emoji, active)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. API 레퍼런스                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>클래스</th><th>주요 옵션</th><th>주요 메서드</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>SocialFeed</code></td>
+            <td><code>posts</code>, <code>currentUser</code>, <code>showCompose</code>, <code>showActions</code>, <code>onPost</code>, <code>onLike</code></td>
+            <td><code>addPost(p)</code>, <code>setPosts([])</code>, <code>removePost(id)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>ChatUI</code></td>
+            <td><code>messages</code>, <code>currentUser</code>, <code>showTimestamp</code>, <code>groupMessages</code>, <code>onSend</code></td>
+            <td><code>addMessage(m)</code>, <code>setMessages([])</code>, <code>showTyping(users)</code>, <code>hideTyping()</code></td>
+          </tr>
+          <tr>
+            <td><code>Comments</code></td>
+            <td><code>comments</code>, <code>currentUser</code>, <code>allowReplies</code>, <code>maxDepth</code>, <code>onSubmit</code>, <code>onLike</code></td>
+            <td><code>addComment(c)</code>, <code>setComments([])</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>ShareButtons</code></td>
+            <td><code>url</code>, <code>title</code>, <code>platforms</code>, <code>layout</code>, <code>size</code>, <code>showLabels</code></td>
+            <td><code>setUrl(s)</code>, <code>setTitle(s)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>Reactions</code></td>
+            <td><code>reactions</code>, <code>onReact</code></td>
+            <td><code>setReactions([])</code>, <code>getReactions()</code>, <code>destroy()</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-feed" class="doc-toc__link is-active">SocialFeed</a></li>
+    <li class="doc-toc__item"><a href="#s-chat" class="doc-toc__link">ChatUI</a></li>
+    <li class="doc-toc__item"><a href="#s-comments" class="doc-toc__link">Comments</a></li>
+    <li class="doc-toc__item"><a href="#s-share" class="doc-toc__link">ShareButtons</a></li>
+    <li class="doc-toc__item"><a href="#s-reactions" class="doc-toc__link">Reactions</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var chatInst = null;
+  var typingVisible = false;
+
+  (async function() {
+    var S = await IMCAT.use('social');
+
+    // ── SocialFeed ──
+    new S.SocialFeed('#feed-demo', {
+      currentUser: { id: 'me', name: '나', avatar: '' },
+      showCompose: true,
+      posts: [
+        {
+          id: 'p1',
+          userId: 'hong',
+          userName: '홍길동',
+          avatar: '',
+          text: 'IMCAT UI 프레임워크가 드디어 완성되었습니다! 🚀\n경량 제로빌드 ES6+ 웹 프레임워크로, 동적 모듈 로딩과 SPA 라우팅을 지원합니다.',
+          createdAt: new Date(Date.now() - 30 * 60000).toISOString(),
+          likes: 24,
+          liked: false,
+          commentCount: 5
+        },
+        {
+          id: 'p2',
+          userId: 'kim',
+          userName: '김영희',
+          avatar: '',
+          text: '오늘 진행한 코드 리뷰에서 좋은 피드백을 많이 받았습니다.\n보안 모듈의 XSS 방어가 특히 잘 되어 있네요! 👏',
+          createdAt: new Date(Date.now() - 2 * 3600000).toISOString(),
+          likes: 8,
+          liked: true,
+          commentCount: 2
+        },
+        {
+          id: 'p3',
+          userId: 'lee',
+          userName: '이철수',
+          avatar: '',
+          text: '새로운 디자인 토큰 시스템을 적용했습니다. _tokens.scss + _variables.scss 분리로 유지보수가 훨씬 편해졌어요.',
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+          likes: 15,
+          commentCount: 0
+        }
+      ],
+      onPost: function(post) { console.log('게시:', post); },
+      onLike: function(id) { console.log('좋아요:', id); }
+    });
+
+    // ── ChatUI ──
+    chatInst = new S.ChatUI('#chat-demo', {
+      currentUser: { id: 'me', name: '나', avatar: '' },
+      messages: [
+        { userId: 'hong', userName: '홍길동', text: '안녕하세요! 프로젝트 진행 상황이 궁금합니다 📞', timestamp: '2025-03-14T08:55:00' },
+        { userId: 'me', userName: '나', text: '네, 코어 모듈 개발은 완료했고 지금 테스트 중입니다.', timestamp: '2025-03-14T08:57:00' },
+        { userId: 'hong', userName: '홍길동', text: '좋습니다! 일정대로 잘 진행되고 있군요 👍', timestamp: '2025-03-14T08:58:00' },
+        { userId: 'me', userName: '나', text: '네, 이번 주 안에 빌드 검증까지 마칠 예정입니다.', timestamp: '2025-03-14T09:00:00' },
+        { userId: 'hong', userName: '홍길동', text: '수고하셨습니다! 리뷰 미팅은 금요일에 잡을까요?', timestamp: '2025-03-14T09:45:00' },
+        { userId: 'me', userName: '나', text: '금요일 오후 2시에 괜찮습니다.', timestamp: '2025-03-14T09:46:00' },
+        { userId: 'hong', userName: '홍길동', text: '확인했습니다. 그때 뵙겠습니다 😊', timestamp: '2025-03-14T09:50:00' }
+      ],
+      showTimestamp: true,
+      groupMessages: true,
+      onSend: function(msg) { console.log('전송:', msg.text); }
+    });
+
+    // 타이핑 토글
+    document.getElementById('chat-typing-btn').addEventListener('click', function() {
+      typingVisible = !typingVisible;
+      if (typingVisible) {
+        chatInst.showTyping([{ name: '홍길동' }]);
+      } else {
+        chatInst.hideTyping();
+      }
+    });
+
+    // 자동 응답
+    document.getElementById('chat-add-btn').addEventListener('click', function() {
+      chatInst.addMessage({
+        userId: 'hong',
+        userName: '홍길동',
+        text: '자동 응답 메시지입니다! ' + new Date().toLocaleTimeString('ko-KR'),
+        timestamp: new Date().toISOString()
+      });
+    });
+
+    // ── Comments ──
+    var now = new Date();
+    new S.Comments('#comments-demo', {
+      currentUser: { id: 'me', name: '나', avatar: '' },
+      comments: [
+        {
+          id: 'c1',
+          userId: 'hong',
+          userName: '홍길동',
+          avatar: '',
+          text: '이 프레임워크 정말 가볍고 좋네요! 모듈 로딩 방식이 특히 인상적입니다.',
+          createdAt: new Date(now - 3600000).toISOString(),
+          likes: 5,
+          liked: false,
+          replies: [
+            {
+              id: 'r1',
+              userId: 'kim',
+              userName: '김영희',
+              avatar: '',
+              text: '저도 동의합니다. IMCAT.use()로 필요한 모듈만 로드하는 게 깔끔해요.',
+              createdAt: new Date(now - 1800000).toISOString(),
+              likes: 2,
+              replies: []
+            }
+          ]
+        },
+        {
+          id: 'c2',
+          userId: 'lee',
+          userName: '이철수',
+          avatar: '',
+          text: 'Security 모듈의 XSS 방어가 잘 되어 있어서 안심하고 사용할 수 있습니다.',
+          createdAt: new Date(now - 7200000).toISOString(),
+          likes: 3,
+          liked: true,
+          replies: []
+        }
+      ],
+      allowReplies: true,
+      allowEdit: true,
+      allowDelete: true,
+      maxDepth: 3,
+      onSubmit: function(c) { console.log('댓글:', c); },
+      onLike: function(id) { console.log('좋아요:', id); }
+    });
+
+    // ── ShareButtons ──
+    new S.ShareButtons('#share-h', {
+      url: 'https://imcat.dev',
+      title: 'IMCAT UI Framework',
+      platforms: ['copy', 'twitter', 'facebook', 'linkedin', 'email'],
+      onShare: function(p) { console.log('공유:', p); }
+    });
+    new S.ShareButtons('#share-labels', {
+      url: 'https://imcat.dev',
+      title: 'IMCAT UI Framework',
+      platforms: ['copy', 'twitter', 'facebook', 'kakaotalk'],
+      showLabels: true,
+      size: 'sm',
+      onShare: function(p) { console.log('공유:', p); }
+    });
+
+    // ── Reactions ──
+    new S.Reactions('#reactions-1', {
+      reactions: [
+        { emoji: '👍', label: '좋아요', count: 12, active: false },
+        { emoji: '❤️', label: '사랑해요', count: 8, active: false },
+        { emoji: '😂', label: '웃겨요', count: 3, active: false },
+        { emoji: '😮', label: '놀랐어요', count: 1, active: false }
+      ],
+      onReact: function(emoji, active) { console.log('리액션:', emoji, active); }
+    });
+    new S.Reactions('#reactions-2', {
+      reactions: [
+        { emoji: '🔥', label: '핫!', count: 15, active: true },
+        { emoji: '🎉', label: '축하', count: 7, active: false },
+        { emoji: '💡', label: '아이디어', count: 4, active: false },
+        { emoji: '🚀', label: '출발', count: 9, active: false },
+        { emoji: '💪', label: '힘내요', count: 2, active: false }
+      ]
+    });
+  })();
+</script>

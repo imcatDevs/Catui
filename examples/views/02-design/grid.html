@@ -1,0 +1,288 @@
+<!-- Grid & Layout -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Grid & Layout</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Grid &amp; Layout</h1>
+  <p class="page-desc">CSS Grid와 Flexbox 기반 레이아웃 패턴</p>
+</div>
+
+<style>
+  .grid-demo-box {
+    background: var(--primary-light, rgba(59,130,246,0.1));
+    border: 1px solid var(--primary, #3b82f6);
+    border-radius: 4px;
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--primary, #3b82f6);
+  }
+</style>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Grid Options Table -->
+<div class="demo-card" id="s-options">
+  <div class="demo-card__header"><span class="demo-card__title">Grid 옵션</span></div>
+  <div class="demo-card__desc">IMCAT UI는 CSS Grid를 기반으로 유연한 레이아웃을 제공합니다.</div>
+  <div class="demo-card__body">
+    <div style="overflow-x:auto;">
+      <table class="table table--bordered table--striped" style="min-width:600px;">
+        <thead>
+          <tr>
+            <th></th>
+            <th style="text-align:center;">XS<br><small>&lt;576px</small></th>
+            <th style="text-align:center;">SM<br><small>≥576px</small></th>
+            <th style="text-align:center;">MD<br><small>≥768px</small></th>
+            <th style="text-align:center;">LG<br><small>≥992px</small></th>
+            <th style="text-align:center;">XL<br><small>≥1200px</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>방식</th><td colspan="5">CSS Grid (<code>display: grid</code>)</td></tr>
+          <tr><th>컬럼 수</th><td colspan="5">자유 (12, auto-fill, auto-fit 등)</td></tr>
+          <tr><th>Gap</th><td colspan="5">gap 속성으로 자유 설정 (기본 1rem)</td></tr>
+          <tr><th>중첩</th><td colspan="5">지원</td></tr>
+          <tr><th>정렬</th><td colspan="5">align-items, justify-content 등</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 12-Column Grid -->
+<div class="demo-card" id="s-12col">
+  <div class="demo-card__header"><span class="demo-card__title">12컬럼 그리드</span></div>
+  <div class="demo-card__desc">grid-template-columns로 12컬럼 그리드를 구현합니다.</div>
+  <div class="demo-card__body d-flex flex-column gap-1">
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-12">12</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-6">6</div>
+      <div class="grid-demo-box col-span-6">6</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-4">4</div>
+      <div class="grid-demo-box col-span-4">4</div>
+      <div class="grid-demo-box col-span-4">4</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-3">3</div>
+      <div class="grid-demo-box col-span-3">3</div>
+      <div class="grid-demo-box col-span-3">3</div>
+      <div class="grid-demo-box col-span-3">3</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-2">2</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+      <div class="grid-demo-box col-span-1">1</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 12컬럼 그리드 (유틸리티 클래스) --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"grid grid-cols-12 gap-1"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"col-span-6"</span>&gt;6&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"col-span-6"</span>&gt;6&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- 비대칭 분할 -->
+<div class="demo-card" id="s-asymmetric">
+  <div class="demo-card__header"><span class="demo-card__title">비대칭 분할</span></div>
+  <div class="demo-card__desc">다양한 컬럼 비율을 조합할 수 있습니다.</div>
+  <div class="demo-card__body d-flex flex-column gap-1">
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-8">8</div>
+      <div class="grid-demo-box col-span-4">4</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-9">9</div>
+      <div class="grid-demo-box col-span-3">3</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-10">10</div>
+      <div class="grid-demo-box col-span-2">2</div>
+    </div>
+    <div class="grid grid-cols-12 gap-1">
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-3">3</div>
+      <div class="grid-demo-box col-span-4">4</div>
+      <div class="grid-demo-box col-span-2">2</div>
+      <div class="grid-demo-box col-span-1">1</div>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-fill / Auto-fit -->
+<div class="demo-card" id="s-autofill">
+  <div class="demo-card__header"><span class="demo-card__title">Auto-fill &amp; Auto-fit</span></div>
+  <div class="demo-card__desc">반응형 컬럼을 자동으로 채우거나 맞춥니다.</div>
+  <div class="demo-card__body">
+    <p style="font-weight:600;margin-bottom:0.5rem;">auto-fill (최소 150px)</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:0.5rem;margin-bottom:1rem;">
+      <div class="grid-demo-box">1</div>
+      <div class="grid-demo-box">2</div>
+      <div class="grid-demo-box">3</div>
+      <div class="grid-demo-box">4</div>
+      <div class="grid-demo-box">5</div>
+    </div>
+    <p style="font-weight:600;margin-bottom:0.5rem;">auto-fit (최소 200px)</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:0.5rem;">
+      <div class="grid-demo-box">A</div>
+      <div class="grid-demo-box">B</div>
+      <div class="grid-demo-box">C</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- auto-fill: 남는 공간에 빈 트랙 유지 --&gt;</span>
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+<span class="code-comment">&lt;!-- auto-fit: 남는 공간을 기존 아이템에 분배 --&gt;</span>
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</pre>
+  </div>
+</div>
+
+<!-- Flexbox 레이아웃 -->
+<div class="demo-card" id="s-flexbox">
+  <div class="demo-card__header"><span class="demo-card__title">Flexbox 레이아웃</span></div>
+  <div class="demo-card__desc">display:flex 기반 가로 배치 패턴입니다.</div>
+  <div class="demo-card__body">
+    <p class="fw-semibold mb-2">균등 분할</p>
+    <div class="d-flex gap-1 mb-3">
+      <div class="grid-demo-box flex-fill">1/3</div>
+      <div class="grid-demo-box flex-fill">1/3</div>
+      <div class="grid-demo-box flex-fill">1/3</div>
+    </div>
+    <p class="fw-semibold mb-2">비율 지정 (1:2:1)</p>
+    <div class="d-flex gap-1 mb-3">
+      <div class="grid-demo-box" style="flex:1;">1</div>
+      <div class="grid-demo-box" style="flex:2;">2</div>
+      <div class="grid-demo-box" style="flex:1;">1</div>
+    </div>
+    <p class="fw-semibold mb-2">고정 + 가변</p>
+    <div class="d-flex gap-1">
+      <div class="grid-demo-box flex-shrink-0" style="width:200px;">200px 고정</div>
+      <div class="grid-demo-box flex-fill">나머지</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 균등 분할 (유틸리티 클래스) --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex gap-1"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"flex-fill"</span>&gt;1/3&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"flex-fill"</span>&gt;1/3&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"flex-fill"</span>&gt;1/3&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- Gap 변형 -->
+<div class="demo-card" id="s-gap">
+  <div class="demo-card__header"><span class="demo-card__title">Gap 변형</span></div>
+  <div class="demo-card__desc">gap 속성으로 아이템 간 간격을 조절합니다.</div>
+  <div class="demo-card__body">
+    <p class="fw-semibold mb-2">.gap-1 (0.25rem)</p>
+    <div class="grid grid-cols-4 gap-1 mb-3">
+      <div class="grid-demo-box">1</div><div class="grid-demo-box">2</div><div class="grid-demo-box">3</div><div class="grid-demo-box">4</div>
+    </div>
+    <p class="fw-semibold mb-2">.gap-3 (1rem)</p>
+    <div class="grid grid-cols-4 gap-3 mb-3">
+      <div class="grid-demo-box">1</div><div class="grid-demo-box">2</div><div class="grid-demo-box">3</div><div class="grid-demo-box">4</div>
+    </div>
+    <p class="fw-semibold mb-2">.gap-4 (1.5rem)</p>
+    <div class="grid grid-cols-4 gap-4">
+      <div class="grid-demo-box">1</div><div class="grid-demo-box">2</div><div class="grid-demo-box">3</div><div class="grid-demo-box">4</div>
+    </div>
+  </div>
+</div>
+
+<!-- 중첩 그리드 -->
+<div class="demo-card" id="s-nested">
+  <div class="demo-card__header"><span class="demo-card__title">중첩 그리드</span></div>
+  <div class="demo-card__desc">그리드 아이템 안에 다시 그리드를 중첩할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div class="grid grid-cols-12 gap-1">
+      <div class="col-span-8 border-dashed rounded p-2">
+        <p class="fw-semibold mb-2" style="font-size:0.8125rem;">8컬럼 영역 (중첩)</p>
+        <div class="grid grid-cols-2 gap-1">
+          <div class="grid-demo-box">A</div>
+          <div class="grid-demo-box">B</div>
+          <div class="grid-demo-box">C</div>
+          <div class="grid-demo-box">D</div>
+        </div>
+      </div>
+      <div class="grid-demo-box col-span-4 d-flex align-items-center justify-content-center">4컬럼</div>
+    </div>
+  </div>
+</div>
+
+<!-- 실전 레이아웃 -->
+<div class="demo-card" id="s-practical">
+  <div class="demo-card__header"><span class="demo-card__title">실전 레이아웃 패턴</span></div>
+  <div class="demo-card__desc">대시보드, 사이드바 레이아웃 등 실전 패턴입니다.</div>
+  <div class="demo-card__body">
+    <p class="fw-semibold mb-2">Holy Grail (헤더-사이드바-메인-푸터)</p>
+    <div style="display:grid;grid-template-areas:'header header header' 'sidebar main aside' 'footer footer footer';grid-template-columns:180px 1fr 140px;grid-template-rows:auto 120px auto;gap:0.5rem;margin-bottom:1.5rem;">
+      <div class="grid-demo-box" style="grid-area:header;">Header</div>
+      <div class="grid-demo-box" style="grid-area:sidebar;">Sidebar</div>
+      <div class="grid-demo-box" style="grid-area:main;">Main Content</div>
+      <div class="grid-demo-box" style="grid-area:aside;">Aside</div>
+      <div class="grid-demo-box" style="grid-area:footer;">Footer</div>
+    </div>
+    <p class="fw-semibold mb-2">대시보드 카드 그리드</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;">
+      <div class="grid-demo-box" style="padding:1rem;"><strong>1,234</strong><br><small>사용자</small></div>
+      <div class="grid-demo-box" style="padding:1rem;"><strong>567</strong><br><small>주문</small></div>
+      <div class="grid-demo-box" style="padding:1rem;"><strong>₩12.3M</strong><br><small>매출</small></div>
+      <div class="grid-demo-box" style="padding:1rem;"><strong>89%</strong><br><small>전환율</small></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Holy Grail Layout --&gt;</span>
+grid-template-areas:
+  'header header header'
+  'sidebar main aside'
+  'footer footer footer';
+grid-template-columns: 180px 1fr 140px;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-options" class="doc-toc__link is-active">Grid 옵션</a></li>
+    <li class="doc-toc__item"><a href="#s-12col" class="doc-toc__link">12컬럼</a></li>
+    <li class="doc-toc__item"><a href="#s-asymmetric" class="doc-toc__link">비대칭 분할</a></li>
+    <li class="doc-toc__item"><a href="#s-autofill" class="doc-toc__link">Auto-fill/fit</a></li>
+    <li class="doc-toc__item"><a href="#s-flexbox" class="doc-toc__link">Flexbox</a></li>
+    <li class="doc-toc__item"><a href="#s-gap" class="doc-toc__link">Gap 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-nested" class="doc-toc__link">중첩 그리드</a></li>
+    <li class="doc-toc__item"><a href="#s-practical" class="doc-toc__link">실전 패턴</a></li>
+  </ul>
+</aside>
+</div>

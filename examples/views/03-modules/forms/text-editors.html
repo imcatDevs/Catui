@@ -1,0 +1,266 @@
+<!-- Text Editors: RichTextEditor, MarkdownEditor, TextareaAutosize -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Text Editors</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Text Editors</h1>
+  <p class="page-desc">리치 텍스트 에디터, 마크다운 에디터, 자동 높이 조절 Textarea</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- Card 1: RichTextEditor (Snow 스타일)         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-rich">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">RichTextEditor</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">간단한 WYSIWYG 에디터. 툴바 기반 서식 지정, 키보드 단축키(Ctrl+B/I/U) 지원.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="rte-demo"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.75rem;align-items:center">
+      <button class="btn btn--sm btn--primary" id="btn-rte-get">HTML 가져오기</button>
+      <button class="btn btn--sm btn--outline" id="btn-rte-clear">내용 초기화</button>
+      <span id="rte-output" style="font-size:0.75rem;color:var(--text-secondary);margin-left:auto"></span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { RichTextEditor } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'text-editors'</span>);
+<span class="code-keyword">const</span> editor = <span class="code-keyword">new</span> <span class="code-function">RichTextEditor</span>(<span class="code-string">'#container'</span>, {
+  toolbar: [<span class="code-string">'bold'</span>, <span class="code-string">'italic'</span>, <span class="code-string">'underline'</span>, <span class="code-string">'strikethrough'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'heading'</span>, <span class="code-string">'quote'</span>, <span class="code-string">'|'</span>, <span class="code-string">'ul'</span>, <span class="code-string">'ol'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'link'</span>, <span class="code-string">'image'</span>, <span class="code-string">'|'</span>, <span class="code-string">'code'</span>, <span class="code-string">'hr'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'alignLeft'</span>, <span class="code-string">'alignCenter'</span>, <span class="code-string">'alignRight'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'undo'</span>, <span class="code-string">'redo'</span>],
+  placeholder: <span class="code-string">'내용을 입력하세요...'</span>,
+  minHeight: <span class="code-number">200</span>,
+  onChange: (html) => console.log(html)
+});
+editor.<span class="code-function">getHTML</span>();  <span class="code-comment">// HTML 반환</span>
+editor.<span class="code-function">getText</span>();  <span class="code-comment">// 텍스트 반환</span>
+editor.<span class="code-function">clear</span>();    <span class="code-comment">// 초기화</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 2: MarkdownEditor — 분할 뷰             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-markdown-split">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">MarkdownEditor — 분할 뷰</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">마크다운 에디터 + 실시간 프리뷰. 좌측 편집, 우측 미리보기 분할 레이아웃.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="md-split-demo"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { MarkdownEditor } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'text-editors'</span>);
+<span class="code-keyword">new</span> <span class="code-function">MarkdownEditor</span>(<span class="code-string">'#container'</span>, {
+  splitView: <span class="code-keyword">true</span>,   <span class="code-comment">// 분할 뷰</span>
+  preview: <span class="code-keyword">true</span>,
+  minHeight: <span class="code-number">300</span>,
+  value: <span class="code-string">'# 제목\n\n본문 텍스트'</span>,
+  onChange: (md) => console.log(md)
+});
+</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 3: MarkdownEditor — 탭 모드             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-markdown-tabs">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">MarkdownEditor — 탭 모드</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">편집/미리보기 탭 전환 모드. 좁은 화면에서 유용합니다.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="md-tab-demo"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">MarkdownEditor</span>(<span class="code-string">'#container'</span>, {
+  splitView: <span class="code-keyword">false</span>,  <span class="code-comment">// 탭 전환 모드</span>
+  preview: <span class="code-keyword">true</span>,
+  minHeight: <span class="code-number">250</span>,
+  toolbar: [<span class="code-string">'bold'</span>, <span class="code-string">'italic'</span>, <span class="code-string">'|'</span>, <span class="code-string">'h1'</span>, <span class="code-string">'h2'</span>, <span class="code-string">'h3'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'ul'</span>, <span class="code-string">'ol'</span>, <span class="code-string">'task'</span>, <span class="code-string">'|'</span>, <span class="code-string">'link'</span>, <span class="code-string">'code'</span>, <span class="code-string">'codeblock'</span>, <span class="code-string">'|'</span>,
+    <span class="code-string">'quote'</span>, <span class="code-string">'table'</span>]
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 4: TextareaAutosize — 기본               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-autosize">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">TextareaAutosize — 기본</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">기존 &lt;textarea&gt;에 적용하여 내용에 따라 자동으로 높이 조절. minRows/maxRows 제한 가능.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="ta-basic"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { TextareaAutosize } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'text-editors'</span>);
+<span class="code-comment">// 기존 textarea 요소에 적용</span>
+<span class="code-keyword">new</span> <span class="code-function">TextareaAutosize</span>(<span class="code-string">'#my-textarea'</span>, {
+  minRows: <span class="code-number">3</span>,
+  maxRows: <span class="code-number">10</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 5: TextareaAutosize — 툴바 + 상태바      -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-autosize-toolbar">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">TextareaAutosize — 툴바 + 글자 수</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">선택적 도구 모음(초기화, 복사, 실행 취소/다시 실행)과 하단 글자 수/줄 수 상태바.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="ta-toolbar"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">TextareaAutosize</span>(<span class="code-string">'#my-textarea'</span>, {
+  minRows: <span class="code-number">3</span>,
+  maxRows: <span class="code-number">15</span>,
+  toolbar: [<span class="code-string">'undo'</span>, <span class="code-string">'redo'</span>, <span class="code-string">'|'</span>, <span class="code-string">'copy'</span>, <span class="code-string">'clear'</span>],
+  showCount: <span class="code-keyword">true</span>,
+  maxLength: <span class="code-number">500</span>,
+  onChange: (value) => console.log(value)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 6: 옵션 레퍼런스                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-options">
+  <div class="demo-card__header"><span class="demo-card__title">옵션 레퍼런스</span></div>
+  <div class="demo-card__body" style="overflow-x:auto">
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead>
+        <tr><th>컴포넌트</th><th>옵션</th><th>기본값</th><th>설명</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="4"><strong>RichTextEditor</strong></td><td><code>toolbar</code></td><td>[bold, italic, ...]</td><td>툴바 버튼 배열. '|'로 구분자</td></tr>
+        <tr><td><code>placeholder</code></td><td>'내용을 입력하세요...'</td><td>빈 에디터 플레이스홀더</td></tr>
+        <tr><td><code>minHeight</code></td><td>200</td><td>에디터 최소 높이 (px)</td></tr>
+        <tr><td><code>maxHeight</code></td><td>600</td><td>에디터 최대 높이 (px)</td></tr>
+        <tr><td rowspan="4"><strong>MarkdownEditor</strong></td><td><code>splitView</code></td><td>true</td><td>분할 뷰 (false면 탭 전환)</td></tr>
+        <tr><td><code>preview</code></td><td>true</td><td>프리뷰 패널 표시</td></tr>
+        <tr><td><code>value</code></td><td>''</td><td>초기 마크다운 텍스트</td></tr>
+        <tr><td><code>minHeight</code></td><td>300</td><td>에디터 최소 높이 (px)</td></tr>
+        <tr><td rowspan="5"><strong>TextareaAutosize</strong></td><td><code>minRows</code></td><td>2</td><td>최소 행 수</td></tr>
+        <tr><td><code>maxRows</code></td><td>10</td><td>최대 행 수</td></tr>
+        <tr><td><code>toolbar</code></td><td>null</td><td>도구 모음 ['undo','redo','|','copy','clear']</td></tr>
+        <tr><td><code>showCount</code></td><td>false</td><td>하단 글자 수/줄 수 표시</td></tr>
+        <tr><td><code>maxLength</code></td><td>0</td><td>최대 글자 수 (0이면 무제한)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-rich" class="doc-toc__link is-active">RichTextEditor</a></li>
+    <li class="doc-toc__item"><a href="#s-markdown-split" class="doc-toc__link">Markdown 분할 뷰</a></li>
+    <li class="doc-toc__item"><a href="#s-markdown-tabs" class="doc-toc__link">Markdown 탭 모드</a></li>
+    <li class="doc-toc__item"><a href="#s-autosize" class="doc-toc__link">Autosize 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-autosize-toolbar" class="doc-toc__link">Autosize 툴바</a></li>
+    <li class="doc-toc__item"><a href="#s-options" class="doc-toc__link">옵션 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var TE = await IMCAT.use('text-editors');
+
+    // ================================
+    // 1. RichTextEditor — Snow 스타일
+    // ================================
+    var rte = new TE.RichTextEditor('#rte-demo', {
+      toolbar: ['bold', 'italic', 'underline', 'strikethrough', '|',
+        'heading', 'quote', '|', 'ul', 'ol', '|',
+        'link', 'image', '|', 'code', 'hr', '|',
+        'alignLeft', 'alignCenter', 'alignRight', '|',
+        'undo', 'redo'],
+      placeholder: '내용을 입력하세요...',
+      minHeight: 200
+    });
+
+    // 프리셋 콘텐츠
+    rte.setHTML(
+      '<h3>IMCAT UI — 경량 웹 프레임워크</h3>' +
+      '<p>완전한 반응형 레이아웃과 현대적인 디자인을 갖춘 관리자 대시보드 프레임워크입니다.</p>' +
+      '<ul>' +
+        '<li>동적 모듈 로딩으로 필요한 컴포넌트만 로드</li>' +
+        '<li>SPA 라우팅 내장 (catui-href 기반 네비게이션)</li>' +
+        '<li>XSS 자동 방어 및 보안 우선 설계</li>' +
+        '<li>ES6+ 순수 JavaScript — 외부 의존성 제로</li>' +
+      '</ul>' +
+      '<p><strong>IMCAT UI</strong>는 다음 프로젝트의 완벽한 시작점입니다.</p>'
+    );
+
+    document.getElementById('btn-rte-get').addEventListener('click', function() {
+      var html = rte.getHTML();
+      document.getElementById('rte-output').textContent = '글자 수: ' + rte.getText().length;
+      console.log(html);
+    });
+    document.getElementById('btn-rte-clear').addEventListener('click', function() {
+      rte.clear();
+      document.getElementById('rte-output').textContent = '';
+    });
+
+    // ================================
+    // 2. MarkdownEditor — 분할 뷰
+    // ================================
+    new TE.MarkdownEditor('#md-split-demo', {
+      splitView: true,
+      preview: true,
+      minHeight: 300,
+      value: '# IMCAT UI 프레임워크\n\n경량 **제로빌드** ES6+ JavaScript 웹 프레임워크입니다.\n\n## 주요 기능\n\n- 동적 모듈 로딩: `IMCAT.use(\'모듈명\')`\n- SPA 라우팅 내장\n- XSS 자동 방어\n\n## 코드 예제\n\n```javascript\nconst overlay = await IMCAT.use(\'overlays\');\noverlay.Modal.open({ title: \'안녕하세요\' });\n```\n\n> IMCAT UI는 MIT 라이선스로 제공됩니다.\n\n---\n\n| 기능 | 설명 |\n|------|------|\n| 모듈 로딩 | 런타임 동적 로드 |\n| 라우팅 | catui-href 기반 SPA |\n| 보안 | XSS 자동 방어 |'
+    });
+
+    // ================================
+    // 3. MarkdownEditor — 탭 모드
+    // ================================
+    new TE.MarkdownEditor('#md-tab-demo', {
+      splitView: false,
+      preview: true,
+      minHeight: 250,
+      toolbar: ['bold', 'italic', '|', 'h1', 'h2', 'h3', '|',
+        'ul', 'ol', 'task', '|', 'link', 'code', 'codeblock', '|',
+        'quote', 'table'],
+      value: '# 탭 모드 에디터\n\n편집 탭과 미리보기 탭을 전환하며 사용합니다.\n\n- [ ] 할 일 1\n- [x] 완료된 작업\n- [ ] 할 일 2'
+    });
+
+    // ================================
+    // 4. TextareaAutosize — 기본
+    // ================================
+    document.getElementById('ta-basic').innerHTML = '<textarea placeholder="내용을 입력하면 자동으로 높이가 조절됩니다. 여러 줄을 입력해보세요..."></textarea>';
+    new TE.TextareaAutosize('#ta-basic textarea', { minRows: 3, maxRows: 10 });
+
+    // ================================
+    // 5. TextareaAutosize — 툴바 + 상태바
+    // ================================
+    document.getElementById('ta-toolbar').innerHTML = '<textarea placeholder="도구 모음과 글자 수 표시가 포함된 Textarea입니다."></textarea>';
+    new TE.TextareaAutosize('#ta-toolbar textarea', {
+      minRows: 3,
+      maxRows: 15,
+      toolbar: ['undo', 'redo', '|', 'copy', 'clear'],
+      showCount: true,
+      maxLength: 500
+    });
+  })();
+</script>

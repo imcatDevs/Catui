@@ -1,0 +1,328 @@
+<!-- Live Status: OnlineStatus, TypingIndicator, LiveCounter, ConnectionStatus, ActivityStatus -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Live Status</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Live Status</h1>
+  <p class="page-desc">실시간 상태 표시 컴포넌트 — 온라인 상태, 타이핑, 카운터, 연결 상태, 활동 시간</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- Card 1: OnlineStatus                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-online">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">OnlineStatus</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">아바타 등에 온라인/오프라인/자리비움/바쁨 상태 인디케이터 표시. 펄스 애니메이션 지원.</p>
+  </div>
+  <div class="demo-card__body">
+    <!-- 상태별 아바타 데모 -->
+    <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem">
+      <div style="text-align:center">
+        <div id="os-online" style="width:3rem;height:3rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+          <i class="material-icons-outlined" style="font-size:1.5rem;color:var(--text-secondary)">person</i>
+        </div>
+        <p style="font-size:0.75rem;margin:0.25rem 0 0;color:var(--text-secondary)">온라인</p>
+      </div>
+      <div style="text-align:center">
+        <div id="os-away" style="width:3rem;height:3rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+          <i class="material-icons-outlined" style="font-size:1.5rem;color:var(--text-secondary)">person</i>
+        </div>
+        <p style="font-size:0.75rem;margin:0.25rem 0 0;color:var(--text-secondary)">자리 비움</p>
+      </div>
+      <div style="text-align:center">
+        <div id="os-busy" style="width:3rem;height:3rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+          <i class="material-icons-outlined" style="font-size:1.5rem;color:var(--text-secondary)">person</i>
+        </div>
+        <p style="font-size:0.75rem;margin:0.25rem 0 0;color:var(--text-secondary)">바쁨</p>
+      </div>
+      <div style="text-align:center">
+        <div id="os-offline" style="width:3rem;height:3rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+          <i class="material-icons-outlined" style="font-size:1.5rem;color:var(--text-secondary)">person</i>
+        </div>
+        <p style="font-size:0.75rem;margin:0.25rem 0 0;color:var(--text-secondary)">오프라인</p>
+      </div>
+      <div style="text-align:center">
+        <div id="os-dnd" style="width:3rem;height:3rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center">
+          <i class="material-icons-outlined" style="font-size:1.5rem;color:var(--text-secondary)">person</i>
+        </div>
+        <p style="font-size:0.75rem;margin:0.25rem 0 0;color:var(--text-secondary)">방해 금지</p>
+      </div>
+    </div>
+    <!-- 상태 변경 버튼 -->
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--sm btn--success" id="btn-os-online">온라인</button>
+      <button class="btn btn--sm btn--warning" id="btn-os-away">자리 비움</button>
+      <button class="btn btn--sm btn--danger" id="btn-os-busy">바쁨</button>
+      <button class="btn btn--sm btn--outline" id="btn-os-offline">오프라인</button>
+    </div>
+    <p class="text-muted" style="font-size:0.75rem;margin-top:0.5rem">* 첫 번째 아바타의 상태가 버튼으로 변경됩니다.</p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { OnlineStatus } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'live-status'</span>);
+<span class="code-keyword">const</span> os = <span class="code-keyword">new</span> <span class="code-function">OnlineStatus</span>(<span class="code-string">'#avatar'</span>, {
+  status: <span class="code-string">'online'</span>,  <span class="code-comment">// 'online' | 'offline' | 'away' | 'busy' | 'dnd'</span>
+  size: <span class="code-string">'md'</span>,       <span class="code-comment">// 'sm' | 'md' | 'lg'</span>
+  pulse: <span class="code-keyword">true</span>,     <span class="code-comment">// 온라인 시 펄스 애니메이션</span>
+  position: <span class="code-string">'bottom-right'</span>
+});
+os.<span class="code-function">setStatus</span>(<span class="code-string">'away'</span>); <span class="code-comment">// 상태 변경</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 2: TypingIndicator                      -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-typing">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">TypingIndicator</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">채팅에서 상대방이 입력 중임을 표시. 사용자 추가/제거 API 지원.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="typing-demo" style="min-height:2rem"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap">
+      <button class="btn btn--sm btn--primary" id="btn-typing-add">사용자 추가</button>
+      <button class="btn btn--sm btn--outline" id="btn-typing-remove">사용자 제거</button>
+      <button class="btn btn--sm btn--outline" id="btn-typing-clear">초기화</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { TypingIndicator } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'live-status'</span>);
+<span class="code-keyword">const</span> ti = <span class="code-keyword">new</span> <span class="code-function">TypingIndicator</span>(<span class="code-string">'#container'</span>, {
+  users: [<span class="code-string">'홍길동'</span>],
+  maxDisplay: <span class="code-number">3</span>,
+  showNames: <span class="code-keyword">true</span>
+});
+ti.<span class="code-function">addUser</span>(<span class="code-string">'김영희'</span>);
+ti.<span class="code-function">removeUser</span>(<span class="code-string">'홍길동'</span>);
+ti.<span class="code-function">clear</span>();</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 3: LiveCounter                          -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-counter">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">LiveCounter</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">실시간으로 변하는 숫자 표시. 애니메이션 전환, 천 단위 구분자, 접두/접미사 지원.</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:2rem;align-items:center;margin-bottom:1rem">
+      <div style="text-align:center">
+        <p class="text-muted" style="font-size:0.75rem;margin:0 0 0.25rem">접속자 수</p>
+        <div id="counter-users" style="font-size:2rem"></div>
+      </div>
+      <div style="text-align:center">
+        <p class="text-muted" style="font-size:0.75rem;margin:0 0 0.25rem">매출</p>
+        <div id="counter-sales" style="font-size:2rem"></div>
+      </div>
+      <div style="text-align:center">
+        <p class="text-muted" style="font-size:0.75rem;margin:0 0 0.25rem">완료율</p>
+        <div id="counter-pct" style="font-size:2rem"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.5rem">
+      <button class="btn btn--sm btn--primary" id="btn-counter-up">+100</button>
+      <button class="btn btn--sm btn--outline" id="btn-counter-down">-50</button>
+      <button class="btn btn--sm btn--outline" id="btn-counter-random">랜덤</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { LiveCounter } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'live-status'</span>);
+<span class="code-keyword">const</span> c = <span class="code-keyword">new</span> <span class="code-function">LiveCounter</span>(<span class="code-string">'#container'</span>, {
+  value: <span class="code-number">1234</span>,
+  prefix: <span class="code-string">''</span>,
+  suffix: <span class="code-string">' 명'</span>,
+  separator: <span class="code-string">','</span>,
+  duration: <span class="code-number">1000</span>
+});
+c.<span class="code-function">setValue</span>(<span class="code-number">5678</span>);    <span class="code-comment">// 애니메이션 전환</span>
+c.<span class="code-function">increment</span>(<span class="code-number">100</span>);  <span class="code-comment">// +100</span>
+c.<span class="code-function">decrement</span>(<span class="code-number">50</span>);   <span class="code-comment">// -50</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 4: ConnectionStatus                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-connection">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ConnectionStatus</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">네트워크 연결 상태 자동 감지. 오프라인 시 상단 배너 표시, 온라인 복귀 시 자동 숨김. <strong>싱글톤</strong> — selector 없이 생성.</p>
+  </div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem;margin-bottom:0.75rem">네트워크를 끊으면 상단에 빨간 배너가 표시됩니다. 아래 버튼으로 시뮬레이션할 수 있습니다.</p>
+    <div style="display:flex;gap:0.5rem">
+      <button class="btn btn--sm btn--danger" id="btn-conn-offline">오프라인 시뮬레이션</button>
+      <button class="btn btn--sm btn--success" id="btn-conn-online">온라인 복귀</button>
+    </div>
+    <p id="conn-status-text" style="font-size:0.8125rem;margin-top:0.5rem"></p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ConnectionStatus } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'live-status'</span>);
+<span class="code-keyword">new</span> <span class="code-function">ConnectionStatus</span>({
+  showOnline: <span class="code-keyword">true</span>,
+  position: <span class="code-string">'top'</span>,         <span class="code-comment">// 'top' | 'bottom'</span>
+  autoHide: <span class="code-keyword">true</span>,
+  autoHideDelay: <span class="code-number">3000</span>,
+  onStatusChange: (isOnline) => {
+    console.log(isOnline ? <span class="code-string">'온라인'</span> : <span class="code-string">'오프라인'</span>);
+  }
+});
+<span class="code-comment">// 싱글톤: 두 번째 생성 시 기존 인스턴스 반환</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 5: ActivityStatus                       -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-activity">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ActivityStatus</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">마지막 활동 시간 표시. 상대 시간(방금 전, 5분 전 등) 또는 절대 시간 형식. 자동 갱신.</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap">
+      <div>
+        <p style="font-size:0.75rem;color:var(--text-secondary);margin:0 0 0.25rem">방금 활동</p>
+        <div id="act-now"></div>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;color:var(--text-secondary);margin:0 0 0.25rem">30분 전</p>
+        <div id="act-30m"></div>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;color:var(--text-secondary);margin:0 0 0.25rem">3시간 전</p>
+        <div id="act-3h"></div>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;color:var(--text-secondary);margin:0 0 0.25rem">2일 전</p>
+        <div id="act-2d"></div>
+      </div>
+    </div>
+    <button class="btn btn--sm btn--primary" style="margin-top:0.75rem" id="btn-act-now">지금으로 갱신</button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ActivityStatus } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'live-status'</span>);
+<span class="code-keyword">const</span> as = <span class="code-keyword">new</span> <span class="code-function">ActivityStatus</span>(<span class="code-string">'#container'</span>, {
+  lastActivity: <span class="code-keyword">new</span> <span class="code-function">Date</span>(),
+  format: <span class="code-string">'relative'</span>,    <span class="code-comment">// 'relative' | 'absolute'</span>
+  updateInterval: <span class="code-number">60000</span>, <span class="code-comment">// 1분마다 갱신</span>
+  prefix: <span class="code-string">'마지막 활동: '</span>
+});
+as.<span class="code-function">updateNow</span>(); <span class="code-comment">// 현재 시간으로 갱신</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-online" class="doc-toc__link is-active">OnlineStatus</a></li>
+    <li class="doc-toc__item"><a href="#s-typing" class="doc-toc__link">TypingIndicator</a></li>
+    <li class="doc-toc__item"><a href="#s-counter" class="doc-toc__link">LiveCounter</a></li>
+    <li class="doc-toc__item"><a href="#s-connection" class="doc-toc__link">ConnectionStatus</a></li>
+    <li class="doc-toc__item"><a href="#s-activity" class="doc-toc__link">ActivityStatus</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var LS = await IMCAT.use('live-status');
+
+    // ================================
+    // 1. OnlineStatus — 5가지 상태
+    // ================================
+    var osOnline = new LS.OnlineStatus('#os-online', { status: 'online', size: 'md', pulse: true });
+    new LS.OnlineStatus('#os-away', { status: 'away', size: 'md' });
+    new LS.OnlineStatus('#os-busy', { status: 'busy', size: 'md' });
+    new LS.OnlineStatus('#os-offline', { status: 'offline', size: 'md' });
+    new LS.OnlineStatus('#os-dnd', { status: 'dnd', size: 'md' });
+
+    document.getElementById('btn-os-online').addEventListener('click', function() { osOnline.setStatus('online'); });
+    document.getElementById('btn-os-away').addEventListener('click', function() { osOnline.setStatus('away'); });
+    document.getElementById('btn-os-busy').addEventListener('click', function() { osOnline.setStatus('busy'); });
+    document.getElementById('btn-os-offline').addEventListener('click', function() { osOnline.setStatus('offline'); });
+
+    // ================================
+    // 2. TypingIndicator
+    // ================================
+    var typingNames = ['김영희', '이철수', '박지민', '최수진'];
+    var typingIdx = 0;
+    var ti = new LS.TypingIndicator('#typing-demo', { users: ['홍길동'], showNames: true, maxDisplay: 3 });
+
+    document.getElementById('btn-typing-add').addEventListener('click', function() {
+      if (typingIdx < typingNames.length) {
+        ti.addUser(typingNames[typingIdx++]);
+      }
+    });
+    document.getElementById('btn-typing-remove').addEventListener('click', function() {
+      if (typingIdx > 0) {
+        ti.removeUser(typingNames[--typingIdx]);
+      }
+    });
+    document.getElementById('btn-typing-clear').addEventListener('click', function() {
+      ti.clear();
+      typingIdx = 0;
+    });
+
+    // ================================
+    // 3. LiveCounter
+    // ================================
+    var counterUsers = new LS.LiveCounter('#counter-users', { value: 1234, suffix: ' 명', separator: ',', duration: 800 });
+    new LS.LiveCounter('#counter-sales', { value: 4567890, prefix: '₩', separator: ',', duration: 800 });
+    new LS.LiveCounter('#counter-pct', { value: 73.5, suffix: '%', decimals: 1, duration: 800 });
+
+    document.getElementById('btn-counter-up').addEventListener('click', function() { counterUsers.increment(100); });
+    document.getElementById('btn-counter-down').addEventListener('click', function() { counterUsers.decrement(50); });
+    document.getElementById('btn-counter-random').addEventListener('click', function() {
+      counterUsers.setValue(Math.floor(Math.random() * 10000));
+    });
+
+    // ================================
+    // 4. ConnectionStatus (싱글톤, selector 없음)
+    // ================================
+    var conn = new LS.ConnectionStatus({
+      showOnline: true,
+      position: 'top',
+      autoHide: true,
+      autoHideDelay: 3000,
+      onStatusChange: function(isOnline) {
+        var el = document.getElementById('conn-status-text');
+        el.textContent = isOnline ? '✓ 온라인 상태' : '✗ 오프라인 상태';
+        el.style.color = isOnline ? 'var(--success-color)' : 'var(--danger-color)';
+      }
+    });
+
+    document.getElementById('btn-conn-offline').addEventListener('click', function() {
+      conn._showOffline();
+    });
+    document.getElementById('btn-conn-online').addEventListener('click', function() {
+      conn._showOnline();
+    });
+
+    // ================================
+    // 5. ActivityStatus
+    // ================================
+    var now = new Date();
+    var min30 = new Date(now.getTime() - 30 * 60 * 1000);
+    var h3 = new Date(now.getTime() - 3 * 60 * 60 * 1000);
+    var d2 = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
+
+    var actNow = new LS.ActivityStatus('#act-now', { lastActivity: now, format: 'relative', prefix: '' });
+    new LS.ActivityStatus('#act-30m', { lastActivity: min30, format: 'relative', prefix: '' });
+    new LS.ActivityStatus('#act-3h', { lastActivity: h3, format: 'relative', prefix: '' });
+    new LS.ActivityStatus('#act-2d', { lastActivity: d2, format: 'relative', prefix: '' });
+
+    document.getElementById('btn-act-now').addEventListener('click', function() { actNow.updateNow(); });
+  })();
+</script>

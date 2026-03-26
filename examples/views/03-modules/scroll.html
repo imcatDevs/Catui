@@ -1,0 +1,207 @@
+<!-- Scroll: VirtualScroll, Scrollspy, InfiniteScroll, BackToTop -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Scroll</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Scroll</h1>
+  <p class="page-desc">VirtualScroll, Scrollspy, InfiniteScroll, BackToTop 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-virtual">
+  <div class="demo-card__header"><span class="demo-card__title">VirtualScroll</span></div>
+  <div class="demo-card__body"><div id="vs-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { VirtualScroll } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'scroll'</span>);
+<span class="code-keyword">new</span> <span class="code-function">VirtualScroll</span>(<span class="code-string">'#container'</span>, {
+  items: Array.<span class="code-function">from</span>({ length: <span class="code-number">10000</span> }, (_, i) => <span class="code-string">'항목 '</span> + i),
+  itemHeight: <span class="code-number">40</span>,
+  containerHeight: <span class="code-number">300</span>,
+  renderItem: (item) => <span class="code-string">'&lt;div&gt;'</span> + item + <span class="code-string">'&lt;/div&gt;'</span>
+});</pre>
+  </div>
+</div>
+
+<style>
+  .spy-link {
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 2px solid var(--border-color);
+    transition: color 150ms ease, border-color 150ms ease, font-weight 150ms ease;
+  }
+  .spy-link:hover { color: var(--text-primary); }
+  .spy-link.is-active {
+    color: var(--primary);
+    border-left-color: var(--primary);
+    font-weight: 600;
+  }
+</style>
+<div class="demo-card" id="s-scrollspy">
+  <div class="demo-card__header"><span class="demo-card__title">Scrollspy</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">스크롤 위치에 따라 내비게이션 항목이 자동 활성화됩니다.</p>
+    <div style="display:flex;gap:1rem">
+      <nav id="spy-nav" style="flex-shrink:0;min-width:120px;position:sticky;top:0;align-self:flex-start">
+        <a href="#spy-section1" class="spy-link is-active">섹션 1</a>
+        <a href="#spy-section2" class="spy-link">섹션 2</a>
+        <a href="#spy-section3" class="spy-link">섹션 3</a>
+        <a href="#spy-section4" class="spy-link">섹션 4</a>
+      </nav>
+      <div id="spy-scroll-area" style="flex:1;max-height:300px;overflow-y:auto;border:1px solid var(--border-color);border-radius:6px;padding:1rem">
+        <div id="spy-section1" style="padding-bottom:1rem"><h4 style="font-size:1rem;margin-bottom:0.5rem">섹션 1 — IMCAT UI 소개</h4><p style="font-size:0.875rem;line-height:1.6;color:var(--text-secondary)">IMCAT UI는 경량 제로빌드 ES6+ JavaScript 웹 프레임워크입니다. 동적 모듈 로딩, SPA 라우팅, XSS 자동 방어를 핵심으로 합니다. 별도의 번들러 설정 없이 브라우저에서 바로 실행 가능하며, 20개 코어 모듈과 22개 확장 UI 컴포넌트를 제공합니다. 모든 컴포넌트는 destroy() 메서드를 통해 메모리 누수를 방지합니다.</p></div>
+        <div id="spy-section2" style="padding-bottom:1rem"><h4 style="font-size:1rem;margin-bottom:0.5rem">섹션 2 — 모듈 시스템</h4><p style="font-size:0.875rem;line-height:1.6;color:var(--text-secondary)">IMCAT.use('모듈명')으로 필요한 모듈을 런타임에 동적 로드합니다. 로드된 모듈은 캐싱되어 반복 요청 시 네트워크 비용이 없습니다. 하위 모듈 추출도 지원하여 IMCAT.use('overlays/modal')처럼 특정 클래스만 가져올 수 있습니다. 각 모듈은 독립적인 CSS를 가지며 autoLoadModuleCSS 옵션으로 자동 로드됩니다.</p></div>
+        <div id="spy-section3" style="padding-bottom:1rem"><h4 style="font-size:1rem;margin-bottom:0.5rem">섹션 3 — 보안</h4><p style="font-size:0.875rem;line-height:1.6;color:var(--text-secondary)">Security 모듈이 XSS 공격 방어, 경로 검증, 입력 새니타이징을 자동으로 처리합니다. 모든 사용자 입력은 Security.escape()로 이스케이프되며 eval()과 new Function() 사용이 프레임워크 전체에서 금지됩니다. HTML 템플릿 엔진에서도 자동 이스케이프가 적용되어 안전한 렌더링을 보장합니다.</p></div>
+        <div id="spy-section4"><h4 style="font-size:1rem;margin-bottom:0.5rem">섹션 4 — 스타일 시스템</h4><p style="font-size:0.875rem;line-height:1.6;color:var(--text-secondary)">SCSS 변수와 디자인 토큰을 통해 일관된 스타일을 유지합니다. _variables.scss에서 색상, 타이포그래피, 간격, z-index 등을 수정하면 전체 컴포넌트에 자동 반영됩니다. 다크 모드는 theme 모듈을 통해 런타임 전환을 지원하며, BEM 명명 규칙을 일관되게 따릅니다.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Scrollspy } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'scroll'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Scrollspy</span>(<span class="code-string">'#nav'</span>, {
+  scrollContainer: <span class="code-string">'#scroll-area'</span>,  <span class="code-comment">// 스크롤 컨테이너</span>
+  targets: <span class="code-string">'div[id]'</span>,
+  offset: <span class="code-number">100</span>,
+  activeClass: <span class="code-string">'is-active'</span>,
+  smoothScroll: <span class="code-keyword">true</span>,
+  onChange: (activeId) => console.log(activeId)
+});</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-infinite">
+  <div class="demo-card__header"><span class="demo-card__title">InfiniteScroll</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">스크롤이 하단에 도달하면 자동으로 콘텐츠를 로드합니다.</p>
+    <div id="infinite-demo" style="max-height:250px;overflow-y:auto;border:1px solid var(--border-color);border-radius:6px"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { InfiniteScroll } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'scroll'</span>);
+<span class="code-keyword">new</span> <span class="code-function">InfiniteScroll</span>(<span class="code-string">'#container'</span>, {
+  loadMore: <span class="code-keyword">async</span> (page) => {
+    <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<span class="code-string">'/api/items?page='</span> + page);
+    <span class="code-keyword">return</span> res.<span class="code-function">json</span>();
+  },
+  threshold: <span class="code-number">200</span>,
+  pageSize: <span class="code-number">20</span>
+});</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-backtop">
+  <div class="demo-card__header"><span class="demo-card__title">BackToTop</span></div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" onclick="initBackToTop()">BackToTop 활성화</button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { BackToTop } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'scroll'</span>);
+<span class="code-keyword">new</span> <span class="code-function">BackToTop</span>({
+  threshold: <span class="code-number">300</span>,
+  smooth: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-smooth">
+  <div class="demo-card__header"><span class="demo-card__title">SmoothScroll</span></div>
+  <div class="demo-card__body">
+    <p>페이지 내 앵커 링크를 부드러운 스크롤로 이동시킵니다.</p>
+    <a href="#s-virtual" class="btn btn--outline-primary" id="smooth-link">VirtualScroll 섹션으로 이동</a>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { SmoothScroll } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'scroll'</span>);
+<span class="code-comment">// 유틸리티 객체 — new 없이 직접 호출</span>
+SmoothScroll.<span class="code-function">to</span>(<span class="code-string">'#target'</span>, { offset: <span class="code-number">80</span>, duration: <span class="code-number">600</span> });
+SmoothScroll.<span class="code-function">toTop</span>();   <span class="code-comment">// 맨 위로</span>
+SmoothScroll.<span class="code-function">toBottom</span>(); <span class="code-comment">// 맨 아래로</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-virtual" class="doc-toc__link is-active">VirtualScroll</a></li>
+    <li class="doc-toc__item"><a href="#s-infinite" class="doc-toc__link">InfiniteScroll</a></li>
+    <li class="doc-toc__item"><a href="#s-scrollspy" class="doc-toc__link">Scrollspy</a></li>
+    <li class="doc-toc__item"><a href="#s-backtop" class="doc-toc__link">BackToTop</a></li>
+    <li class="doc-toc__item"><a href="#s-smooth" class="doc-toc__link">SmoothScroll</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var S = await IMCAT.use('scroll');
+    new S.VirtualScroll('#vs-demo', {
+      items: Array.from({ length: 1000 }, function(_, i) { return '항목 ' + (i + 1); }),
+      itemHeight: 36, containerHeight: 250,
+      renderItem: function(item) { return '<div class="list__item">' + item + '</div>'; }
+    });
+
+    // Scrollspy
+    // 첫 번째 인자: 스크롤 컨테이너, target: 내비게이션 컨테이너
+    if (S.Scrollspy) {
+      new S.Scrollspy('#spy-scroll-area', {
+        target: '#spy-nav',
+        offset: 50,
+        activeClass: 'is-active',
+        smoothScroll: true
+      });
+    }
+
+    // InfiniteScroll 시뮬레이션
+    // loadMore → 배열 반환, renderItem → HTML 변환, 빈 배열 → 종료
+    var infiniteContainer = document.getElementById('infinite-demo');
+    if (infiniteContainer && S.InfiniteScroll) {
+      var infinitePage = 0;
+      var maxPages = 5;
+
+      new S.InfiniteScroll(infiniteContainer, {
+        threshold: 50,
+        loadMore: function() {
+          return new Promise(function(resolve) {
+            setTimeout(function() {
+              if (infinitePage >= maxPages) {
+                resolve([]);  // 빈 배열 → 종료
+              } else {
+                var items = [];
+                for (var i = 0; i < 10; i++) {
+                  items.push({ label: '항목 ' + (infinitePage * 10 + i + 1) });
+                }
+                infinitePage++;
+                resolve(items);
+              }
+            }, 600);
+          });
+        },
+        renderItem: function(item, idx) {
+          return '<div style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-color);font-size:0.875rem">' + item.label + ' — 페이지 ' + Math.ceil((idx + 1) / 10) + '</div>';
+        }
+      });
+    }
+
+    // SmoothScroll — 유틸리티 객체 (new 불필요)
+    var smoothLink = document.getElementById('smooth-link');
+    if (smoothLink && S.SmoothScroll) {
+      smoothLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        S.SmoothScroll.to('#s-virtual', { offset: 80, duration: 600 });
+      });
+    }
+  })();
+  async function initBackToTop() {
+    var ScrollMod = await IMCAT.use('scroll');
+    var BackToTop = ScrollMod.BackToTop;
+    new BackToTop({ threshold: 300, smooth: true });
+    IMCAT.toast.success('BackToTop 활성화됨 — 스크롤을 내려보세요');
+  }
+</script>

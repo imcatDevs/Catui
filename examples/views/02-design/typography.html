@@ -1,0 +1,292 @@
+<!-- Typography -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Typography</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Typography</h1>
+  <p class="page-desc">타이포그래피 시스템 — Display, Heading, Body, 인라인 요소, 인용문, 목록</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Display Headings -->
+<div class="demo-card" id="s-display">
+  <div class="demo-card__header"><span class="demo-card__title">Display Headings</span></div>
+  <div class="demo-card__desc">큰 제목이 필요할 때 display 클래스를 사용합니다. 1~6 단계를 지원합니다.</div>
+  <div class="demo-card__body">
+    <div class="display-1">Display 1</div>
+    <div class="display-2">Display 2</div>
+    <div class="display-3">Display 3</div>
+    <div class="display-4">Display 4</div>
+    <div class="display-5">Display 5</div>
+    <div class="display-6">Display 6</div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">display-1</span>"&gt;Display 1&lt;/div&gt;
+&lt;div class="<span class="code-string">display-2</span>"&gt;Display 2&lt;/div&gt;
+...
+&lt;div class="<span class="code-string">display-6</span>"&gt;Display 6&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- Headings -->
+<div class="demo-card" id="s-headings">
+  <div class="demo-card__header"><span class="demo-card__title">Headings</span></div>
+  <div class="demo-card__desc">&lt;h1&gt;~&lt;h6&gt; 태그 또는 .h1~.h6 클래스로 제목 스타일을 적용합니다.</div>
+  <div class="demo-card__body">
+    <h1>h1. 제목 스타일</h1>
+    <h2>h2. 제목 스타일</h2>
+    <h3>h3. 제목 스타일</h3>
+    <h4>h4. 제목 스타일</h4>
+    <h5>h5. 제목 스타일</h5>
+    <h6>h6. 제목 스타일</h6>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;h1&gt;h1&lt;/h1&gt;  <span class="code-comment">&lt;!-- 또는 class="h1" --&gt;</span>
+&lt;h2&gt;h2&lt;/h2&gt;
+...
+&lt;h6&gt;h6&lt;/h6&gt;</pre>
+  </div>
+</div>
+
+<!-- Body & Lead -->
+<div class="demo-card" id="s-body">
+  <div class="demo-card__header"><span class="demo-card__title">Body &amp; Lead</span></div>
+  <div class="demo-card__desc">본문 텍스트와 리드(lead) 단락 스타일입니다.</div>
+  <div class="demo-card__body">
+    <p class="lead">Lead 단락 — 도입부나 강조 문단에 사용합니다. 일반 본문보다 크고 가볍습니다.</p>
+    <p class="body1">Body 1 — 기본 본문 텍스트입니다. 읽기 편한 크기와 간격을 제공합니다.</p>
+    <p class="body2">Body 2 — 보조 텍스트입니다. 캡션이나 설명에 적합합니다.</p>
+    <p class="caption text-muted">Caption — 측션 텍스트입니다. 작은 설명이나 레이블에 사용합니다. (0.75rem)</p>
+    <p class="overline">오버라인 — 대문자 + 작은 크기의 라벨 텍스트입니다.</p>
+  </div>
+</div>
+
+<!-- Inline Text Elements -->
+<div class="demo-card" id="s-inline">
+  <div class="demo-card__header"><span class="demo-card__title">인라인 텍스트 요소</span></div>
+  <div class="demo-card__desc">HTML 인라인 요소를 활용한 텍스트 스타일링입니다.</div>
+  <div class="demo-card__body">
+    <p><mark>mark</mark> 태그로 하이라이트 처리할 수 있습니다.</p>
+    <p><del>del 태그 — 삭제된 텍스트입니다.</del></p>
+    <p><s>s 태그 — 더 이상 유효하지 않은 텍스트입니다.</s></p>
+    <p><ins>ins 태그 — 문서에 추가된 텍스트입니다.</ins></p>
+    <p><u>u 태그 — 밑줄 텍스트입니다.</u></p>
+    <p><small>small 태그 — 작은 글씨입니다.</small></p>
+    <p><strong>strong 태그 — 굵은 텍스트입니다.</strong></p>
+    <p><em>em 태그 — 기울임 텍스트입니다.</em></p>
+    <p><abbr title="HyperText Markup Language">HTML</abbr> — 약어에 마우스를 올리면 전체 이름이 표시됩니다.</p>
+    <p><code>code</code> 태그 — 인라인 코드 스니펫입니다.</p>
+    <p><a href="#">a 태그</a> — 링크 텍스트입니다.</p>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;mark&gt;하이라이트&lt;/mark&gt;
+&lt;del&gt;삭제됨&lt;/del&gt;
+&lt;ins&gt;추가됨&lt;/ins&gt;
+&lt;strong&gt;굵은&lt;/strong&gt;
+&lt;em&gt;기울임&lt;/em&gt;
+&lt;abbr title="전체 이름"&gt;약어&lt;/abbr&gt;</pre>
+  </div>
+</div>
+
+<!-- Contextual Text Colors -->
+<div class="demo-card" id="s-colors">
+  <div class="demo-card__header"><span class="demo-card__title">텍스트 색상</span></div>
+  <div class="demo-card__desc">컨텍스트별 텍스트 색상 유틸리티 클래스입니다.</div>
+  <div class="demo-card__body">
+    <p class="text-primary">text-primary — 주요 텍스트</p>
+    <p class="text-secondary">text-secondary — 보조 텍스트</p>
+    <p class="text-muted">text-muted — 약한 텍스트</p>
+    <p class="text-success">text-success — 성공</p>
+    <p class="text-danger">text-danger — 위험</p>
+    <p class="text-warning">text-warning — 경고</p>
+    <p class="text-info">text-info — 정보</p>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;p class="<span class="code-string">text-primary</span>"&gt;...&lt;/p&gt;
+&lt;p class="<span class="code-string">text-secondary</span>"&gt;...&lt;/p&gt;
+&lt;p class="<span class="code-string">text-success</span>"&gt;...&lt;/p&gt;
+&lt;p class="<span class="code-string">text-danger</span>"&gt;...&lt;/p&gt;</pre>
+  </div>
+</div>
+
+<!-- Blockquotes -->
+<div class="demo-card" id="s-blockquote">
+  <div class="demo-card__header"><span class="demo-card__title">인용문 (Blockquote)</span></div>
+  <div class="demo-card__desc">인용문에 정렬과 출처를 함께 표시할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <figure>
+      <blockquote>
+        <p>좌측 정렬 인용문입니다. 기본 스타일로 왼쪽에 보더가 표시됩니다.</p>
+      </blockquote>
+      <figcaption style="color:var(--text-tertiary);font-size:0.875rem;">— 홍길동, <cite>출처 제목</cite></figcaption>
+    </figure>
+
+    <figure class="text-center">
+      <blockquote>
+        <p>중앙 정렬 인용문입니다. 텍스트 유틸리티로 정렬을 변경할 수 있습니다.</p>
+      </blockquote>
+      <figcaption class="text-muted fs-sm">— 이영희, <cite>출처 제목</cite></figcaption>
+    </figure>
+
+    <figure class="text-end">
+      <blockquote>
+        <p>우측 정렬 인용문입니다.</p>
+      </blockquote>
+      <figcaption class="text-muted fs-sm">— 김철수, <cite>출처 제목</cite></figcaption>
+    </figure>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;figure&gt;
+  &lt;blockquote&gt;&lt;p&gt;인용문&lt;/p&gt;&lt;/blockquote&gt;
+  &lt;figcaption&gt;— 저자, &lt;cite&gt;출처&lt;/cite&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+<span class="code-comment">&lt;!-- 중앙: class="text-center" --&gt;</span>
+<span class="code-comment">&lt;!-- 우측: class="text-end" --&gt;</span></pre>
+  </div>
+</div>
+
+<!-- Lists -->
+<div class="demo-card" id="s-lists">
+  <div class="demo-card__header"><span class="demo-card__title">목록 (Lists)</span></div>
+  <div class="demo-card__desc">순서 없는, 순서 있는, 스타일 없는, 인라인 목록입니다.</div>
+  <div class="demo-card__body">
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <p class="fw-semibold mb-2">Unordered</p>
+        <ul>
+          <li>항목 A</li>
+          <li>항목 B</li>
+          <li>항목 C
+            <ul>
+              <li>중첩 항목 1</li>
+              <li>중첩 항목 2</li>
+            </ul>
+          </li>
+          <li>항목 D</li>
+        </ul>
+      </div>
+      <div>
+        <p class="fw-semibold mb-2">Ordered</p>
+        <ol>
+          <li>첫 번째</li>
+          <li>두 번째</li>
+          <li>세 번째
+            <ol>
+              <li>중첩 1</li>
+              <li>중첩 2</li>
+            </ol>
+          </li>
+          <li>네 번째</li>
+        </ol>
+      </div>
+      <div>
+        <p class="fw-semibold mb-2">Unstyled</p>
+        <ul style="list-style:none; padding-left:0;">
+          <li>스타일 없는 항목</li>
+          <li>스타일 없는 항목
+            <ul>
+              <li>중첩은 기본 유지</li>
+            </ul>
+          </li>
+          <li>스타일 없는 항목</li>
+        </ul>
+        <p class="fw-semibold mt-3 mb-2">Inline</p>
+        <ul class="d-flex gap-3" style="list-style:none; padding-left:0;">
+          <li>항목 A</li>
+          <li>항목 B</li>
+          <li>항목 C</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;ul&gt;&lt;li&gt;항목&lt;/li&gt;&lt;/ul&gt;
+&lt;ol&gt;&lt;li&gt;항목&lt;/li&gt;&lt;/ol&gt;
+<span class="code-comment">&lt;!-- Unstyled: list-style:none --&gt;</span>
+<span class="code-comment">&lt;!-- Inline: display:flex --&gt;</span></pre>
+  </div>
+</div>
+
+<!-- Description List -->
+<div class="demo-card" id="s-dl">
+  <div class="demo-card__header"><span class="demo-card__title">설명 목록 (Description List)</span></div>
+  <div class="demo-card__desc">용어와 설명을 수평으로 정렬하는 패턴입니다.</div>
+  <div class="demo-card__body">
+    <dl class="grid gap-2" style="grid-template-columns: minmax(120px, auto) 1fr;">
+      <dt>설명 목록</dt>
+      <dd class="mb-0">용어를 정의하기에 적합합니다.</dd>
+      <dt>Euismod</dt>
+      <dd class="mb-0">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+      <dt>Malesuada porta</dt>
+      <dd class="mb-0">Etiam porta sem malesuada magna mollis euismod.</dd>
+      <dt class="text-truncate">Truncated term is truncated</dt>
+      <dd class="mb-0">긴 용어는 말줄임 처리할 수 있습니다.</dd>
+      <dt>중첩</dt>
+      <dd class="mb-0">
+        <dl class="grid gap-1" style="grid-template-columns: auto 1fr;">
+          <dt>중첩 용어</dt>
+          <dd class="mb-0">중첩 설명입니다.</dd>
+        </dl>
+      </dd>
+    </dl>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">dl</span> <span class="code-attr">class</span>=<span class="code-string">"grid gap-2"</span> style="grid-template-columns: auto 1fr"&gt;
+  &lt;<span class="code-tag">dt</span>&gt;용어&lt;/<span class="code-tag">dt</span>&gt;
+  &lt;<span class="code-tag">dd</span> <span class="code-attr">class</span>=<span class="code-string">"mb-0"</span>&gt;설명&lt;/<span class="code-tag">dd</span>&gt;
+&lt;/<span class="code-tag">dl</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- Utilities -->
+<div class="demo-card" id="s-utils">
+  <div class="demo-card__header"><span class="demo-card__title">유틸리티</span></div>
+  <div class="demo-card__desc">텍스트 정렬, 변환, 굵기, 말줄임 등 유틸리티 클래스입니다.</div>
+  <div class="demo-card__body">
+    <p class="text-center">text-center</p>
+    <p class="text-uppercase">text-uppercase</p>
+    <p class="fw-bold">fw-bold (굵게)</p>
+    <p class="fw-light">fw-light (얇게)</p>
+    <p class="text-truncate">text-truncate — 이 텍스트는 매우 긴 텍스트로 말줄임 처리됩니다. 컨테이너 너비를 초과하면 ...으로 표시됩니다.</p>
+    <p class="text-decoration-underline">텍스트 장식: 밑줄 (text-decoration-underline)</p>
+    <p class="text-decoration-line-through">텍스트 장식: 취소선 (text-decoration-line-through)</p>
+    <p class="fst-italic">기울임 (fst-italic)</p>
+    <p class="text-black">text-black</p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 정렬 --&gt;</span>
+.text-left | .text-center | .text-right | .text-justify
+
+<span class="code-comment">&lt;!-- 변환 --&gt;</span>
+.text-uppercase | .text-lowercase | .text-capitalize
+
+<span class="code-comment">&lt;!-- 굵기 --&gt;</span>
+.font-light | .font-regular | .font-medium | .font-semibold | .font-bold
+
+<span class="code-comment">&lt;!-- 말줄임 --&gt;</span>
+.text-ellipsis | .text-ellipsis-2 | .text-ellipsis-3</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-display" class="doc-toc__link is-active">Display</a></li>
+    <li class="doc-toc__item"><a href="#s-headings" class="doc-toc__link">Headings</a></li>
+    <li class="doc-toc__item"><a href="#s-body" class="doc-toc__link">Body &amp; Lead</a></li>
+    <li class="doc-toc__item"><a href="#s-inline" class="doc-toc__link">인라인 요소</a></li>
+    <li class="doc-toc__item"><a href="#s-colors" class="doc-toc__link">텍스트 색상</a></li>
+    <li class="doc-toc__item"><a href="#s-blockquote" class="doc-toc__link">인용문</a></li>
+    <li class="doc-toc__item"><a href="#s-lists" class="doc-toc__link">목록</a></li>
+    <li class="doc-toc__item"><a href="#s-dl" class="doc-toc__link">설명 목록</a></li>
+    <li class="doc-toc__item"><a href="#s-utils" class="doc-toc__link">유틸리티</a></li>
+  </ul>
+</aside>
+</div>

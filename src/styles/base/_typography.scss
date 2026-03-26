@@ -1,0 +1,1247 @@
+// ============================================
+// IMCAT UI - Typography
+// 타이포그래피 기본 스타일
+// ============================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+/// 기본 타이포그래피 스타일
+/// @group base
+
+// ============================================
+// Body 기본 스타일
+// ============================================
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-base;
+  color: var(--text-primary, #{$text-primary});
+  background-color: var(--bg-primary, #{$bg-primary});
+  letter-spacing: $letter-spacing-normal;
+}
+
+// ============================================
+// Display 헤딩 (큰 제목용)
+// ============================================
+
+.display-1 {
+  font-size: $font-size-display1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-8;
+}
+
+.display-2 {
+  font-size: $font-size-display2;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-6;
+}
+
+.display-3 {
+  font-size: $font-size-display3;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-6;
+}
+
+.display-4 {
+  font-size: $font-size-display4;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-5;
+}
+
+.display-5 {
+  font-size: 1.5rem;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-4;
+}
+
+.display-6 {
+  font-size: 1.25rem;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--text-dark, #{$text-primary});
+  margin-bottom: $space-4;
+}
+
+// ============================================
+// 제목 스타일 (H1-H6)
+// ============================================
+
+h1, .h1 {
+  @include typography('h1');
+  margin-bottom: $space-5;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-bold;
+}
+
+h2, .h2 {
+  @include typography('h2');
+  margin-bottom: $space-4;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-bold;
+}
+
+h3, .h3 {
+  @include typography('h3');
+  margin-bottom: $space-4;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-semibold;
+}
+
+h4, .h4 {
+  @include typography('h4');
+  margin-bottom: $space-3;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-semibold;
+}
+
+h5, .h5 {
+  @include typography('h5');
+  margin-bottom: $space-3;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-medium;
+}
+
+h6, .h6 {
+  @include typography('h6');
+  margin-bottom: $space-2;
+  color: var(--text-dark, #{$text-primary});
+  font-weight: $font-weight-medium;
+}
+
+// ============================================
+// 본문 텍스트
+// ============================================
+
+p {
+  margin-bottom: $space-3;
+  color: var(--text-primary, #{$text-primary});
+  line-height: $line-height-relaxed;
+  font-size: $font-size-body1;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Body 변형
+.body1 {
+  @include typography('body1');
+}
+
+.body2 {
+  @include typography('body2');
+}
+
+// 캡션 (작은 텍스트)
+.caption {
+  font-size: $font-size-caption;
+  line-height: $line-height-relaxed;
+  color: var(--text-secondary, #{$text-secondary});
+}
+
+// 오버라인 (대문자 소형 텍스트)
+.overline {
+  font-size: 0.6875rem;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: $line-height-normal;
+  color: var(--text-secondary, #{$text-secondary});
+}
+
+// 리드 (큰 도입 문단)
+.lead {
+  font-size: 1.125rem;
+  font-weight: $font-weight-light;
+  line-height: $line-height-relaxed;
+  color: var(--text-primary, #{$text-primary});
+}
+
+// ============================================
+// 인라인 텍스트 요소
+// ============================================
+
+strong, b {
+  font-weight: $font-weight-bold;
+}
+
+em, i {
+  font-style: italic;
+}
+
+small {
+  font-size: $font-size-caption;
+}
+
+mark {
+  background-color: rgba($warning, 0.2);
+  padding: 0 0.2em;
+  border-radius: $radius-sm;
+}
+
+code {
+  font-family: $font-family-mono;
+  font-size: 0.875em;
+  background-color: var(--bg-secondary, #{$bg-secondary});
+  padding: 0.2em 0.4em;
+  border-radius: $radius-sm;
+  border: 1px solid var(--border-light, #{$border-light});
+}
+
+pre {
+  font-family: $font-family-mono;
+  font-size: $font-size-body2;
+  background-color: var(--bg-secondary, #{$bg-secondary});
+  padding: $space-4;
+  border-radius: $radius-md;
+  border: 1px solid var(--border-light, #{$border-light});
+  overflow-x: auto;
+  margin-bottom: $space-4;
+  
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+// ============================================
+// 인용구
+// ============================================
+
+blockquote {
+  margin: $space-6 0;
+  padding-left: $space-6;
+  border-left: 4px solid var(--primary-color, #{$primary});
+  color: var(--text-secondary, #{$text-secondary});
+  font-style: italic;
+  
+  p {
+    margin-bottom: $space-2;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  cite {
+    display: block;
+    margin-top: $space-2;
+    font-size: $font-size-body2;
+    font-style: normal;
+    
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// ============================================
+// 링크
+// ============================================
+
+a {
+  color: var(--primary-color, #{$primary});
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+  
+  &:hover {
+    color: var(--primary-color, #{$primary-700});
+    text-decoration: underline;
+  }
+  
+  &:active {
+    color: var(--primary-color, #{$primary-800});
+  }
+}
+
+// ============================================
+// 리스트
+// ============================================
+
+ul, ol {
+  margin-bottom: $space-4;
+  padding-left: $space-6;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+ul {
+  list-style-type: disc;
+  
+  ul {
+    list-style-type: circle;
+    
+    ul {
+      list-style-type: square;
+    }
+  }
+}
+
+ol {
+  list-style-type: decimal;
+  
+  ol {
+    list-style-type: lower-alpha;
+    
+    ol {
+      list-style-type: lower-roman;
+    }
+  }
+}
+
+
+// 설명 리스트
+dl {
+  margin-bottom: $space-4;
+}
+
+dt {
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-1;
+}
+
+dd {
+  margin-left: $space-6;
+  margin-bottom: $space-3;
+  color: var(--text-secondary, #{$text-secondary});
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// 구분선
+// ============================================
+
+hr {
+  border: none;
+  border-top: 1px solid var(--divider-color, #{$divider-color});
+  margin: $space-8 0;
+}
+
+// ============================================
+// 유틸리티 클래스
+// ============================================
+
+// 텍스트 정렬
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+// 텍스트 변환
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+// 폰트 굵기
+.font-light {
+  font-weight: $font-weight-light !important;
+}
+
+.font-regular {
+  font-weight: $font-weight-regular !important;
+}
+
+.font-medium {
+  font-weight: $font-weight-medium !important;
+}
+
+.font-semibold {
+  font-weight: $font-weight-semibold !important;
+}
+
+.font-bold {
+  font-weight: $font-weight-bold !important;
+}
+
+// 폰트 스타일
+.font-italic {
+  font-style: italic !important;
+}
+
+.font-normal {
+  font-style: normal !important;
+}
+
+// 텍스트 색상
+.text-dark {
+  color: var(--text-dark, #{$text-primary}) !important;
+}
+
+.text-primary {
+  color: var(--text-primary, #{$text-primary}) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary, #{$text-secondary}) !important;
+}
+
+.text-muted {
+  color: var(--text-secondary, #{$text-secondary}) !important;
+}
+
+.text-disabled {
+  color: var(--text-disabled, #{$text-disabled}) !important;
+}
+
+.text-success {
+  color: var(--success-color, #{$success}) !important;
+}
+
+.text-danger {
+  color: var(--danger-color, #{$danger}) !important;
+}
+
+.text-warning {
+  color: var(--warning-color, #{$warning}) !important;
+}
+
+.text-info {
+  color: var(--info-color, #{$info}) !important;
+}
+
+// 텍스트 말줄임
+.text-ellipsis {
+  @include text-ellipsis;
+}
+
+.text-ellipsis-2 {
+  @include text-ellipsis-multi(2);
+}
+
+.text-ellipsis-3 {
+  @include text-ellipsis-multi(3);
+}
+
+// 줄 높이
+.line-height-tight {
+  line-height: $line-height-tight !important;
+}
+
+.line-height-normal {
+  line-height: $line-height-base !important;
+}
+
+.line-height-relaxed {
+  line-height: $line-height-relaxed !important;
+}
+
+// 글자 간격
+.letter-spacing-tight {
+  letter-spacing: $letter-spacing-tight !important;
+}
+
+.letter-spacing-normal {
+  letter-spacing: $letter-spacing-normal !important;
+}
+
+.letter-spacing-wide {
+  letter-spacing: $letter-spacing-wide !important;
+}
+
+// 단어 줄바꿈
+.word-break {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.word-break-all {
+  word-break: break-all !important;
+}
+
+// 공백 처리
+.whitespace-normal {
+  white-space: normal !important;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap !important;
+}
+
+.whitespace-pre {
+  white-space: pre !important;
+}
+
+.whitespace-pre-wrap {
+  white-space: pre-wrap !important;
+}
+
+// 텍스트 장식
+.text-underline {
+  text-decoration: underline !important;
+}
+
+.text-line-through {
+  text-decoration: line-through !important;
+}
+
+.text-no-underline {
+  text-decoration: none !important;
+}
+
+// ============================================
+// Display 유틸리티 (Bootstrap 호환)
+// ============================================
+
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-grid { display: grid !important; }
+
+// Flex 유틸리티
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+.flex-fill { flex: 1 1 auto !important; }
+.flex-grow-0 { flex-grow: 0 !important; }
+.flex-grow-1 { flex-grow: 1 !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-center { justify-content: center !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-around { justify-content: space-around !important; }
+
+.align-items-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+.align-items-center { align-items: center !important; }
+.align-items-stretch { align-items: stretch !important; }
+.align-items-baseline { align-items: baseline !important; }
+
+.align-self-start { align-self: flex-start !important; }
+.align-self-end { align-self: flex-end !important; }
+.align-self-center { align-self: center !important; }
+
+.gap-0 { gap: 0 !important; }
+.gap-1 { gap: 0.25rem !important; }
+.gap-2 { gap: 0.5rem !important; }
+.gap-3 { gap: 1rem !important; }
+.gap-4 { gap: 1.5rem !important; }
+.gap-5 { gap: 3rem !important; }
+
+// ============================================
+// Overflow 유틸리티
+// ============================================
+
+.overflow-auto { overflow: auto !important; }
+.overflow-hidden { overflow: hidden !important; }
+.overflow-visible { overflow: visible !important; }
+.overflow-scroll { overflow: scroll !important; }
+.overflow-x-auto { overflow-x: auto !important; }
+.overflow-y-auto { overflow-y: auto !important; }
+
+// ============================================
+// Position 유틸리티
+// ============================================
+
+.position-static { position: static !important; }
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+.position-sticky { position: sticky !important; }
+
+// ============================================
+// Visibility 유틸리티
+// ============================================
+
+.visible { visibility: visible !important; }
+.invisible { visibility: hidden !important; }
+
+// ============================================
+// Width / Height 유틸리티
+// ============================================
+
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+.w-auto { width: auto !important; }
+
+.h-100 { height: 100% !important; }
+.h-auto { height: auto !important; }
+.mw-100 { max-width: 100% !important; }
+.mh-100 { max-height: 100% !important; }
+
+// ============================================
+// 간격 유틸리티 (p-*, m-*)
+// ============================================
+
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+.m-auto { margin: auto !important; }
+
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+.mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+.mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+.mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+.mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+.my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+.my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.ms-0 { margin-left: 0 !important; }
+.ms-1 { margin-left: 0.25rem !important; }
+.ms-2 { margin-left: 0.5rem !important; }
+.ms-3 { margin-left: 1rem !important; }
+.ms-4 { margin-left: 1.5rem !important; }
+.ms-5 { margin-left: 3rem !important; }
+.ms-auto { margin-left: auto !important; }
+.me-0 { margin-right: 0 !important; }
+.me-1 { margin-right: 0.25rem !important; }
+.me-2 { margin-right: 0.5rem !important; }
+.me-3 { margin-right: 1rem !important; }
+.me-4 { margin-right: 1.5rem !important; }
+.me-5 { margin-right: 3rem !important; }
+.me-auto { margin-right: auto !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.25rem !important; }
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+
+.px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+.px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+.px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+.px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+.py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+.py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+.py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+// 방향별 패딩 (pt, pb, ps, pe)
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: 0.25rem !important; }
+.pt-2 { padding-top: 0.5rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.pt-4 { padding-top: 1.5rem !important; }
+.pt-5 { padding-top: 3rem !important; }
+
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: 0.25rem !important; }
+.pb-2 { padding-bottom: 0.5rem !important; }
+.pb-3 { padding-bottom: 1rem !important; }
+.pb-4 { padding-bottom: 1.5rem !important; }
+.pb-5 { padding-bottom: 3rem !important; }
+
+.ps-0 { padding-left: 0 !important; }
+.ps-1 { padding-left: 0.25rem !important; }
+.ps-2 { padding-left: 0.5rem !important; }
+.ps-3 { padding-left: 1rem !important; }
+.ps-4 { padding-left: 1.5rem !important; }
+.ps-5 { padding-left: 3rem !important; }
+
+.pe-0 { padding-right: 0 !important; }
+.pe-1 { padding-right: 0.25rem !important; }
+.pe-2 { padding-right: 0.5rem !important; }
+.pe-3 { padding-right: 1rem !important; }
+.pe-4 { padding-right: 1.5rem !important; }
+.pe-5 { padding-right: 3rem !important; }
+
+// ============================================
+// Border 유틸리티
+// ============================================
+
+.border { border: 1px solid var(--border-color, #{$border-color}) !important; }
+.border-0 { border: 0 !important; }
+.border-top { border-top: 1px solid var(--border-color, #{$border-color}) !important; }
+.border-bottom { border-bottom: 1px solid var(--border-color, #{$border-color}) !important; }
+.rounded { border-radius: $radius-lg !important; }
+.rounded-0 { border-radius: 0 !important; }
+.rounded-circle { border-radius: 50% !important; }
+.rounded-pill { border-radius: 9999px !important; }
+
+// ============================================
+// Shadow 유틸리티
+// ============================================
+
+.shadow-none { box-shadow: $shadow-none !important; }
+.shadow-sm { box-shadow: $shadow-sm !important; }
+.shadow { box-shadow: $shadow-default !important; }
+.shadow-lg { box-shadow: $shadow-lg !important; }
+
+// ============================================
+// 배경색 유틸리티 (Bootstrap/Ubold 호환)
+// ============================================
+
+.bg-primary { background-color: var(--primary, #{$primary}) !important; }
+.bg-success { background-color: $success !important; }
+.bg-info { background-color: $info !important; }
+.bg-warning { background-color: $warning !important; }
+.bg-danger { background-color: $danger !important; }
+.bg-secondary { background-color: #6c757d !important; }
+.bg-dark { background-color: #343a40 !important; }
+.bg-light { background-color: #f8f9fa !important; }
+.bg-white { background-color: #ffffff !important; }
+.bg-transparent { background-color: transparent !important; }
+
+// ============================================
+// Color & Background (text-bg-* Ubold 참조)
+// ============================================
+
+.text-bg-primary   { background-color: var(--primary, #{$primary}) !important; color: #fff !important; }
+.text-bg-secondary { background-color: #6c757d !important; color: #fff !important; }
+.text-bg-success   { background-color: $success !important; color: #fff !important; }
+.text-bg-danger    { background-color: $danger !important; color: #fff !important; }
+.text-bg-warning   { background-color: $warning !important; color: #212529 !important; }
+.text-bg-info      { background-color: $info !important; color: #fff !important; }
+.text-bg-light     { background-color: #f8f9fa !important; color: #212529 !important; }
+.text-bg-dark      { background-color: #212529 !important; color: #fff !important; }
+
+// ============================================
+// Background Opacity (Ubold 참조)
+// ============================================
+
+.bg-opacity-75 { --bg-opacity: 0.75; }
+.bg-opacity-50 { --bg-opacity: 0.50; }
+.bg-opacity-25 { --bg-opacity: 0.25; }
+.bg-opacity-10 { --bg-opacity: 0.10; }
+
+.bg-primary[class*='bg-opacity-'] { background-color: rgba($primary, var(--bg-opacity, 1)) !important; }
+.bg-success[class*='bg-opacity-'] { background-color: rgba($success, var(--bg-opacity, 1)) !important; }
+.bg-info[class*='bg-opacity-']    { background-color: rgba($info, var(--bg-opacity, 1)) !important; }
+.bg-warning[class*='bg-opacity-'] { background-color: rgba($warning, var(--bg-opacity, 1)) !important; }
+.bg-danger[class*='bg-opacity-']  { background-color: rgba($danger, var(--bg-opacity, 1)) !important; }
+.bg-dark[class*='bg-opacity-']    { background-color: rgba(#343a40, var(--bg-opacity, 1)) !important; }
+
+// ============================================
+// Text Opacity (Ubold 참조)
+// ============================================
+
+.text-opacity-75 { --text-opacity: 0.75; }
+.text-opacity-50 { --text-opacity: 0.50; }
+.text-opacity-25 { --text-opacity: 0.25; }
+
+// ============================================
+// Opacity 유틸리티 (Ubold 참조)
+// ============================================
+
+.opacity-100 { opacity: 1 !important; }
+.opacity-75  { opacity: 0.75 !important; }
+.opacity-50  { opacity: 0.5 !important; }
+.opacity-25  { opacity: 0.25 !important; }
+.opacity-0   { opacity: 0 !important; }
+
+// ============================================
+// 추가 텍스트 색상 유틸리티
+// ============================================
+
+.text-white { color: #ffffff !important; }
+.text-light { color: #f8f9fa !important; }
+.text-body { color: var(--text-primary, #{$text-primary}) !important; }
+
+// ============================================
+// Bootstrap 호환 별칭 — 폰트 굵기
+// ============================================
+
+.fw-light    { font-weight: $font-weight-light !important; }
+.fw-normal   { font-weight: $font-weight-regular !important; }
+.fw-medium   { font-weight: $font-weight-medium !important; }
+.fw-semibold { font-weight: $font-weight-semibold !important; }
+.fw-bold     { font-weight: $font-weight-bold !important; }
+.fst-italic  { font-style: italic !important; }
+.fst-normal  { font-style: normal !important; }
+
+// ============================================
+// Bootstrap 호환 별칭 — 폰트 크기
+// ============================================
+
+.fs-1 { font-size: 2.5rem !important; }
+.fs-2 { font-size: 2rem !important; }
+.fs-3 { font-size: 1.75rem !important; }
+.fs-4 { font-size: 1.5rem !important; }
+.fs-5 { font-size: 1.25rem !important; }
+.fs-6 { font-size: 1rem !important; }
+.fs-sm  { font-size: 0.875rem !important; }
+.fs-xs  { font-size: 0.75rem !important; }
+.fs-lg  { font-size: 1.125rem !important; }
+.fs-xl  { font-size: 1.25rem !important; }
+.fs-xxl { font-size: 1.5rem !important; }
+
+// ============================================
+// Bootstrap 호환 별칭 — 줄 높이
+// ============================================
+
+.lh-1    { line-height: 1 !important; }
+.lh-sm   { line-height: 1.25 !important; }
+.lh-base { line-height: $line-height-base !important; }
+.lh-lg   { line-height: 2 !important; }
+
+// ============================================
+// Bootstrap 호환 별칭 — 텍스트
+// ============================================
+
+.text-start { text-align: left !important; }
+.text-end   { text-align: right !important; }
+.text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.text-wrap   { white-space: normal !important; }
+.text-nowrap { white-space: nowrap !important; }
+.text-break  { word-break: break-word !important; overflow-wrap: break-word !important; }
+.text-decoration-none      { text-decoration: none !important; }
+.text-decoration-underline { text-decoration: underline !important; }
+.text-decoration-line-through { text-decoration: line-through !important; }
+
+// ============================================
+// Border 추가 (Ubold 참조)
+// ============================================
+
+.border-start  { border-left: 1px solid var(--border-color, #{$border-color}) !important; }
+.border-end    { border-right: 1px solid var(--border-color, #{$border-color}) !important; }
+.border-dashed { border-style: dashed !important; }
+
+// Border Radius 방향별 (Ubold 참조)
+.rounded-top    { border-top-left-radius: $radius-lg !important; border-top-right-radius: $radius-lg !important; }
+.rounded-end    { border-top-right-radius: $radius-lg !important; border-bottom-right-radius: $radius-lg !important; }
+.rounded-bottom { border-bottom-left-radius: $radius-lg !important; border-bottom-right-radius: $radius-lg !important; }
+.rounded-start  { border-top-left-radius: $radius-lg !important; border-bottom-left-radius: $radius-lg !important; }
+
+// Border Radius 크기별 (Ubold 참조)
+.rounded-1 { border-radius: 0.25rem !important; }
+.rounded-2 { border-radius: 0.375rem !important; }
+.rounded-3 { border-radius: 0.5rem !important; }
+.rounded-4 { border-radius: 1rem !important; }
+.rounded-5 { border-radius: 2rem !important; }
+
+// ============================================
+// Pointer Events (Ubold 참조)
+// ============================================
+
+.pe-none { pointer-events: none !important; }
+.pe-auto { pointer-events: auto !important; }
+
+// ============================================
+// User Select (Ubold 참조)
+// ============================================
+
+.user-select-all  { user-select: all !important; -webkit-user-select: all !important; }
+.user-select-auto { user-select: auto !important; -webkit-user-select: auto !important; }
+.user-select-none { user-select: none !important; -webkit-user-select: none !important; }
+
+// ============================================
+// Position 엣지 (Ubold 참조)
+// ============================================
+
+.top-0    { top: 0 !important; }
+.top-50   { top: 50% !important; }
+.top-100  { top: 100% !important; }
+.bottom-0   { bottom: 0 !important; }
+.bottom-50  { bottom: 50% !important; }
+.bottom-100 { bottom: 100% !important; }
+.start-0    { left: 0 !important; }
+.start-50   { left: 50% !important; }
+.start-100  { left: 100% !important; }
+.end-0      { right: 0 !important; }
+.end-50     { right: 50% !important; }
+.end-100    { right: 100% !important; }
+
+// Translate 유틸리티 (Ubold 참조)
+.translate-middle   { transform: translate(-50%, -50%) !important; }
+.translate-middle-x { transform: translateX(-50%) !important; }
+.translate-middle-y { transform: translateY(-50%) !important; }
+
+// ============================================
+// Height 추가 (Ubold 참조)
+// ============================================
+
+.h-25  { height: 25% !important; }
+.h-50  { height: 50% !important; }
+.h-75  { height: 75% !important; }
+
+// ============================================
+// Object Fit (Ubold 참조)
+// ============================================
+
+.object-fit-contain { object-fit: contain !important; }
+.object-fit-cover   { object-fit: cover !important; }
+.object-fit-fill    { object-fit: fill !important; }
+.object-fit-scale   { object-fit: scale-down !important; }
+.object-fit-none    { object-fit: none !important; }
+
+// ============================================
+// Z-index (Ubold 참조)
+// ============================================
+
+.z-n1 { z-index: -1 !important; }
+.z-0  { z-index: 0 !important; }
+.z-1  { z-index: 1 !important; }
+.z-2  { z-index: 2 !important; }
+.z-3  { z-index: 3 !important; }
+
+// ============================================
+// Flex 추가 (Ubold 참조)
+// ============================================
+
+.flex-row-reverse    { flex-direction: row-reverse !important; }
+.flex-column-reverse { flex-direction: column-reverse !important; }
+.justify-content-evenly { justify-content: space-evenly !important; }
+.align-self-stretch  { align-self: stretch !important; }
+
+// ============================================
+// 범용 닫기 버튼 (Bootstrap/Ubold 호환)
+// ============================================
+
+.btn-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  font-size: 1rem;
+  line-height: 1;
+  transition: opacity 150ms ease;
+
+  &::before {
+    content: '\00d7';
+    font-size: 1.25rem;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// CSS Grid 유틸리티
+// ============================================
+
+.grid {
+  display: grid !important;
+}
+
+.grid-cols-1  { grid-template-columns: repeat(1, 1fr) !important; }
+.grid-cols-2  { grid-template-columns: repeat(2, 1fr) !important; }
+.grid-cols-3  { grid-template-columns: repeat(3, 1fr) !important; }
+.grid-cols-4  { grid-template-columns: repeat(4, 1fr) !important; }
+.grid-cols-5  { grid-template-columns: repeat(5, 1fr) !important; }
+.grid-cols-6  { grid-template-columns: repeat(6, 1fr) !important; }
+.grid-cols-7  { grid-template-columns: repeat(7, 1fr) !important; }
+.grid-cols-8  { grid-template-columns: repeat(8, 1fr) !important; }
+.grid-cols-9  { grid-template-columns: repeat(9, 1fr) !important; }
+.grid-cols-10 { grid-template-columns: repeat(10, 1fr) !important; }
+.grid-cols-11 { grid-template-columns: repeat(11, 1fr) !important; }
+.grid-cols-12 { grid-template-columns: repeat(12, 1fr) !important; }
+
+.col-span-1  { grid-column: span 1 !important; }
+.col-span-2  { grid-column: span 2 !important; }
+.col-span-3  { grid-column: span 3 !important; }
+.col-span-4  { grid-column: span 4 !important; }
+.col-span-5  { grid-column: span 5 !important; }
+.col-span-6  { grid-column: span 6 !important; }
+.col-span-7  { grid-column: span 7 !important; }
+.col-span-8  { grid-column: span 8 !important; }
+.col-span-9  { grid-column: span 9 !important; }
+.col-span-10 { grid-column: span 10 !important; }
+.col-span-11 { grid-column: span 11 !important; }
+.col-span-12 { grid-column: span 12 !important; }
+.col-span-full { grid-column: 1 / -1 !important; }
+
+// Grid Row 유틸리티
+.grid-rows-1 { grid-template-rows: repeat(1, minmax(0, 1fr)) !important; }
+.grid-rows-2 { grid-template-rows: repeat(2, minmax(0, 1fr)) !important; }
+.grid-rows-3 { grid-template-rows: repeat(3, minmax(0, 1fr)) !important; }
+.grid-rows-4 { grid-template-rows: repeat(4, minmax(0, 1fr)) !important; }
+.grid-rows-5 { grid-template-rows: repeat(5, minmax(0, 1fr)) !important; }
+.grid-rows-6 { grid-template-rows: repeat(6, minmax(0, 1fr)) !important; }
+
+.row-span-1    { grid-row: span 1 !important; }
+.row-span-2    { grid-row: span 2 !important; }
+.row-span-3    { grid-row: span 3 !important; }
+.row-span-4    { grid-row: span 4 !important; }
+.row-span-5    { grid-row: span 5 !important; }
+.row-span-6    { grid-row: span 6 !important; }
+.row-span-full { grid-row: 1 / -1 !important; }
+
+// ============================================
+// Border 색상 유틸리티
+// ============================================
+
+.border-primary { border-color: var(--primary, #{$primary}) !important; }
+.border-success { border-color: $success !important; }
+.border-info    { border-color: $info !important; }
+.border-warning { border-color: $warning !important; }
+.border-danger  { border-color: $danger !important; }
+.border-secondary { border-color: #6c757d !important; }
+.border-light   { border-color: #dee2e6 !important; }
+.border-dark    { border-color: #343a40 !important; }
+.border-white   { border-color: #ffffff !important; }
+
+// Border 두께
+.border-1 { border-width: 1px !important; }
+.border-2 { border-width: 2px !important; }
+.border-3 { border-width: 3px !important; }
+.border-4 { border-width: 4px !important; }
+.border-5 { border-width: 5px !important; }
+
+// ============================================
+// Shadow 확장 (변수 활용)
+// ============================================
+
+.shadow-md  { box-shadow: $shadow-md !important; }
+.shadow-xl  { box-shadow: $shadow-xl !important; }
+.shadow-2xl { box-shadow: $shadow-2xl !important; }
+
+// ============================================
+// Container (반응형 레이아웃)
+// ============================================
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $layout-container-padding-mobile;
+  padding-right: $layout-container-padding-mobile;
+
+  @media (min-width: $layout-breakpoints-sm) {
+    max-width: $layout-container-max-width-sm;
+    padding-left: $layout-container-padding-tablet;
+    padding-right: $layout-container-padding-tablet;
+  }
+  @media (min-width: $layout-breakpoints-md) { max-width: $layout-container-max-width-md; }
+  @media (min-width: $layout-breakpoints-lg) {
+    max-width: $layout-container-max-width-lg;
+    padding-left: $layout-container-padding-desktop;
+    padding-right: $layout-container-padding-desktop;
+  }
+  @media (min-width: $layout-breakpoints-xl)  { max-width: $layout-container-max-width-xl; }
+  @media (min-width: $layout-breakpoints-2xl) { max-width: $layout-container-max-width-2xl; }
+}
+
+.container-fluid {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $layout-container-padding-mobile;
+  padding-right: $layout-container-padding-mobile;
+}
+
+.container-sm  { @extend .container; max-width: $layout-container-max-width-sm; }
+.container-md  { @extend .container; max-width: $layout-container-max-width-md; }
+.container-lg  { @extend .container; max-width: $layout-container-max-width-lg; }
+.container-xl  { @extend .container; max-width: $layout-container-max-width-xl; }
+
+// ============================================
+// Viewport 크기 유틸리티
+// ============================================
+
+.vw-100     { width: 100vw !important; }
+.vh-100     { height: 100vh !important; }
+.min-vw-100 { min-width: 100vw !important; }
+.min-vh-100 { min-height: 100vh !important; }
+.min-w-0    { min-width: 0 !important; }
+.min-h-0    { min-height: 0 !important; }
+
+// ============================================
+// Flex 확장
+// ============================================
+
+.flex-shrink-1 { flex-shrink: 1 !important; }
+
+.order-0     { order: 0 !important; }
+.order-1     { order: 1 !important; }
+.order-2     { order: 2 !important; }
+.order-3     { order: 3 !important; }
+.order-4     { order: 4 !important; }
+.order-5     { order: 5 !important; }
+.order-first { order: -1 !important; }
+.order-last  { order: 999 !important; }
+
+// ============================================
+// 접근성 유틸리티
+// ============================================
+
+.visually-hidden,
+.sr-only {
+  @include visually-hidden;
+}
+
+.visually-hidden-focusable {
+  @include visually-hidden;
+
+  &:focus,
+  &:focus-within {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: inherit !important;
+    margin: inherit !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    white-space: normal !important;
+  }
+}
+
+// ============================================
+// Cursor 유틸리티
+// ============================================
+
+.cursor-auto        { cursor: auto !important; }
+.cursor-default     { cursor: default !important; }
+.cursor-pointer     { cursor: pointer !important; }
+.cursor-wait        { cursor: wait !important; }
+.cursor-text        { cursor: text !important; }
+.cursor-move        { cursor: move !important; }
+.cursor-not-allowed { cursor: not-allowed !important; }
+.cursor-grab        { cursor: grab !important; }
+.cursor-grabbing    { cursor: grabbing !important; }
+
+// ============================================
+// Float 유틸리티
+// ============================================
+
+.float-start { float: left !important; }
+.float-end   { float: right !important; }
+.float-none  { float: none !important; }
+.clearfix {
+  @include clearfix;
+}
+
+// ============================================
+// Vertical Align 유틸리티
+// ============================================
+
+.align-baseline    { vertical-align: baseline !important; }
+.align-top         { vertical-align: top !important; }
+.align-middle      { vertical-align: middle !important; }
+.align-bottom      { vertical-align: bottom !important; }
+.align-text-top    { vertical-align: text-top !important; }
+.align-text-bottom { vertical-align: text-bottom !important; }
+
+// ============================================
+// Ratio (종횡비) 유틸리티
+// ============================================
+
+.ratio {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    display: block;
+    content: '';
+    padding-top: var(--ratio-y, 100%);
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ratio-1x1  { --ratio-y: 100%; }
+.ratio-4x3  { --ratio-y: 75%; }
+.ratio-16x9 { --ratio-y: 56.25%; }
+.ratio-21x9 { --ratio-y: 42.857%; }
+
+// ============================================
+// Transition 유틸리티
+// ============================================
+
+.transition-all  { transition: all $duration-base $ease-out !important; }
+.transition-none { transition: none !important; }
+
+// ============================================
+// 추가 텍스트 색상
+// ============================================
+
+.text-black { color: #000000 !important; }
+
+// ============================================
+// Stretched Link (카드 등에서 전체 클릭 영역)
+// ============================================
+
+.stretched-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  content: '';
+}

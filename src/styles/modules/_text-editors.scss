@@ -1,0 +1,428 @@
+// ============================================
+// Text Editors Module SCSS
+// RichTextEditor, MarkdownEditor, TextareaAutosize
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// 공통 에디터 툴바 버튼 스타일
+// ============================================
+%editor-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--text-secondary, $text-secondary);
+  cursor: pointer;
+  transition: background-color $duration-fast $ease-in-out, color $duration-fast $ease-in-out;
+
+  .material-icons-outlined { font-size: 1.125rem; }
+
+  &:hover {
+    background: var(--bg-tertiary, $bg-tertiary);
+    color: var(--text-primary, $text-primary);
+  }
+
+  &.is-active {
+    background: var(--primary, $primary);
+    color: #fff;
+  }
+}
+
+%editor-separator {
+  display: inline-block;
+  width: 1px;
+  height: 1.25rem;
+  background: var(--border-color, $border-color);
+  margin: 0 0.25rem;
+  vertical-align: middle;
+}
+
+%editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-color, $border-color);
+  background: var(--bg-secondary, $bg-secondary);
+}
+
+// ============================================
+// RichTextEditor
+// ============================================
+.rich-text-editor {
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: 0.375rem;
+  background: var(--bg-primary, $bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  // 포커스 상태
+  &.is-focused {
+    border-color: var(--primary, $primary);
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  &__toolbar {
+    @extend %editor-toolbar;
+  }
+
+  &__btn {
+    @extend %editor-btn;
+  }
+
+  &__separator {
+    @extend %editor-separator;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    outline: none;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-primary, $text-primary);
+    overflow-y: auto;
+
+    // placeholder
+    &:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-disabled, $text-disabled);
+      pointer-events: none;
+    }
+
+    // 인라인 콘텐츠 스타일
+    p { margin: 0 0 0.75em; }
+    h1, h2, h3 { font-weight: 600; margin: 1em 0 0.5em; }
+    h1 { font-size: 1.75em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.25em; }
+    blockquote {
+      border-left: 3px solid var(--primary, $primary);
+      padding-left: 1rem;
+      color: var(--text-secondary, $text-secondary);
+      margin: 0.75em 0;
+    }
+    code {
+      background: var(--bg-tertiary, $bg-tertiary);
+      border-radius: 3px;
+      padding: 0.125em 0.375em;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.875em;
+      color: var(--danger, $danger);
+    }
+    pre {
+      background: var(--bg-tertiary, $bg-tertiary);
+      border-radius: 0.375rem;
+      padding: 1rem;
+      overflow-x: auto;
+      code { background: none; padding: 0; color: inherit; }
+    }
+    img { max-width: 100%; border-radius: 0.375rem; }
+    a { color: var(--primary, $primary); text-decoration: underline; }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color, $border-color);
+      margin: 1em 0;
+    }
+    ul, ol { padding-left: 1.5em; margin: 0.5em 0; }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.375rem 0.75rem;
+    border-top: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+    font-size: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+  }
+}
+
+// ============================================
+// MarkdownEditor
+// ============================================
+.markdown-editor {
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: 0.375rem;
+  background: var(--bg-primary, $bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &__toolbar {
+    @extend %editor-toolbar;
+  }
+
+  &__btn {
+    @extend %editor-btn;
+  }
+
+  &__separator {
+    @extend %editor-separator;
+  }
+
+  // 탭 모드 (편집/미리보기 전환)
+  &__tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &__tab {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: transparent;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color $duration-fast $ease-in-out, border-color $duration-fast $ease-in-out;
+
+    &:hover {
+      color: var(--text-primary, $text-primary);
+    }
+
+    &.is-active {
+      color: var(--primary, $primary);
+      border-bottom-color: var(--primary, $primary);
+    }
+  }
+
+  // 에디터 본문
+  &__body {
+    display: flex;
+    flex: 1;
+  }
+
+  &__pane {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    &--preview {
+      border-left: 1px solid var(--border-color, $border-color);
+      overflow-y: auto;
+    }
+  }
+
+  // 분할 뷰
+  &--split &__body {
+    display: flex;
+  }
+
+  &--split &__pane {
+    flex: 1;
+  }
+
+  // 입력 textarea
+  &__input {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 0.875rem 1rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-primary, $text-primary);
+    background: transparent;
+    tab-size: 2;
+
+    &::placeholder {
+      color: var(--text-disabled, $text-disabled);
+    }
+  }
+
+  // 마크다운 프리뷰
+  &__preview {
+    padding: 0.875rem 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-primary, $text-primary);
+  }
+}
+
+// ============================================
+// 마크다운 렌더링 콘텐츠 (.markdown-content)
+// ============================================
+.markdown-content {
+  h1, h2, h3, h4 { font-weight: 600; margin: 1em 0 0.5em; }
+  h1 { font-size: 1.75em; border-bottom: 1px solid var(--border-color, $border-color); padding-bottom: 0.3em; }
+  h2 { font-size: 1.5em; border-bottom: 1px solid var(--border-color, $border-color); padding-bottom: 0.3em; }
+  h3 { font-size: 1.25em; }
+
+  p { margin: 0 0 0.75em; }
+
+  a { color: var(--primary, $primary); text-decoration: underline; }
+
+  strong { font-weight: 600; }
+  del { text-decoration: line-through; color: var(--text-tertiary, $text-tertiary); }
+
+  blockquote {
+    border-left: 3px solid var(--primary, $primary);
+    padding: 0.25em 1rem;
+    color: var(--text-secondary, $text-secondary);
+    margin: 0.75em 0;
+    background: var(--bg-secondary, $bg-secondary);
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  code {
+    background: var(--bg-tertiary, $bg-tertiary);
+    border-radius: 3px;
+    padding: 0.125em 0.375em;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.875em;
+    color: var(--danger, $danger);
+  }
+
+  pre {
+    background: var(--bg-tertiary, $bg-tertiary);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 0.75em 0;
+
+    code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+  }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0.5em 0;
+  }
+
+  li { margin-bottom: 0.25em; }
+
+  img {
+    max-width: 100%;
+    border-radius: 0.375rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border-color, $border-color);
+    margin: 1.5em 0;
+  }
+
+  // 체크리스트
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.125rem 0;
+
+    input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--primary, $primary);
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75em 0;
+
+    th, td {
+      border: 1px solid var(--border-color, $border-color);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-secondary, $bg-secondary);
+      font-weight: 600;
+    }
+  }
+}
+
+// ============================================
+// TextareaAutosize
+// ============================================
+.textarea-autosize {
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: 0.375rem;
+  background: var(--bg-primary, $bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color $duration-fast $ease-in-out, box-shadow $duration-fast $ease-in-out;
+
+  // 포커스 상태
+  &.is-focused {
+    border-color: var(--primary, $primary);
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  // 툴바
+  &__toolbar {
+    @extend %editor-toolbar;
+  }
+
+  &__btn {
+    @extend %editor-btn;
+  }
+
+  &__separator {
+    @extend %editor-separator;
+  }
+
+  // 입력 textarea
+  &__input {
+    display: block;
+    width: 100%;
+    flex: 1;
+    padding: 0.625rem 0.75rem;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--text-primary, $text-primary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+
+    &::placeholder {
+      color: var(--text-disabled, $text-disabled);
+    }
+
+    &:disabled {
+      background: var(--bg-secondary, $bg-secondary);
+      color: var(--text-disabled, $text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // 하단 상태바
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.25rem 0.75rem;
+    border-top: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+    font-size: 0.75rem;
+    color: var(--text-tertiary, $text-tertiary);
+
+    &.is-over {
+      color: var(--danger, $danger);
+    }
+  }
+}

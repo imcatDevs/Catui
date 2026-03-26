@@ -1,0 +1,521 @@
+// ============================================
+// Lists Component SCSS
+// 목록 스타일 시스템
+// ============================================
+
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$list-item-padding: 0.75rem 1rem;
+$list-item-padding-sm: 0.5rem 0.75rem;
+$list-item-padding-lg: 1rem 1.25rem;
+$list-border-color: var(--border-color, $border-color);
+$list-border-radius: 8px;
+
+// ============================================
+// Base List
+// ============================================
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// ============================================
+// List Item
+// ============================================
+.list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: $list-item-padding;
+  color: var(--text-primary, $text-primary);
+  text-decoration: none;
+  transition: background 150ms ease-in-out;
+
+  // Clickable item
+  &[href],
+  &.list__item--clickable {
+    cursor: pointer;
+
+    &:hover {
+      background: var(--bg-secondary, $bg-secondary);
+    }
+
+    &:active {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  // Active state
+  &.is-active {
+    background: rgba($primary, 0.1);
+    color: var(--primary, $primary);
+  }
+
+  // Disabled state
+  &.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+// ============================================
+// List Item Parts
+// ============================================
+
+// Icon/Avatar
+.list__icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary, $bg-tertiary);
+  border-radius: 50%;
+  color: var(--text-secondary, $text-secondary);
+
+  i {
+    font-size: 1.25rem;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+// Content
+.list__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.list__title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-primary, $text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list__subtitle {
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, $text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Meta (right side)
+.list__meta {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--text-tertiary, $text-tertiary);
+  text-align: right;
+}
+
+// Actions
+.list__actions {
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+
+  .list__item:hover & {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// Variants
+// ============================================
+
+// Bordered
+.list--bordered {
+  border: 1px solid $list-border-color;
+  border-radius: $list-border-radius;
+  overflow: hidden;
+
+  .list__item {
+    border-bottom: 1px solid $list-border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Divided (lines between items)
+.list--divided {
+  .list__item {
+    border-bottom: 1px solid $list-border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Flush (no padding on sides)
+.list--flush {
+  .list__item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Hoverable
+.list--hoverable {
+  .list__item:hover {
+    background: var(--bg-secondary, $bg-secondary);
+  }
+}
+
+// ============================================
+// Sizes
+// ============================================
+
+// Small
+.list--sm {
+  .list__item {
+    padding: $list-item-padding-sm;
+    gap: 0.5rem;
+  }
+
+  .list__icon {
+    width: 2rem;
+    height: 2rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  .list__title {
+    font-size: 0.875rem;
+  }
+
+  .list__subtitle {
+    font-size: 0.75rem;
+  }
+}
+
+// Large
+.list--lg {
+  .list__item {
+    padding: $list-item-padding-lg;
+    gap: 1rem;
+  }
+
+  .list__icon {
+    width: 3rem;
+    height: 3rem;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  .list__title {
+    font-size: 1rem;
+  }
+}
+
+// ============================================
+// Inline List
+// ============================================
+.list--inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .list__item {
+    padding: 0;
+  }
+}
+
+// ============================================
+// Ordered/Numbered List
+// ============================================
+.list--numbered {
+  counter-reset: list-counter;
+
+  .list__item {
+    counter-increment: list-counter;
+
+    &::before {
+      content: counter(list-counter) ".";
+      flex-shrink: 0;
+      min-width: 1.5rem;
+      font-weight: 500;
+      color: var(--text-tertiary, $text-tertiary);
+    }
+  }
+}
+
+// ============================================
+// Bullet List
+// ============================================
+.list--bullet {
+  .list__item {
+    &::before {
+      content: '•';
+      flex-shrink: 0;
+      min-width: 1rem;
+      color: var(--text-tertiary, $text-tertiary);
+    }
+  }
+}
+
+// ============================================
+// Check List
+// ============================================
+.list--check {
+  .list__item {
+    &::before {
+      content: '✓';
+      flex-shrink: 0;
+      min-width: 1.25rem;
+      color: $success;
+      font-weight: 600;
+    }
+
+    &.is-unchecked::before {
+      content: '○';
+      color: var(--text-tertiary, $text-tertiary);
+    }
+  }
+}
+
+// ============================================
+// Description List
+// ============================================
+.dl {
+  margin: 0;
+
+  dt {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary, $text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  dd {
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    color: var(--text-primary, $text-primary);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Horizontal Description List
+.dl--horizontal {
+  display: grid;
+  grid-template-columns: minmax(120px, auto) 1fr;
+  gap: 0.5rem 1rem;
+
+  dt {
+    margin-bottom: 0;
+    text-align: right;
+  }
+
+  dd {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// List Group (Bootstrap/ubold 호환)
+// ============================================
+.list-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: $list-border-radius;
+}
+
+.list-group-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  color: var(--text-primary, $text-primary);
+  text-decoration: none;
+  background: var(--bg-primary, $bg-primary);
+  border: 1px solid $list-border-color;
+  font-size: 0.9375rem;
+
+  &:first-child {
+    border-radius: $list-border-radius $list-border-radius 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 $list-border-radius $list-border-radius;
+  }
+
+  + .list-group-item {
+    border-top-width: 0;
+  }
+
+  // Active
+  &.active {
+    z-index: 1;
+    background: var(--primary, $primary);
+    border-color: var(--primary, $primary);
+    color: #ffffff;
+  }
+
+  // Disabled
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    color: var(--text-tertiary, $text-tertiary);
+  }
+}
+
+// Action items (hover/click)
+.list-group-item-action {
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+
+  &:hover:not(.active):not(.disabled) {
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &:active:not(.active):not(.disabled) {
+    background: var(--bg-tertiary, $bg-tertiary);
+  }
+}
+
+// Flush (no outer borders/radius)
+.list-group-flush {
+  border-radius: 0;
+
+  > .list-group-item {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+
+    &:first-child { border-top: none; }
+    &:last-child { border-bottom: none; }
+  }
+}
+
+// Horizontal
+.list-group-horizontal {
+  flex-direction: row;
+
+  > .list-group-item {
+    &:first-child {
+      border-radius: $list-border-radius 0 0 $list-border-radius;
+    }
+
+    &:last-child {
+      border-radius: 0 $list-border-radius $list-border-radius 0;
+    }
+
+    + .list-group-item {
+      border-top-width: 1px;
+      border-left-width: 0;
+    }
+  }
+}
+
+// Contextual colors (ubold 스타일)
+.list-group-item-primary {
+  background: rgba($primary, 0.12);
+  color: var(--primary, $primary);
+  border-color: rgba($primary, 0.2);
+}
+
+.list-group-item-success {
+  background: rgba($success, 0.12);
+  color: $success;
+  border-color: rgba($success, 0.2);
+}
+
+.list-group-item-danger {
+  background: rgba($danger, 0.12);
+  color: $danger;
+  border-color: rgba($danger, 0.2);
+}
+
+.list-group-item-warning {
+  background: rgba($warning, 0.12);
+  color: color.adjust($warning, $lightness: -15%);
+  border-color: rgba($warning, 0.2);
+}
+
+.list-group-item-info {
+  background: rgba($info, 0.12);
+  color: $info;
+  border-color: rgba($info, 0.2);
+}
+
+.list-group-item-dark {
+  background: rgba(#343a40, 0.12);
+  color: #343a40;
+  border-color: rgba(#343a40, 0.2);
+}
+
+.list-group-item-light {
+  background: #f8f9fa;
+  color: #6c757d;
+  border-color: #dee2e6;
+}
+
+.list-group-item-secondary {
+  background: rgba(#6c757d, 0.12);
+  color: #6c757d;
+  border-color: rgba(#6c757d, 0.2);
+}
+
+// ============================================
+// List Group Numbered (ubold 스타일)
+// ============================================
+.list-group-numbered {
+  list-style-type: none;
+  counter-reset: section;
+
+  > .list-group-item {
+    &::before {
+      content: counters(section, ".") ". ";
+      counter-increment: section;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      min-width: 1.5rem;
+    }
+  }
+}
+
+// 배지 포함 리스트 (d-flex, justify-content-between 등은 _typography.scss 전역 유틸리티 사용)
+.list-group-item {
+  .badge {
+    flex-shrink: 0;
+  }
+}
+
+// list-group 내 checkbox/radio
+.list-group-item {
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+}

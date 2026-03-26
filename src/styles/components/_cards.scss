@@ -1,0 +1,671 @@
+// ============================================
+// Cards Component SCSS
+// Ubold ui-cards.html 참조 전면 재작성
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$card-padding: 1.25rem;
+$card-padding-sm: 1rem;
+$card-padding-lg: 1.5rem;
+$card-border-radius: 0.5rem;
+$card-border-color: var(--border-color, $border-color);
+$card-background: var(--bg-primary, $bg-primary);
+$card-shadow: $shadow-sm;
+$card-transition: 200ms ease-in-out;
+
+// ============================================
+// Base Card
+// ============================================
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background: $card-background;
+  border: 1px solid $card-border-color;
+  border-radius: $card-border-radius;
+  margin-bottom: 1.5rem;
+
+  // Link card (clickable)
+  &[href],
+  &.card--clickable {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color $card-transition, box-shadow $card-transition, transform $card-transition;
+
+    &:hover {
+      border-color: var(--primary, $primary);
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ============================================
+// BEM Card Parts (card__*)
+// ============================================
+
+// Header
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $card-padding;
+  border-bottom: 1px solid $card-border-color;
+
+  &--transparent { background: transparent; }
+  &--no-border { border-bottom: none; }
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, $text-primary);
+  flex-grow: 1;
+}
+
+.card__subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, $text-secondary);
+}
+
+.card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+// Body
+.card__body {
+  flex: 1 1 auto;
+  padding: $card-padding;
+
+  > :first-child { margin-top: 0; }
+  > :last-child { margin-bottom: 0; }
+}
+
+// Footer
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: $card-padding;
+  border-top: 1px solid $card-border-color;
+
+  &--transparent { background: transparent; }
+  &--no-border { border-top: none; }
+  &--between { justify-content: space-between; }
+  &--start { justify-content: flex-start; }
+}
+
+// Image
+.card__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease-in-out;
+  }
+
+  .card:hover & img { transform: scale(1.05); }
+
+  &--square { aspect-ratio: 1; }
+  &--portrait { aspect-ratio: 3 / 4; }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity $card-transition;
+
+    .card:hover & { opacity: 1; }
+  }
+}
+
+// ============================================
+// BEM Variants (card--*)
+// ============================================
+
+// Elevated (with shadow, no border)
+.card--elevated {
+  border: none;
+  box-shadow: $card-shadow;
+  transition: box-shadow $card-transition;
+
+  &:hover { box-shadow: $shadow-lg; }
+}
+
+// Flat (no border, no shadow, transparent)
+.card--flat {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+// Outlined (just border)
+.card--outlined {
+  box-shadow: none;
+}
+
+// Filled (no border, subtle bg)
+.card--filled {
+  border: none;
+  background: var(--bg-secondary, $bg-secondary);
+}
+
+// ============================================
+// BEM Semantic Colors (card--primary, etc.)
+// ============================================
+@each $name, $color in (
+  'primary': $primary,
+  'success': $success,
+  'warning': $warning,
+  'danger': $danger,
+  'info': $info
+) {
+  .card--#{$name} {
+    border-color: $color;
+
+    .card__header {
+      background: rgba($color, 0.08);
+      border-color: rgba($color, 0.15);
+    }
+  }
+}
+
+// ============================================
+// BEM Sizes (card--sm, card--lg)
+// ============================================
+.card--sm {
+  .card__header,
+  .card__body,
+  .card__footer { padding: $card-padding-sm; }
+  .card__title { font-size: 0.9375rem; }
+}
+
+.card--lg {
+  .card__header,
+  .card__body,
+  .card__footer { padding: $card-padding-lg; }
+  .card__title { font-size: 1.125rem; }
+}
+
+// ============================================
+// BEM Horizontal Card
+// ============================================
+.card--horizontal {
+  flex-direction: row;
+
+  .card__image {
+    width: 200px;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}
+
+// ============================================
+// Card Grid & Card List (레이아웃)
+// ============================================
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .card {
+    margin-bottom: 0;
+    flex-direction: row;
+
+    .card__image {
+      width: 120px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ============================================
+// Bootstrap 호환 클래스 (Ubold 스타일)
+// ============================================
+
+// card-body
+.card-body {
+  flex: 1 1 auto;
+  padding: $card-padding;
+
+  > :first-child { margin-top: 0; }
+  > :last-child { margin-bottom: 0; }
+}
+
+// card-header
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $card-padding;
+  border-bottom: 1px solid $card-border-color;
+  background: transparent;
+  font-weight: 600;
+  color: var(--text-primary, $text-primary);
+
+  &:first-child {
+    border-radius: $card-border-radius $card-border-radius 0 0;
+  }
+
+  // Sub Header 지원 (d-block으로 자식이 세로 배치)
+  &.d-block {
+    display: block;
+  }
+}
+
+// card-footer
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: $card-padding;
+  border-top: 1px solid $card-border-color;
+  background: transparent;
+  color: var(--text-secondary, $text-secondary);
+  font-size: 0.875rem;
+
+  &:last-child {
+    border-radius: 0 0 $card-border-radius $card-border-radius;
+  }
+}
+
+// card-title / card-subtitle / card-text / card-link
+.card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-primary, $text-primary);
+}
+
+.card-subtitle {
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, $text-secondary);
+}
+
+.card-text {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary, $text-secondary);
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.card-link {
+  color: var(--primary, $primary);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover { text-decoration: underline; }
+  + .card-link { margin-left: 1rem; }
+}
+
+// ============================================
+// Card Action Tools (Ubold 스타일)
+// ============================================
+.card-action {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  margin-left: auto;
+}
+
+.card-action-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.25rem;
+  color: var(--text-secondary, $text-secondary);
+  text-decoration: none;
+  transition: color $card-transition, background $card-transition;
+
+  &:hover {
+    color: var(--text-primary, $text-primary);
+    background: var(--bg-tertiary, $bg-tertiary);
+  }
+
+  i, .material-icons-outlined {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+}
+
+// ============================================
+// Card Images (Ubold 스타일)
+// ============================================
+.card-img-top {
+  width: 100%;
+  border-radius: calc($card-border-radius - 1px) calc($card-border-radius - 1px) 0 0;
+}
+
+.card-img-bottom {
+  width: 100%;
+  border-radius: 0 0 calc($card-border-radius - 1px) calc($card-border-radius - 1px);
+}
+
+.card-img {
+  width: 100%;
+  border-radius: calc($card-border-radius - 1px);
+}
+
+.card-img-overlay {
+  position: absolute;
+  inset: 0;
+  padding: $card-padding;
+  border-radius: calc($card-border-radius - 1px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.65));
+  color: #fff;
+}
+
+// ============================================
+// Background Color Cards (text-bg-* 패턴)
+// ============================================
+@each $name, $color in (
+  'primary': $primary,
+  'success': $success,
+  'warning': $warning,
+  'danger': $danger,
+  'info': $info,
+  'dark': #343a40
+) {
+  .card.text-bg-#{$name} {
+    background: $color;
+    border-color: $color;
+    color: #fff;
+
+    .card-title,
+    .card-subtitle,
+    .card-text { color: rgba(255, 255, 255, 0.9); }
+    .card-title { color: #fff; }
+  }
+}
+
+.card.text-bg-light {
+  background: var(--bg-secondary, $bg-secondary);
+  border-color: var(--bg-tertiary, $bg-tertiary);
+  color: var(--text-primary, $text-primary);
+}
+
+// bg-gradient 유틸리티
+.card.bg-gradient {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
+}
+
+// bg-* (기존 유틸리티) border 동기화
+.card {
+  &.bg-primary { border-color: var(--primary, $primary); }
+  &.bg-success { border-color: $success; }
+  &.bg-info { border-color: $info; }
+  &.bg-warning { border-color: $warning; }
+  &.bg-danger { border-color: $danger; }
+  &.bg-secondary { border-color: #6c757d; }
+  &.bg-dark { border-color: #343a40; }
+  &.bg-light { border-color: #dee2e6; }
+}
+
+// ============================================
+// Border Color Cards (Ubold border-* 스타일)
+// ============================================
+.card {
+  &.border-primary { border-color: var(--primary, $primary) !important; }
+  &.border-success { border-color: $success !important; }
+  &.border-info { border-color: $info !important; }
+  &.border-warning { border-color: $warning !important; }
+  &.border-danger { border-color: $danger !important; }
+  &.border-secondary { border-color: #6c757d !important; }
+  &.border-dark { border-color: #343a40 !important; }
+
+  // Dashed border
+  &.border-dashed { border-style: dashed; }
+
+  // Thicker border
+  &.border-2 { border-width: 2px; }
+}
+
+// ============================================
+// Card Bordered (좌측 액센트 보더, Ubold 스타일)
+// ============================================
+.card-bordered {
+  border-left-width: 3px;
+  border-left-style: solid;
+
+  &:not([class*='border-']) {
+    border-left-color: var(--text-primary, $text-primary);
+  }
+}
+
+// ============================================
+// Card Filled (Ubold 스타일, 연한 배경)
+// ============================================
+.card-filled {
+  background: var(--bg-secondary, $bg-secondary);
+  border-color: var(--bg-tertiary, $bg-tertiary);
+}
+
+// ============================================
+// Card Inverse (어두운 배경 위 밝은 텍스트)
+// ============================================
+.card-inverse,
+.card.text-white {
+  .card-title,
+  .card-text,
+  .card-link,
+  .card-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .card-title { color: #fff; }
+}
+
+// ============================================
+// Horizontal Card (Ubold row g-0 스타일)
+// ============================================
+.card-horizontal {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+
+  > img,
+  > .card-img-left {
+    width: 33.333%;
+    object-fit: cover;
+    border-radius: calc($card-border-radius - 1px) 0 0 calc($card-border-radius - 1px);
+    flex-shrink: 0;
+  }
+
+  > .card-body { flex: 1; }
+
+  > .card-img-right {
+    width: 33.333%;
+    object-fit: cover;
+    border-radius: 0 calc($card-border-radius - 1px) calc($card-border-radius - 1px) 0;
+    flex-shrink: 0;
+    order: 1;
+  }
+}
+
+// ============================================
+// Stretched Link (Ubold 스타일)
+// ============================================
+.stretched-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: '';
+}
+
+// ============================================
+// Code Body (Ubold 카드 내 코드 영역)
+// ============================================
+.code-body {
+  display: none;
+  border-top: 1px solid $card-border-color;
+  background: var(--bg-tertiary, $bg-tertiary);
+
+  pre {
+    margin: 0;
+    padding: $card-padding;
+    font-size: 0.8125rem;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  &.show { display: block; }
+}
+
+// ============================================
+// Card Header Tabs / Pills (Ubold Nav 통합)
+// ============================================
+.card-header-tabs {
+  display: flex;
+  margin-right: calc(-0.5 * $card-padding);
+  margin-bottom: calc(-1 * $card-padding);
+  margin-left: calc(-0.5 * $card-padding);
+  border-bottom: 0;
+
+  .nav-item { margin-bottom: 0; }
+
+  .nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0;
+    color: var(--text-secondary, $text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: color $card-transition, border-color $card-transition;
+
+    &:hover {
+      color: var(--primary, $primary);
+      border-bottom-color: rgba($primary, 0.3);
+    }
+
+    &.active {
+      color: var(--primary, $primary);
+      border-bottom-color: var(--primary, $primary);
+      font-weight: 600;
+    }
+  }
+}
+
+.card-header-pills {
+  display: flex;
+  gap: 0.25rem;
+  margin-right: calc(-0.5 * $card-padding);
+  margin-left: calc(-0.5 * $card-padding);
+
+  .nav-link {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    color: var(--text-secondary, $text-secondary);
+    transition: color $card-transition, background $card-transition;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+
+    &.active {
+      background: var(--primary, $primary);
+      color: #fff;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+// ============================================
+// Card Group (Ubold 스타일)
+// ============================================
+.card-group {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+
+  > .card {
+    flex: 1;
+    margin-bottom: 0;
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: $card-border-radius 0 0 $card-border-radius;
+      .card-img-top { border-radius: calc($card-border-radius - 1px) 0 0 0; }
+    }
+
+    &:last-child {
+      border-radius: 0 $card-border-radius $card-border-radius 0;
+      .card-img-top { border-radius: 0 calc($card-border-radius - 1px) 0 0; }
+    }
+
+    &:not(:last-child) { border-right: none; }
+  }
+}
+
+// ============================================
+// 다크모드 대응
+// ============================================
+[data-theme='dark'] {
+  .card {
+    background: var(--dark-bg-primary, $dark-bg-primary);
+    border-color: var(--dark-border-color, $dark-border-color);
+  }
+
+  .card-header,
+  .card-footer {
+    border-color: var(--dark-border-color, $dark-border-color);
+  }
+
+  .card-filled {
+    background: var(--dark-bg-secondary, $dark-bg-secondary);
+    border-color: var(--dark-bg-tertiary, $dark-bg-tertiary);
+  }
+
+  .card-action-item:hover {
+    background: var(--dark-bg-tertiary, $dark-bg-tertiary);
+  }
+
+  .code-body {
+    background: var(--dark-bg-tertiary, $dark-bg-tertiary);
+    border-color: var(--dark-border-color, $dark-border-color);
+  }
+}

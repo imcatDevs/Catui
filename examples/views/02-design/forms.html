@@ -1,0 +1,378 @@
+<!-- Forms -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Forms</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Forms</h1>
+  <p class="page-desc">폼 입력 필드, 셀렉트, 체크박스, 라디오, 스위치, 입력 그룹</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- Input Types -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-input">
+  <div class="demo-card__header"><span class="demo-card__title">Input Types</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div>
+        <div class="form-group">
+          <label class="form-label">Text</label>
+          <input type="text" class="form-input" placeholder="텍스트 입력">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" value="password123">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Placeholder</label>
+          <input type="text" class="form-input" placeholder="Placeholder 텍스트">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Textarea</label>
+          <textarea class="form-input" rows="3" placeholder="내용을 입력하세요..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Readonly</label>
+          <input type="text" class="form-input" readonly value="읽기 전용">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Disabled</label>
+          <input type="text" class="form-input" disabled value="비활성 상태">
+        </div>
+        <div class="form-group">
+          <label class="form-label">도움말 텍스트</label>
+          <input type="text" class="form-input" placeholder="Helping text">
+          <div class="form-helper">도움말 텍스트가 새 줄에 표시됩니다.</div>
+        </div>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Select</label>
+          <select class="form-select">
+            <option selected>선택하세요</option>
+            <option value="1">옵션 1</option>
+            <option value="2">옵션 2</option>
+            <option value="3">옵션 3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Multiple Select</label>
+          <select class="form-select" multiple style="height:auto;">
+            <option>옵션 1</option>
+            <option>옵션 2</option>
+            <option>옵션 3</option>
+            <option>옵션 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">File Input</label>
+          <input type="file" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Time</label>
+          <input type="time" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Number</label>
+          <input type="number" class="form-input" value="42">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Color</label>
+          <input type="color" class="form-input" value="#537bd4" style="height:38px;padding:4px;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Range</label>
+          <input type="range" class="form-range" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">form-group</span>"&gt;
+  &lt;label class="<span class="code-string">form-label</span>"&gt;Text&lt;/label&gt;
+  &lt;input type="text" class="<span class="code-string">form-input</span>" placeholder="..."&gt;
+  &lt;div class="<span class="code-string">form-helper</span>"&gt;도움말 텍스트&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;select class="<span class="code-string">form-select</span>"&gt;
+  &lt;option&gt;선택하세요&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type="range" class="<span class="code-string">form-range</span>"&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Select & Switch -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-switch">
+  <div class="demo-card__header"><span class="demo-card__title">Switches</span></div>
+  <div class="demo-card__body">
+    <p class="text-secondary" style="margin-bottom:0.75rem;">form-switch 래퍼 방식</p>
+    <label class="form-switch">
+      <input type="checkbox" checked> 알림 활성화
+    </label>
+    <label class="form-switch">
+      <input type="checkbox"> 다크 모드
+    </label>
+    <label class="form-switch">
+      <input type="checkbox" disabled> 비활성 스위치
+    </label>
+
+    <p class="text-secondary" style="margin:1rem 0 0.75rem;">form-check form-switch 방식 (Bootstrap 호환)</p>
+    <div class="form-check form-switch">
+      <input type="checkbox" class="form-check-input" id="bsSwitch1" checked>
+      <label class="form-check-label" for="bsSwitch1">Toggle this switch</label>
+    </div>
+    <div class="form-check form-switch">
+      <input type="checkbox" class="form-check-input" id="bsSwitch2">
+      <label class="form-check-label" for="bsSwitch2">Unchecked switch</label>
+    </div>
+    <div class="form-check form-switch">
+      <input type="checkbox" class="form-check-input" id="bsSwitch3" disabled>
+      <label class="form-check-label" for="bsSwitch3">Disabled switch</label>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 래퍼 방식 --&gt;</span>
+&lt;label class="<span class="code-string">form-switch</span>"&gt;
+  &lt;input type="checkbox" checked&gt; 알림 활성화
+&lt;/label&gt;
+
+<span class="code-comment">&lt;!-- Bootstrap 호환 방식 --&gt;</span>
+&lt;div class="<span class="code-string">form-check form-switch</span>"&gt;
+  &lt;input type="checkbox" class="<span class="code-string">form-check-input</span>" id="sw1"&gt;
+  &lt;label class="<span class="code-string">form-check-label</span>" for="sw1"&gt;Toggle&lt;/label&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Checkbox & Radio -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-check">
+  <div class="demo-card__header"><span class="demo-card__title">Checkboxes & Radios</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.75rem;">Checkboxes (form-checkbox 래퍼)</p>
+        <label class="form-checkbox">
+          <input type="checkbox" checked> 이용약관 동의
+        </label>
+        <label class="form-checkbox">
+          <input type="checkbox"> 마케팅 수신 동의
+        </label>
+        <label class="form-checkbox">
+          <input type="checkbox" disabled> 비활성 체크박스
+        </label>
+
+        <p class="text-secondary" style="margin:1rem 0 0.75rem;">form-check 방식</p>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="chk1" checked>
+          <label class="form-check-label" for="chk1">Check this checkbox</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="chk2">
+          <label class="form-check-label" for="chk2">Another checkbox</label>
+        </div>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.75rem;">Radios (form-radio 래퍼)</p>
+        <label class="form-radio">
+          <input type="radio" name="plan" checked> 무료
+        </label>
+        <label class="form-radio">
+          <input type="radio" name="plan"> 프로
+        </label>
+        <label class="form-radio">
+          <input type="radio" name="plan"> 엔터프라이즈
+        </label>
+
+        <p class="text-secondary" style="margin:1rem 0 0.75rem;">form-check 방식</p>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" name="radioGroup" id="rad1" checked>
+          <label class="form-check-label" for="rad1">Radio option 1</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" name="radioGroup" id="rad2">
+          <label class="form-check-label" for="rad2">Radio option 2</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- form-checkbox 래퍼 --&gt;</span>
+&lt;label class="<span class="code-string">form-checkbox</span>"&gt;
+  &lt;input type="checkbox" checked&gt; 동의
+&lt;/label&gt;
+
+<span class="code-comment">&lt;!-- form-radio 래퍼 --&gt;</span>
+&lt;label class="<span class="code-string">form-radio</span>"&gt;
+  &lt;input type="radio" name="group"&gt; 옵션
+&lt;/label&gt;
+
+<span class="code-comment">&lt;!-- form-check 방식 --&gt;</span>
+&lt;div class="<span class="code-string">form-check</span>"&gt;
+  &lt;input type="checkbox" class="<span class="code-string">form-check-input</span>" id="c1"&gt;
+  &lt;label class="<span class="code-string">form-check-label</span>" for="c1"&gt;Check&lt;/label&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Floating Labels -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-floating">
+  <div class="demo-card__header"><span class="demo-card__title">Floating Labels</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div>
+        <div class="form-floating" style="margin-bottom:1rem;">
+          <input type="email" class="form-input" id="floatEmail" placeholder="name@example.com">
+          <label class="form-floating__label" for="floatEmail">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-input" id="floatPw" placeholder="Password">
+          <label class="form-floating__label" for="floatPw">Password</label>
+        </div>
+      </div>
+      <div>
+        <div class="form-floating">
+          <textarea class="form-input" id="floatTextarea" placeholder="Leave a comment" style="height:100px;"></textarea>
+          <label class="form-floating__label" for="floatTextarea">Comments</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">form-floating</span>"&gt;
+  &lt;input type="email" class="<span class="code-string">form-input</span>" id="f1" placeholder="..."&gt;
+  &lt;label class="<span class="code-string">form-floating__label</span>" for="f1"&gt;Email&lt;/label&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Input Sizes -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-sizes">
+  <div class="demo-card__header"><span class="demo-card__title">Input Sizes</span></div>
+  <div class="demo-card__body">
+    <div style="max-width:500px;">
+      <div class="form-group">
+        <label class="form-label">Small</label>
+        <input type="text" class="form-input form-control-sm" placeholder=".form-control-sm">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Normal</label>
+        <input type="text" class="form-input" placeholder="Normal">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Large</label>
+        <input type="text" class="form-input form-control-lg" placeholder=".form-control-lg">
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;input class="<span class="code-string">form-input form-control-sm</span>" placeholder="Small"&gt;
+&lt;input class="<span class="code-string">form-input</span>" placeholder="Normal"&gt;
+&lt;input class="<span class="code-string">form-input form-control-lg</span>" placeholder="Large"&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Input Group -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-group">
+  <div class="demo-card__header"><span class="demo-card__title">Input Group</span></div>
+  <div class="demo-card__body">
+    <div style="max-width:500px;">
+      <div class="form-group">
+        <label class="form-label">접두사</label>
+        <div class="input-group">
+          <span class="input-group-text">@</span>
+          <input type="text" class="form-input" placeholder="Username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">접미사</label>
+        <div class="input-group">
+          <input type="text" class="form-input" placeholder="금액">
+          <span class="input-group-text">원</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">양쪽</label>
+        <div class="input-group">
+          <span class="input-group-text">https://</span>
+          <input type="text" class="form-input" placeholder="도메인">
+          <span class="input-group-text">.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">input-group</span>"&gt;
+  &lt;span class="<span class="code-string">input-group-text</span>"&gt;@&lt;/span&gt;
+  &lt;input type="text" class="<span class="code-string">form-input</span>" placeholder="Username"&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Validation -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-validation">
+  <div class="demo-card__header"><span class="demo-card__title">Validation States</span></div>
+  <div class="demo-card__body">
+    <div style="max-width:500px;">
+      <div class="form-group">
+        <label class="form-label">Valid</label>
+        <input type="text" class="form-input is-valid" value="올바른 입력">
+        <div class="form-success">입력이 올바릅니다.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Invalid</label>
+        <input type="text" class="form-input is-invalid" value="잘못된 입력">
+        <div class="form-error">필수 입력 항목입니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;input class="<span class="code-string">form-input is-valid</span>" value="..."&gt;
+&lt;div class="<span class="code-string">form-success</span>"&gt;올바릅니다.&lt;/div&gt;
+
+&lt;input class="<span class="code-string">form-input is-invalid</span>" value="..."&gt;
+&lt;div class="<span class="code-string">form-error</span>"&gt;필수 항목입니다.&lt;/div&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-input" class="doc-toc__link is-active">Input Types</a></li>
+    <li class="doc-toc__item"><a href="#s-switch" class="doc-toc__link">Switches</a></li>
+    <li class="doc-toc__item"><a href="#s-check" class="doc-toc__link">Checkbox & Radio</a></li>
+    <li class="doc-toc__item"><a href="#s-floating" class="doc-toc__link">Floating Labels</a></li>
+    <li class="doc-toc__item"><a href="#s-sizes" class="doc-toc__link">Input Sizes</a></li>
+    <li class="doc-toc__item"><a href="#s-group" class="doc-toc__link">Input Group</a></li>
+    <li class="doc-toc__item"><a href="#s-validation" class="doc-toc__link">Validation</a></li>
+  </ul>
+</aside>
+</div>

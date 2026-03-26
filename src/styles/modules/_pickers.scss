@@ -1,0 +1,536 @@
+// ============================================
+// Pickers Module SCSS
+// DatePicker, TimePicker, ColorPicker
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$picker-z-index: $z-index-popover;
+$picker-animation-duration: 200ms;
+
+// ============================================
+// Base Picker
+// ============================================
+.picker {
+  position: absolute;
+  z-index: $picker-z-index;
+  background: var(--bg-primary, $bg-primary);
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: $component-calendar-border-radius;
+  box-shadow: $component-date-picker-dropdown-shadow;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition: 
+    opacity $picker-animation-duration $ease-in-out,
+    transform $picker-animation-duration $ease-in-out,
+    visibility $picker-animation-duration;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// Picker Wrappers (JS 생성 구조)
+// ============================================
+.datepicker,
+.timepicker,
+.colorpicker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+
+  &__input {
+    width: 100%;
+    padding: 0.625rem 2.5rem 0.625rem 0.875rem;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $radius-md;
+    font-size: 0.875rem;
+    color: var(--text-primary, $text-primary);
+    background: var(--bg-primary, $bg-primary);
+    transition: border-color $duration-fast $ease-in-out, box-shadow $duration-fast $ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &::placeholder {
+      color: var(--text-tertiary, $text-tertiary);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary, $text-tertiary);
+    cursor: pointer;
+    transition: color $duration-fast $ease-in-out;
+
+    &:hover {
+      color: var(--text-primary, $text-primary);
+    }
+
+    .material-icons-outlined {
+      font-size: 1.125rem;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: $picker-z-index;
+    background: var(--bg-primary, $bg-primary);
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity $picker-animation-duration $ease-in-out,
+      transform $picker-animation-duration $ease-in-out,
+      visibility $picker-animation-duration;
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ============================================
+// DatePicker Calendar (드롭다운 내부)
+// JS: .datepicker__dropdown > .datepicker__header, .datepicker__days 등
+// BEM 중첩 대신 독립 선택자 사용 (.datepicker__dropdown 안에 &__* 중첩 시 __dropdown__* 생성되므로)
+// ============================================
+.datepicker__dropdown {
+  width: 18rem;
+  padding: $component-calendar-padding;
+}
+
+.datepicker__header,
+.calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $component-calendar-header-padding-y 0;
+  margin-bottom: 0.5rem;
+}
+
+.datepicker__title,
+.calendar__title {
+  font-size: $component-calendar-header-font-size;
+  font-weight: $component-calendar-header-font-weight;
+  color: var(--text-primary, $text-primary);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary, $primary);
+  }
+}
+
+.datepicker__year,
+.datepicker__month {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary, $primary);
+  }
+}
+
+.datepicker__nav-btn,
+.calendar__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: $component-calendar-day-border-radius;
+  color: var(--text-secondary, $text-secondary);
+  cursor: pointer;
+  transition: background $duration-fast $ease-in-out;
+
+  &:hover {
+    background: var(--bg-tertiary, $bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary, $primary);
+    outline-offset: -2px;
+  }
+}
+
+.datepicker__weekdays,
+.calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  margin-bottom: 0.25rem;
+}
+
+.datepicker__weekday,
+.calendar__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $component-calendar-weekday-padding-y 0;
+  font-size: $component-calendar-weekday-font-size;
+  font-weight: 500;
+  color: $component-calendar-weekday-color;
+}
+
+.datepicker__days,
+.calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.125rem;
+}
+
+.datepicker__day,
+.calendar__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $component-calendar-day-size;
+  height: $component-calendar-day-size;
+  padding: 0;
+  border: none;
+  background: $component-calendar-day-state-default-background;
+  border-radius: $component-calendar-day-border-radius;
+  font-size: $component-calendar-day-font-size;
+  color: $component-calendar-day-state-default-text;
+  cursor: pointer;
+  transition:
+    background $duration-fast $ease-in-out,
+    color $duration-fast $ease-in-out;
+
+  &:hover:not(:disabled):not(.is-selected) {
+    background: $component-calendar-day-state-hover-background;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary, $primary);
+    outline-offset: -2px;
+  }
+
+  &.is-today {
+    border: 1px solid $component-calendar-day-state-today-border;
+  }
+
+  &.is-selected {
+    background: $component-calendar-day-state-selected-background;
+    color: $component-calendar-day-state-selected-text;
+  }
+
+  &.is-range-start {
+    border-radius: $component-calendar-day-border-radius 0 0 $component-calendar-day-border-radius;
+  }
+
+  &.is-range-end {
+    border-radius: 0 $component-calendar-day-border-radius $component-calendar-day-border-radius 0;
+  }
+
+  &.is-in-range {
+    background: rgba($primary, 0.1);
+    border-radius: 0;
+  }
+
+  &.is-outside {
+    color: $component-calendar-day-state-outside-text;
+  }
+
+  &:disabled {
+    color: $component-calendar-day-state-disabled-text;
+    cursor: not-allowed;
+  }
+
+  &--empty {
+    cursor: default;
+    background: transparent;
+  }
+}
+
+// Years / Months grid
+.datepicker__years,
+.datepicker__months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+}
+
+.datepicker__year-item,
+.datepicker__month-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: $component-calendar-day-border-radius;
+  font-size: 0.8125rem;
+  color: var(--text-primary, $text-primary);
+  cursor: pointer;
+  transition: background $duration-fast $ease-in-out;
+
+  &:hover {
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &--selected {
+    background: var(--primary, $primary);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  &--other {
+    color: var(--text-tertiary, $text-tertiary);
+  }
+}
+
+.datepicker__footer,
+.calendar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--border-color, $border-color);
+}
+
+.datepicker__today-btn,
+.calendar__today-btn {
+  padding: 0.375rem 0.75rem;
+  border: none;
+  background: transparent;
+  border-radius: $component-button-size-sm-border-radius;
+  font-size: 0.8125rem;
+  color: var(--primary, $primary);
+  cursor: pointer;
+  transition: background $duration-fast $ease-in-out;
+
+  &:hover {
+    background: rgba($primary, 0.1);
+  }
+}
+
+// ============================================
+// (미사용) TimePicker wheel/clock, ColorPicker spectrum 스타일은
+// 현재 JS에서 미구현이므로 제거됨.
+// 래퍼: line 42-112 (공통 .datepicker,.timepicker,.colorpicker)
+// TimePicker 리스트: 파일 하단 .timepicker__dropdown/__list/__option
+// ColorPicker 프리셋: 파일 하단 .colorpicker__preview/__presets/__preset
+// ============================================
+
+// (미사용) .datepicker-input/.timepicker-input/.colorpicker-input 블록은
+// 래퍼 공통 스타일(line 42-112)로 대체됨
+
+// ============================================
+// TimePicker Dropdown List (JS 생성 구조)
+// ============================================
+.timepicker__dropdown {
+  width: 10rem;
+}
+
+.timepicker__list {
+  max-height: 14rem;
+  overflow-y: auto;
+  padding: 0.25rem;
+}
+
+.timepicker__option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-primary, $text-primary);
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background $duration-fast $ease-in-out;
+
+  &:hover {
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &.is-selected {
+    background: var(--primary, $primary);
+    color: #fff;
+    font-weight: 500;
+  }
+}
+
+// ============================================
+// ColorPicker Wrapper (JS 생성 구조)
+// ============================================
+.colorpicker {
+  &__preview {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: $radius-sm;
+    border: 1px solid var(--border-color, $border-color);
+    cursor: pointer;
+    transition: transform $duration-fast $ease-in-out;
+
+    &:hover {
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
+
+  &__input {
+    padding-left: 2.5rem;
+  }
+
+  &__dropdown {
+    width: 16rem;
+    padding: 0.75rem;
+  }
+
+  &__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__preset {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: transform $duration-fast $ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &__custom {
+    border-top: 1px solid var(--border-color, $border-color);
+    padding-top: 0.5rem;
+  }
+
+  &__native {
+    width: 100%;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $radius-sm;
+    cursor: pointer;
+  }
+}
+
+// ============================================
+// Countdown (JS 생성 구조)
+// ============================================
+.countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    height: 3rem;
+    padding: 0 0.5rem;
+    border-radius: $radius-md;
+    background: var(--bg-secondary, $bg-secondary);
+    border: 1px solid var(--border-color, $border-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary, $text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__label {
+    font-size: 0.6875rem;
+    color: var(--text-tertiary, $text-tertiary);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  &__sep {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-tertiary, $text-tertiary);
+    margin: 0 0.125rem;
+    align-self: flex-start;
+    padding-top: 0.5rem;
+  }
+
+  &--complete &__value {
+    background: rgba($success, 0.1);
+    border-color: $success;
+    color: $success;
+  }
+}
+
+// ============================================
+// DDay (JS 생성 구조)
+// ============================================
+.dday {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem 1.5rem;
+  border-radius: $radius-lg;
+  background: var(--bg-secondary, $bg-secondary);
+  border: 1px solid var(--border-color, $border-color);
+
+  &__title {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary, $text-secondary);
+  }
+
+  &__count {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary, $text-primary);
+
+    &--today {
+      color: $success;
+    }
+
+    &--future {
+      color: var(--primary, $primary);
+    }
+
+    &--past {
+      color: var(--text-tertiary, $text-tertiary);
+    }
+  }
+
+  &__date {
+    font-size: 0.75rem;
+    color: var(--text-tertiary, $text-tertiary);
+  }
+}

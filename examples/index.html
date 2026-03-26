@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMCAT UI - Examples</title>
+  <link rel="icon" href="assets/favicon/favicon.ico">
+  <link rel="stylesheet" href="../dist/imcat-ui.css">
+  <style>
+    /* ========================================
+     * 셸 레이아웃 전용 스타일
+     * 프레임워크 CSS에 포함되지 않는 데모 사이트 구조용
+     * ======================================== */
+    :root {
+      --shell-header-h: 56px;
+      --shell-sidebar-w: 272px;
+    }
+
+    /* Shell Header */
+    .shell-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--shell-header-h);
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; z-index: 100;
+    }
+    .shell-header__left { display: flex; align-items: center; gap: 12px; }
+    .shell-header__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1.125rem; }
+    .shell-header__logo img { height: 50px; }
+    .shell-header__right { display: flex; align-items: center; gap: 8px; }
+    .shell-header__toggle { display: none; }
+
+    /* Shell Sidebar */
+    .shell-sidebar {
+      position: fixed; top: var(--shell-header-h); left: 0;
+      width: var(--shell-sidebar-w);
+      height: calc(100vh - var(--shell-header-h));
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto; z-index: 50;
+      transition: transform 0.3s ease;
+    }
+    .shell-sidebar__search-wrap { padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
+
+    /* Sidebar Navigation */
+    .nav-section { margin-bottom: 4px; }
+    .nav-section__title {
+      padding: 10px 20px; font-size: 0.6875rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .nav-section__list { list-style: none; margin: 0; padding: 0; }
+    .nav-item { position: relative; }
+    .nav-item__link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 20px; font-size: 0.8125rem;
+      color: var(--text-secondary); text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .nav-item__link:hover { background: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; }
+    .nav-item__link.is-active {
+      background: rgba(59,130,246,0.1); color: var(--primary); font-weight: 500;
+    }
+    .nav-item__link.is-active::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--primary);
+    }
+    .nav-item__icon { font-size: 18px; opacity: 0.7; }
+    .nav-item__badge { margin-left: auto; }
+
+    /* Shell Main */
+    .shell-main {
+      margin-left: var(--shell-sidebar-w);
+      margin-top: var(--shell-header-h);
+      padding: 32px;
+      min-height: calc(100vh - var(--shell-header-h));
+    }
+
+    /* Shell Backdrop (mobile) */
+    .shell-backdrop {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 40;
+    }
+    .shell-backdrop.is-visible { display: block; }
+
+    /* Page Title */
+    .page-title-box { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color); }
+    .page-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+    .page-desc { font-size: 1rem; color: var(--text-secondary); margin: 0; }
+
+    /* Breadcrumb */
+    .breadcrumb { display: flex; gap: 4px; list-style: none; padding: 0; margin: 0 0 8px 0; font-size: 0.8125rem; }
+    .breadcrumb-item + .breadcrumb-item::before { content: '/'; color: var(--text-tertiary); margin-right: 4px; }
+    .breadcrumb-item a { color: var(--text-secondary); text-decoration: none; }
+    .breadcrumb-item a:hover { color: var(--primary); text-decoration: none; }
+    .breadcrumb-item.active { color: var(--text-tertiary); }
+
+    /* Demo Card (데모 표시 영역) */
+    .demo-card {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 8px; margin-bottom: 24px; overflow: hidden;
+    }
+    .demo-card__header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-bottom: 1px solid var(--border-color);
+      background: var(--bg-tertiary);
+    }
+    .demo-card__title { font-size: 0.875rem; font-weight: 600; }
+    .demo-card__body { padding: 24px; background: var(--bg-primary); }
+    .demo-card__code {
+      background: #fff; border-top: 1px solid #e8e8e8;
+      overflow-x: auto; border-radius: 0 0 8px 8px;
+    }
+    .demo-card__code::-webkit-scrollbar { height: 5px; }
+    .demo-card__code::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    .demo-card__code pre {
+      margin: 0; padding: 0.6rem 0;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.8125rem; line-height: 1.75; color: #383a42;
+      counter-reset: code-line;
+      background: linear-gradient(to right, #f5f5f5 3.2em, #e8e8e8 3.2em, #e8e8e8 calc(3.2em + 1px), transparent calc(3.2em + 1px));
+    }
+    .demo-card__code .code-line {
+      display: block; padding: 0 1em 0 4.2em;
+      position: relative; counter-increment: code-line;
+      min-height: 1.75em;
+    }
+    .demo-card__code .code-line:hover { background: rgba(0,0,0,0.03); }
+    .demo-card__code .code-line::before {
+      content: counter(code-line, decimal-leading-zero) '.';
+      position: absolute; left: 0; top: 0;
+      width: 2.8em; padding-right: 0.4em;
+      text-align: right; color: #999;
+      font-size: 0.75rem; line-height: inherit;
+      user-select: none; -webkit-user-select: none;
+      pointer-events: none;
+    }
+    [data-theme="dark"] .demo-card__code { background: #fafafa; border-top-color: #e0e0e0; }
+    [data-theme="dark"] .demo-card__code pre { color: #383a42; }
+    .demo-card__desc { padding: 12px 16px; font-size: 0.8125rem; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); }
+
+    /* Doc Layout (본문 + 우측 TOC) */
+    .doc-layout { display: flex; gap: 24px; }
+    .doc-main { flex: 1; min-width: 0; }
+    .doc-toc {
+      width: 200px; flex-shrink: 0; position: sticky; top: 80px;
+      align-self: flex-start; max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .doc-toc__title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; letter-spacing: 0.05em; }
+    .doc-toc__list { list-style: none; padding: 0; margin: 0; }
+    .doc-toc__item { margin-bottom: 4px; }
+    .doc-toc__link {
+      display: block; padding: 6px 12px; font-size: 0.8125rem;
+      color: var(--text-secondary); text-decoration: none; border-radius: 4px;
+      border-left: 2px solid transparent; transition: all 0.15s ease;
+    }
+    .doc-toc__link:hover { color: var(--text-primary); background: var(--bg-secondary); text-decoration: none; }
+    .doc-toc__link.is-active { color: var(--primary); border-left-color: var(--primary); background: rgba(59,130,246,0.08); }
+
+    /* 다크 모드 로고 반전 */
+    [data-theme="dark"] .shell-header__logo img { filter: invert(1) hue-rotate(180deg); }
+
+    /* Code Syntax Colors — Light */
+    .code-comment { color: #a0a1a7; font-style: italic; }
+    .code-keyword { color: #a626a4; }
+    .code-string { color: #50a14f; }
+    .code-function { color: #4078f2; }
+    .code-number { color: #986801; }
+    .code-tag { color: #986801; }
+    .code-attr { color: #4078f2; }
+
+    /* Section Grid (overview 카드 그리드) */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    /* Shell Footer */
+    .shell-footer { text-align: center; padding: 32px; color: var(--text-tertiary); font-size: 0.8125rem; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .shell-sidebar { transform: translateX(-100%); }
+      .shell-sidebar.is-open { transform: translateX(0); }
+      .shell-main { margin-left: 0; }
+      .shell-header__toggle { display: flex; }
+      .doc-toc { display: none; }
+    }
+  </style>
+</head>
+<body catui-target="app-content">
+  <!-- Header -->
+  <header class="shell-header">
+    <div class="shell-header__left">
+      <button class="btn btn--ghost btn--icon shell-header__toggle" id="menuToggle">
+        <i class="material-icons-outlined">menu</i>
+      </button>
+      <a href="#" class="shell-header__logo" id="logoLink">
+        <img src="assets/catui-log.svg" alt="IMCAT UI">
+      </a>
+    </div>
+    <div class="shell-header__right">
+      <button class="btn btn--outline-secondary btn--icon btn--sm" id="themeToggle" title="테마 전환">
+        <i class="material-icons-outlined">dark_mode</i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Backdrop (mobile) -->
+  <div class="shell-backdrop" id="backdrop"></div>
+
+  <!-- Sidebar -->
+  <aside class="shell-sidebar" id="sidebar">
+    <div class="shell-sidebar__search-wrap">
+      <input type="text" class="form-input" placeholder="메뉴 검색..." id="searchInput">
+    </div>
+    <nav id="sidebarNav"></nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="shell-main">
+    <div id="app-content">
+
+      <!-- ====== 기본 Overview (홈) ====== -->
+      <div class="page-title-box">
+        <h1 class="page-title">IMCAT UI Framework</h1>
+        <p class="page-desc">경량 제로빌드 ES6+ 웹 프레임워크 — 동적 모듈 로딩, SPA 라우팅, XSS 자동 방어</p>
+      </div>
+
+      <!-- 빠른 데모 -->
+      <div class="demo-card">
+        <div class="demo-card__header">
+          <span class="demo-card__title">빠른 데모</span>
+        </div>
+        <div class="demo-card__body">
+          <div class="btn-group">
+            <button class="btn btn--primary" onclick="demoAlert()"><i class="material-icons-outlined">info</i> Alert</button>
+            <button class="btn btn--primary" onclick="demoConfirm()"><i class="material-icons-outlined">help</i> Confirm</button>
+            <button class="btn btn--primary" onclick="demoToast()"><i class="material-icons-outlined">notifications</i> Toast</button>
+            <button class="btn btn--primary" onclick="demoModal()"><i class="material-icons-outlined">open_in_new</i> Modal</button>
+            <button class="btn btn--primary" onclick="demoDrawer()"><i class="material-icons-outlined">menu_open</i> Drawer</button>
+            <button class="btn btn--primary" onclick="demoLoading()"><i class="material-icons-outlined">hourglass_empty</i> Loading</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4대 섹션 카드 -->
+      <h3 class="h4">문서 카테고리</h3>
+      <div class="section-grid">
+        <a href="#" catui-href="views/01-start/overview.html" class="card card--outlined" style="text-decoration:none">
+          <div class="card__body">
+            <h4 class="card__title"><i class="material-icons-outlined" style="vertical-align:middle;margin-right:6px">rocket_launch</i>시작하기</h4>
+            <p class="body2 text-secondary">설치, 코어 API, 아키텍처 가이드</p>
+          </div>
+        </a>
+        <a href="#" catui-href="views/02-design/typography.html" class="card card--outlined" style="text-decoration:none">
+          <div class="card__body">
+            <h4 class="card__title"><i class="material-icons-outlined" style="vertical-align:middle;margin-right:6px">palette</i>디자인 요소</h4>
+            <p class="body2 text-secondary">타이포그래피, 버튼, 카드, 폼 등</p>
+          </div>
+        </a>
+        <a href="#" catui-href="views/03-modules/overlays.html" class="card card--outlined" style="text-decoration:none">
+          <div class="card__body">
+            <h4 class="card__title"><i class="material-icons-outlined" style="vertical-align:middle;margin-right:6px">widgets</i>모듈</h4>
+            <p class="body2 text-secondary">22개 UI 모듈 라이브 데모</p>
+          </div>
+        </a>
+        <a href="#" catui-href="views/04-usage/dashboard.html" class="card card--outlined" style="text-decoration:none">
+          <div class="card__body">
+            <h4 class="card__title"><i class="material-icons-outlined" style="vertical-align:middle;margin-right:6px">integration_instructions</i>활용</h4>
+            <p class="body2 text-secondary">실전 시나리오 조합 데모</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- 빠른 시작 -->
+      <h3 class="h4">빠른 시작</h3>
+
+      <!-- Step 1: 다운로드 -->
+      <div class="demo-card">
+        <div class="demo-card__header">
+          <span class="demo-card__title">Step 1 — 다운로드</span>
+        </div>
+        <div class="demo-card__body" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <a href="data/imcatui-1.1.2.zip" download class="btn btn--primary">
+            <i class="material-icons-outlined" style="vertical-align:middle;margin-right:6px;font-size:18px;">download</i>IMCAT UI v1.1.2 다운로드
+          </a>
+          <span style="font-size:0.8125rem;color:var(--text-secondary);">imcatui-1.1.2.zip (약 400KB) — JS + CSS + 폰트 포함</span>
+        </div>
+        <div class="demo-card__desc">또는 npm으로 설치: <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;font-size:0.8125rem;">npm install @imcat-ckim/catui</code></div>
+      </div>
+
+      <!-- Step 2: 프로젝트에 추가 -->
+      <div class="demo-card">
+        <div class="demo-card__header">
+          <span class="demo-card__title">Step 2 — HTML에 추가</span>
+        </div>
+        <div class="demo-card__desc">압축 해제 후 <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;font-size:0.8125rem;">dist/</code> 폴더를 프로젝트에 복사하세요.</div>
+        <div class="demo-card__code">
+<pre>&lt;!<span class="code-tag">DOCTYPE</span> <span class="code-attr">html</span>&gt;
+&lt;<span class="code-tag">html</span> <span class="code-attr">lang</span>=<span class="code-string">"ko"</span>&gt;
+&lt;<span class="code-tag">head</span>&gt;
+  <span class="code-comment">&lt;!-- CSS 로드 --&gt;</span>
+  &lt;<span class="code-tag">link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"dist/imcat-ui.css"</span>&gt;
+&lt;/<span class="code-tag">head</span>&gt;
+&lt;<span class="code-tag">body</span>&gt;
+
+  &lt;<span class="code-tag">h1</span>&gt;Hello IMCAT UI&lt;/<span class="code-tag">h1</span>&gt;
+  &lt;<span class="code-tag">button</span> <span class="code-attr">class</span>=<span class="code-string">"btn btn--primary"</span> <span class="code-attr">onclick</span>=<span class="code-string">"run()"</span>&gt;클릭&lt;/<span class="code-tag">button</span>&gt;
+
+  <span class="code-comment">&lt;!-- JS 로드 (body 끝) --&gt;</span>
+  &lt;<span class="code-tag">script</span> <span class="code-attr">src</span>=<span class="code-string">"dist/imcat-ui.min.js"</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
+&lt;/<span class="code-tag">body</span>&gt;
+&lt;/<span class="code-tag">html</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- Step 3: 사용하기 -->
+      <div class="demo-card">
+        <div class="demo-card__header">
+          <span class="demo-card__title">Step 3 — 사용하기</span>
+        </div>
+        <div class="demo-card__code">
+<pre><span class="code-comment">// 단축 API — 모달, 토스트, 확인 다이얼로그</span>
+<span class="code-keyword">await</span> <span class="code-function">IMCAT.alert</span>(<span class="code-string">'Hello!'</span>);
+<span class="code-keyword">if</span> (<span class="code-keyword">await</span> <span class="code-function">IMCAT.confirm</span>(<span class="code-string">'계속?'</span>)) {
+  <span class="code-function">IMCAT.toast.success</span>(<span class="code-string">'완료!'</span>);
+}
+
+<span class="code-comment">// 모듈 동적 로드 — 필요한 모듈만 자동으로 가져옵니다</span>
+<span class="code-keyword">const</span> { Modal } = <span class="code-keyword">await</span> <span class="code-function">IMCAT.use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ title: <span class="code-string">'제목'</span>, content: <span class="code-string">'내용'</span> }).<span class="code-function">show</span>();
+
+<span class="code-comment">// DOM 조작 — jQuery 스타일 체이닝</span>
+<span class="code-function">IMCAT</span>(<span class="code-string">'#app'</span>).<span class="code-function">addClass</span>(<span class="code-string">'active'</span>).<span class="code-function">text</span>(<span class="code-string">'Ready!'</span>);</pre>
+        </div>
+      </div>
+
+      <footer class="shell-footer">
+        <p>© 2025 IMCAT UI. MIT License.</p>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="../dist/imcat-ui.min.js"></script>
+  <script>
+    // ========================================
+    // 사이드바 메뉴 동적 로드
+    // ========================================
+    async function loadSidebarMenu() {
+      try {
+        const res = await fetch('data/menu.json');
+        const data = await res.json();
+        const nav = document.getElementById('sidebarNav');
+
+        data.sections.forEach(section => {
+          const sec = document.createElement('div');
+          sec.className = 'nav-section';
+
+          const title = document.createElement('div');
+          title.className = 'nav-section__title';
+          title.textContent = section.title;
+          sec.appendChild(title);
+
+          const ul = document.createElement('ul');
+          ul.className = 'nav-section__list';
+
+          section.items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+
+            const a = document.createElement('a');
+            a.className = 'nav-item__link' + (item.active ? ' is-active' : '');
+            if (item.view) {
+              a.href = '#';
+              a.setAttribute('catui-href', item.view);
+            } else {
+              a.href = '#' + item.id;
+            }
+
+            const icon = document.createElement('i');
+            icon.className = 'material-icons-outlined nav-item__icon';
+            icon.textContent = item.icon;
+            a.appendChild(icon);
+            a.appendChild(document.createTextNode(item.text));
+
+            if (item.badge) {
+              const badge = document.createElement('span');
+              badge.className = 'badge badge--primary nav-item__badge';
+              badge.textContent = item.badge;
+              a.appendChild(badge);
+            }
+
+            li.appendChild(a);
+            ul.appendChild(li);
+          });
+
+          sec.appendChild(ul);
+          nav.appendChild(sec);
+        });
+
+        initMenuEvents();
+      } catch (e) {
+        console.error('메뉴 로드 실패:', e);
+      }
+    }
+
+    function initMenuEvents() {
+      // 검색 필터
+      IMCAT('#searchInput').on('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        IMCAT('.nav-item').each(item => {
+          item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+      });
+
+      // 메뉴 클릭 시 active 상태
+      IMCAT('.nav-item__link').each(link => {
+        link.addEventListener('click', () => {
+          IMCAT('.nav-item__link').each(l => l.classList.remove('is-active'));
+          link.classList.add('is-active');
+          IMCAT('#sidebar').removeClass('is-open');
+          IMCAT('#backdrop').removeClass('is-visible');
+        });
+      });
+    }
+
+    loadSidebarMenu();
+
+    // 코드 블록 라인넘버 래핑
+    function formatCodeBlocks() {
+      document.querySelectorAll('.demo-card__code pre').forEach(pre => {
+        if (pre.dataset.formatted) return;
+        const lines = pre.innerHTML.split('\n');
+        if (lines.length && lines[lines.length - 1].trim() === '') lines.pop();
+        pre.innerHTML = lines.map(l =>
+          '<span class="code-line">' + (l || ' ') + '</span>'
+        ).join('');
+        pre.dataset.formatted = 'true';
+      });
+    }
+    formatCodeBlocks();
+
+    // SPA 라우팅 후 메뉴 활성화
+    IMCAT.view.afterLoad((path) => {
+      IMCAT('.nav-item__link').each(l => l.classList.remove('is-active'));
+      IMCAT('[catui-href="' + path + '"]').each(l => l.classList.add('is-active'));
+      IMCAT('#sidebar').removeClass('is-open');
+      IMCAT('#backdrop').removeClass('is-visible');
+      window.scrollTo(0, 0);
+      setTimeout(formatCodeBlocks, 50);
+
+      // doc-toc 스크롤 기반 활성화 + 클릭 이벤트
+      setTimeout(() => {
+        var tocLinks = document.querySelectorAll('.doc-toc__link');
+        if (!tocLinks.length) return;
+
+        // 이전 스크롤 리스너 제거
+        if (window._tocScrollHandler) {
+          window.removeEventListener('scroll', window._tocScrollHandler);
+        }
+
+        // 섹션 수집 (TOC 링크 href → 대상 요소)
+        var tocSections = [];
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            var el = document.getElementById(href.slice(1));
+            if (el) tocSections.push({ link: link, el: el });
+          }
+        });
+
+        // 활성 TOC 업데이트 함수
+        function updateTocActive() {
+          var scrollY = window.scrollY + 120; // 헤더 오프셋
+          var active = null;
+          for (var i = 0; i < tocSections.length; i++) {
+            if (tocSections[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+              active = tocSections[i];
+            }
+          }
+          // 맨 아래 스크롤 시 마지막 섹션
+          if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 20 && tocSections.length) {
+            active = tocSections[tocSections.length - 1];
+          }
+          tocLinks.forEach(function(l) { l.classList.remove('is-active'); });
+          if (active) active.link.classList.add('is-active');
+        }
+
+        // 스크롤 리스너 등록
+        window._tocScrollHandler = function() { requestAnimationFrame(updateTocActive); };
+        window.addEventListener('scroll', window._tocScrollHandler, { passive: true });
+        updateTocActive();
+
+        // 클릭 시 부드러운 스크롤
+        tocLinks.forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            var href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              var target = document.getElementById(href.slice(1));
+              if (target) {
+                e.preventDefault();
+                var top = target.getBoundingClientRect().top + window.scrollY - 90;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+              }
+            }
+          });
+        });
+      }, 100);
+    });
+
+    // 로고 클릭 → 홈
+    document.getElementById('logoLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = '';
+      window.location.reload();
+    });
+
+    // ========================================
+    // 테마 전환 (Theme 모듈 싱글톤 사용)
+    // ========================================
+    (async function() {
+      var TM = await IMCAT.use('theme');
+      var theme = TM.createTheme({
+        defaultTheme: 'system',
+        transition: 'fade',
+        transitionDuration: 300,
+        onChange: function(resolved) {
+          IMCAT('#themeToggle i').text(resolved === 'dark' ? 'light_mode' : 'dark_mode');
+        }
+      });
+      // 초기 아이콘 동기화
+      IMCAT('#themeToggle i').text(theme.getResolved() === 'dark' ? 'light_mode' : 'dark_mode');
+
+      IMCAT('#themeToggle').on('click', function() {
+        theme.toggle();
+      });
+    })();
+
+    // ========================================
+    // 모바일 메뉴
+    // ========================================
+    IMCAT('#menuToggle').on('click', () => {
+      IMCAT('#sidebar').toggleClass('is-open');
+      IMCAT('#backdrop').toggleClass('is-visible');
+    });
+    IMCAT('#backdrop').on('click', () => {
+      IMCAT('#sidebar').removeClass('is-open');
+      IMCAT('#backdrop').removeClass('is-visible');
+    });
+
+    // ========================================
+    // 데모 함수
+    // ========================================
+    async function demoAlert() {
+      await IMCAT.alert('안녕하세요! IMCAT UI입니다.');
+    }
+    async function demoConfirm() {
+      const ok = await IMCAT.confirm('이 작업을 계속하시겠습니까?');
+      IMCAT.toast[ok ? 'success' : 'info'](ok ? '확인됨' : '취소됨');
+    }
+    async function demoToast() {
+      IMCAT.toast.success('성공 메시지');
+      setTimeout(() => IMCAT.toast.warning('경고 메시지'), 500);
+      setTimeout(() => IMCAT.toast.error('오류 메시지'), 1000);
+      setTimeout(() => IMCAT.toast.info('정보 메시지'), 1500);
+    }
+    async function demoModal() {
+      const { Modal } = await IMCAT.use('overlays');
+      new Modal({
+        title: '모달 예제',
+        content: '<p>이것은 모달 내용입니다.</p><p>HTML을 자유롭게 사용할 수 있습니다.</p>',
+        size: 'md',
+        buttons: [
+          { text: '닫기', variant: 'secondary', close: true },
+          { text: '확인', variant: 'primary', close: true }
+        ]
+      }).show();
+    }
+    async function demoDrawer() {
+      const { Drawer } = await IMCAT.use('overlays');
+      new Drawer({
+        title: '드로어 메뉴',
+        content: '<ul class="list list--divided"><li class="list__item list__item--clickable">메뉴 항목 1</li><li class="list__item list__item--clickable">메뉴 항목 2</li><li class="list__item list__item--clickable">메뉴 항목 3</li></ul>',
+        position: 'right',
+        width: '300px'
+      }).show();
+    }
+    async function demoLoading() {
+      IMCAT.loading.show('로딩 중...');
+      setTimeout(() => IMCAT.loading.hide(), 2000);
+    }
+  </script>
+</body>
+</html>

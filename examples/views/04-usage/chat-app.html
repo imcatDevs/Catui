@@ -1,0 +1,287 @@
+<!-- 활용: 채팅 앱 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">채팅 앱</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">채팅 앱</h1>
+  <p class="page-desc">IMCAT UI 컴포넌트(card, list, badge, chat-ui SCSS)를 조합한 채팅 애플리케이션 예제</p>
+</div>
+
+<div style="display:grid;grid-template-columns:280px 1fr;gap:1px;border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;height:560px;background:var(--border-color)">
+
+  <!-- 좌측: 대화 목록 -->
+  <div style="display:flex;flex-direction:column;background:var(--bg-primary);overflow:hidden">
+    <!-- 검색 -->
+    <div style="padding:12px;border-bottom:1px solid var(--border-color)">
+      <div style="position:relative">
+        <i class="material-icons-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text-tertiary)">search</i>
+        <input type="text" class="form-input form-input--sm" placeholder="대화 검색..." id="chat-search" style="padding-left:34px;width:100%" oninput="chatFilterUsers()">
+      </div>
+    </div>
+    <!-- 사용자 목록 -->
+    <div id="chat-user-list" style="flex:1;overflow-y:auto"></div>
+  </div>
+
+  <!-- 우측: 채팅 영역 (chat-ui SCSS 적용) -->
+  <div class="chat-ui" style="border:0;border-radius:0">
+    <!-- 헤더 -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border-color);flex-shrink:0">
+      <div style="flex:1;min-width:0">
+        <h4 style="margin:0;font-size:1rem;line-height:1.3" id="chat-user-name">홍길동</h4>
+        <p style="margin:0;font-size:0.75rem;line-height:1" id="chat-user-status">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--success-color);margin-right:4px;vertical-align:middle"></span>
+          <span class="text-muted">온라인</span>
+        </p>
+      </div>
+      <div style="display:flex;gap:4px">
+        <button class="btn btn--outline btn--sm btn--icon" onclick="IMCAT.toast.info('영상 통화 (데모)')"><i class="material-icons-outlined">videocam</i></button>
+        <button class="btn btn--outline btn--sm btn--icon" onclick="IMCAT.toast.info('음성 통화 (데모)')"><i class="material-icons-outlined">call</i></button>
+        <button class="btn btn--outline btn--sm btn--icon" id="chat-more-btn"><i class="material-icons-outlined">more_vert</i></button>
+      </div>
+    </div>
+
+    <!-- 메시지 영역 -->
+    <div id="chat-messages" class="chat-ui__messages" style="flex:1;overflow-y:auto;padding:16px"></div>
+
+    <!-- 타이핑 인디케이터 -->
+    <div id="chat-typing" class="chat-ui__typing" style="flex-shrink:0"></div>
+
+    <!-- 입력 영역 -->
+    <div class="chat-ui__input-area" style="flex-shrink:0">
+      <button class="chat-ui__btn" onclick="IMCAT.toast.info('파일 첨부 (데모)')"><i class="material-icons-outlined">attach_file</i></button>
+      <div class="chat-ui__input-wrapper">
+        <textarea class="chat-ui__input" id="chat-input" rows="1" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();chatSendMessage();}"></textarea>
+      </div>
+      <button class="chat-ui__btn" onclick="IMCAT.toast.info('이모지 (데모)')"><i class="material-icons-outlined">mood</i></button>
+      <button class="chat-ui__btn chat-ui__btn--send" onclick="chatSendMessage()"><i class="material-icons-outlined">send</i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var chatUsers = [
+    { id: 'hong', name: '홍길동', status: 'online', unread: 3, lastMsg: '안녕하세요! IMCAT UI 프로젝트 어떠세요?', time: '방금', initials: '홍', color: 'primary' },
+    { id: 'kim', name: '김영희', status: 'away', unread: 0, lastMsg: '감사합니다. 회의 중입니다.', time: '5분 전', initials: '김', color: 'warning' },
+    { id: 'lee', name: '이철수', status: 'offline', unread: 1, lastMsg: '내일 봐요!', time: '오후 3:45', initials: '이', color: 'info' },
+    { id: 'park', name: '박지민', status: 'online', unread: 0, lastMsg: '모든 작업 완료했습니다. 배포할까요?', time: '2시간 전', initials: '박', color: 'success' },
+    { id: 'choi', name: '최수진', status: 'offline', unread: 0, lastMsg: '회의 금요일 11시로 변경됐습니다.', time: '4시간 전', initials: '최', color: 'danger' },
+    { id: 'jung', name: '정민수', status: 'online', unread: 3, lastMsg: '버그 수정 중입니다. 곧 업데이트할게요.', time: '어제', initials: '정', color: 'warning' }
+  ];
+
+  var chatMessages = {
+    'hong': [
+      { from: 'hong', text: '안녕하세요! 오늘 미팅 가능하신가요?', time: '오전 08:55' },
+      { from: 'me', text: '네, 5분만 기다려주세요. 마무리 중입니다.', time: '오전 08:57' },
+      { from: 'hong', text: '좋습니다. 준비되면 알려주세요 👍', time: '오전 08:58' },
+      { from: 'me', text: '준비 됐습니다. 지금 전화할게요!', time: '오전 09:00' },
+      { from: 'hong', text: '아까 통화 감사합니다!', time: '오전 09:45' },
+      { from: 'me', text: '저도요! 생산적인 논의였습니다.', time: '오전 09:46' },
+      { from: 'hong', text: '업데이트된 파일 정오까지 보내드릴게요.', time: '오전 09:50' },
+      { from: 'me', text: '좋습니다. 받으면 바로 검토할게요.', time: '오전 09:52' },
+      { from: 'hong', text: 'Drive로 공유했습니다. 접근에 문제 없는지 확인 부탁드려요.', time: '오후 12:03' },
+      { from: 'me', text: '확인했습니다. 모두 괜찮아 보여요!', time: '오후 12:10' },
+      { from: 'hong', text: '피드백 기다릴게요 😊', time: '오후 12:12' },
+      { from: 'me', text: '점심 후에 다시 연락드릴게요 🍴', time: '오후 12:13' },
+      { from: 'hong', text: '천천히 하세요! 맛있게 드세요 😄', time: '오후 12:14' },
+      { from: 'me', text: '감사합니다! 곧 연락드리겠습니다.', time: '오후 12:15' },
+      { from: 'hong', text: 'IMCAT UI 프로젝트 어떠세요?', time: '오후 02:30' },
+      { from: 'me', text: '아주 잘 진행 중입니다! EventEmitter 리팩토링까지 마쳤어요.', time: '오후 02:32' },
+      { from: 'hong', text: '안녕하세요! IMCAT UI 프로젝트 어떠세요?', time: '오후 02:35' }
+    ],
+    'kim': [
+      { from: 'kim', text: '디자인 시안 보셨나요?', time: '오전 10:15' },
+      { from: 'me', text: '네, 잘 봤습니다. 피드백 드릴게요.', time: '오전 10:20' },
+      { from: 'kim', text: '감사합니다. 회의 중입니다.', time: '오전 11:00' }
+    ],
+    'lee': [
+      { from: 'lee', text: '모듈 CSS 분리 작업은 어떻게 되가나요?', time: '오후 02:30' },
+      { from: 'me', text: '거의 완료 단계입니다. 내일 PR 올릴 예정이에요.', time: '오후 02:45' },
+      { from: 'lee', text: '좋습니다! 내일 봐요!', time: '오후 03:00' }
+    ],
+    'park': [
+      { from: 'park', text: '보안 모듈 강화 작업 다 끝났습니다.', time: '오전 11:20' },
+      { from: 'me', text: '수고하셨습니다! QA 팀에 전달할게요.', time: '오전 11:25' },
+      { from: 'park', text: '모든 작업 완료했습니다. 배포할까요?', time: '오후 01:00' },
+      { from: 'me', text: '네, 스테이징 먼저 올려주세요.', time: '오후 01:05' }
+    ],
+    'choi': [
+      { from: 'choi', text: '회의 금요일 11시로 변경됐습니다.', time: '오전 09:00' },
+      { from: 'me', text: '확인했습니다. 감사합니다.', time: '오전 09:10' }
+    ],
+    'jung': [
+      { from: 'jung', text: '다크 모드에서 z-index 이슈 발견했습니다.', time: '오전 10:00' },
+      { from: 'me', text: '_variables.scss 확인해보세요.', time: '오전 10:05' },
+      { from: 'jung', text: '버그 수정 중입니다. 곧 업데이트할게요.', time: '오전 10:30' }
+    ]
+  };
+
+  var chatCurrentUser = 'hong';
+
+  function chatRenderUserList(filter) {
+    var listEl = document.getElementById('chat-user-list');
+    if (!listEl) return;
+    var html = '';
+    chatUsers.forEach(function(u) {
+      var q = (filter || '').toLowerCase();
+      if (q && u.name.toLowerCase().indexOf(q) === -1) return;
+      var isActive = u.id === chatCurrentUser;
+      var statusDot = u.status === 'online' ? 'var(--success-color)' : u.status === 'away' ? 'var(--warning-color)' : 'var(--text-tertiary)';
+      html += '<div class="' + (isActive ? 'is-active' : '') + '" style="display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border-light);' + (isActive ? 'background:rgba(var(--primary-rgb,59,130,246),0.08);' : '') + '" onclick="chatSelectUser(\'' + u.id + '\')">' +
+        '<div style="position:relative;flex-shrink:0">' +
+        '<div style="width:36px;height:36px;border-radius:50%;background:var(--' + u.color + '-color);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.875rem">' + u.initials + '</div>' +
+        '<span style="position:absolute;bottom:0;right:0;width:8px;height:8px;border-radius:50%;background:' + statusDot + ';border:2px solid var(--bg-primary)"></span>' +
+        '</div>' +
+        '<div style="flex:1;min-width:0;overflow:hidden">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center">' +
+        '<strong style="font-size:0.8125rem">' + IMCAT.security.escape(u.name) + '</strong>' +
+        '<span class="text-muted" style="font-size:0.6875rem;flex-shrink:0">' + u.time + '</span>' +
+        '</div>' +
+        '<p style="margin:2px 0 0;font-size:0.75rem;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + IMCAT.security.escape(u.lastMsg) + '</p>' +
+        '</div>' +
+        (u.unread ? '<span class="badge badge--primary badge--pill" style="font-size:0.625rem;flex-shrink:0">' + u.unread + '</span>' : '') +
+        '</div>';
+    });
+    listEl.innerHTML = html;
+  }
+
+  function chatSelectUser(userId) {
+    chatCurrentUser = userId;
+    var u = chatUsers.find(function(x) { return x.id === userId; });
+    if (!u) return;
+
+    // 읽음 처리
+    u.unread = 0;
+
+    // 헤더 업데이트
+    document.getElementById('chat-user-name').textContent = u.name;
+    var statusLabel = u.status === 'online' ? '온라인' : u.status === 'away' ? '자리 비움' : '오프라인';
+    var statusColor = u.status === 'online' ? 'var(--success-color)' : u.status === 'away' ? 'var(--warning-color)' : 'var(--text-tertiary)';
+    document.getElementById('chat-user-status').innerHTML =
+      '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + statusColor + ';margin-right:4px;vertical-align:middle"></span>' +
+      '<span class="text-muted">' + statusLabel + '</span>';
+
+    // 메시지 렌더
+    chatRenderMessages(userId);
+
+    // 타이핑 표시 (온라인 사용자만)
+    var typingEl = document.getElementById('chat-typing');
+    typingEl.classList.remove('is-visible');
+    typingEl.innerHTML = '';
+    if (u.status === 'online') {
+      typingEl.innerHTML = '<span class="chat-ui__typing-indicator"><span class="chat-ui__typing-dot"></span><span class="chat-ui__typing-dot"></span><span class="chat-ui__typing-dot"></span></span> <span>' + IMCAT.security.escape(u.name) + '님이 입력 중</span>';
+      typingEl.classList.add('is-visible');
+      setTimeout(function() { typingEl.classList.remove('is-visible'); }, 3000);
+    }
+
+    // 사용자 목록 갱신
+    chatRenderUserList(document.getElementById('chat-search').value);
+  }
+
+  function chatRenderMessages(userId) {
+    var msgs = chatMessages[userId] || [];
+    var el = document.getElementById('chat-messages');
+    if (!el) return;
+    var u = chatUsers.find(function(x) { return x.id === userId; });
+    var html = '';
+
+    // 날짜 구분
+    html += '<div class="chat-ui__date-divider">오늘</div>';
+
+    msgs.forEach(function(m, i) {
+      var isOwn = m.from === 'me';
+      var prevMsg = i > 0 ? msgs[i - 1] : null;
+      var isGrouped = prevMsg && prevMsg.from === m.from;
+      var cls = 'chat-ui__message' + (isOwn ? ' chat-ui__message--own' : '') + (isGrouped ? ' chat-ui__message--grouped' : '');
+
+      html += '<div class="' + cls + '">';
+      if (!isGrouped) {
+        if (isOwn) {
+          html += '<div class="chat-ui__avatar" style="background:var(--primary-color);color:#fff;font-size:0.6875rem">나</div>';
+        } else {
+          html += '<div class="chat-ui__avatar" style="background:var(--' + (u ? u.color : 'primary') + '-color);color:#fff;font-size:0.6875rem">' + (u ? u.initials : '?') + '</div>';
+        }
+      }
+      html += '<div>';
+      html += '<div class="chat-ui__bubble">';
+      if (!isOwn && !isGrouped) {
+        html += '<div class="chat-ui__sender">' + IMCAT.security.escape(isOwn ? '나' : (u ? u.name : '')) + '</div>';
+      }
+      html += '<div class="chat-ui__text">' + IMCAT.security.escape(m.text) + '</div>';
+      html += '</div>';
+      html += '<div class="chat-ui__time">' + m.time + '</div>';
+      html += '</div></div>';
+    });
+
+    el.innerHTML = html;
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function chatSendMessage() {
+    var input = document.getElementById('chat-input');
+    var text = (input.value || '').trim();
+    if (!text) return;
+
+    // 메시지 추가
+    if (!chatMessages[chatCurrentUser]) chatMessages[chatCurrentUser] = [];
+    var now = new Date();
+    var timeStr = (now.getHours() < 12 ? '오전 ' : '오후 ') + (now.getHours() % 12 || 12) + ':' + String(now.getMinutes()).padStart(2, '0');
+    chatMessages[chatCurrentUser].push({ from: 'me', text: text, time: timeStr });
+
+    // 사용자 목록 업데이트
+    var u = chatUsers.find(function(x) { return x.id === chatCurrentUser; });
+    if (u) { u.lastMsg = text; u.time = '방금'; }
+
+    input.value = '';
+    chatRenderMessages(chatCurrentUser);
+    chatRenderUserList(document.getElementById('chat-search').value);
+
+    // 자동 응답 시뮬레이션 (온라인 사용자만)
+    if (u && u.status === 'online') {
+      var typingEl = document.getElementById('chat-typing');
+      typingEl.innerHTML = '<span class="chat-ui__typing-indicator"><span class="chat-ui__typing-dot"></span><span class="chat-ui__typing-dot"></span><span class="chat-ui__typing-dot"></span></span> <span>' + IMCAT.security.escape(u.name) + '님이 입력 중</span>';
+      typingEl.classList.add('is-visible');
+
+      setTimeout(function() {
+        typingEl.classList.remove('is-visible');
+        var replies = ['알겠습니다!', '좋은 생각이네요 👍', '확인했습니다.', '바로 처리할게요!', '감사합니다 😊', '네, 맞습니다.'];
+        var reply = replies[Math.floor(Math.random() * replies.length)];
+        chatMessages[chatCurrentUser].push({ from: chatCurrentUser, text: reply, time: timeStr });
+        if (u) { u.lastMsg = reply; }
+        chatRenderMessages(chatCurrentUser);
+        chatRenderUserList(document.getElementById('chat-search').value);
+        IMCAT.toast.info(u.name + ': ' + reply);
+      }, 1500);
+    }
+  }
+
+  function chatFilterUsers() {
+    var q = document.getElementById('chat-search').value;
+    chatRenderUserList(q);
+  }
+
+  // 모듈 CSS 로드 + 더보기 드롭다운 + 초기 렌더
+  (async function() {
+    // social 모듈 CSS 자동 로드 (chat-ui 스타일 포함)
+    await IMCAT.use('social');
+    var Dropdown = await IMCAT.use('dropdown');
+    var moreBtn = document.getElementById('chat-more-btn');
+    if (moreBtn) {
+      new Dropdown(moreBtn, {
+        items: [
+          { text: '프로필 보기', icon: 'person', action: function() { IMCAT.toast.info('프로필 보기 (데모)'); } },
+          { text: '알림 끄기', icon: 'notifications_off', action: function() { IMCAT.toast.info('알림 끄기 (데모)'); } },
+          { divider: true },
+          { text: '채팅 삭제', icon: 'delete', danger: true, action: function() { IMCAT.toast.warning('채팅 삭제 (데모)'); } }
+        ]
+      });
+    }
+
+    // CSS 로드 후 초기 렌더
+    chatRenderUserList();
+    chatRenderMessages('hong');
+  })();
+</script>

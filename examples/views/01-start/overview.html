@@ -1,0 +1,165 @@
+<!-- 빠른 시작 / 개요 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active">빠른 시작</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">빠른 시작</h1>
+  <p class="page-desc">IMCAT UI를 프로젝트에 추가하고 첫 번째 컴포넌트를 사용해보세요.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- CDN -->
+<div class="demo-card" id="s-cdn">
+  <div class="demo-card__header"><span class="demo-card__title">CDN으로 시작하기</span></div>
+  <div class="demo-card__desc">HTML 파일에 CSS와 JS를 추가하는 것만으로 바로 사용할 수 있습니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 1. CSS --&gt;</span>
+&lt;<span class="code-tag">link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"dist/imcat-ui.css"</span>&gt;
+
+<span class="code-comment">&lt;!-- 2. JS (body 끝) --&gt;</span>
+&lt;<span class="code-tag">script</span> <span class="code-attr">src</span>=<span class="code-string">"dist/imcat-ui.min.js"</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
+
+<span class="code-comment">&lt;!-- 3. 사용 --&gt;</span>
+&lt;<span class="code-tag">script</span>&gt;
+  IMCAT.toast.<span class="code-function">success</span>(<span class="code-string">'IMCAT UI 로드 완료!'</span>);
+&lt;/<span class="code-tag">script</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ESM -->
+<div class="demo-card" id="s-esm">
+  <div class="demo-card__header"><span class="demo-card__title">ES Module</span></div>
+  <div class="demo-card__desc">번들러(Vite, Webpack 등) 환경에서는 ESM으로 임포트합니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">import</span> IMCAT <span class="code-keyword">from</span> <span class="code-string">'./dist/imcat-ui.esm.js'</span>;
+
+<span class="code-keyword">const</span> { Modal } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ title: <span class="code-string">'Hello'</span>, content: <span class="code-string">'World'</span> }).<span class="code-function">show</span>();</pre>
+  </div>
+</div>
+
+<!-- 단축 API -->
+<div class="demo-card" id="s-shortcuts">
+  <div class="demo-card__header"><span class="demo-card__title">단축 API</span></div>
+  <div class="demo-card__desc">모듈을 직접 로드하지 않아도 자주 쓰는 기능을 한 줄로 호출할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="demoShortcutAlert()">alert()</button>
+      <button class="btn btn--secondary" onclick="demoShortcutConfirm()">confirm()</button>
+      <button class="btn btn--success" onclick="demoShortcutPrompt()">prompt()</button>
+      <button class="btn btn--info" onclick="demoShortcutToast()">toast</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// Alert</span>
+<span class="code-keyword">await</span> IMCAT.<span class="code-function">alert</span>(<span class="code-string">'저장되었습니다'</span>);
+
+<span class="code-comment">// Confirm</span>
+<span class="code-keyword">if</span> (<span class="code-keyword">await</span> IMCAT.<span class="code-function">confirm</span>(<span class="code-string">'삭제하시겠습니까?'</span>)) { ... }
+
+<span class="code-comment">// Prompt</span>
+<span class="code-keyword">const</span> name = <span class="code-keyword">await</span> IMCAT.<span class="code-function">prompt</span>(<span class="code-string">'이름을 입력하세요'</span>);
+
+<span class="code-comment">// Toast</span>
+IMCAT.toast.<span class="code-function">success</span>(<span class="code-string">'완료!'</span>);
+IMCAT.toast.<span class="code-function">error</span>(<span class="code-string">'오류 발생'</span>);
+IMCAT.toast.<span class="code-function">warning</span>(<span class="code-string">'주의'</span>);
+IMCAT.toast.<span class="code-function">info</span>(<span class="code-string">'안내'</span>);</pre>
+  </div>
+</div>
+
+<!-- 동적 모듈 로드 -->
+<div class="demo-card" id="s-modules">
+  <div class="demo-card__header"><span class="demo-card__title">동적 모듈 로드</span></div>
+  <div class="demo-card__desc"><code>IMCAT.use()</code>로 필요한 모듈만 런타임에 로드합니다. CSS도 자동으로 함께 로드됩니다.</div>
+  <div class="demo-card__body">
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="demoModuleLoad()">Modal 모듈 로드</button>
+      <button class="btn btn--outline" onclick="demoSubModule()">하위 모듈 로드</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 전체 모듈 로드</span>
+<span class="code-keyword">const</span> Overlays = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> Overlays.<span class="code-function">Modal</span>({ title: <span class="code-string">'제목'</span> }).<span class="code-function">show</span>();
+
+<span class="code-comment">// 하위 모듈만 로드</span>
+<span class="code-keyword">const</span> Modal = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays/modal'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ title: <span class="code-string">'제목'</span> }).<span class="code-function">show</span>();
+
+<span class="code-comment">// 여러 모듈 동시 로드</span>
+<span class="code-keyword">const</span> [Nav, Pickers] = <span class="code-keyword">await</span> Promise.<span class="code-function">all</span>([
+  IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>),
+  IMCAT.<span class="code-function">use</span>(<span class="code-string">'pickers'</span>)
+]);</pre>
+  </div>
+</div>
+
+<!-- SPA 라우팅 -->
+<div class="demo-card" id="s-router">
+  <div class="demo-card__header"><span class="demo-card__title">SPA 라우팅</span></div>
+  <div class="demo-card__desc"><code>catui-href</code> 속성으로 페이지 새로고침 없이 뷰를 전환합니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- catui-target: 뷰가 렌더링될 컨테이너 --&gt;</span>
+&lt;<span class="code-tag">body</span> <span class="code-attr">catui-target</span>=<span class="code-string">"content"</span>&gt;
+  &lt;<span class="code-tag">a</span> <span class="code-attr">catui-href</span>=<span class="code-string">"views/home.html"</span>&gt;홈&lt;/<span class="code-tag">a</span>&gt;
+  &lt;<span class="code-tag">a</span> <span class="code-attr">catui-href</span>=<span class="code-string">"views/about.html"</span>&gt;소개&lt;/<span class="code-tag">a</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">id</span>=<span class="code-string">"content"</span>&gt;&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">body</span>&gt;
+
+<span class="code-comment">// JS로 네비게이션</span>
+IMCAT.view.<span class="code-function">navigate</span>(<span class="code-string">'views/dashboard.html'</span>);
+
+<span class="code-comment">// 라이프사이클 훅</span>
+IMCAT.view.<span class="code-function">afterLoad</span>((path) => {
+  console.<span class="code-function">log</span>(<span class="code-string">'로드됨:'</span>, path);
+});</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-cdn" class="doc-toc__link is-active">CDN</a></li>
+    <li class="doc-toc__item"><a href="#s-esm" class="doc-toc__link">ES Module</a></li>
+    <li class="doc-toc__item"><a href="#s-shortcuts" class="doc-toc__link">단축 API</a></li>
+    <li class="doc-toc__item"><a href="#s-modules" class="doc-toc__link">모듈 로드</a></li>
+    <li class="doc-toc__item"><a href="#s-router" class="doc-toc__link">SPA 라우팅</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  async function demoShortcutAlert() {
+    await IMCAT.alert('저장되었습니다!');
+  }
+  async function demoShortcutConfirm() {
+    var ok = await IMCAT.confirm('삭제하시겠습니까?');
+    IMCAT.toast[ok ? 'success' : 'info'](ok ? '삭제됨' : '취소됨');
+  }
+  async function demoShortcutPrompt() {
+    var name = await IMCAT.prompt('이름을 입력하세요', { placeholder: '홍길동' });
+    if (name) IMCAT.toast.success('입력: ' + name);
+  }
+  function demoShortcutToast() {
+    IMCAT.toast.success('성공!');
+    setTimeout(function() { IMCAT.toast.error('오류!'); }, 400);
+    setTimeout(function() { IMCAT.toast.warning('경고!'); }, 800);
+    setTimeout(function() { IMCAT.toast.info('정보!'); }, 1200);
+  }
+  async function demoModuleLoad() {
+    var OV = await IMCAT.use('overlays');
+    var Modal = OV.Modal;
+    new Modal({ title: '모듈 로드 완료', content: '<p>overlays 모듈에서 Modal을 로드했습니다.</p>', buttons: [{ text: '확인', variant: 'primary', close: true }] }).show();
+  }
+  async function demoSubModule() {
+    var Modal = await IMCAT.use('overlays/modal');
+    new Modal({ title: '하위 모듈 로드', content: '<p><code>IMCAT.use("overlays/modal")</code>로 Modal 클래스만 직접 로드했습니다.</p>', buttons: [{ text: '확인', variant: 'primary', close: true }] }).show();
+  }
+</script>

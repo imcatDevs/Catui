@@ -1,0 +1,124 @@
+<!-- 활용: 미디어 갤러리 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">미디어 갤러리</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">미디어 갤러리</h1>
+  <p class="page-desc">ImageList + Lightbox + Masonry + LazyImage를 조합한 갤러리 예제</p>
+</div>
+
+<!-- 도구 바 -->
+<div class="card card--flat">
+  <div class="card__body">
+    <div class="btn-group">
+      <button class="btn btn--primary is-active" id="view-grid" onclick="setView('grid')">
+        <i class="material-icons-outlined">grid_view</i> 그리드
+      </button>
+      <button class="btn btn--outline" id="view-masonry" onclick="setView('masonry')">
+        <i class="material-icons-outlined">dashboard</i> 메이슨리
+      </button>
+      <button class="btn btn--outline" id="view-list" onclick="setView('list')">
+        <i class="material-icons-outlined">view_list</i> 리스트
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 갤러리 -->
+<div id="gallery"></div>
+
+<!-- 이미지 정보 -->
+<div class="card card--outlined">
+  <div class="card__header"><h4 class="card__title">갤러리 정보</h4></div>
+  <div class="card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact">
+        <tbody>
+          <tr><td class="font-semibold">총 이미지</td><td id="info-count">12</td></tr>
+          <tr><td class="font-semibold">레이아웃</td><td id="info-layout">그리드 (3열)</td></tr>
+          <tr><td class="font-semibold">기능</td><td>LazyLoading, Lightbox, 필터링</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  var galLocalImgs = [
+    'assets/images/140-800x400.jpg', 'assets/images/375-800x400.jpg',
+    'assets/images/614-800x400.jpg', 'assets/images/204-800x400.jpg',
+    'assets/images/672-800x400.jpg', 'assets/images/780-800x400.jpg',
+    'assets/images/818-800x400.jpg', 'assets/images/83-800x400.jpg',
+    'assets/images/1025-800x400.jpg', 'assets/images/1071-800x400.jpg',
+    'assets/images/221-800x600.jpg', 'assets/images/795-800x600.jpg'
+  ];
+  var galImages = galLocalImgs.map(function(src, i) {
+    return {
+      src: src,
+      alt: '갤러리 이미지 ' + (i + 1),
+      title: '사진 ' + (i + 1),
+      category: ['풍경', '인물', '건축'][i % 3]
+    };
+  });
+
+  var galView = 'grid';
+
+  async function renderGallery(view) {
+    var container = document.getElementById('gallery');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (view === 'grid' || view === 'masonry') {
+      var IL = await IMCAT.use('imagelist');
+      new IL.ImageList('#gallery', {
+        images: galImages,
+        columns: view === 'masonry' ? 4 : 3,
+        gap: 8,
+        layout: view,
+        onClick: function(img, index) { openLightbox(index); }
+      });
+      document.getElementById('info-layout').textContent = view === 'masonry' ? '메이슨리 (4열)' : '그리드 (3열)';
+    } else {
+      // 리스트 뷰
+      var list = document.createElement('div');
+      list.className = 'list list--divided';
+      galImages.forEach(function(img, i) {
+        var item = document.createElement('div');
+        item.className = 'list__item list__item--clickable';
+        item.innerHTML = '<i class="material-icons-outlined">image</i> <div><strong>' + IMCAT.security.escape(img.title) + '</strong><p class="body2 text-muted">' + IMCAT.security.escape(img.category) + '</p></div>';
+        item.addEventListener('click', function() { openLightbox(i); });
+        list.appendChild(item);
+      });
+      container.appendChild(list);
+      document.getElementById('info-layout').textContent = '리스트';
+    }
+  }
+
+  async function openLightbox(startIndex) {
+    var IL = await IMCAT.use('imagelist');
+    new IL.ImageLightbox({
+      images: galImages,
+      startIndex: startIndex || 0
+    }).show();
+  }
+
+  function setView(view) {
+    galView = view;
+    document.querySelectorAll('#view-grid, #view-masonry, #view-list').forEach(function(btn) {
+      btn.classList.remove('is-active', 'btn--primary');
+      btn.classList.add('btn--outline');
+    });
+    var active = document.getElementById('view-' + view);
+    if (active) {
+      active.classList.add('is-active', 'btn--primary');
+      active.classList.remove('btn--outline');
+    }
+    renderGallery(view);
+  }
+
+  renderGallery('grid');
+</script>

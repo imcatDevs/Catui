@@ -1,0 +1,169 @@
+<!-- State Management -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">State</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">State Management</h1>
+  <p class="page-desc">반응형 상태 관리. 상태 변경 시 자동으로 구독자에게 알립니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 사용</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--info" id="state-display">카운트: 0</div>
+    <div class="btn-group">
+      <button class="btn btn--primary" id="state-inc">+1 증가</button>
+      <button class="btn btn--secondary" id="state-dec">-1 감소</button>
+      <button class="btn btn--outline" id="state-reset">리셋</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 상태 생성 (리액티브 Proxy 반환)</span>
+<span class="code-keyword">const</span> store = IMCAT.state.<span class="code-function">create</span>({ count: <span class="code-number">0</span> });
+
+<span class="code-comment">// 특정 키 변경 감지</span>
+store.<span class="code-function">watch</span>(<span class="code-string">'count'</span>, (newVal, oldVal) => {
+  console.log(<span class="code-string">'변경됨:'</span>, oldVal, <span class="code-string">'->'</span>, newVal);
+});
+
+<span class="code-comment">// 상태 변경 (직접 할당 — 자동 감지)</span>
+store.count++;
+
+<span class="code-comment">// 현재 상태 조회</span>
+<span class="code-keyword">const</span> current = store.<span class="code-function">getState</span>(); <span class="code-comment">// { count: 1 }</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-compute">
+  <div class="demo-card__header"><span class="demo-card__title">파생 상태 (compute)</span></div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+      <div>
+        <label style="font-size:0.8125rem;font-weight:500;display:block;margin-bottom:0.25rem">가격</label>
+        <input type="number" class="form-input" id="state-price" value="10000" style="width:120px">
+      </div>
+      <div>
+        <label style="font-size:0.8125rem;font-weight:500;display:block;margin-bottom:0.25rem">수량</label>
+        <input type="number" class="form-input" id="state-qty" value="3" style="width:80px">
+      </div>
+      <div>
+        <label style="font-size:0.8125rem;font-weight:500;display:block;margin-bottom:0.25rem">합계 (자동 계산)</label>
+        <div class="alert alert--success" id="state-total" style="margin:0;padding:0.5rem 1rem;font-weight:600">₩30,000</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 파생 상태 — 의존성 자동 추적 (Proxy)</span>
+store.<span class="code-function">compute</span>(<span class="code-string">'total'</span>, <span class="code-keyword">function</span>() {
+  <span class="code-keyword">return</span> <span class="code-keyword">this</span>.price * <span class="code-keyword">this</span>.qty;
+});</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-batch">
+  <div class="demo-card__header"><span class="demo-card__title">일괄 변경 (batch / setState)</span></div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem">
+      <button class="btn btn--primary btn--sm" id="state-batch">일괄 변경 (batch)</button>
+      <button class="btn btn--outline btn--sm" id="state-setstate">setState({ name, role })</button>
+    </div>
+    <div class="alert alert--info" id="state-user-display" style="font-size:0.875rem">사용자: -</div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// batch — 복수 변경을 1번만 통지</span>
+store.<span class="code-function">batch</span>(<span class="code-keyword">function</span>() {
+  store.name = <span class="code-string">'홍길동'</span>;
+  store.role = <span class="code-string">'Admin'</span>;
+});
+
+<span class="code-comment">// setState — 부분 업데이트</span>
+store.<span class="code-function">setState</span>({ name: <span class="code-string">'김영희'</span>, role: <span class="code-string">'Editor'</span> });</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__code">
+<pre>IMCAT.state.<span class="code-function">create</span>(initialState)    <span class="code-comment">// 리액티브 Proxy 생성</span>
+store.<span class="code-function">watch</span>(key, callback)          <span class="code-comment">// 키 변경 감지</span>
+store.<span class="code-function">unwatch</span>(key, callback)        <span class="code-comment">// 감지 해제</span>
+store.<span class="code-function">getState</span>()                    <span class="code-comment">// 전체 상태 스냅샷</span>
+store.<span class="code-function">setState</span>(partial)             <span class="code-comment">// 상태 일괄 업데이트</span>
+store.<span class="code-function">reset</span>()                       <span class="code-comment">// 초기값으로 리셋</span>
+store.<span class="code-function">compute</span>(key, getter)          <span class="code-comment">// 파생 상태 (의존성 자동 추적)</span>
+store.<span class="code-function">batch</span>(fn)                     <span class="code-comment">// 일괄 변경</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 사용</a></li>
+    <li class="doc-toc__item"><a href="#s-compute" class="doc-toc__link">파생 상태</a></li>
+    <li class="doc-toc__item"><a href="#s-batch" class="doc-toc__link">일괄 변경</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  // ── 1. 기본 카운터 ──
+  var counterStore = IMCAT.state.create({ count: 0 });
+  counterStore.watch('count', function(newVal) {
+    document.getElementById('state-display').textContent = '카운트: ' + newVal;
+  });
+  document.getElementById('state-inc').addEventListener('click', function() {
+    counterStore.count++;
+  });
+  document.getElementById('state-dec').addEventListener('click', function() {
+    counterStore.count--;
+  });
+  document.getElementById('state-reset').addEventListener('click', function() {
+    counterStore.reset();
+  });
+
+  // ── 2. 파생 상태 (compute) ──
+  var shopStore = IMCAT.state.create({ price: 10000, qty: 3 });
+  shopStore.compute('total', function() {
+    return this.price * this.qty;
+  });
+  shopStore.watch('total', function(newVal) {
+    document.getElementById('state-total').textContent = '₩' + Number(newVal).toLocaleString();
+  });
+  document.getElementById('state-price').addEventListener('input', function() {
+    shopStore.price = Number(this.value) || 0;
+  });
+  document.getElementById('state-qty').addEventListener('input', function() {
+    shopStore.qty = Number(this.value) || 0;
+  });
+
+  // ── 3. batch / setState ──
+  var userStore = IMCAT.state.create({ name: '', role: '' });
+  userStore.watch('name', function() {
+    document.getElementById('state-user-display').textContent =
+      '사용자: ' + (userStore.name || '-') + ' (' + (userStore.role || '-') + ')';
+  });
+  userStore.watch('role', function() {
+    document.getElementById('state-user-display').textContent =
+      '사용자: ' + (userStore.name || '-') + ' (' + (userStore.role || '-') + ')';
+  });
+  document.getElementById('state-batch').addEventListener('click', function() {
+    userStore.batch(function() {
+      userStore.name = '홍길동';
+      userStore.role = 'Admin';
+    });
+    IMCAT.toast.success('batch 완료');
+  });
+  document.getElementById('state-setstate').addEventListener('click', function() {
+    userStore.setState({ name: '김영희', role: 'Editor' });
+    IMCAT.toast.info('setState 완료');
+  });
+</script>

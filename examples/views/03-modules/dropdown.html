@@ -1,0 +1,386 @@
+<!-- Dropdown -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Dropdown</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Dropdown</h1>
+  <p class="page-desc">드롭다운 메뉴와 컨텍스트 메뉴 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- 기본 Dropdown -->
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 Dropdown</span></div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" id="dd-trigger">메뉴 열기 <i class="material-icons-outlined">expand_more</i></button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> Dropdown = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'dropdown'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [
+    { text: <span class="code-string">'편집'</span>, icon: <span class="code-string">'edit'</span>, action: () => {} },
+    { text: <span class="code-string">'삭제'</span>, icon: <span class="code-string">'delete'</span>, danger: <span class="code-keyword">true</span> },
+    { divider: <span class="code-keyword">true</span> },
+    { text: <span class="code-string">'설정'</span>, icon: <span class="code-string">'settings'</span> }
+  ]
+});</pre>
+  </div>
+</div>
+
+<!-- 버튼 색상 변형 -->
+<div class="demo-card" id="s-variant">
+  <div class="demo-card__header"><span class="demo-card__title">버튼 색상 변형</span></div>
+  <div class="demo-card__desc">모든 버튼 스타일에 드롭다운을 적용할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="btn btn--primary" id="dd-primary">Primary <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--secondary" id="dd-secondary">Secondary <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--success" id="dd-success">Success <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--info" id="dd-info">Info <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--warning" id="dd-warning">Warning <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--danger" id="dd-danger">Danger <i class="material-icons-outlined">expand_more</i></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 모든 btn 변형에 적용 가능</span>
+<span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#btn-primary'</span>, { items: [...] });
+<span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#btn-danger'</span>, { items: [...] });</pre>
+  </div>
+</div>
+
+<!-- 방향 변형 -->
+<div class="demo-card" id="s-direction">
+  <div class="demo-card__header"><span class="demo-card__title">방향 변형</span></div>
+  <div class="demo-card__desc">position 옵션으로 메뉴가 열리는 방향을 지정할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; padding: 40px 0;">
+      <button class="btn btn--outline-primary" id="dd-bottom">Bottom (기본) <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--outline-info" id="dd-top">Dropup <i class="material-icons-outlined">expand_less</i></button>
+      <button class="btn btn--outline-success" id="dd-right">Dropend <i class="material-icons-outlined">chevron_right</i></button>
+      <button class="btn btn--outline-warning" id="dd-left">Dropstart <i class="material-icons-outlined">chevron_left</i></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [...],
+  position: <span class="code-string">'top'</span>      <span class="code-comment">// 'top' | 'bottom' | 'left' | 'right'</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Hover 트리거 -->
+<div class="demo-card" id="s-hover">
+  <div class="demo-card__header"><span class="demo-card__title">Hover 트리거</span></div>
+  <div class="demo-card__desc">openOnHover 옵션으로 마우스 오버 시 자동으로 메뉴를 엽니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--secondary" id="dd-hover">Hover로 열기 <i class="material-icons-outlined">expand_more</i></button>
+      <button class="btn btn--outline-secondary" id="dd-hover2">Hover + 오른쪽 <i class="material-icons-outlined">chevron_right</i></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [...],
+  openOnHover: <span class="code-keyword">true</span>,
+  hoverDelay: <span class="code-number">200</span>   <span class="code-comment">// ms</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 활성화 / 비활성화 아이템 -->
+<div class="demo-card" id="s-states">
+  <div class="demo-card__header"><span class="demo-card__title">활성화 &amp; 비활성화 아이템</span></div>
+  <div class="demo-card__desc">아이템에 active, disabled 속성을 지정할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <button class="btn btn--secondary" id="dd-states">아이템 상태 <i class="material-icons-outlined">expand_more</i></button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [
+    { text: <span class="code-string">'일반 항목'</span> },
+    { text: <span class="code-string">'활성 항목'</span>, active: <span class="code-keyword">true</span> },
+    { text: <span class="code-string">'비활성 항목'</span>, disabled: <span class="code-keyword">true</span> },
+    { divider: <span class="code-keyword">true</span> },
+    { text: <span class="code-string">'위험 항목'</span>, danger: <span class="code-keyword">true</span> }
+  ]
+});</pre>
+  </div>
+</div>
+
+<!-- 헤더가 있는 드롭다운 -->
+<div class="demo-card" id="s-header">
+  <div class="demo-card__header"><span class="demo-card__title">헤더 구분</span></div>
+  <div class="demo-card__desc">header 속성으로 메뉴 섹션을 구분할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <button class="btn btn--secondary" id="dd-header">헤더 메뉴 <i class="material-icons-outlined">expand_more</i></button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [
+    { header: <span class="code-string">'파일'</span> },
+    { text: <span class="code-string">'새 파일'</span>, icon: <span class="code-string">'add'</span> },
+    { text: <span class="code-string">'열기'</span>, icon: <span class="code-string">'folder_open'</span> },
+    { header: <span class="code-string">'편집'</span> },
+    { text: <span class="code-string">'복사'</span>, icon: <span class="code-string">'content_copy'</span> },
+    { text: <span class="code-string">'잘라내기'</span>, icon: <span class="code-string">'content_cut'</span> }
+  ]
+});</pre>
+  </div>
+</div>
+
+<!-- 정렬 -->
+<div class="demo-card" id="s-align">
+  <div class="demo-card__header"><span class="demo-card__title">메뉴 정렬</span></div>
+  <div class="demo-card__desc">align 옵션으로 메뉴의 정렬 위치를 조정할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--outline-primary" id="dd-start">Start (기본)</button>
+      <button class="btn btn--outline-primary" id="dd-center">Center</button>
+      <button class="btn btn--outline-primary" id="dd-end">End (오른쪽 정렬)</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: [...],
+  align: <span class="code-string">'end'</span>    <span class="code-comment">// 'start' | 'center' | 'end'</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 아이콘 트리거 -->
+<div class="demo-card" id="s-icon">
+  <div class="demo-card__header"><span class="demo-card__title">아이콘 트리거</span></div>
+  <div class="demo-card__desc">아이콘 버튼으로 드롭다운을 트리거할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <button class="btn btn--ghost btn--icon" id="dd-icon-more" title="더보기"><i class="material-icons-outlined">more_vert</i></button>
+      <button class="btn btn--ghost btn--icon" id="dd-icon-settings" title="설정"><i class="material-icons-outlined">settings</i></button>
+      <button class="btn btn--ghost btn--icon" id="dd-icon-user" title="사용자"><i class="material-icons-outlined">account_circle</i></button>
+      <button class="btn btn--ghost btn--icon" id="dd-icon-noti" title="알림"><i class="material-icons-outlined">notifications</i></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 아이콘 버튼에 적용</span>
+<span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#icon-btn'</span>, {
+  items: [...],
+  align: <span class="code-string">'end'</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 스크롤 가능 드롭다운 -->
+<div class="demo-card" id="s-scroll">
+  <div class="demo-card__header"><span class="demo-card__title">스크롤 가능 드롭다운</span></div>
+  <div class="demo-card__desc">항목이 많은 경우 자동으로 스크롤이 적용됩니다.</div>
+  <div class="demo-card__body">
+    <button class="btn btn--secondary" id="dd-scroll">알림 목록 <span class="badge badge--danger" style="margin-left: 4px;">9</span></button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 아이템이 많으면 자동 스크롤</span>
+<span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#trigger'</span>, {
+  items: Array.from({ length: <span class="code-number">15</span> }, (_, i) =>
+    ({ text: <span class="code-string">`항목 ${i+1}`</span>, icon: <span class="code-string">'circle'</span> })
+  )
+});</pre>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div class="demo-card" id="s-context">
+  <div class="demo-card__header"><span class="demo-card__title">Context Menu (우클릭)</span></div>
+  <div class="demo-card__desc">contextmenu 이벤트와 조합하여 우클릭 메뉴를 만들 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div class="card card--outlined" id="ctx-area" style="min-height: 100px;">
+      <div class="card__body text-center" style="color: var(--text-secondary);">이 영역에서 우클릭하세요</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">var</span> dd = <span class="code-keyword">new</span> <span class="code-function">Dropdown</span>(<span class="code-string">'#area'</span>, {
+  items: [
+    { text: <span class="code-string">'복사'</span>, icon: <span class="code-string">'content_copy'</span> },
+    { text: <span class="code-string">'붙여넣기'</span>, icon: <span class="code-string">'content_paste'</span> },
+    { divider: <span class="code-keyword">true</span> },
+    { text: <span class="code-string">'삭제'</span>, icon: <span class="code-string">'delete'</span>, danger: <span class="code-keyword">true</span> }
+  ]
+});
+el.<span class="code-function">addEventListener</span>(<span class="code-string">'contextmenu'</span>, e => {
+  e.<span class="code-function">preventDefault</span>(); dd.<span class="code-function">show</span>();
+});</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 Dropdown</a></li>
+    <li class="doc-toc__item"><a href="#s-variant" class="doc-toc__link">버튼 색상 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-direction" class="doc-toc__link">방향 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-hover" class="doc-toc__link">Hover 트리거</a></li>
+    <li class="doc-toc__item"><a href="#s-states" class="doc-toc__link">활성화 &amp; 비활성화</a></li>
+    <li class="doc-toc__item"><a href="#s-header" class="doc-toc__link">헤더 구분</a></li>
+    <li class="doc-toc__item"><a href="#s-align" class="doc-toc__link">메뉴 정렬</a></li>
+    <li class="doc-toc__item"><a href="#s-icon" class="doc-toc__link">아이콘 트리거</a></li>
+    <li class="doc-toc__item"><a href="#s-scroll" class="doc-toc__link">스크롤 드롭다운</a></li>
+    <li class="doc-toc__item"><a href="#s-context" class="doc-toc__link">Context Menu</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var Dropdown = await IMCAT.use('dropdown');
+
+    var sampleItems = [
+      { text: 'Action', icon: 'bolt', action: function() { IMCAT.toast.info('Action'); } },
+      { text: 'Another action', icon: 'refresh', action: function() { IMCAT.toast.info('Another action'); } },
+      { text: 'Something else', icon: 'star', action: function() { IMCAT.toast.info('Something else'); } },
+      { divider: true },
+      { text: 'Separated link', icon: 'link', action: function() { IMCAT.toast.info('Separated link'); } }
+    ];
+
+    // ── 기본 Dropdown ──
+    new Dropdown('#dd-trigger', {
+      items: [
+        { text: '편집', icon: 'edit', action: function() { IMCAT.toast.info('편집'); } },
+        { text: '복제', icon: 'content_copy', action: function() { IMCAT.toast.info('복제'); } },
+        { divider: true },
+        { text: '삭제', icon: 'delete', danger: true, action: function() { IMCAT.toast.error('삭제'); } }
+      ]
+    });
+
+    // ── 버튼 색상 변형 ──
+    ['primary','secondary','success','info','warning','danger'].forEach(function(v) {
+      new Dropdown('#dd-' + v, { items: sampleItems });
+    });
+
+    // ── 방향 변형 ──
+    new Dropdown('#dd-bottom', { items: sampleItems, position: 'bottom' });
+    new Dropdown('#dd-top', { items: sampleItems, position: 'top' });
+    new Dropdown('#dd-right', { items: sampleItems, position: 'right' });
+    new Dropdown('#dd-left', { items: sampleItems, position: 'left' });
+
+    // ── Hover 트리거 ──
+    new Dropdown('#dd-hover', {
+      items: [
+        { text: '프로필', icon: 'person', action: function() { IMCAT.toast.info('프로필'); } },
+        { text: '알림', icon: 'notifications', action: function() { IMCAT.toast.info('알림'); } },
+        { divider: true },
+        { text: '로그아웃', icon: 'logout', action: function() { IMCAT.toast.warning('로그아웃'); } }
+      ],
+      openOnHover: true
+    });
+    new Dropdown('#dd-hover2', {
+      items: sampleItems,
+      openOnHover: true,
+      position: 'right'
+    });
+
+    // ── 활성화 / 비활성화 아이템 ──
+    new Dropdown('#dd-states', {
+      items: [
+        { text: '일반 항목', icon: 'circle', action: function() { IMCAT.toast.info('일반'); } },
+        { text: '활성 항목', icon: 'check_circle', active: true, action: function() { IMCAT.toast.success('활성'); } },
+        { text: '비활성 항목', icon: 'block', disabled: true },
+        { divider: true },
+        { text: '위험 항목', icon: 'warning', danger: true, action: function() { IMCAT.toast.error('위험!'); } }
+      ]
+    });
+
+    // ── 헤더가 있는 드롭다운 ──
+    new Dropdown('#dd-header', {
+      items: [
+        { header: '파일' },
+        { text: '새 파일', icon: 'add', action: function() { IMCAT.toast.info('새 파일'); } },
+        { text: '열기', icon: 'folder_open', action: function() { IMCAT.toast.info('열기'); } },
+        { text: '저장', icon: 'save', action: function() { IMCAT.toast.success('저장'); } },
+        { header: '편집' },
+        { text: '실행 취소', icon: 'undo', action: function() { IMCAT.toast.info('실행 취소'); } },
+        { text: '다시 실행', icon: 'redo', action: function() { IMCAT.toast.info('다시 실행'); } },
+        { divider: true },
+        { text: '복사', icon: 'content_copy', action: function() { IMCAT.toast.info('복사'); } },
+        { text: '잘라내기', icon: 'content_cut', action: function() { IMCAT.toast.info('잘라내기'); } }
+      ]
+    });
+
+    // ── 정렬 ──
+    new Dropdown('#dd-start', { items: sampleItems, align: 'start' });
+    new Dropdown('#dd-center', { items: sampleItems, align: 'center' });
+    new Dropdown('#dd-end', { items: sampleItems, align: 'end' });
+
+    // ── 아이콘 트리거 ──
+    new Dropdown('#dd-icon-more', {
+      items: [
+        { text: '편집', icon: 'edit', action: function() { IMCAT.toast.info('편집'); } },
+        { text: '공유', icon: 'share', action: function() { IMCAT.toast.info('공유'); } },
+        { divider: true },
+        { text: '삭제', icon: 'delete', danger: true, action: function() { IMCAT.toast.error('삭제'); } }
+      ],
+      align: 'end'
+    });
+    new Dropdown('#dd-icon-settings', {
+      items: [
+        { text: '일반 설정', icon: 'tune', action: function() { IMCAT.toast.info('일반'); } },
+        { text: '알림 설정', icon: 'notifications_active', action: function() { IMCAT.toast.info('알림'); } },
+        { text: '보안', icon: 'security', action: function() { IMCAT.toast.info('보안'); } }
+      ]
+    });
+    new Dropdown('#dd-icon-user', {
+      items: [
+        { header: '계정' },
+        { text: '내 프로필', icon: 'person', action: function() { IMCAT.toast.info('프로필'); } },
+        { text: '환경설정', icon: 'settings', action: function() { IMCAT.toast.info('환경설정'); } },
+        { divider: true },
+        { text: '잠금', icon: 'lock', action: function() { IMCAT.toast.warning('잠금'); } },
+        { text: '로그아웃', icon: 'logout', danger: true, action: function() { IMCAT.toast.error('로그아웃'); } }
+      ],
+      align: 'end'
+    });
+    new Dropdown('#dd-icon-noti', {
+      items: [
+        { header: '오늘' },
+        { text: '새 댓글이 달렸습니다', icon: 'comment' },
+        { text: '업데이트가 완료되었습니다', icon: 'system_update' },
+        { header: '어제' },
+        { text: '새 사용자가 등록되었습니다', icon: 'person_add' },
+        { text: '서버 점검 예정', icon: 'build' }
+      ],
+      align: 'end',
+      openOnHover: true
+    });
+
+    // ── 스크롤 가능 드롭다운 ──
+    var scrollItems = [];
+    for (var i = 0; i < 15; i++) {
+      scrollItems.push({
+        text: '알림 항목 ' + (i + 1),
+        icon: i < 3 ? 'mark_email_unread' : 'mail',
+        action: (function(idx) { return function() { IMCAT.toast.info('알림 ' + (idx+1)); }; })(i)
+      });
+      if (i === 2 || i === 7) scrollItems.push({ divider: true });
+    }
+    new Dropdown('#dd-scroll', { items: scrollItems });
+
+    // ── Context Menu ──
+    var ctxDropdown = new Dropdown('#ctx-area', {
+      items: [
+        { text: '복사', icon: 'content_copy', action: function() { IMCAT.toast.info('복사'); } },
+        { text: '붙여넣기', icon: 'content_paste', action: function() { IMCAT.toast.info('붙여넣기'); } },
+        { text: '모두 선택', icon: 'select_all', action: function() { IMCAT.toast.info('모두 선택'); } },
+        { divider: true },
+        { text: '검사', icon: 'code', action: function() { IMCAT.toast.info('검사'); } },
+        { text: '삭제', icon: 'delete', danger: true, action: function() { IMCAT.toast.error('삭제'); } }
+      ]
+    });
+    document.getElementById('ctx-area').addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      ctxDropdown.show();
+    });
+  })();
+</script>

@@ -1,0 +1,282 @@
+<!-- ImageList: ImageList, ImageLightbox, ImageCompare, LazyImage -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">ImageList</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">ImageList</h1>
+  <p class="page-desc">이미지 그리드, 라이트박스, Before/After 비교, 지연 로딩 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- Card 1: ImageList — Grid                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-grid">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ImageList — Grid</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">CSS Grid 기반 이미지 갤러리. 반응형 columns, 호버 효과(zoom/fade/overlay), 라이트박스 내장.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="grid-demo"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.75rem">
+      <button class="btn btn--sm btn--outline" id="btn-layout-grid">Grid</button>
+      <button class="btn btn--sm btn--outline" id="btn-layout-masonry">Masonry</button>
+      <button class="btn btn--sm btn--outline" id="btn-layout-quilted">Quilted</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ImageList } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'imagelist'</span>);
+<span class="code-keyword">new</span> <span class="code-function">ImageList</span>(<span class="code-string">'#container'</span>, {
+  images: [{ src: <span class="code-string">'img.jpg'</span>, title: <span class="code-string">'제목'</span> }, ...],
+  layout: <span class="code-string">'grid'</span>,      <span class="code-comment">// grid | masonry | quilted</span>
+  columns: <span class="code-number">4</span>,
+  gap: <span class="code-number">8</span>,
+  hover: <span class="code-string">'zoom'</span>,       <span class="code-comment">// zoom | fade | overlay | none</span>
+  lightbox: <span class="code-keyword">true</span>,
+  aspectRatio: <span class="code-string">'4:3'</span>,  <span class="code-comment">// 1:1 | 4:3 | 16:9 | auto</span>
+  showTitle: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 2: ImageLightbox                        -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-lightbox">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ImageLightbox</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">풀스크린 이미지 뷰어. 키보드/스와이프 네비게이션, 줌, 다운로드, 썸네일 스트립 지원.</p>
+  </div>
+  <div class="demo-card__body">
+    <button class="btn btn--sm btn--primary" id="btn-lightbox">라이트박스 열기</button>
+    <button class="btn btn--sm btn--outline" id="btn-lightbox-thumb">썸네일 포함 열기</button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ImageLightbox } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'imagelist'</span>);
+<span class="code-keyword">const</span> lb = <span class="code-keyword">new</span> <span class="code-function">ImageLightbox</span>({
+  images: [{ src: <span class="code-string">'full.jpg'</span>, thumb: <span class="code-string">'thumb.jpg'</span>, title: <span class="code-string">'캡션'</span> }],
+  startIndex: <span class="code-number">0</span>,
+  thumbnails: <span class="code-keyword">true</span>,
+  zoom: <span class="code-keyword">true</span>,
+  download: <span class="code-keyword">true</span>,
+  keyboard: <span class="code-keyword">true</span>,
+  swipe: <span class="code-keyword">true</span>
+});
+lb.<span class="code-function">open</span>();</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 3: ImageCompare                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-compare">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ImageCompare — Before / After</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">드래그 슬라이더로 두 이미지를 비교. 수평/수직 모드, 라벨, 핸들 커스터마이징.</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div>
+        <h6 style="font-size:0.75rem;margin-bottom:0.5rem;color:var(--text-secondary)">수평 모드</h6>
+        <div id="compare-h" style="max-width:100%"></div>
+      </div>
+      <div>
+        <h6 style="font-size:0.75rem;margin-bottom:0.5rem;color:var(--text-secondary)">수직 모드</h6>
+        <div id="compare-v" style="max-width:100%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ImageCompare } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'imagelist'</span>);
+<span class="code-keyword">new</span> <span class="code-function">ImageCompare</span>(<span class="code-string">'#container'</span>, {
+  before: { src: <span class="code-string">'before.jpg'</span>, label: <span class="code-string">'Before'</span> },
+  after: { src: <span class="code-string">'after.jpg'</span>, label: <span class="code-string">'After'</span> },
+  orientation: <span class="code-string">'horizontal'</span>, <span class="code-comment">// horizontal | vertical</span>
+  initialPosition: <span class="code-number">50</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 4: LazyImage                            -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-lazy">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">LazyImage — 지연 로딩</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">IntersectionObserver 기반 지연 로딩. blur/skeleton/color 플레이스홀더, 페이드인 애니메이션.</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="lazy-demo" style="display:flex;gap:0.5rem;flex-wrap:wrap"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { LazyImage } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'imagelist'</span>);
+<span class="code-comment">// data-lazy-src 속성이 있는 img 요소를 자동 감지</span>
+<span class="code-keyword">new</span> <span class="code-function">LazyImage</span>({
+  selector: <span class="code-string">'[data-lazy-src]'</span>,
+  placeholder: <span class="code-string">'skeleton'</span>, <span class="code-comment">// blur | skeleton | color | none</span>
+  animation: <span class="code-string">'fade'</span>,
+  rootMargin: <span class="code-string">'50px'</span>,
+  onLoad: (img) => console.log(<span class="code-string">'로드 완료'</span>, img)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Card 5: 옵션 레퍼런스                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-options">
+  <div class="demo-card__header"><span class="demo-card__title">옵션 레퍼런스</span></div>
+  <div class="demo-card__body" style="overflow-x:auto">
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead>
+        <tr><th>컴포넌트</th><th>옵션</th><th>기본값</th><th>설명</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="8"><strong>ImageList</strong></td><td><code>images</code></td><td>[]</td><td>[{ src, thumb?, title?, alt?, featured? }]</td></tr>
+        <tr><td><code>layout</code></td><td>'grid'</td><td>grid | masonry | quilted</td></tr>
+        <tr><td><code>columns</code></td><td>4</td><td>열 개수</td></tr>
+        <tr><td><code>gap</code></td><td>8</td><td>간격 (px)</td></tr>
+        <tr><td><code>aspectRatio</code></td><td>'1:1'</td><td>1:1 | 4:3 | 16:9 | auto</td></tr>
+        <tr><td><code>hover</code></td><td>'zoom'</td><td>zoom | fade | overlay | none</td></tr>
+        <tr><td><code>lightbox</code></td><td>true</td><td>클릭 시 라이트박스 열기</td></tr>
+        <tr><td><code>showTitle</code></td><td>false</td><td>오버레이에 타이틀 표시</td></tr>
+        <tr><td rowspan="6"><strong>ImageLightbox</strong></td><td><code>images</code></td><td>[]</td><td>[{ src, thumb?, title? }]</td></tr>
+        <tr><td><code>startIndex</code></td><td>0</td><td>시작 이미지 인덱스</td></tr>
+        <tr><td><code>zoom</code></td><td>true</td><td>이미지 클릭 줌</td></tr>
+        <tr><td><code>download</code></td><td>true</td><td>다운로드 버튼</td></tr>
+        <tr><td><code>thumbnails</code></td><td>false</td><td>하단 썸네일 스트립</td></tr>
+        <tr><td><code>keyboard</code></td><td>true</td><td>키보드 네비게이션 (←→Esc)</td></tr>
+        <tr><td rowspan="4"><strong>ImageCompare</strong></td><td><code>before</code></td><td>{ src, label }</td><td>Before 이미지</td></tr>
+        <tr><td><code>after</code></td><td>{ src, label }</td><td>After 이미지</td></tr>
+        <tr><td><code>orientation</code></td><td>'horizontal'</td><td>horizontal | vertical</td></tr>
+        <tr><td><code>initialPosition</code></td><td>50</td><td>슬라이더 초기 위치 (0-100)</td></tr>
+        <tr><td rowspan="4"><strong>LazyImage</strong></td><td><code>selector</code></td><td>'[data-lazy-src]'</td><td>대상 이미지 셀렉터</td></tr>
+        <tr><td><code>placeholder</code></td><td>'blur'</td><td>blur | skeleton | color | none</td></tr>
+        <tr><td><code>animation</code></td><td>'fade'</td><td>fade | none</td></tr>
+        <tr><td><code>rootMargin</code></td><td>'50px'</td><td>IntersectionObserver 마진</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-grid" class="doc-toc__link is-active">ImageList Grid</a></li>
+    <li class="doc-toc__item"><a href="#s-lightbox" class="doc-toc__link">ImageLightbox</a></li>
+    <li class="doc-toc__item"><a href="#s-compare" class="doc-toc__link">ImageCompare</a></li>
+    <li class="doc-toc__item"><a href="#s-lazy" class="doc-toc__link">LazyImage</a></li>
+    <li class="doc-toc__item"><a href="#s-options" class="doc-toc__link">옵션 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var IL = await IMCAT.use('imagelist');
+
+    // 샘플 이미지 (picsum.photos)
+    var sampleImages = [];
+    for (var i = 1; i <= 12; i++) {
+      sampleImages.push({
+        src: 'https://picsum.photos/seed/imcat' + i + '/800/600',
+        thumb: 'https://picsum.photos/seed/imcat' + i + '/400/300',
+        title: '이미지 ' + i,
+        alt: '샘플 이미지 ' + i,
+        featured: i === 1
+      });
+    }
+
+    // ================================
+    // 1. ImageList — Grid
+    // ================================
+    var gallery = new IL.ImageList('#grid-demo', {
+      images: sampleImages.slice(0, 8),
+      layout: 'grid',
+      columns: 4,
+      gap: 8,
+      aspectRatio: '4:3',
+      hover: 'zoom',
+      lightbox: true,
+      showTitle: true,
+      rounded: 8
+    });
+
+    // 레이아웃 전환 버튼
+    document.getElementById('btn-layout-grid').addEventListener('click', function() {
+      gallery.destroy();
+      gallery = new IL.ImageList('#grid-demo', {
+        images: sampleImages.slice(0, 8), layout: 'grid', columns: 4, gap: 8,
+        aspectRatio: '4:3', hover: 'zoom', lightbox: true, showTitle: true, rounded: 8
+      });
+    });
+    document.getElementById('btn-layout-masonry').addEventListener('click', function() {
+      gallery.destroy();
+      gallery = new IL.ImageList('#grid-demo', {
+        images: sampleImages.slice(0, 8), layout: 'masonry', columns: 4, gap: 8,
+        aspectRatio: 'auto', hover: 'overlay', lightbox: true, showTitle: true, rounded: 8
+      });
+    });
+    document.getElementById('btn-layout-quilted').addEventListener('click', function() {
+      gallery.destroy();
+      gallery = new IL.ImageList('#grid-demo', {
+        images: sampleImages.slice(0, 8), layout: 'quilted', columns: 4, gap: 8,
+        aspectRatio: '1:1', hover: 'fade', lightbox: true, showTitle: true, rounded: 8
+      });
+    });
+
+    // ================================
+    // 2. ImageLightbox
+    // ================================
+    document.getElementById('btn-lightbox').addEventListener('click', function() {
+      var lb = new IL.ImageLightbox({
+        images: sampleImages.slice(0, 6),
+        startIndex: 0, zoom: true, download: true, counter: true
+      });
+      lb.open();
+    });
+    document.getElementById('btn-lightbox-thumb').addEventListener('click', function() {
+      var lb = new IL.ImageLightbox({
+        images: sampleImages.slice(0, 6),
+        startIndex: 0, thumbnails: true, zoom: true, download: true
+      });
+      lb.open();
+    });
+
+    // ================================
+    // 3. ImageCompare — 수평 / 수직
+    // ================================
+    new IL.ImageCompare('#compare-h', {
+      before: { src: 'https://picsum.photos/seed/before1/600/400', label: 'Before' },
+      after: { src: 'https://picsum.photos/seed/after1/600/400', label: 'After' },
+      orientation: 'horizontal',
+      initialPosition: 50
+    });
+    new IL.ImageCompare('#compare-v', {
+      before: { src: 'https://picsum.photos/seed/before2/600/400', label: 'Before' },
+      after: { src: 'https://picsum.photos/seed/after2/600/400', label: 'After' },
+      orientation: 'vertical',
+      initialPosition: 50
+    });
+
+    // ================================
+    // 4. LazyImage
+    // ================================
+    var lazyContainer = document.getElementById('lazy-demo');
+    for (var j = 20; j <= 27; j++) {
+      var img = document.createElement('img');
+      img.dataset.lazySrc = 'https://picsum.photos/seed/lazy' + j + '/300/200';
+      img.alt = '지연 로드 이미지 ' + (j - 19);
+      img.style.cssText = 'width:160px;height:120px;border-radius:0.375rem;object-fit:cover;';
+      lazyContainer.appendChild(img);
+    }
+    new IL.LazyImage({ placeholder: 'skeleton', animation: 'fade', rootMargin: '50px' });
+  })();
+</script>

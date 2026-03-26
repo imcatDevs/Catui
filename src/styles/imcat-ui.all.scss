@@ -1,0 +1,49 @@
+/*!
+ * IMCAT UI Framework v__IMCAT_VERSION__ (Full Bundle)
+ * 코어 + 모든 모듈 스타일 포함
+ * Copyright 2025 IMCAT UI
+ * Licensed under MIT
+ */
+
+// 코어 스타일
+@use 'abstracts/variables' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/mixins' as *;
+@use 'abstracts/themes';
+@use 'abstracts/fonts';
+@use 'base/reset';
+@use 'base/typography';
+@use 'components/buttons';
+@use 'components/cards';
+@use 'components/alerts';
+@use 'components/badges';
+@use 'components/tables';
+@use 'components/lists';
+@use 'components/inputs';
+@use 'components/progress';
+@use 'components/avatars';
+@use 'components/ribbons';
+
+// 모듈 스타일 (전체)
+@use 'modules/overlays';
+@use 'modules/feedback';
+@use 'modules/dropdown';
+@use 'modules/navigation';
+@use 'modules/tooltips';
+@use 'modules/pickers';
+@use 'modules/selectors';
+@use 'modules/carousel';
+@use 'modules/forms';
+@use 'modules/data-viz';
+@use 'modules/stepper';
+@use 'modules/scroll';
+@use 'modules/live-status';
+@use 'modules/advanced-ui';
+@use 'modules/theme';
+@use 'modules/pagination';
+@use 'modules/social';
+@use 'modules/imagelist';
+@use 'modules/gantt';
+@use 'modules/security-input';
+@use 'modules/text-editors';
+@use 'modules/media-viewer';

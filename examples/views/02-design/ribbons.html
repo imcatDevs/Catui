@@ -1,0 +1,195 @@
+<!-- Ribbons 데모 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Ribbons</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Ribbons</h1>
+  <p class="page-desc">리본 컴포넌트 — 기본 리본(좌/우), 접힌 리본, 컬러 변형</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- 기본 리본 (좌측) -->
+<div class="demo-card" id="s-basic-left">
+  <div class="demo-card__header"><span class="demo-card__title">기본 리본 — 좌측</span></div>
+  <div class="demo-card__desc"><code>.ribbon</code>에 컬러 수식어를 적용합니다. 기본적으로 좌측에 배치됩니다.</div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--primary float-start">Primary</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">카드 콘텐츠 영역입니다. 리본은 카드 상단 좌측에 배치됩니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--success float-start">Success</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">성공 상태를 나타내는 리본이 적용된 카드입니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--info float-start">Info</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">정보성 리본이 적용된 카드입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">card ribbon-box</span>"&gt;
+  &lt;div class="card__body"&gt;
+    &lt;div class="<span class="code-string">ribbon ribbon--primary float-start</span>"&gt;Primary&lt;/div&gt;
+    &lt;div class="<span class="code-string">ribbon-content</span>"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 기본 리본 (우측) -->
+<div class="demo-card" id="s-basic-right">
+  <div class="demo-card__header"><span class="demo-card__title">기본 리본 — 우측</span></div>
+  <div class="demo-card__desc"><code>float:right</code>로 우측에 배치합니다.</div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--warning float-end">Warning</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">경고 리본이 우측에 배치된 카드입니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--danger float-end">Danger</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">위험 리본이 우측에 배치된 카드입니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;">
+      <div class="card__body">
+        <div class="ribbon ribbon--dark float-end">Dark</div>
+        <div class="ribbon-content">
+          <p class="body2 text-secondary" style="margin:0;">다크 리본이 우측에 배치된 카드입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">ribbon ribbon--danger float-end</span>"&gt;Danger&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 컬러 변형 전체 -->
+<div class="demo-card" id="s-colors">
+  <div class="demo-card__header"><span class="demo-card__title">컬러 변형</span></div>
+  <div class="demo-card__desc">7가지 컬러 변형: <code>.ribbon--primary</code>, <code>.ribbon--secondary</code>, <code>.ribbon--success</code>, <code>.ribbon--info</code>, <code>.ribbon--warning</code>, <code>.ribbon--danger</code>, <code>.ribbon--dark</code></div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--primary float-start">Primary</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Primary</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--secondary float-start">Secondary</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Secondary</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--success float-start">Success</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Success</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--info float-end">Info</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Info</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--warning float-end">Warning</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Warning</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--danger float-end">Danger</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Danger</p></div></div></div>
+    <div class="card card--outlined ribbon-box" style="margin:0;"><div class="card__body"><div class="ribbon ribbon--dark float-end">Dark</div><div class="ribbon-content"><p class="body2 text-secondary" style="margin:0;">Dark</p></div></div></div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">ribbon ribbon--primary float-start</span>"&gt;Primary&lt;/div&gt;
+&lt;div class="<span class="code-string">ribbon ribbon--success float-start</span>"&gt;Success&lt;/div&gt;
+&lt;div class="<span class="code-string">ribbon ribbon--danger float-end</span>"&gt;Danger&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 접힌 리본 (ribbon-two) -->
+<div class="demo-card" id="s-ribbon-two">
+  <div class="demo-card__header"><span class="demo-card__title">접힌 리본 (Ribbon Two)</span></div>
+  <div class="demo-card__desc"><code>.ribbon-two</code>는 카드 좌상단 코너에 접힌 형태로 표시되는 리본입니다.</div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:120px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--primary"><span>Primary</span></div>
+        <p class="body2 text-secondary" style="margin:0;">접힌 리본이 좌상단 코너에 표시됩니다. 카드에 라벨이나 상태를 강조할 때 유용합니다.</p>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:120px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--success"><span>Success</span></div>
+        <p class="body2 text-secondary" style="margin:0;">성공 상태를 나타내는 접힌 리본입니다.</p>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:120px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--danger"><span>Danger</span></div>
+        <p class="body2 text-secondary" style="margin:0;">위험 상태를 나타내는 접힌 리본입니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">card ribbon-box</span>"&gt;
+  &lt;div class="card__body"&gt;
+    &lt;div class="<span class="code-string">ribbon-two ribbon-two--primary</span>"&gt;&lt;span&gt;Primary&lt;/span&gt;&lt;/div&gt;
+    &lt;p&gt;콘텐츠...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 접힌 리본 컬러 -->
+<div class="demo-card" id="s-ribbon-two-colors">
+  <div class="demo-card__header"><span class="demo-card__title">접힌 리본 — 컬러 변형</span></div>
+  <div class="demo-card__desc">7가지 컬러 변형 전체 예시입니다.</div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:100px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--secondary"><span>Secondary</span></div>
+        <p class="body2 text-secondary" style="margin:0;">Secondary 접힌 리본</p>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:100px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--info"><span>Info</span></div>
+        <p class="body2 text-secondary" style="margin:0;">Info 접힌 리본</p>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:100px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--warning"><span>Warning</span></div>
+        <p class="body2 text-secondary" style="margin:0;">Warning 접힌 리본</p>
+      </div>
+    </div>
+    <div class="card card--outlined ribbon-box" style="margin:0;min-height:100px;">
+      <div class="card__body" style="padding-top:2rem;">
+        <div class="ribbon-two ribbon-two--dark"><span>Dark</span></div>
+        <p class="body2 text-secondary" style="margin:0;">Dark 접힌 리본</p>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">ribbon-two ribbon-two--secondary</span>"&gt;&lt;span&gt;Secondary&lt;/span&gt;&lt;/div&gt;
+&lt;div class="<span class="code-string">ribbon-two ribbon-two--info</span>"&gt;&lt;span&gt;Info&lt;/span&gt;&lt;/div&gt;
+&lt;div class="<span class="code-string">ribbon-two ribbon-two--warning</span>"&gt;&lt;span&gt;Warning&lt;/span&gt;&lt;/div&gt;
+&lt;div class="<span class="code-string">ribbon-two ribbon-two--dark</span>"&gt;&lt;span&gt;Dark&lt;/span&gt;&lt;/div&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic-left" class="doc-toc__link is-active">기본 리본 (좌측)</a></li>
+    <li class="doc-toc__item"><a href="#s-basic-right" class="doc-toc__link">기본 리본 (우측)</a></li>
+    <li class="doc-toc__item"><a href="#s-colors" class="doc-toc__link">컬러 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-ribbon-two" class="doc-toc__link">접힌 리본</a></li>
+    <li class="doc-toc__item"><a href="#s-ribbon-two-colors" class="doc-toc__link">접힌 리본 컬러</a></li>
+  </ul>
+</aside>
+</div>

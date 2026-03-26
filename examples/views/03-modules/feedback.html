@@ -1,0 +1,334 @@
+<!-- Feedback: Toast, Notification, ProgressTracker, Skeleton -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Feedback</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Feedback</h1>
+  <p class="page-desc">Toast, Notification, ProgressTracker, Skeleton 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-toast">
+  <div class="demo-card__header"><span class="demo-card__title">Toast</span></div>
+  <div class="demo-card__body">
+    <div class="btn-group">
+      <button class="btn btn--success" onclick="IMCAT.toast.success('성공 메시지')">Success</button>
+      <button class="btn btn--danger" onclick="IMCAT.toast.error('오류 메시지')">Error</button>
+      <button class="btn btn--warning" onclick="IMCAT.toast.warning('경고 메시지')">Warning</button>
+      <button class="btn btn--info" onclick="IMCAT.toast.info('정보 메시지')">Info</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT.toast.<span class="code-function">success</span>(<span class="code-string">'저장 완료!'</span>);
+IMCAT.toast.<span class="code-function">error</span>(<span class="code-string">'오류 발생'</span>);
+IMCAT.toast.<span class="code-function">warning</span>(<span class="code-string">'주의'</span>);
+IMCAT.toast.<span class="code-function">info</span>(<span class="code-string">'안내'</span>, <span class="code-number">5000</span>);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-notification">
+  <div class="demo-card__header"><span class="demo-card__title">Notification</span></div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" onclick="showNotification()">알림 표시</button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Notification } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'feedback'</span>);
+Notification.<span class="code-function">show</span>({
+  title: <span class="code-string">'새 메시지'</span>,
+  message: <span class="code-string">'홍길동님이 메시지를 보냈습니다.'</span>,
+  type: <span class="code-string">'info'</span>,
+  duration: <span class="code-number">5000</span>
+});</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-progress">
+  <div class="demo-card__header"><span class="demo-card__title">ProgressTracker</span></div>
+  <div class="demo-card__body">
+    <div id="progress-demo"></div>
+    <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+      <button class="btn btn--sm btn--outline" id="pt-prev">이전</button>
+      <button class="btn btn--sm btn--primary" id="pt-next">다음</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ProgressTracker } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'feedback'</span>);
+<span class="code-keyword">const</span> pt = <span class="code-keyword">new</span> <span class="code-function">ProgressTracker</span>(<span class="code-string">'#container'</span>, {
+  steps: [<span class="code-string">'계정 생성'</span>, <span class="code-string">'프로필 설정'</span>, <span class="code-string">'결제 정보'</span>, <span class="code-string">'완료'</span>],
+  current: <span class="code-number">1</span>,
+  clickable: <span class="code-keyword">true</span>
+});
+pt.<span class="code-function">next</span>();  <span class="code-comment">// 다음 단계</span>
+pt.<span class="code-function">prev</span>();  <span class="code-comment">// 이전 단계</span></pre>
+  </div>
+</div>
+
+<!-- Skeleton: 카드 비교 -->
+<div class="demo-card" id="s-skeleton">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 카드 비교</span></div>
+  <div class="demo-card__desc">실제 카드와 스켈레톤 로딩 카드를 비교합니다. 크기와 비율이 동일합니다.</div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <!-- 실제 카드 -->
+      <div class="card card--outlined">
+        <div style="background:var(--bg-tertiary);height:140px;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;">
+          <i class="material-icons-outlined" style="font-size:48px;color:var(--text-tertiary)">image</i>
+        </div>
+        <div class="card__body">
+          <h5 class="card__title">카드 제목</h5>
+          <p class="body2 text-secondary">간단한 설명 텍스트입니다. 카드 내용을 채웁니다.</p>
+          <button class="btn btn--primary btn--sm">자세히 보기</button>
+        </div>
+      </div>
+      <!-- 스켈레톤 카드 -->
+      <div class="card card--outlined" aria-hidden="true">
+        <div style="height:140px;border-radius:8px 8px 0 0;" class="skeleton skeleton--animated"></div>
+        <div class="card__body">
+          <div class="placeholder-glow">
+            <div class="skeleton skeleton--title" style="width:50%;"></div>
+          </div>
+          <div class="placeholder-glow" style="display:flex;flex-direction:column;gap:0.375rem;">
+            <div class="skeleton skeleton--text" style="width:80%;"></div>
+            <div class="skeleton skeleton--text" style="width:60%;"></div>
+            <div class="skeleton skeleton--text" style="width:70%;"></div>
+          </div>
+          <div class="skeleton skeleton--animated" style="height:2rem;width:6rem;border-radius:4px;margin-top:0.5rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 스켈레톤 카드 --&gt;</span>
+&lt;div class="card" aria-hidden="true"&gt;
+  &lt;div class="<span class="code-string">skeleton skeleton--animated</span>" style="height:140px"&gt;&lt;/div&gt;
+  &lt;div class="card__body placeholder-glow"&gt;
+    &lt;div class="<span class="code-string">skeleton skeleton--title</span>"&gt;&lt;/div&gt;
+    &lt;div class="<span class="code-string">skeleton skeleton--text</span>"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: 작동 원리 -->
+<div class="demo-card" id="s-skeleton-how">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 작동 원리</span></div>
+  <div class="demo-card__desc"><code>.skeleton</code> 클래스로 로딩 플레이스홀더를 만듭니다. 너비는 인라인 스타일이나 유틸리티로 지정합니다.</div>
+  <div class="demo-card__body">
+    <p aria-hidden="true">
+      <span class="skeleton skeleton--text skeleton--animated" style="display:inline-block;width:50%;"></span>
+    </p>
+    <a href="#" class="btn btn--primary" style="pointer-events:none;opacity:0.65;position:relative;overflow:hidden;">
+      <span class="skeleton skeleton--animated" style="position:absolute;inset:0;border-radius:inherit;"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </a>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>" style="width:50%"&gt;&lt;/span&gt;
+
+<span class="code-comment">&lt;!-- 버튼 플레이스홀더 --&gt;</span>
+&lt;a class="btn btn--primary" style="pointer-events:none;opacity:0.65"&gt;
+  &lt;span class="<span class="code-string">skeleton skeleton--animated</span>" style="position:absolute;inset:0"&gt;&lt;/span&gt;
+&lt;/a&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: 너비 -->
+<div class="demo-card" id="s-skeleton-width">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 너비</span></div>
+  <div class="demo-card__desc">인라인 스타일로 너비를 자유롭게 조절할 수 있습니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.5rem;">
+    <span class="skeleton skeleton--text skeleton--animated" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--animated" style="width:75%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--animated" style="width:50%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--animated" style="width:25%;display:block;"></span>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>" style="width:100%"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>" style="width:75%"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>" style="width:50%"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>" style="width:25%"&gt;&lt;/span&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: 컬러 -->
+<div class="demo-card" id="s-skeleton-color">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 컬러</span></div>
+  <div class="demo-card__desc"><code>.skeleton--{color}</code> 수식어로 컬러를 변경할 수 있습니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.5rem;">
+    <span class="skeleton skeleton--text" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--primary" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--secondary" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--success" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--danger" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--warning" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--info" style="width:100%;display:block;"></span>
+    <span class="skeleton skeleton--text skeleton--dark" style="width:100%;display:block;"></span>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;span class="<span class="code-string">skeleton skeleton--text</span>"&gt;&lt;/span&gt;              <span class="code-comment">&lt;!-- 기본 --&gt;</span>
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--primary</span>"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--success</span>"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--danger</span>"&gt;&lt;/span&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: 크기 -->
+<div class="demo-card" id="s-skeleton-size">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 크기</span></div>
+  <div class="demo-card__desc"><code>.skeleton--lg</code>, <code>.skeleton--sm</code>, <code>.skeleton--xs</code>로 높이를 조절합니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">Large (.skeleton--lg)</p>
+      <span class="skeleton skeleton--lg skeleton--animated" style="width:100%;display:block;border-radius:4px;"></span>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">기본 (.skeleton--text)</p>
+      <span class="skeleton skeleton--text skeleton--animated" style="width:100%;display:block;"></span>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">Small (.skeleton--sm)</p>
+      <span class="skeleton skeleton--sm skeleton--animated" style="width:100%;display:block;border-radius:2px;"></span>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">Extra Small (.skeleton--xs)</p>
+      <span class="skeleton skeleton--xs skeleton--animated" style="width:100%;display:block;border-radius:2px;"></span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;span class="<span class="code-string">skeleton skeleton--lg skeleton--animated</span>"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--animated</span>"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--sm skeleton--animated</span>"&gt;&lt;/span&gt;
+&lt;span class="<span class="code-string">skeleton skeleton--xs skeleton--animated</span>"&gt;&lt;/span&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: 애니메이션 -->
+<div class="demo-card" id="s-skeleton-anim">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — 애니메이션</span></div>
+  <div class="demo-card__desc"><code>.placeholder-glow</code> (글로우) 또는 <code>.placeholder-wave</code> (웨이브) 래퍼로 애니메이션을 적용합니다.</div>
+  <div class="demo-card__body">
+    <p style="font-weight:600;margin-bottom:0.5rem;">Glow (깜빡임)</p>
+    <div class="placeholder-glow" style="display:flex;flex-direction:column;gap:0.375rem;margin-bottom:1.5rem;">
+      <span class="skeleton skeleton--text" style="width:100%;display:block;"></span>
+      <span class="skeleton skeleton--text" style="width:80%;display:block;"></span>
+    </div>
+    <p style="font-weight:600;margin-bottom:0.5rem;">Wave (흐름)</p>
+    <div class="placeholder-wave" style="display:flex;flex-direction:column;gap:0.375rem;margin-bottom:1.5rem;">
+      <span class="skeleton skeleton--text" style="width:100%;display:block;"></span>
+      <span class="skeleton skeleton--text" style="width:80%;display:block;"></span>
+    </div>
+    <p style="font-weight:600;margin-bottom:0.5rem;">Pulse (맥박)</p>
+    <div style="display:flex;flex-direction:column;gap:0.375rem;">
+      <span class="skeleton skeleton--text skeleton--pulse" style="width:100%;display:block;"></span>
+      <span class="skeleton skeleton--text skeleton--pulse" style="width:80%;display:block;"></span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Glow: 부모 래퍼 방식 --&gt;</span>
+&lt;div class="<span class="code-string">placeholder-glow</span>"&gt;
+  &lt;span class="<span class="code-string">skeleton skeleton--text</span>"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Wave: 부모 래퍼 방식 --&gt;</span>
+&lt;div class="<span class="code-string">placeholder-wave</span>"&gt;
+  &lt;span class="<span class="code-string">skeleton skeleton--text</span>"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Pulse: 개별 클래스 방식 --&gt;</span>
+&lt;span class="<span class="code-string">skeleton skeleton--text skeleton--pulse</span>"&gt;&lt;/span&gt;</pre>
+  </div>
+</div>
+
+<!-- Skeleton: JS API -->
+<div class="demo-card" id="s-skeleton-api">
+  <div class="demo-card__header"><span class="demo-card__title">Skeleton — JS API</span></div>
+  <div class="demo-card__desc">JavaScript <code>Skeleton</code> 클래스로 동적 플레이스홀더를 생성합니다.</div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;font-size:0.8125rem;">type: 'text'</p>
+        <div id="skel-text"></div>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;font-size:0.8125rem;">type: 'avatar'</p>
+        <div id="skel-avatar"></div>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;font-size:0.8125rem;">type: 'card'</p>
+        <div id="skel-card"></div>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;font-size:0.8125rem;">type: 'list'</p>
+        <div id="skel-list"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Skeleton } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'feedback'</span>);
+
+<span class="code-comment">// 텍스트 스켈레톤</span>
+<span class="code-keyword">new</span> <span class="code-function">Skeleton</span>(<span class="code-string">'#container'</span>, { type: <span class="code-string">'text'</span>, lines: <span class="code-number">3</span> });
+
+<span class="code-comment">// 아바타 스켈레톤</span>
+<span class="code-keyword">new</span> <span class="code-function">Skeleton</span>(<span class="code-string">'#container'</span>, { type: <span class="code-string">'avatar'</span> });
+
+<span class="code-comment">// 카드 스켈레톤</span>
+<span class="code-keyword">new</span> <span class="code-function">Skeleton</span>(<span class="code-string">'#container'</span>, { type: <span class="code-string">'card'</span> });
+
+<span class="code-comment">// 리스트 스켈레톤</span>
+<span class="code-keyword">new</span> <span class="code-function">Skeleton</span>(<span class="code-string">'#container'</span>, { type: <span class="code-string">'list'</span>, lines: <span class="code-number">3</span> });</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-toast" class="doc-toc__link is-active">Toast</a></li>
+    <li class="doc-toc__item"><a href="#s-notification" class="doc-toc__link">Notification</a></li>
+    <li class="doc-toc__item"><a href="#s-progress" class="doc-toc__link">ProgressTracker</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton" class="doc-toc__link">Skeleton 카드 비교</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-how" class="doc-toc__link">작동 원리</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-width" class="doc-toc__link">너비</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-color" class="doc-toc__link">컬러</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-size" class="doc-toc__link">크기</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-anim" class="doc-toc__link">애니메이션</a></li>
+    <li class="doc-toc__item"><a href="#s-skeleton-api" class="doc-toc__link">JS API</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var _notifCount = 0;
+  var _notifTypes = ['info', 'success', 'warning', 'error'];
+  async function showNotification() {
+    var FB2 = await IMCAT.use('feedback');
+    var Notification = FB2.Notification;
+    var type = _notifTypes[_notifCount % _notifTypes.length];
+    var titles = { info: '새 메시지', success: '처리 완료', warning: '주의 필요', error: '오류 발생' };
+    var messages = { info: '홍길동님이 메시지를 보냈습니다.', success: '파일이 성공적으로 저장되었습니다.', warning: '저장 공간이 부족합니다.', error: '서버 연결에 실패했습니다.' };
+    Notification.show({ title: titles[type], message: messages[type], type: type, duration: 5000 });
+    _notifCount++;
+  }
+  (async function() {
+    var FB = await IMCAT.use('feedback');
+    var pt = new FB.ProgressTracker('#progress-demo', {
+      steps: ['계정 생성', '프로필 설정', '결제 정보', '완료'],
+      current: 1,
+      clickable: true
+    });
+    document.getElementById('pt-prev').addEventListener('click', function() { pt.prev(); });
+    document.getElementById('pt-next').addEventListener('click', function() { pt.next(); });
+    // JS API 데모: 다양한 Skeleton 타입
+    new FB.Skeleton('#skel-text', { type: 'text', lines: 3, animated: true });
+    new FB.Skeleton('#skel-avatar', { type: 'avatar', animated: true });
+    new FB.Skeleton('#skel-card', { type: 'card', animated: true });
+    new FB.Skeleton('#skel-list', { type: 'list', lines: 3, animated: true });
+  })();
+</script>

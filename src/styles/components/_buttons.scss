@@ -1,0 +1,695 @@
+// ============================================
+// Buttons Component SCSS
+// 버튼 스타일 시스템
+// ============================================
+
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$btn-padding-y: 0.45rem;
+$btn-padding-x: 0.9rem;
+$btn-padding-y-sm: 0.28rem;
+$btn-padding-x-sm: 0.8rem;
+$btn-padding-y-lg: 0.5rem;
+$btn-padding-x-lg: 1rem;
+$btn-font-size: 0.9rem;
+$btn-font-size-sm: 0.875rem;
+$btn-font-size-lg: 1rem;
+$btn-border-radius: $radius-lg;
+$btn-border-width: 1px;
+$btn-font-weight: 500;
+$btn-transition: all 150ms ease-in-out;
+
+// ============================================
+// Base Button
+// ============================================
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: $btn-padding-y $btn-padding-x;
+  font-family: inherit;
+  font-size: $btn-font-size;
+  font-weight: $btn-font-weight;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: $btn-border-width solid transparent;
+  border-radius: $btn-border-radius;
+  transition: $btn-transition;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary, $primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Icon in button
+  i,
+  .material-icons-outlined {
+    font-size: 1.125em;
+    line-height: 1;
+  }
+}
+
+// ============================================
+// Variants
+// ============================================
+
+// Primary
+.btn--primary {
+  background: var(--primary, $primary);
+  border-color: var(--primary, $primary);
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: var(--primary-hover, $primary-700);
+    border-color: var(--primary-hover, $primary-700);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--primary-active, $primary-800);
+    border-color: var(--primary-active, $primary-800);
+  }
+}
+
+// Secondary
+.btn--secondary {
+  background: var(--bg-secondary, $bg-secondary);
+  border-color: var(--border-color, $border-color);
+  color: var(--text-primary, $text-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-tertiary, $bg-tertiary);
+    border-color: var(--border-strong, $border-strong);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--bg-tertiary, $bg-tertiary);
+  }
+}
+
+// Outline
+.btn--outline {
+  background: transparent;
+  border-color: var(--primary, $primary);
+  color: var(--primary, $primary);
+
+  &:hover:not(:disabled) {
+    background: var(--primary, $primary);
+    color: #ffffff;
+  }
+
+  &:active:not(:disabled) {
+    background: var(--primary-hover, $primary-700);
+    border-color: var(--primary-hover, $primary-700);
+  }
+}
+
+// Outline Secondary
+.btn--outline-secondary {
+  background: transparent;
+  border-color: var(--border-color, $border-color);
+  color: var(--text-secondary, $text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-secondary, $bg-secondary);
+    border-color: var(--border-strong, $border-strong);
+    color: var(--text-primary, $text-primary);
+  }
+}
+
+// Ghost (text only)
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-secondary, $text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-tertiary, $bg-tertiary);
+    color: var(--text-primary, $text-primary);
+  }
+}
+
+// Link
+.btn--link {
+  background: transparent;
+  border-color: transparent;
+  color: var(--primary, $primary);
+  padding-left: 0;
+  padding-right: 0;
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+}
+
+// ============================================
+// Semantic Colors
+// ============================================
+
+// Success
+.btn--success {
+  background: $success;
+  border-color: $success;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($success, $lightness: -8%);
+    border-color: color.adjust($success, $lightness: -8%);
+  }
+}
+
+// Danger
+.btn--danger {
+  background: $danger;
+  border-color: $danger;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($danger, $lightness: -8%);
+    border-color: color.adjust($danger, $lightness: -8%);
+  }
+}
+
+// Warning
+.btn--warning {
+  background: $warning;
+  border-color: $warning;
+  color: #1f2937;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($warning, $lightness: -8%);
+    border-color: color.adjust($warning, $lightness: -8%);
+  }
+}
+
+// Info
+.btn--info {
+  background: $info;
+  border-color: $info;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($info, $lightness: -8%);
+    border-color: color.adjust($info, $lightness: -8%);
+  }
+}
+
+// ============================================
+// Dark & Light
+// ============================================
+.btn--dark {
+  background: #343a40;
+  border-color: #343a40;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: #23272b;
+    border-color: #1d2124;
+  }
+}
+
+.btn--light {
+  background: #f1f3fa;
+  border-color: #f1f3fa;
+  color: #6c757d;
+
+  &:hover:not(:disabled) {
+    background: #d7dce5;
+    border-color: #d1d6df;
+  }
+}
+
+// ============================================
+// Outline 색상 변형 (ubold 스타일)
+// ============================================
+.btn--outline-success {
+  background: transparent;
+  border-color: $success;
+  color: $success;
+
+  &:hover:not(:disabled) {
+    background: $success;
+    color: #ffffff;
+  }
+}
+
+.btn--outline-danger {
+  background: transparent;
+  border-color: $danger;
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background: $danger;
+    color: #ffffff;
+  }
+}
+
+.btn--outline-warning {
+  background: transparent;
+  border-color: $warning;
+  color: $warning;
+
+  &:hover:not(:disabled) {
+    background: $warning;
+    color: #1f2937;
+  }
+}
+
+.btn--outline-info {
+  background: transparent;
+  border-color: $info;
+  color: $info;
+
+  &:hover:not(:disabled) {
+    background: $info;
+    color: #ffffff;
+  }
+}
+
+.btn--outline-dark {
+  background: transparent;
+  border-color: #343a40;
+  color: #343a40;
+
+  &:hover:not(:disabled) {
+    background: #343a40;
+    color: #ffffff;
+  }
+}
+
+// ============================================
+// Soft 변형 (ubold 스타일)
+// ============================================
+.btn--soft-primary {
+  background: rgba($primary, 0.15);
+  border-color: transparent;
+  color: var(--primary, $primary);
+
+  &:hover:not(:disabled) {
+    background: var(--primary, $primary);
+    color: #ffffff;
+  }
+}
+
+.btn--soft-success {
+  background: rgba($success, 0.15);
+  border-color: transparent;
+  color: $success;
+
+  &:hover:not(:disabled) {
+    background: $success;
+    color: #ffffff;
+  }
+}
+
+.btn--soft-danger {
+  background: rgba($danger, 0.15);
+  border-color: transparent;
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background: $danger;
+    color: #ffffff;
+  }
+}
+
+.btn--soft-warning {
+  background: rgba($warning, 0.15);
+  border-color: transparent;
+  color: color.adjust($warning, $lightness: -15%);
+
+  &:hover:not(:disabled) {
+    background: $warning;
+    color: #1f2937;
+  }
+}
+
+.btn--soft-info {
+  background: rgba($info, 0.15);
+  border-color: transparent;
+  color: $info;
+
+  &:hover:not(:disabled) {
+    background: $info;
+    color: #ffffff;
+  }
+}
+
+.btn--soft-dark {
+  background: rgba(#343a40, 0.15);
+  border-color: transparent;
+  color: #343a40;
+
+  &:hover:not(:disabled) {
+    background: #343a40;
+    color: #ffffff;
+  }
+}
+
+.btn--soft-secondary {
+  background: rgba(#6c757d, 0.15);
+  border-color: transparent;
+  color: #6c757d;
+
+  &:hover:not(:disabled) {
+    background: #6c757d;
+    color: #ffffff;
+  }
+}
+
+// ============================================
+// Sizes
+// ============================================
+
+// Extra Small
+.btn--xs {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  gap: 0.25rem;
+}
+
+// Small
+.btn--sm {
+  padding: $btn-padding-y-sm $btn-padding-x-sm;
+  font-size: $btn-font-size-sm;
+  border-radius: 4px;
+}
+
+// Large
+.btn--lg {
+  padding: $btn-padding-y-lg $btn-padding-x-lg;
+  font-size: $btn-font-size-lg;
+  border-radius: 8px;
+}
+
+// ============================================
+// Shapes
+// ============================================
+
+// Rounded (pill)
+.btn--rounded {
+  border-radius: 9999px;
+}
+
+// Square (no radius)
+.btn--square {
+  border-radius: 0;
+}
+
+// Icon only
+.btn--icon {
+  padding: $btn-padding-y;
+  aspect-ratio: 1;
+
+  &.btn--sm {
+    padding: $btn-padding-y-sm;
+  }
+
+  &.btn--lg {
+    padding: $btn-padding-y-lg;
+  }
+}
+
+// ============================================
+// States
+// ============================================
+
+// Loading
+.btn--loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btn-spinner 0.6s linear infinite;
+  }
+
+  // Restore color for spinner (BEM + Bootstrap alias)
+  &.btn--primary::after, &.btn-primary::after,
+  &.btn--success::after, &.btn-success::after,
+  &.btn--danger::after, &.btn-danger::after,
+  &.btn--info::after, &.btn-info::after,
+  &.btn--dark::after, &.btn-dark::after,
+  &.btn--warning::after, &.btn-warning::after {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-right-color: #ffffff;
+  }
+}
+
+@keyframes btn-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================
+// Full Width
+// ============================================
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+// ============================================
+// Button Width (고정 최소 너비, ubold 스타일)
+// ============================================
+.width-xs {
+  min-width: 80px;
+}
+
+.width-sm {
+  min-width: 100px;
+}
+
+.width-md {
+  min-width: 120px;
+}
+
+.width-lg {
+  min-width: 150px;
+}
+
+.width-xl {
+  min-width: 200px;
+}
+
+// ============================================
+// Button Label (아이콘 라벨, ubold 스타일)
+// ============================================
+.btn-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: -0.45rem 0.6rem -0.45rem -0.9rem;
+  padding: 0.45rem 0.6rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: $btn-border-radius 0 0 $btn-border-radius;
+  min-width: 2.25rem;
+
+  i, .material-icons-outlined {
+    font-size: 1rem;
+    line-height: 1;
+  }
+}
+
+.btn-label-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: -0.45rem -0.9rem -0.45rem 0.6rem;
+  padding: 0.45rem 0.6rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 $btn-border-radius $btn-border-radius 0;
+  min-width: 2.25rem;
+
+  i, .material-icons-outlined {
+    font-size: 1rem;
+    line-height: 1;
+  }
+}
+
+// Rounded 버튼에서 라벨 border-radius 보정
+.btn--rounded {
+  .btn-label {
+    border-radius: 9999px 0 0 9999px;
+  }
+  .btn-label-right {
+    border-radius: 0 9999px 9999px 0;
+  }
+}
+
+// ============================================
+// Bootstrap 호환 Alias (ubold 스타일)
+// btn-primary, btn-outline-primary, btn-soft-primary 등
+// ============================================
+
+// Default (Solid) — Bootstrap 단일 대시
+.btn-primary { @extend .btn--primary; }
+.btn-success { @extend .btn--success; }
+.btn-danger { @extend .btn--danger; }
+.btn-warning { @extend .btn--warning; }
+.btn-info { @extend .btn--info; }
+.btn-dark { @extend .btn--dark; }
+.btn-light { @extend .btn--light; }
+.btn-secondary { @extend .btn--secondary; }
+.btn-link { @extend .btn--link; }
+
+.btn-white {
+  background: #ffffff;
+  border-color: var(--border-color, $border-color);
+  color: var(--text-primary, $text-primary);
+
+  &:hover:not(:disabled) {
+    background: #f8f9fa;
+    border-color: var(--border-strong, $border-strong);
+  }
+}
+
+// Outline — Bootstrap 단일 대시
+.btn-outline-primary { @extend .btn--outline; }
+.btn-outline-success { @extend .btn--outline-success; }
+.btn-outline-danger { @extend .btn--outline-danger; }
+.btn-outline-warning { @extend .btn--outline-warning; }
+.btn-outline-info { @extend .btn--outline-info; }
+.btn-outline-dark { @extend .btn--outline-dark; }
+
+.btn-outline-secondary {
+  background: transparent;
+  border-color: #6c757d;
+  color: #6c757d;
+
+  &:hover:not(:disabled) {
+    background: #6c757d;
+    color: #ffffff;
+  }
+}
+
+.btn-outline-light {
+  background: transparent;
+  border-color: #f1f3fa;
+  color: #6c757d;
+
+  &:hover:not(:disabled) {
+    background: #f1f3fa;
+    color: #343a40;
+  }
+}
+
+// Soft — Bootstrap 단일 대시
+.btn-soft-primary { @extend .btn--soft-primary; }
+.btn-soft-success { @extend .btn--soft-success; }
+.btn-soft-danger { @extend .btn--soft-danger; }
+.btn-soft-warning { @extend .btn--soft-warning; }
+.btn-soft-info { @extend .btn--soft-info; }
+.btn-soft-dark { @extend .btn--soft-dark; }
+.btn-soft-secondary { @extend .btn--soft-secondary; }
+
+// Sizes — Bootstrap 단일 대시
+.btn-lg { @extend .btn--lg; }
+.btn-sm { @extend .btn--sm; }
+.btn-xs { @extend .btn--xs; }
+
+// rounded-pill (Bootstrap 호환 — 버튼에도 적용)
+.btn.rounded-pill {
+  border-radius: 9999px;
+
+  .btn-label {
+    border-radius: 9999px 0 0 9999px;
+  }
+  .btn-label-right {
+    border-radius: 0 9999px 9999px 0;
+  }
+}
+
+// .disabled 클래스 (Bootstrap 호환)
+.btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+// .button-list (버튼 나열 레이아웃, ubold 스타일)
+.button-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+// ============================================
+// Button Group
+// ============================================
+.btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  &--vertical {
+    flex-direction: column;
+  }
+
+  &--attached {
+    gap: 0;
+
+    .btn {
+      border-radius: 0;
+
+      &:first-child {
+        border-radius: $btn-border-radius 0 0 $btn-border-radius;
+      }
+
+      &:last-child {
+        border-radius: 0 $btn-border-radius $btn-border-radius 0;
+      }
+
+      &:not(:last-child) {
+        border-right-width: 0;
+      }
+    }
+
+    &.btn-group--vertical {
+      .btn {
+        &:first-child {
+          border-radius: $btn-border-radius $btn-border-radius 0 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 $btn-border-radius $btn-border-radius;
+        }
+
+        &:not(:last-child) {
+          border-right-width: $btn-border-width;
+          border-bottom-width: 0;
+        }
+      }
+    }
+  }
+}

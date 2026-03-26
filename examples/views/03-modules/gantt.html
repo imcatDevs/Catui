@@ -1,0 +1,221 @@
+<!-- Gantt Chart — 프로젝트 일정 관리 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Gantt</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Gantt Chart</h1>
+  <p class="page-desc">프로젝트 일정 관리 — 뷰 모드, 의존성, 담당자, 그룹/접기, 진행률, 드래그 편집</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. 프로젝트 간트 — 의존성, 담당자, 그룹      -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-project">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">프로젝트 간트</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">뷰 모드 전환(일/주/월), 오늘 라인, 의존성 화살표, 담당자, 그룹 접기, 진행률 표시</p>
+  </div>
+  <div class="demo-card__body" style="overflow-x:auto"><div id="gantt-project"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> Gantt = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'gantt'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">Gantt</span>(<span class="code-string">'#container'</span>, {
+  viewMode: <span class="code-string">'day'</span>,  <span class="code-comment">// 'day' | 'week' | 'month'</span>
+  todayLine: <span class="code-keyword">true</span>,
+  showProgress: <span class="code-keyword">true</span>,
+  showDependencies: <span class="code-keyword">true</span>,
+  tasks: [
+    {
+      id: <span class="code-string">'design'</span>, name: <span class="code-string">'디자인'</span>,
+      start: <span class="code-string">'2025-07-01'</span>, end: <span class="code-string">'2025-07-10'</span>,
+      progress: <span class="code-number">100</span>, assignee: <span class="code-string">'김영희'</span>,
+      color: <span class="code-string">'#8b5cf6'</span>,
+      children: [
+        { id: <span class="code-string">'wire'</span>, name: <span class="code-string">'와이어프레임'</span>, ... },
+        { id: <span class="code-string">'ui'</span>, name: <span class="code-string">'UI 디자인'</span>, dependencies: [<span class="code-string">'wire'</span>], ... }
+      ]
+    },
+    {
+      id: <span class="code-string">'dev'</span>, name: <span class="code-string">'개발'</span>,
+      dependencies: [<span class="code-string">'design'</span>], ...
+    }
+  ],
+  onTaskClick: (task) =&gt; <span class="code-function">console.log</span>(task)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. 편집 가능 간트                            -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-editable">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">편집 가능 간트</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">드래그로 작업 이동/크기 조절. 바 좌우 핸들로 시작/종료일 변경.</p>
+  </div>
+  <div class="demo-card__body" style="overflow-x:auto"><div id="gantt-editable"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Gantt</span>(<span class="code-string">'#container'</span>, {
+  editable: <span class="code-keyword">true</span>,
+  tasks: [...],
+  onTaskChange: (task) =&gt; {
+    <span class="code-function">console.log</span>(<span class="code-string">'변경:'</span>, task.name, task.start, task.end);
+  }
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. API 레퍼런스                              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>옵션</th><th>기본값</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>tasks</code></td><td>[]</td><td>[{ id, name, start, end, progress, color, dependencies, assignee, children }]</td></tr>
+          <tr><td><code>viewMode</code></td><td>'day'</td><td>'day' | 'week' | 'month'</td></tr>
+          <tr><td><code>todayLine</code></td><td>true</td><td>오늘 날짜 라인 표시</td></tr>
+          <tr><td><code>showProgress</code></td><td>true</td><td>진행률 바 표시</td></tr>
+          <tr><td><code>showDependencies</code></td><td>true</td><td>의존성 화살표 표시</td></tr>
+          <tr><td><code>editable</code></td><td>false</td><td>드래그로 작업 수정 가능</td></tr>
+          <tr><td><code>weekends</code></td><td>true</td><td>주말 배경 표시</td></tr>
+          <tr><td><code>sidebarWidth</code></td><td>280</td><td>사이드바 너비 (px)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.5rem">메서드</h6>
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>메서드</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>setViewMode(mode)</code></td><td>뷰 모드 변경 ('day' | 'week' | 'month')</td></tr>
+          <tr><td><code>setTasks(tasks)</code></td><td>작업 데이터 전체 교체</td></tr>
+          <tr><td><code>addTask(task)</code></td><td>작업 추가</td></tr>
+          <tr><td><code>updateTask(id, data)</code></td><td>특정 작업 업데이트</td></tr>
+          <tr><td><code>removeTask(id)</code></td><td>작업 제거</td></tr>
+          <tr><td><code>scrollToTask(id)</code></td><td>특정 작업으로 스크롤</td></tr>
+          <tr><td><code>destroy()</code></td><td>인스턴스 정리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.5rem">콜백</h6>
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>콜백</th><th>인자</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>onTaskClick</code></td><td>(task, event)</td><td>작업 바 클릭</td></tr>
+          <tr><td><code>onTaskChange</code></td><td>(task)</td><td>드래그로 작업 변경 (editable 모드)</td></tr>
+          <tr><td><code>onViewChange</code></td><td>(mode)</td><td>뷰 모드 변경</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-project" class="doc-toc__link is-active">프로젝트 간트</a></li>
+    <li class="doc-toc__item"><a href="#s-editable" class="doc-toc__link">편집 가능</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var Gantt = await IMCAT.use('gantt');
+
+    // 동적 날짜 헬퍼
+    var today = new Date();
+    var d = function(offset) {
+      var dt = new Date(today);
+      dt.setDate(today.getDate() + offset);
+      return dt.toISOString().split('T')[0];
+    };
+
+    // ── 1. 프로젝트 간트 (의존성, 담당자, 그룹) ──
+    new Gantt('#gantt-project', {
+      viewMode: 'day',
+      todayLine: true,
+      showProgress: true,
+      showDependencies: true,
+      weekends: true,
+      tasks: [
+        {
+          id: 'planning', name: '기획', start: d(-14), end: d(-5),
+          progress: 100, color: '#6366f1', assignee: '박지민',
+          children: [
+            { id: 'req', name: '요구사항 분석', start: d(-14), end: d(-10), progress: 100, assignee: '박지민' },
+            { id: 'spec', name: '기술 명세', start: d(-10), end: d(-5), progress: 100, assignee: '정민호', dependencies: ['req'] }
+          ]
+        },
+        {
+          id: 'design', name: '디자인', start: d(-5), end: d(3),
+          progress: 80, color: '#8b5cf6', assignee: '김영희',
+          dependencies: ['planning'],
+          children: [
+            { id: 'wire', name: '와이어프레임', start: d(-5), end: d(-2), progress: 100, assignee: '김영희' },
+            { id: 'ui', name: 'UI 디자인', start: d(-2), end: d(3), progress: 60, assignee: '강서연', dependencies: ['wire'] }
+          ]
+        },
+        {
+          id: 'dev', name: '개발', start: d(0), end: d(18),
+          progress: 25, color: '#3b82f6', assignee: '홍길동',
+          dependencies: ['design'],
+          children: [
+            { id: 'frontend', name: '프론트엔드', start: d(0), end: d(14), progress: 35, assignee: '홍길동' },
+            { id: 'backend', name: '백엔드', start: d(2), end: d(16), progress: 20, assignee: '이철수' },
+            { id: 'api', name: 'API 연동', start: d(10), end: d(18), progress: 0, assignee: '최수진', dependencies: ['frontend', 'backend'] }
+          ]
+        },
+        {
+          id: 'test', name: 'QA 테스트', start: d(15), end: d(24),
+          progress: 0, color: '#f59e0b', assignee: '윤태영',
+          dependencies: ['dev']
+        },
+        {
+          id: 'deploy', name: '배포', start: d(24), end: d(28),
+          progress: 0, color: '#10b981', assignee: '조은지',
+          dependencies: ['test']
+        }
+      ],
+      onTaskClick: function(task) { console.log('클릭:', task.name, task.progress + '%'); },
+      onViewChange: function(mode) { console.log('뷰:', mode); }
+    });
+
+    // ── 2. 편집 가능 간트 ──
+    new Gantt('#gantt-editable', {
+      viewMode: 'day',
+      editable: true,
+      todayLine: true,
+      showProgress: true,
+      tasks: [
+        { id: 'e1', name: '마케팅 캠페인', start: d(-3), end: d(4), progress: 60, color: '#ec4899', assignee: '한승우' },
+        { id: 'e2', name: '콘텐츠 제작', start: d(1), end: d(8), progress: 30, color: '#f59e0b', assignee: '임지혜' },
+        { id: 'e3', name: '소셜 미디어', start: d(5), end: d(15), progress: 0, color: '#06b6d4', assignee: '배수아' },
+        { id: 'e4', name: '성과 분석', start: d(12), end: d(20), progress: 0, color: '#6366f1', assignee: '노현우' }
+      ],
+      onTaskChange: function(task) {
+        console.log('변경:', task.name, '→', task.start.toLocaleDateString(), '~', task.end.toLocaleDateString());
+      }
+    });
+  })();
+</script>

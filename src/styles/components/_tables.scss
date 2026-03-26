@@ -1,0 +1,489 @@
+// ============================================
+// Tables Component SCSS
+// 테이블 스타일 시스템
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$table-cell-padding: 0.75rem 1rem;
+$table-cell-padding-sm: 0.5rem 0.75rem;
+$table-cell-padding-lg: 1rem 1.25rem;
+$table-border-color: var(--border-color, $border-color);
+$table-bg: var(--bg-primary, $bg-primary);
+$table-bg-hover: var(--bg-secondary, $bg-secondary);
+$table-bg-striped: var(--bg-secondary, $bg-secondary);
+$table-header-bg: var(--bg-secondary, $bg-secondary);
+$table-font-size: 0.875rem;
+
+// ============================================
+// Table Wrapper (for responsive)
+// ============================================
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid $table-border-color;
+  border-radius: 8px;
+
+  .table {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+// ============================================
+// Base Table
+// ============================================
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: $table-font-size;
+  color: var(--text-primary, $text-primary);
+  background: $table-bg;
+  border-collapse: collapse;
+  border: 1px solid $table-border-color;
+  border-radius: 8px;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: $table-cell-padding;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid $table-border-color;
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--text-primary, $text-primary);
+    background: $table-header-bg;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+
+  // Caption
+  caption {
+    padding: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+    text-align: left;
+    caption-side: top;
+  }
+}
+
+// ============================================
+// Variants
+// ============================================
+
+// Striped rows
+.table--striped {
+  tbody tr:nth-child(even) {
+    background: $table-bg-striped;
+  }
+}
+
+// Hover effect
+.table--hover {
+  tbody tr {
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+      background: $table-bg-hover;
+    }
+  }
+}
+
+// Bordered (all borders)
+.table--bordered {
+  th,
+  td {
+    border: 1px solid $table-border-color;
+  }
+}
+
+// Borderless
+.table--borderless {
+  border: none;
+
+  th,
+  td {
+    border: none;
+  }
+}
+
+// ============================================
+// Sizes
+// ============================================
+
+// Small
+.table--sm {
+  font-size: 0.8125rem;
+
+  th,
+  td {
+    padding: $table-cell-padding-sm;
+  }
+}
+
+// Large
+.table--lg {
+  font-size: 0.9375rem;
+
+  th,
+  td {
+    padding: $table-cell-padding-lg;
+  }
+}
+
+// ============================================
+// Vertical Alignment (테이블 전용)
+// text-left/center/right는 _typography.scss 전역 유틸리티 사용
+// ============================================
+.align-top { vertical-align: top !important; }
+.align-middle { vertical-align: middle !important; }
+.align-bottom { vertical-align: bottom !important; }
+
+// ============================================
+// Sortable Headers
+// ============================================
+.table__sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.5rem !important;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid var(--text-tertiary, $text-tertiary);
+    opacity: 0.5;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+
+  &.is-asc::after {
+    border-top: none;
+    border-bottom: 4px solid var(--primary, $primary);
+    opacity: 1;
+  }
+
+  &.is-desc::after {
+    border-top: 4px solid var(--primary, $primary);
+    opacity: 1;
+  }
+}
+
+// ============================================
+// Selectable Rows
+// ============================================
+.table--selectable {
+  tbody tr {
+    cursor: pointer;
+
+    &.is-selected {
+      background: rgba($primary, 0.1);
+
+      &:hover {
+        background: rgba($primary, 0.15);
+      }
+    }
+  }
+}
+
+// ============================================
+// Fixed Header
+// ============================================
+.table-fixed-header {
+  max-height: 400px;
+  overflow-y: auto;
+
+  .table {
+    border: none;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    th {
+      background: var(--bg-primary, $bg-primary);
+      box-shadow: inset 0 -1px 0 $table-border-color;
+    }
+  }
+}
+
+// ============================================
+// Row States
+// ============================================
+.table {
+  tr {
+    &.is-active {
+      background: rgba($primary, 0.1);
+    }
+
+    &.is-success {
+      background: rgba($success, 0.1);
+    }
+
+    &.is-warning {
+      background: rgba($warning, 0.1);
+    }
+
+    &.is-danger {
+      background: rgba($danger, 0.1);
+    }
+
+    &.is-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+// ============================================
+// Cell Truncation
+// ============================================
+.table__truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ============================================
+// Actions Column
+// ============================================
+.table__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+
+  .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+// ============================================
+// Empty State
+// ============================================
+.table__empty {
+  text-align: center;
+  padding: 2rem !important;
+  color: var(--text-tertiary, $text-tertiary);
+
+  i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+  }
+}
+
+// ============================================
+// Loading State
+// ============================================
+.table__loading {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// ============================================
+// Responsive (card view on mobile)
+// ============================================
+@media (max-width: 768px) {
+  .table--responsive {
+    thead {
+      display: none;
+    }
+
+    tbody {
+      tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid $table-border-color;
+        border-radius: 8px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid $table-border-color;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &::before {
+          content: attr(data-label);
+          font-weight: 600;
+          margin-right: 1rem;
+          color: var(--text-primary, $text-primary);
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// Bootstrap 호환 테이블 클래스 (ubold 스타일)
+// ============================================
+
+// table-striped
+.table-striped {
+  > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+// table-bordered
+.table-bordered {
+  border: 1px solid $table-border-color;
+
+  > :not(caption) > * > * {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $table-border-color;
+  }
+}
+
+// table-borderless
+.table-borderless {
+  border: none;
+
+  > :not(caption) > * > * {
+    border-bottom-width: 0;
+  }
+}
+
+// table-hover
+.table-hover {
+  > tbody > tr {
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+// table-sm (compact)
+.table-sm {
+  > :not(caption) > * > * {
+    padding: $table-cell-padding-sm;
+  }
+}
+
+// table-dark
+.table-dark {
+  color: #fff;
+  background-color: #212529;
+  border-color: #373b3e;
+
+  th,
+  td {
+    border-color: #373b3e;
+    color: #fff;
+  }
+
+  thead th {
+    background-color: #2c3034;
+    color: #fff;
+  }
+
+  > tbody > tr:hover {
+    background-color: rgba(255, 255, 255, 0.075);
+  }
+}
+
+// table-light (thead)
+.table-light {
+  th {
+    background-color: #f8f9fa;
+    color: #495057;
+    border-color: #dee2e6;
+  }
+}
+
+// table-responsive (overflow wrapper)
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  > .table {
+    margin-bottom: 0;
+  }
+}
+
+// 행/셀 색상 (Bootstrap 호환 table-* — tr, td, th 모두 적용)
+.table-active { background-color: rgba(0, 0, 0, 0.04) !important; }
+.table-primary { background-color: rgba($primary, 0.12) !important; }
+.table-secondary { background-color: rgba(#6c757d, 0.12) !important; }
+.table-success { background-color: rgba($success, 0.12) !important; }
+.table-danger { background-color: rgba($danger, 0.12) !important; }
+.table-warning { background-color: rgba($warning, 0.12) !important; }
+.table-info { background-color: rgba($info, 0.12) !important; }
+
+// thead.table-dark (ubold 스타일)
+thead.table-dark {
+  th {
+    background-color: #212529;
+    color: #fff;
+    border-color: #373b3e;
+  }
+}
+
+// table-striped-columns (세로 줄무늬)
+.table-striped-columns {
+  > :not(caption) > tr > :nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+// Nesting support: table-dark + table-borderless
+.table-dark.table-borderless {
+  th,
+  td {
+    border-color: transparent;
+  }
+}
+
+// Nesting support: table-dark + table-striped
+.table-dark.table-striped {
+  > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

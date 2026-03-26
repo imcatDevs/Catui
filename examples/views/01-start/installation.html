@@ -1,0 +1,82 @@
+<!-- 설치 가이드 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">설치</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">설치</h1>
+  <p class="page-desc">CDN, npm, 직접 다운로드 세 가지 방법으로 IMCAT UI를 설치할 수 있습니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-cdn">
+  <div class="demo-card__header"><span class="demo-card__title">CDN (권장)</span></div>
+  <div class="demo-card__desc">별도 설치 없이 HTML에 바로 추가합니다.</div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">head</span>&gt;
+  &lt;<span class="code-tag">link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"dist/imcat-ui.css"</span>&gt;
+&lt;/<span class="code-tag">head</span>&gt;
+&lt;<span class="code-tag">body</span>&gt;
+  <span class="code-comment">&lt;!-- 콘텐츠 --&gt;</span>
+  &lt;<span class="code-tag">script</span> <span class="code-attr">src</span>=<span class="code-string">"dist/imcat-ui.min.js"</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
+&lt;/<span class="code-tag">body</span>&gt;</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-npm">
+  <div class="demo-card__header"><span class="demo-card__title">npm / pnpm</span></div>
+  <div class="demo-card__desc">패키지 매니저를 통한 설치입니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment"># npm</span>
+npm install @imcat-ckim/catui
+
+<span class="code-comment"># pnpm</span>
+pnpm add @imcat-ckim/catui</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-esm">
+  <div class="demo-card__header"><span class="demo-card__title">ES Module import</span></div>
+  <div class="demo-card__desc">번들러 환경에서 ESM으로 사용합니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">import</span> IMCAT <span class="code-keyword">from</span> <span class="code-string">'@imcat-ckim/catui/dist/imcat-ui.esm.js'</span>;
+
+<span class="code-comment">// 또는 IIFE 번들이 이미 로드된 경우 전역 IMCAT 사용</span>
+<span class="code-keyword">const</span> { Modal } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-files">
+  <div class="demo-card__header"><span class="demo-card__title">빌드 산출물 구조</span></div>
+  <div class="demo-card__desc">dist/ 폴더에 포함된 파일들입니다.</div>
+  <div class="demo-card__code">
+<pre>dist/
+├── imcat-ui.css          <span class="code-comment">// 코어 CSS (타이포, 버튼, 카드 등)</span>
+├── imcat-ui.js           <span class="code-comment">// IIFE 번들 (전역 IMCAT)</span>
+├── imcat-ui.min.js       <span class="code-comment">// 압축 IIFE</span>
+├── imcat-ui.esm.js       <span class="code-comment">// ES Module 번들</span>
+└── modules/
+    ├── overlays.js       <span class="code-comment">// 개별 모듈 JS</span>
+    ├── overlays.css      <span class="code-comment">// 개별 모듈 CSS</span>
+    ├── navigation.js
+    ├── navigation.css
+    └── ...               <span class="code-comment">// 22개 모듈</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-cdn" class="doc-toc__link is-active">CDN</a></li>
+    <li class="doc-toc__item"><a href="#s-npm" class="doc-toc__link">npm / pnpm</a></li>
+    <li class="doc-toc__item"><a href="#s-esm" class="doc-toc__link">ES Module</a></li>
+    <li class="doc-toc__item"><a href="#s-files" class="doc-toc__link">빌드 산출물</a></li>
+  </ul>
+</aside>
+</div>

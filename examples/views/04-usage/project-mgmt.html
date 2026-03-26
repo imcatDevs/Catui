@@ -1,0 +1,134 @@
+<!-- 활용: 프로젝트 관리 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">프로젝트 관리</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">프로젝트 관리</h1>
+  <p class="page-desc">Kanban + Gantt + Stepper + Tabs를 조합한 프로젝트 관리 예제</p>
+</div>
+
+<!-- 프로젝트 헤더 -->
+<div class="card card--outlined">
+  <div class="card__header">
+    <h4 class="card__title">IMCAT UI v2.0</h4>
+    <div class="btn-group">
+      <button class="btn btn--sm btn--primary" onclick="IMCAT.toast.success('저장되었습니다')">
+        <i class="material-icons-outlined">save</i> 저장
+      </button>
+      <button class="btn btn--sm btn--outline" onclick="IMCAT.toast.info('내보내기')">
+        <i class="material-icons-outlined">download</i> 내보내기
+      </button>
+    </div>
+  </div>
+  <div class="card__body"><div id="proj-stepper"></div></div>
+</div>
+
+<!-- 탭 콘텐츠 -->
+<div id="proj-tabs"></div>
+
+<script>
+  (async function() {
+    var Nav = await IMCAT.use('navigation');
+    var S = await IMCAT.use('stepper');
+    var DV = await IMCAT.use('data-viz');
+    var G = await IMCAT.use('gantt');
+
+    // 프로젝트 진행 단계
+    new S.Stepper('#proj-stepper', {
+      steps: [
+        { title: '기획' },
+        { title: '디자인' },
+        { title: '개발' },
+        { title: '테스트' },
+        { title: '배포' }
+      ],
+      currentStep: 2
+    });
+
+    // 탭: 마크업 기반 생성 후 초기화
+    document.getElementById('proj-tabs').innerHTML =
+      '<div class="tabs">' +
+        '<div class="tabs__list" role="tablist">' +
+          '<button class="tabs__tab is-active" role="tab" aria-selected="true">칸반 보드</button>' +
+          '<button class="tabs__tab" role="tab" aria-selected="false">일정 (Gantt)</button>' +
+          '<button class="tabs__tab" role="tab" aria-selected="false">팀원</button>' +
+        '</div>' +
+        '<div class="tabs__content">' +
+          '<div class="tabs__panel" role="tabpanel"><div id="proj-kanban"></div></div>' +
+          '<div class="tabs__panel" role="tabpanel" hidden><div id="proj-gantt"></div></div>' +
+          '<div class="tabs__panel" role="tabpanel" hidden><div id="proj-team"></div></div>' +
+        '</div>' +
+      '</div>';
+    new Nav.Tabs('#proj-tabs .tabs');
+
+    // 칸반
+    setTimeout(function() {
+      new DV.Kanban('#proj-kanban', {
+        columns: [
+          { id: 'backlog', title: '백로그', cards: [
+            { title: '다크 모드 개선', tags: ['디자인'] },
+            { title: 'API 문서화', tags: ['문서'] }
+          ]},
+          { id: 'todo', title: '할 일', cards: [
+            { title: '모듈 CSS 분리', tags: ['개발'] },
+            { title: '접근성 감사', tags: ['QA'] }
+          ]},
+          { id: 'doing', title: '진행 중', cards: [
+            { title: 'EventEmitter 리팩토링', tags: ['개발'] }
+          ]},
+          { id: 'done', title: '완료', cards: [
+            { title: 'Security 모듈 강화', tags: ['보안'] },
+            { title: '타입 정의 업데이트', tags: ['개발'] }
+          ]}
+        ],
+        draggable: true
+      });
+    }, 100);
+
+    // 간트 (2번째 탭 클릭 시)
+    var tabBtns = document.querySelectorAll('#proj-tabs .tabs__tab');
+    if (tabBtns[1]) {
+      tabBtns[1].addEventListener('click', function() {
+        setTimeout(function() {
+          if (!document.querySelector('#proj-gantt canvas, #proj-gantt svg, #proj-gantt .gantt')) {
+            new G('#proj-gantt', {
+              tasks: [
+                { id: 1, name: '기획', start: '2025-03-01', end: '2025-03-10', progress: 100 },
+                { id: 2, name: 'UI 디자인', start: '2025-03-08', end: '2025-03-22', progress: 80 },
+                { id: 3, name: '코어 개발', start: '2025-03-15', end: '2025-04-15', progress: 40 },
+                { id: 4, name: '모듈 개발', start: '2025-03-25', end: '2025-04-30', progress: 20 },
+                { id: 5, name: 'QA / 테스트', start: '2025-04-20', end: '2025-05-10', progress: 0 },
+                { id: 6, name: '배포', start: '2025-05-10', end: '2025-05-15', progress: 0 }
+              ],
+              viewMode: 'week'
+            });
+          }
+        }, 200);
+      });
+    }
+
+    // 팀원 (3번째 탭 클릭 시)
+    if (tabBtns[2]) {
+      tabBtns[2].addEventListener('click', function() {
+        setTimeout(function() {
+          var el = document.getElementById('proj-team');
+          if (el && !el.children.length) {
+            el.innerHTML =
+              '<div class="table-wrapper"><table class="table table--hover">' +
+              '<thead><tr><th>이름</th><th>역할</th><th>진행 작업</th><th>상태</th></tr></thead>' +
+              '<tbody>' +
+              '<tr><td>홍길동</td><td>리드 개발자</td><td>EventEmitter 리팩토링</td><td><span class="badge badge--success">활성</span></td></tr>' +
+              '<tr><td>김영희</td><td>UI 디자이너</td><td>다크 모드 개선</td><td><span class="badge badge--success">활성</span></td></tr>' +
+              '<tr><td>이철수</td><td>백엔드</td><td>API 문서화</td><td><span class="badge badge--warning">외출</span></td></tr>' +
+              '<tr><td>박지민</td><td>QA</td><td>접근성 감사</td><td><span class="badge badge--success">활성</span></td></tr>' +
+              '</tbody></table></div>';
+          }
+        }, 100);
+      });
+    }
+  })();
+</script>

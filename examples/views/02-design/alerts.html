@@ -1,0 +1,229 @@
+<!-- Alerts -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Alerts</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Alerts</h1>
+  <p class="page-desc">상태 메시지, 알림, 배너를 위한 Alert 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Bootstrap 호환 Default Alert -->
+<div class="demo-card" id="s-default">
+  <div class="demo-card__header"><span class="demo-card__title">Default Alert (Bootstrap 호환)</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert-primary" role="alert">This is a <strong>primary</strong> alert — check it out!</div>
+    <div class="alert alert-secondary" role="alert">This is a <strong>secondary</strong> alert — check it out!</div>
+    <div class="alert alert-success" role="alert"><i class="material-icons-outlined" style="font-size:1.125rem;vertical-align:text-bottom;">check_circle</i> This is a <strong>success</strong> alert — check it out!</div>
+    <div class="alert alert-danger" role="alert"><i class="material-icons-outlined" style="font-size:1.125rem;vertical-align:text-bottom;">error</i> This is a <strong>danger</strong> alert — check it out!</div>
+    <div class="alert alert-warning" role="alert"><i class="material-icons-outlined" style="font-size:1.125rem;vertical-align:text-bottom;">warning</i> This is a <strong>warning</strong> alert — check it out!</div>
+    <div class="alert alert-info" role="alert"><i class="material-icons-outlined" style="font-size:1.125rem;vertical-align:text-bottom;">info</i> A simple info alert with <a href="#" class="alert-link">an example link</a>.</div>
+    <div class="alert alert-light" role="alert">A simple light alert with <a href="#" class="alert-link">an example link</a>.</div>
+    <div class="alert alert-dark" role="alert">A simple dark alert with <a href="#" class="alert-link">an example link</a>.</div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert-primary</span>"&gt;Primary alert&lt;/div&gt;
+&lt;div class="<span class="code-string">alert alert-success</span>"&gt;Success alert&lt;/div&gt;
+&lt;div class="<span class="code-string">alert alert-info</span>"&gt;
+  Info alert with &lt;a href="#" class="<span class="code-string">alert-link</span>"&gt;link&lt;/a&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- BEM 스타일 Alert -->
+<div class="demo-card" id="s-bem">
+  <div class="demo-card__header"><span class="demo-card__title">BEM 스타일 Alert</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--info">
+      <span class="alert__icon"><i class="material-icons-outlined">info</i></span>
+      <div class="alert__content">정보 알림 메시지입니다.</div>
+    </div>
+    <div class="alert alert--success">
+      <span class="alert__icon"><i class="material-icons-outlined">check_circle</i></span>
+      <div class="alert__content">
+        <div class="alert__title">성공</div>
+        <div class="alert__message">파일이 성공적으로 저장되었습니다.</div>
+      </div>
+    </div>
+    <div class="alert alert--warning">
+      <span class="alert__icon"><i class="material-icons-outlined">warning</i></span>
+      <div class="alert__content">
+        <div class="alert__title">주의</div>
+        <div class="alert__message">저장 공간이 부족합니다. 불필요한 파일을 삭제해주세요.</div>
+      </div>
+    </div>
+    <div class="alert alert--danger">
+      <span class="alert__icon"><i class="material-icons-outlined">error</i></span>
+      <div class="alert__content">
+        <div class="alert__title">오류</div>
+        <div class="alert__message">서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요.</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert--success</span>"&gt;
+  &lt;span class="<span class="code-string">alert__icon</span>"&gt;...&lt;/span&gt;
+  &lt;div class="<span class="code-string">alert__content</span>"&gt;
+    &lt;div class="<span class="code-string">alert__title</span>"&gt;성공&lt;/div&gt;
+    &lt;div class="<span class="code-string">alert__message</span>"&gt;메시지&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- Filled & Outlined -->
+<div class="demo-card" id="s-filled">
+  <div class="demo-card__header"><span class="demo-card__title">Filled & Outlined</span></div>
+  <div class="demo-card__body">
+    <p class="text-secondary" style="margin-bottom:0.75rem;">Filled (배경 채움)</p>
+    <div class="alert alert--info alert--filled"><i class="material-icons-outlined">info</i> Filled 정보 알림</div>
+    <div class="alert alert--success alert--filled"><i class="material-icons-outlined">check_circle</i> Filled 성공 알림</div>
+    <div class="alert alert--warning alert--filled"><i class="material-icons-outlined">warning</i> Filled 경고 알림</div>
+    <div class="alert alert--danger alert--filled"><i class="material-icons-outlined">error</i> Filled 위험 알림</div>
+
+    <p class="text-secondary" style="margin:1.25rem 0 0.75rem;">Outlined (테두리만)</p>
+    <div class="alert alert--info alert--outlined">Outlined 정보 알림</div>
+    <div class="alert alert--success alert--outlined">Outlined 성공 알림</div>
+    <div class="alert alert--warning alert--outlined">Outlined 경고 알림</div>
+    <div class="alert alert--danger alert--outlined">Outlined 위험 알림</div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert--info alert--filled</span>"&gt;Filled&lt;/div&gt;
+&lt;div class="<span class="code-string">alert alert--warning alert--outlined</span>"&gt;Outlined&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 크기 -->
+<div class="demo-card" id="s-sizes">
+  <div class="demo-card__header"><span class="demo-card__title">크기</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--info alert--sm"><i class="material-icons-outlined">info</i> Small 알림</div>
+    <div class="alert alert--info"><i class="material-icons-outlined">info</i> Default 알림</div>
+    <div class="alert alert--info alert--lg"><i class="material-icons-outlined">info</i> Large 알림</div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert--info alert--sm</span>"&gt;Small&lt;/div&gt;
+&lt;div class="<span class="code-string">alert alert--info</span>"&gt;Default&lt;/div&gt;
+&lt;div class="<span class="code-string">alert alert--info alert--lg</span>"&gt;Large&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 닫기 & 액션 -->
+<div class="demo-card" id="s-dismiss">
+  <div class="demo-card__header"><span class="demo-card__title">닫기 & 액션</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--success alert--dismissible">
+      <span class="alert__icon"><i class="material-icons-outlined">check_circle</i></span>
+      <div class="alert__content">닫기 버튼이 있는 알림입니다.</div>
+      <button class="alert__close" onclick="this.parentElement.remove()">&times;</button>
+    </div>
+    <div class="alert alert--warning alert--dismissible">
+      <span class="alert__icon"><i class="material-icons-outlined">warning</i></span>
+      <div class="alert__content">
+        <div class="alert__title">주의가 필요합니다</div>
+        <div class="alert__message">이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</div>
+        <div class="alert__actions">
+          <button class="btn btn--sm btn--primary" onclick="this.closest('.alert').remove()">확인</button>
+          <button class="btn btn--sm btn--ghost" onclick="this.closest('.alert').remove()">취소</button>
+        </div>
+      </div>
+      <button class="alert__close" onclick="this.parentElement.remove()">&times;</button>
+    </div>
+    <div class="alert alert-danger" role="alert" style="display:flex;align-items:center;justify-content:space-between;">
+      <span><strong>Error!</strong> 서버 연결에 실패했습니다.</span>
+      <button class="btn-close" onclick="this.parentElement.remove()"></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- BEM 닫기 --&gt;</span>
+&lt;div class="<span class="code-string">alert alert--success alert--dismissible</span>"&gt;
+  메시지
+  &lt;button class="<span class="code-string">alert__close</span>"&gt;&amp;times;&lt;/button&gt;
+&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Bootstrap btn-close --&gt;</span>
+&lt;div class="<span class="code-string">alert alert-danger</span>"&gt;
+  메시지
+  &lt;button class="<span class="code-string">btn-close</span>"&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 추가 콘텐츠 -->
+<div class="demo-card" id="s-additional">
+  <div class="demo-card__header"><span class="demo-card__title">추가 콘텐츠</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">배포 완료!</h4>
+      <p>프로덕션 서버에 성공적으로 배포되었습니다. 모든 서비스가 정상 동작 중입니다.</p>
+      <hr>
+      <p>문제가 발생하면 <a href="#" class="alert-link">롤백 페이지</a>에서 이전 버전으로 되돌릴 수 있습니다.</p>
+    </div>
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">빌드 실패</h4>
+      <p>CI/CD 파이프라인에서 오류가 발생했습니다. 아래 로그를 확인해주세요.</p>
+      <hr>
+      <p>자세한 내용은 <a href="#" class="alert-link">빌드 로그</a>를 참고하세요.</p>
+    </div>
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">시스템 점검 안내</h4>
+      <p>2024년 3월 15일 02:00~04:00 시간대에 정기 점검이 예정되어 있습니다.</p>
+      <hr>
+      <p>점검 중에는 서비스 이용이 제한될 수 있습니다.</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert-success</span>"&gt;
+  &lt;h4 class="<span class="code-string">alert-heading</span>"&gt;배포 완료!&lt;/h4&gt;
+  &lt;p&gt;내용...&lt;/p&gt;
+  &lt;hr&gt;
+  &lt;p&gt;추가 정보 &lt;a href="#" class="<span class="code-string">alert-link</span>"&gt;링크&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- alert-dismissible -->
+<div class="demo-card" id="s-dismissible">
+  <div class="demo-card__header"><span class="demo-card__title">Dismissible (Bootstrap 호환)</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <strong>주의!</strong> 저장하지 않은 변경사항이 있습니다.
+      <button class="btn-close" onclick="this.parentElement.remove()"></button>
+    </div>
+    <div class="alert alert-info alert-dismissible" role="alert">
+      <strong>안내:</strong> 새로운 업데이트가 준비되었습니다. <a href="#" class="alert-link">지금 업데이트</a>
+      <button class="btn-close" onclick="this.parentElement.remove()"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <strong>Error!</strong> 파일 업로드에 실패했습니다. 다시 시도해주세요.
+      <button class="btn-close" onclick="this.parentElement.remove()"></button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">alert alert-warning alert-dismissible</span>"&gt;
+  &lt;strong&gt;주의!&lt;/strong&gt; 메시지
+  &lt;button class="<span class="code-string">btn-close</span>"&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-default" class="doc-toc__link is-active">Default (Bootstrap)</a></li>
+    <li class="doc-toc__item"><a href="#s-bem" class="doc-toc__link">BEM 스타일</a></li>
+    <li class="doc-toc__item"><a href="#s-filled" class="doc-toc__link">Filled & Outlined</a></li>
+    <li class="doc-toc__item"><a href="#s-sizes" class="doc-toc__link">크기</a></li>
+    <li class="doc-toc__item"><a href="#s-dismiss" class="doc-toc__link">닫기 & 액션</a></li>
+    <li class="doc-toc__item"><a href="#s-additional" class="doc-toc__link">추가 콘텐츠</a></li>
+    <li class="doc-toc__item"><a href="#s-dismissible" class="doc-toc__link">Dismissible</a></li>
+  </ul>
+</aside>
+</div>

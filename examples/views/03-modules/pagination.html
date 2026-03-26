@@ -1,0 +1,255 @@
+<!-- Pagination -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Pagination</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Pagination</h1>
+  <p class="page-desc">페이지네이션 컴포넌트 — 다양한 스타일과 사이즈 변형 지원</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Default Pagination -->
+<div class="demo-card" id="s-default">
+  <div class="demo-card__header"><span class="demo-card__title">Default Pagination</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.5rem;font-size:0.8125rem;color:var(--text-secondary)">기본 페이지네이션. 처음/마지막/이전/다음 버튼 + 생략 부호 포함.</p>
+    <div id="pg-default"></div>
+    <p id="pg-default-info" style="margin-top:0.5rem;font-size:0.8125rem;color:var(--text-tertiary)"></p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Pagination } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'pagination'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#container'</span>, {
+  totalItems: <span class="code-number">200</span>,
+  itemsPerPage: <span class="code-number">10</span>,
+  currentPage: <span class="code-number">1</span>,
+  showInfo: <span class="code-keyword">true</span>,
+  onChange: (pageData) => console.log(pageData)
+});</pre>
+  </div>
+</div>
+
+<!-- Rounded Pagination -->
+<div class="demo-card" id="s-rounded">
+  <div class="demo-card__header"><span class="demo-card__title">Rounded Pagination</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.5rem;font-size:0.8125rem;color:var(--text-secondary)"><code>rounded</code> 스타일. 원형 버튼.</p>
+    <div id="pg-rounded"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#container'</span>, {
+  totalItems: <span class="code-number">150</span>,
+  rounded: <span class="code-keyword">true</span>,   <span class="code-comment">// 원형 스타일</span>
+  currentPage: <span class="code-number">3</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Sizes (sm/lg) -->
+<div class="demo-card" id="s-sizes">
+  <div class="demo-card__header"><span class="demo-card__title">Sizes (Small / Large)</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.5rem;font-size:0.8125rem;color:var(--text-secondary)"><code>size: 'sm'</code> / <code>size: 'lg'</code> 사이즈 변형.</p>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin-bottom:0.375rem">Large</h4>
+    <div id="pg-lg"></div>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">Small</h4>
+    <div id="pg-sm"></div>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">Small + Rounded</h4>
+    <div id="pg-sm-rounded"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// Large</span>
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#lg'</span>, { size: <span class="code-string">'lg'</span>, totalItems: <span class="code-number">80</span> });
+<span class="code-comment">// Small</span>
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#sm'</span>, { size: <span class="code-string">'sm'</span>, totalItems: <span class="code-number">80</span> });
+<span class="code-comment">// Small + Rounded</span>
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#sm-r'</span>, { size: <span class="code-string">'sm'</span>, rounded: <span class="code-keyword">true</span>, totalItems: <span class="code-number">80</span> });</pre>
+  </div>
+</div>
+
+<!-- Alignment + Info -->
+<div class="demo-card" id="s-align">
+  <div class="demo-card__header"><span class="demo-card__title">정렬 + Info 텍스트</span></div>
+  <div class="demo-card__body">
+    <h4 style="font-size:0.8125rem;font-weight:600;margin-bottom:0.375rem">중앙 정렬 + 정보</h4>
+    <div id="pg-center"></div>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">우측 정렬</h4>
+    <div id="pg-end"></div>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">텍스트 라벨 (아이콘 OFF)</h4>
+    <div id="pg-text"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#center'</span>, {
+  align: <span class="code-string">'center'</span>,
+  showInfo: <span class="code-keyword">true</span>,
+  infoTemplate: <span class="code-string">'{{currentPage}} / {{totalPages}} 페이지'</span>
+});
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#end'</span>, { align: <span class="code-string">'end'</span> });
+<span class="code-keyword">new</span> <span class="code-function">Pagination</span>(<span class="code-string">'#text'</span>, { icons: <span class="code-keyword">false</span> });</pre>
+  </div>
+</div>
+
+<!-- DataPaginator (테이블 + 검색) -->
+<div class="demo-card" id="s-datapaginator">
+  <div class="demo-card__header"><span class="demo-card__title">DataPaginator (테이블 + 검색)</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">JSON 데이터 기반 페이지네이션. 검색, 정렬, 페이지 크기 변경 지원.</p>
+    <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;flex-wrap:wrap;align-items:center">
+      <input type="text" id="dp-search" class="form-control form-control-sm" placeholder="검색..." style="max-width:220px">
+      <select id="dp-pagesize" class="form-control form-control-sm" style="max-width:140px">
+        <option value="5">5개씩</option>
+        <option value="10" selected>10개씩</option>
+        <option value="20">20개씩</option>
+      </select>
+      <span id="dp-count" style="font-size:0.8125rem;color:var(--text-tertiary)"></span>
+    </div>
+    <div id="dp-demo"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { DataPaginator } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'pagination'</span>);
+<span class="code-keyword">const</span> dp = <span class="code-keyword">new</span> <span class="code-function">DataPaginator</span>({
+  container: <span class="code-string">'#container'</span>,
+  data: users,
+  itemsPerPage: <span class="code-number">10</span>,
+  renderItem: (item) => <span class="code-string">'...'</span>,
+  paginationOptions: { showInfo: <span class="code-keyword">true</span>, rounded: <span class="code-keyword">true</span> }
+});
+dp.<span class="code-function">search</span>(<span class="code-string">'검색어'</span>, [<span class="code-string">'name'</span>, <span class="code-string">'email'</span>]);
+dp.<span class="code-function">sort</span>((a, b) => a.name.localeCompare(b.name));</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-default" class="doc-toc__link is-active">Default</a></li>
+    <li class="doc-toc__item"><a href="#s-rounded" class="doc-toc__link">Rounded</a></li>
+    <li class="doc-toc__item"><a href="#s-sizes" class="doc-toc__link">Sizes</a></li>
+    <li class="doc-toc__item"><a href="#s-align" class="doc-toc__link">정렬 + Info</a></li>
+    <li class="doc-toc__item"><a href="#s-datapaginator" class="doc-toc__link">DataPaginator</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var P = await IMCAT.use('pagination');
+
+    // ================================
+    // Default Pagination
+    // ================================
+    new P.Pagination('#pg-default', {
+      totalItems: 200, itemsPerPage: 10, currentPage: 1,
+      showInfo: true,
+      onChange: function(pageData) {
+        document.getElementById('pg-default-info').textContent =
+          '현재: ' + pageData.currentPage + '페이지 (' + pageData.startNumber + '-' + pageData.endNumber + ' / ' + pageData.totalItems + '건)';
+      }
+    });
+
+    // ================================
+    // Rounded
+    // ================================
+    new P.Pagination('#pg-rounded', {
+      totalItems: 150, itemsPerPage: 10, currentPage: 3,
+      rounded: true
+    });
+
+    // ================================
+    // Sizes
+    // ================================
+    new P.Pagination('#pg-lg', {
+      totalItems: 80, itemsPerPage: 10, size: 'lg',
+      showFirstLast: false
+    });
+    new P.Pagination('#pg-sm', {
+      totalItems: 80, itemsPerPage: 10, size: 'sm',
+      showFirstLast: false
+    });
+    new P.Pagination('#pg-sm-rounded', {
+      totalItems: 80, itemsPerPage: 10, size: 'sm', rounded: true,
+      showFirstLast: false
+    });
+
+    // ================================
+    // Alignment + Info
+    // ================================
+    new P.Pagination('#pg-center', {
+      totalItems: 100, itemsPerPage: 10, currentPage: 1,
+      align: 'center', showInfo: true,
+      infoTemplate: '{{currentPage}} / {{totalPages}} 페이지'
+    });
+    new P.Pagination('#pg-end', {
+      totalItems: 100, itemsPerPage: 10, currentPage: 1,
+      align: 'end'
+    });
+    new P.Pagination('#pg-text', {
+      totalItems: 100, itemsPerPage: 10, currentPage: 1,
+      icons: false, showFirstLast: false
+    });
+
+    // ================================
+    // DataPaginator (테이블 + 검색)
+    // ================================
+    var names = ['김민수','이영희','박지성','최수진','정대현','한소희','강동원','오세은','윤서연','임재범',
+      '송하영','배수지','조현우','류승완','권나라','장기하','문채원','신동엽','양세형','홍길동',
+      '이하늘','김태희','박보검','전지현','손흥민','김연아','유재석','강호동','이광수','송지효',
+      '하하','지석진','양세찬','전소민','김종국','이효리','비','수지','아이유','태연'];
+    var depts = ['개발팀','디자인팀','마케팅팀','영업팀','인사팀','경영지원팀'];
+    var userData = names.map(function(name, i) {
+      return {
+        id: i + 1,
+        name: name,
+        email: name.toLowerCase().replace(/\s/g,'') + '@imcat.dev',
+        dept: depts[i % depts.length],
+        role: i % 5 === 0 ? '팀장' : '사원'
+      };
+    });
+
+    var dp = new P.DataPaginator({
+      container: '#dp-demo',
+      data: userData,
+      itemsPerPage: 10,
+      renderItem: function(item, idx) {
+        return '<div style="display:flex;gap:1rem;padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-color);font-size:0.8125rem;align-items:center">' +
+          '<span style="min-width:2rem;color:var(--text-tertiary)">' + item.id + '</span>' +
+          '<span style="min-width:5rem;font-weight:500">' + item.name + '</span>' +
+          '<span style="flex:1;color:var(--text-secondary)">' + item.email + '</span>' +
+          '<span style="min-width:5rem">' + item.dept + '</span>' +
+          '<span style="min-width:3rem;color:' + (item.role === '팀장' ? 'var(--primary)' : 'var(--text-tertiary)') + '">' + item.role + '</span>' +
+          '</div>';
+      },
+      paginationOptions: {
+        showInfo: true,
+        rounded: true,
+        size: 'sm'
+      }
+    });
+
+    function updateCount() {
+      var filtered = dp.getFilteredData();
+      document.getElementById('dp-count').textContent = '총 ' + filtered.length + '건';
+    }
+    updateCount();
+
+    // 검색
+    document.getElementById('dp-search').addEventListener('input', function() {
+      dp.search(this.value, ['name', 'email', 'dept', 'role']);
+      updateCount();
+    });
+
+    // 페이지 크기 변경
+    document.getElementById('dp-pagesize').addEventListener('change', function() {
+      dp.pagination.setItemsPerPage(parseInt(this.value, 10));
+      dp.options.itemsPerPage = parseInt(this.value, 10);
+      dp._renderCurrentPage();
+    });
+
+  })();
+</script>

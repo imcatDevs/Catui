@@ -1,0 +1,162 @@
+<!-- Template Engine -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Template</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Template</h1>
+  <p class="page-desc">간단한 Mustache 스타일 템플릿 엔진. XSS 자동 방어가 내장되어 있습니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 사용</span></div>
+  <div class="demo-card__body">
+    <div class="card card--outlined" id="tpl-output"></div>
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="renderTemplate()">렌더링</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 템플릿 문자열 렌더링</span>
+<span class="code-keyword">const</span> html = IMCAT.template.<span class="code-function">render</span>(
+  <span class="code-string">'&lt;h3&gt;{{name}}&lt;/h3&gt;&lt;p&gt;{{message}}&lt;/p&gt;'</span>,
+  { name: <span class="code-string">'홍길동'</span>, message: <span class="code-string">'안녕하세요!'</span> }
+);
+
+<span class="code-comment">// 변수는 자동으로 XSS 이스케이프됨</span>
+<span class="code-comment">// {{name}} → Security.escape(name)</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-condition">
+  <div class="demo-card__header"><span class="demo-card__title">조건부 렌더링</span></div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+      <button class="btn btn--success btn--sm" id="tpl-cond-true">show = true</button>
+      <button class="btn btn--danger btn--sm" id="tpl-cond-false">show = false</button>
+    </div>
+    <div class="alert" id="tpl-cond-output">보임</div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// {{#key}} ... {{/key}} — truthy 일 때 렌더링</span>
+<span class="code-comment">// {{^key}} ... {{/key}} — falsy 일 때 렌더링</span>
+IMCAT.template.<span class="code-function">render</span>(
+  <span class="code-string">'{{#show}}보임{{/show}}{{^show}}숨김{{/show}}'</span>,
+  { show: <span class="code-keyword">true</span> }
+);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-loop">
+  <div class="demo-card__header"><span class="demo-card__title">반복 렌더링</span></div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+      <input type="text" class="form-input" id="tpl-loop-input" placeholder="항목 추가..." style="width:160px">
+      <button class="btn btn--primary btn--sm" id="tpl-loop-add">추가</button>
+      <button class="btn btn--outline btn--sm" id="tpl-loop-reset">리셋</button>
+    </div>
+    <ul class="list list--divided" id="tpl-loop-output"></ul>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 배열 반복 — {{.}} 은 현재 값</span>
+IMCAT.template.<span class="code-function">render</span>(
+  <span class="code-string">'{{#items}}&lt;li&gt;{{.}}&lt;/li&gt;{{/items}}'</span>,
+  { items: [<span class="code-string">'사과'</span>, <span class="code-string">'바나나'</span>, <span class="code-string">'딸기'</span>] }
+);
+
+<span class="code-comment">// 객체 배열 — 각 필드 접근 가능</span>
+IMCAT.template.<span class="code-function">render</span>(
+  <span class="code-string">'{{#users}}&lt;p&gt;{{name}} ({{role}})&lt;/p&gt;{{/users}}'</span>,
+  { users: [{ name: <span class="code-string">'홍길동'</span>, role: <span class="code-string">'Admin'</span> }] }
+);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-xss">
+  <div class="demo-card__header"><span class="demo-card__title">XSS 자동 방어</span></div>
+  <div class="demo-card__body">
+    <div style="margin-bottom:0.5rem">
+      <input type="text" class="form-input" id="tpl-xss-input" value='<script>alert("XSS")</script>' style="width:100%">
+    </div>
+    <button class="btn btn--warning btn--sm" id="tpl-xss-btn">렌더링 (자동 이스케이프)</button>
+    <div class="alert alert--info" id="tpl-xss-output" style="margin-top:0.5rem;font-family:monospace;font-size:0.8125rem;word-break:break-all"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// {{value}} → 자동 XSS 이스케이프</span>
+IMCAT.template.<span class="code-function">render</span>(
+  <span class="code-string">'&lt;p&gt;{{userInput}}&lt;/p&gt;'</span>,
+  { userInput: <span class="code-string">'&lt;script&gt;alert("XSS")&lt;/script&gt;'</span> }
+);
+<span class="code-comment">// 결과: &amp;lt;script&amp;gt;alert(&amp;quot;XSS&amp;quot;)&amp;lt;/script&amp;gt;</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 사용</a></li>
+    <li class="doc-toc__item"><a href="#s-condition" class="doc-toc__link">조건부 렌더링</a></li>
+    <li class="doc-toc__item"><a href="#s-loop" class="doc-toc__link">반복 렌더링</a></li>
+    <li class="doc-toc__item"><a href="#s-xss" class="doc-toc__link">XSS 방어</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  // ── 1. 기본 렌더링 ──
+  function renderTemplate() {
+    var html = IMCAT.template.render(
+      '<div class="card__body"><h4 class="card__title">{{name}}</h4><p class="body2 text-secondary">{{message}}</p></div>',
+      { name: '홍길동', message: '템플릿으로 렌더링된 카드입니다.' }
+    );
+    document.getElementById('tpl-output').innerHTML = html;
+  }
+  renderTemplate();
+
+  // ── 2. 조건부 렌더링 ──
+  function renderCondition(show) {
+    var html = IMCAT.template.render(
+      '{{#show}}<span class="badge badge--success">보임</span> — show 값이 truthy입니다{{/show}}{{^show}}<span class="badge badge--danger">숨김</span> — show 값이 falsy입니다{{/show}}',
+      { show: show }
+    );
+    var el = document.getElementById('tpl-cond-output');
+    el.className = 'alert ' + (show ? 'alert--success' : 'alert--warning');
+    el.innerHTML = html;
+  }
+  document.getElementById('tpl-cond-true').addEventListener('click', function() { renderCondition(true); });
+  document.getElementById('tpl-cond-false').addEventListener('click', function() { renderCondition(false); });
+
+  // ── 3. 반복 렌더링 ──
+  var loopItems = ['사과', '바나나', '딸기'];
+  function renderLoop() {
+    var html = IMCAT.template.render(
+      '{{#items}}<li class="list__item">{{.}}</li>{{/items}}',
+      { items: loopItems }
+    );
+    document.getElementById('tpl-loop-output').innerHTML = html;
+  }
+  renderLoop();
+  document.getElementById('tpl-loop-add').addEventListener('click', function() {
+    var input = document.getElementById('tpl-loop-input');
+    var val = input.value.trim();
+    if (val) { loopItems.push(val); renderLoop(); input.value = ''; }
+  });
+  document.getElementById('tpl-loop-reset').addEventListener('click', function() {
+    loopItems = ['사과', '바나나', '딸기'];
+    renderLoop();
+  });
+
+  // ── 4. XSS 방어 ──
+  document.getElementById('tpl-xss-btn').addEventListener('click', function() {
+    var input = document.getElementById('tpl-xss-input').value;
+    var html = IMCAT.template.render('<p>{{userInput}}</p>', { userInput: input });
+    document.getElementById('tpl-xss-output').textContent = '결과: ' + html;
+  });
+</script>

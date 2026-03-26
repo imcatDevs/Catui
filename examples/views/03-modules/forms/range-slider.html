@@ -1,0 +1,198 @@
+<!-- Range Slider: Single, Range, Step, Format, Callbacks -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Range Slider</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Range Slider</h1>
+  <p class="page-desc">드래그 가능한 범위 슬라이더. 단일/이중 핸들, 툴팁, 커스텀 포맷 지원.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Examples                             -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-examples">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Range Slider Examples</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">다양한 RangeSlider 변형 데모</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Default Range -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Default Range</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>range: true, value: [20, 80]</code> — 기본 이중 핸들 범위.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-default"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Single Handle -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Single Handle</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>range: false, value: 50</code> — 단일 핸들 슬라이더.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-single"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Step 10 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Step: 10</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>step: 10</code> — 10 단위로 스냅.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-step10"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Step 25 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Step: 25</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>step: 25</code> — 25 단위 스냅 (0, 25, 50, 75, 100).</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-step25"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Currency Format -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Currency Format</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>formatValue: (v) => v.toLocaleString() + '원'</code></p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-currency"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Percent Format -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Percent Format</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>formatValue: (v) => v + '%'</code></p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-percent"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Without Tooltip -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Without Tooltip</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>showTooltip: false</code> — 핸들 위 툴팁 숨김.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-notooltip"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Without Labels -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Without Labels</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>showLabels: false</code> — 양쪽 라벨 숨김.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-nolabels"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange</code> — 실시간 값 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-callback"></div>
+            <p id="rs-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">값: [25, 75]</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> S = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'selectors'</span>);
+<span class="code-keyword">new</span> S.<span class="code-function">RangeSlider</span>(<span class="code-string">'#el'</span>, {
+  min: <span class="code-number">0</span>, max: <span class="code-number">100</span>,
+  value: [<span class="code-number">20</span>, <span class="code-number">80</span>],
+  step: <span class="code-number">1</span>,
+  range: <span class="code-keyword">true</span>,
+  showTooltip: <span class="code-keyword">true</span>,
+  showLabels: <span class="code-keyword">true</span>,
+  formatValue: (v) => v + <span class="code-string">'%'</span>,
+  onChange: (val) => console.log(val)
+});</pre>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-examples" class="doc-toc__link is-active">Range Slider</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var S = await IMCAT.use('selectors');
+
+    new S.RangeSlider('#rs-default', { min: 0, max: 100, value: [20, 80], step: 1 });
+    new S.RangeSlider('#rs-single', { min: 0, max: 100, value: 50, range: false, step: 1 });
+    new S.RangeSlider('#rs-step10', { min: 0, max: 100, value: [20, 80], step: 10 });
+    new S.RangeSlider('#rs-step25', { min: 0, max: 100, value: [25, 75], step: 25 });
+
+    new S.RangeSlider('#rs-currency', {
+      min: 0, max: 100000, value: [20000, 80000], step: 5000,
+      formatValue: function(v) { return v.toLocaleString() + '원'; }
+    });
+
+    new S.RangeSlider('#rs-percent', {
+      min: 0, max: 100, value: [30, 70], step: 5,
+      formatValue: function(v) { return v + '%'; }
+    });
+
+    new S.RangeSlider('#rs-notooltip', { min: 0, max: 100, value: [20, 80], showTooltip: false });
+    new S.RangeSlider('#rs-nolabels', { min: 0, max: 100, value: [20, 80], showLabels: false });
+
+    new S.RangeSlider('#rs-callback', {
+      min: 0, max: 100, value: [25, 75], step: 1,
+      onChange: function(val) {
+        document.getElementById('rs-result').textContent = '값: [' + val.join(', ') + ']';
+        document.getElementById('rs-result').style.color = 'var(--primary)';
+      }
+    });
+  })();
+</script>

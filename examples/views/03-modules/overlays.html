@@ -1,0 +1,463 @@
+<!-- Overlays: Modal, Drawer, Offcanvas -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Overlays</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Overlays</h1>
+  <p class="page-desc">Modal, Drawer, Offcanvas — 오버레이 UI 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Modal 크기 -->
+<div class="demo-card" id="s-modal-size">
+  <div class="demo-card__header"><span class="demo-card__title">Modal — 크기 변형</span></div>
+  <div class="demo-card__desc">size 옵션으로 모달 크기를 조절합니다. sm / md / lg / xl 4단계.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" onclick="_showModal('sm')">Small</button>
+      <button class="btn btn--primary btn--sm" onclick="_showModal('md')">Medium (기본)</button>
+      <button class="btn btn--primary btn--sm" onclick="_showModal('lg')">Large</button>
+      <button class="btn btn--primary btn--sm" onclick="_showModal('xl')">Extra Large</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Modal } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({
+  title: <span class="code-string">'모달 제목'</span>,
+  content: <span class="code-string">'&lt;p&gt;모달 내용&lt;/p&gt;'</span>,
+  size: <span class="code-string">'md'</span>  <span class="code-comment">// 'sm' | 'md' | 'lg' | 'xl'</span>
+}).<span class="code-function">show</span>();</pre>
+  </div>
+</div>
+
+<!-- Modal 버튼 + 액션 -->
+<div class="demo-card" id="s-modal-buttons">
+  <div class="demo-card__header"><span class="demo-card__title">Modal — 버튼 &amp; 액션</span></div>
+  <div class="demo-card__desc">buttons 배열로 푸터 버튼을 추가합니다. close: true로 자동 닫기, action 함수로 커스텀 동작.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" onclick="_showConfirmModal()">확인/취소 모달</button>
+      <button class="btn btn--success btn--sm" onclick="_showSuccessModal()">성공 모달</button>
+      <button class="btn btn--danger btn--sm" onclick="_showDeleteModal()">삭제 확인 모달</button>
+      <button class="btn btn--outline btn--sm" onclick="_showFormModal()">폼 입력 모달</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Modal</span>({
+  title: <span class="code-string">'작업 확인'</span>,
+  content: <span class="code-string">'&lt;p&gt;이 작업을 진행하시겠습니까?&lt;/p&gt;'</span>,
+  buttons: [
+    { text: <span class="code-string">'취소'</span>, variant: <span class="code-string">'secondary'</span>, close: <span class="code-keyword">true</span> },
+    { text: <span class="code-string">'확인'</span>, variant: <span class="code-string">'primary'</span>, close: <span class="code-keyword">true</span>,
+      action: () => console.log(<span class="code-string">'확인됨'</span>) }
+  ]
+}).<span class="code-function">show</span>();</pre>
+  </div>
+</div>
+
+<!-- Modal 옵션 변형 -->
+<div class="demo-card" id="s-modal-options">
+  <div class="demo-card__header"><span class="demo-card__title">Modal — 옵션 변형</span></div>
+  <div class="demo-card__desc">centered, scrollable, fullscreen, 백드롭/키보드 옵션 등.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--outline-primary btn--sm" onclick="_showCenteredModal()">수직 중앙 정렬</button>
+      <button class="btn btn--outline-primary btn--sm" onclick="_showScrollableModal()">스크롤 가능</button>
+      <button class="btn btn--outline-primary btn--sm" onclick="_showFullscreenModal()">풀스크린</button>
+      <button class="btn btn--outline-secondary btn--sm" onclick="_showStaticModal()">백드롭 닫기 비활성</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 수직 중앙 정렬</span>
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ centered: <span class="code-keyword">true</span>, ... });
+<span class="code-comment">// 스크롤 가능한 긴 콘텐츠</span>
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ scrollable: <span class="code-keyword">true</span>, ... });
+<span class="code-comment">// 풀스크린</span>
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ fullscreen: <span class="code-keyword">true</span>, ... });
+<span class="code-comment">// 백드롭 클릭으로 닫기 비활성</span>
+<span class="code-keyword">new</span> <span class="code-function">Modal</span>({ backdropClose: <span class="code-keyword">false</span>, ... });</pre>
+  </div>
+</div>
+
+<!-- 단축 API -->
+<div class="demo-card" id="s-shortcut">
+  <div class="demo-card__header"><span class="demo-card__title">단축 API (alert / confirm / prompt)</span></div>
+  <div class="demo-card__desc">Modal.alert(), Modal.confirm() 정적 메서드 및 IMCAT.alert/confirm 단축키.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--info btn--sm" onclick="_shortcutAlert()">IMCAT.alert()</button>
+      <button class="btn btn--warning btn--sm" onclick="_shortcutConfirm()">IMCAT.confirm()</button>
+      <button class="btn btn--secondary btn--sm" onclick="_shortcutPrompt()">IMCAT.prompt()</button>
+    </div>
+    <p id="shortcut-result" style="margin-top:0.5rem;font-size:0.8125rem;color:var(--text-tertiary)"></p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 알림 — 확인 버튼만</span>
+<span class="code-keyword">await</span> IMCAT.<span class="code-function">alert</span>(<span class="code-string">'저장이 완료되었습니다.'</span>);
+<span class="code-comment">// 확인 — true/false 반환</span>
+<span class="code-keyword">const</span> ok = <span class="code-keyword">await</span> IMCAT.<span class="code-function">confirm</span>(<span class="code-string">'삭제하시겠습니까?'</span>);
+<span class="code-comment">// 입력 — 문자열 또는 null</span>
+<span class="code-keyword">const</span> name = <span class="code-keyword">await</span> IMCAT.<span class="code-function">prompt</span>(<span class="code-string">'이름을 입력하세요'</span>);</pre>
+  </div>
+</div>
+
+<!-- Drawer 방향 -->
+<div class="demo-card" id="s-drawer">
+  <div class="demo-card__header"><span class="demo-card__title">Drawer — 방향</span></div>
+  <div class="demo-card__desc">position 옵션으로 4방향 슬라이드 패널. left / right / top / bottom.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" onclick="_showDrawer('left')"><i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">chevron_left</i> Left</button>
+      <button class="btn btn--primary btn--sm" onclick="_showDrawer('right')">Right <i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">chevron_right</i></button>
+      <button class="btn btn--secondary btn--sm" onclick="_showDrawer('top')"><i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">expand_less</i> Top</button>
+      <button class="btn btn--secondary btn--sm" onclick="_showDrawer('bottom')"><i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">expand_more</i> Bottom</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Drawer } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Drawer</span>({
+  title: <span class="code-string">'설정'</span>,
+  content: <span class="code-string">'&lt;p&gt;패널 내용&lt;/p&gt;'</span>,
+  position: <span class="code-string">'right'</span>,  <span class="code-comment">// 'left' | 'right' | 'top' | 'bottom'</span>
+  width: <span class="code-string">'360px'</span>
+}).<span class="code-function">show</span>();</pre>
+  </div>
+</div>
+
+<!-- Drawer 리치 콘텐츠 -->
+<div class="demo-card" id="s-drawer-rich">
+  <div class="demo-card__header"><span class="demo-card__title">Drawer — 리치 콘텐츠</span></div>
+  <div class="demo-card__desc">Drawer 내부에 메뉴, 폼, 설정 패널 등 다양한 콘텐츠를 배치할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--outline-primary btn--sm" onclick="_showDrawerMenu()">메뉴 패널</button>
+      <button class="btn btn--outline-success btn--sm" onclick="_showDrawerSettings()">설정 패널</button>
+      <button class="btn btn--outline-info btn--sm" onclick="_showDrawerProfile()">프로필 패널</button>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas -->
+<div class="demo-card" id="s-offcanvas">
+  <div class="demo-card__header"><span class="demo-card__title">Offcanvas</span></div>
+  <div class="demo-card__desc">Drawer의 변형. 동일 API에 offcanvas 클래스가 추가 적용됩니다.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--primary btn--sm" onclick="_showOffcanvas('left')">Left Offcanvas</button>
+      <button class="btn btn--primary btn--sm" onclick="_showOffcanvas('right')">Right Offcanvas</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Offcanvas } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'overlays'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Offcanvas</span>({
+  title: <span class="code-string">'사이드 패널'</span>,
+  content: <span class="code-string">'&lt;p&gt;Offcanvas 내용&lt;/p&gt;'</span>,
+  position: <span class="code-string">'right'</span>
+}).<span class="code-function">show</span>();</pre>
+  </div>
+</div>
+
+
+<!-- 이벤트 시스템 -->
+<div class="demo-card" id="s-events">
+  <div class="demo-card__header"><span class="demo-card__title">이벤트 시스템</span></div>
+  <div class="demo-card__desc">모든 오버레이는 EventEmitterMixin 기반 이벤트를 지원합니다.</div>
+  <div class="demo-card__body">
+    <button class="btn btn--outline-primary btn--sm" onclick="_showEventModal()">이벤트 추적 모달</button>
+    <div id="event-log" style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-tertiary);max-height:120px;overflow-y:auto"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> modal = <span class="code-keyword">new</span> <span class="code-function">Modal</span>({ title: <span class="code-string">'이벤트 테스트'</span>, ... });
+modal.<span class="code-function">on</span>(<span class="code-string">'beforeShow'</span>, () => console.log(<span class="code-string">'열기 전'</span>));
+modal.<span class="code-function">on</span>(<span class="code-string">'show'</span>, () => console.log(<span class="code-string">'열림'</span>));
+modal.<span class="code-function">on</span>(<span class="code-string">'beforeHide'</span>, () => console.log(<span class="code-string">'닫기 전'</span>));
+modal.<span class="code-function">on</span>(<span class="code-string">'hide'</span>, () => console.log(<span class="code-string">'닫힘'</span>));
+modal.<span class="code-function">show</span>();
+<span class="code-comment">// destroy() — 모든 이벤트 해제 + DOM 제거</span></pre>
+  </div>
+</div>
+
+<!-- API 레퍼런스 -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body" style="overflow-x:auto">
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead><tr><th>컴포넌트</th><th>옵션</th><th>기본값</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="8"><strong>Modal</strong></td><td><code>title</code></td><td>''</td><td>모달 제목</td></tr>
+        <tr><td><code>content</code></td><td>''</td><td>HTML 문자열 또는 HTMLElement</td></tr>
+        <tr><td><code>size</code></td><td>'md'</td><td>'sm' | 'md' | 'lg' | 'xl'</td></tr>
+        <tr><td><code>centered</code></td><td>false</td><td>수직 중앙 정렬</td></tr>
+        <tr><td><code>scrollable</code></td><td>false</td><td>바디 스크롤 가능</td></tr>
+        <tr><td><code>fullscreen</code></td><td>false</td><td>풀스크린 모드</td></tr>
+        <tr><td><code>buttons</code></td><td>[]</td><td>{ text, variant, close, action }</td></tr>
+        <tr><td><code>closeButton</code></td><td>true</td><td>우상단 닫기 버튼</td></tr>
+        <tr><td rowspan="4"><strong>Drawer</strong></td><td><code>position</code></td><td>'right'</td><td>'left' | 'right' | 'top' | 'bottom'</td></tr>
+        <tr><td><code>width</code></td><td>'320px'</td><td>좌/우 방향 너비</td></tr>
+        <tr><td><code>height</code></td><td>'100%'</td><td>상/하 방향 높이</td></tr>
+        <tr><td><code>title</code></td><td>''</td><td>드로어 제목</td></tr>
+        <tr><td><strong>Offcanvas</strong></td><td colspan="3">Drawer와 동일 (offcanvas 클래스 추가)</td></tr>
+        <tr><td rowspan="4"><strong>공통</strong></td><td><code>backdrop</code></td><td>true</td><td>배경 오버레이</td></tr>
+        <tr><td><code>backdropClose</code></td><td>true</td><td>배경 클릭 닫기</td></tr>
+        <tr><td><code>keyboard</code></td><td>true</td><td>ESC 키 닫기</td></tr>
+        <tr><td><code>animation</code></td><td>true</td><td>애니메이션 활성화</td></tr>
+      </tbody>
+    </table>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">공통 메서드</h4>
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead><tr><th>메서드</th><th>반환</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><code>show()</code></td><td>Promise</td><td>오버레이 표시</td></tr>
+        <tr><td><code>hide()</code></td><td>Promise</td><td>오버레이 숨김</td></tr>
+        <tr><td><code>on(event, handler)</code></td><td>Function</td><td>이벤트 리스너 등록 (구독 취소 함수 반환)</td></tr>
+        <tr><td><code>destroy()</code></td><td>Promise</td><td>DOM 제거 + 이벤트 해제</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-modal-size" class="doc-toc__link is-active">Modal 크기</a></li>
+    <li class="doc-toc__item"><a href="#s-modal-buttons" class="doc-toc__link">Modal 버튼</a></li>
+    <li class="doc-toc__item"><a href="#s-modal-options" class="doc-toc__link">Modal 옵션</a></li>
+    <li class="doc-toc__item"><a href="#s-shortcut" class="doc-toc__link">단축 API</a></li>
+    <li class="doc-toc__item"><a href="#s-drawer" class="doc-toc__link">Drawer 방향</a></li>
+    <li class="doc-toc__item"><a href="#s-drawer-rich" class="doc-toc__link">Drawer 리치</a></li>
+    <li class="doc-toc__item"><a href="#s-offcanvas" class="doc-toc__link">Offcanvas</a></li>
+    <li class="doc-toc__item"><a href="#s-events" class="doc-toc__link">이벤트</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var _OV = null;
+  async function _getOV() { if (!_OV) _OV = await IMCAT.use('overlays'); return _OV; }
+
+  // ── Modal 크기 ──
+  async function _showModal(size) {
+    var O = await _getOV();
+    new O.Modal({
+      title: size.toUpperCase() + ' 모달',
+      content: '<p style="color:var(--text-secondary)">size: <strong>' + size + '</strong> — 모달 크기 변형 데모입니다.</p><p style="font-size:0.8125rem;color:var(--text-tertiary)">ESC 키 또는 배경 클릭으로 닫을 수 있습니다.</p>',
+      size: size
+    }).show();
+  }
+
+  // ── Modal 버튼 & 액션 ──
+  async function _showConfirmModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '작업 확인',
+      content: '<p>이 작업을 진행하시겠습니까?</p><p style="font-size:0.8125rem;color:var(--text-tertiary)">이 동작은 되돌릴 수 없습니다.</p>',
+      buttons: [
+        { text: '취소', variant: 'secondary', close: true },
+        { text: '확인', variant: 'primary', close: true, action: function() { IMCAT.toast.success('작업이 확인되었습니다.'); } }
+      ]
+    }).show();
+  }
+
+  async function _showSuccessModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '성공',
+      content: '<div style="text-align:center;padding:1rem 0"><i class="material-icons-outlined" style="font-size:3rem;color:var(--success,#22c55e)">check_circle</i><h3 style="margin:0.75rem 0 0.25rem;font-size:1.125rem">저장 완료!</h3><p style="color:var(--text-secondary);font-size:0.875rem">데이터가 성공적으로 저장되었습니다.</p></div>',
+      size: 'sm',
+      centered: true,
+      buttons: [{ text: '확인', variant: 'success', close: true }]
+    }).show();
+  }
+
+  async function _showDeleteModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '삭제 확인',
+      content: '<div style="display:flex;gap:0.75rem;align-items:flex-start"><i class="material-icons-outlined" style="font-size:2rem;color:var(--danger,#ef4444)">warning</i><div><p style="margin:0 0 0.25rem;font-weight:500">이 항목을 삭제하시겠습니까?</p><p style="font-size:0.8125rem;color:var(--text-tertiary);margin:0">삭제된 데이터는 복구할 수 없습니다.</p></div></div>',
+      size: 'sm',
+      buttons: [
+        { text: '취소', variant: 'secondary', close: true },
+        { text: '삭제', variant: 'danger', close: true, action: function() { IMCAT.toast.error('항목이 삭제되었습니다.'); } }
+      ]
+    }).show();
+  }
+
+  async function _showFormModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '새 프로젝트 생성',
+      content: '<form onsubmit="return false" style="display:flex;flex-direction:column;gap:0.75rem">' +
+        '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">프로젝트 이름</label><input type="text" class="form-control" placeholder="예: My Project" value="IMCAT 데모"></div>' +
+        '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">설명</label><textarea class="form-control" rows="2" placeholder="프로젝트 설명...">경량 웹 프레임워크 프로젝트</textarea></div>' +
+        '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">카테고리</label><select class="form-control"><option>웹 개발</option><option>모바일</option><option>데스크톱</option></select></div>' +
+        '</form>',
+      buttons: [
+        { text: '취소', variant: 'secondary', close: true },
+        { text: '생성', variant: 'primary', close: true, action: function() { IMCAT.toast.success('프로젝트가 생성되었습니다.'); } }
+      ]
+    }).show();
+  }
+
+  // ── Modal 옵션 변형 ──
+  async function _showCenteredModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '수직 중앙 정렬',
+      content: '<p>centered: true — 화면 수직 중앙에 배치됩니다.</p>',
+      centered: true, size: 'sm',
+      buttons: [{ text: '확인', variant: 'primary', close: true }]
+    }).show();
+  }
+
+  async function _showScrollableModal() {
+    var O = await _getOV();
+    var longContent = '<h4>긴 콘텐츠 데모</h4>';
+    for (var i = 0; i < 15; i++) {
+      longContent += '<p style="margin-bottom:0.75rem">IMCAT UI는 경량 제로빌드 ES6+ JavaScript 웹 프레임워크입니다. 동적 모듈 로딩, SPA 라우팅, XSS 자동 방어를 핵심으로 합니다. 이 문단은 스크롤 가능한 모달을 테스트하기 위한 더미 텍스트입니다. (' + (i+1) + '/15)</p>';
+    }
+    new O.Modal({
+      title: '스크롤 가능 모달',
+      content: longContent,
+      scrollable: true
+    }).show();
+  }
+
+  async function _showFullscreenModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '풀스크린 모달',
+      content: '<div style="display:flex;align-items:center;justify-content:center;min-height:50vh"><div style="text-align:center"><i class="material-icons-outlined" style="font-size:4rem;color:var(--primary)">fullscreen</i><h3 style="margin:1rem 0 0.5rem">풀스크린 모드</h3><p style="color:var(--text-secondary)">fullscreen: true — 전체 화면을 차지합니다.</p></div></div>',
+      fullscreen: true,
+      buttons: [{ text: '닫기', variant: 'secondary', close: true }]
+    }).show();
+  }
+
+  async function _showStaticModal() {
+    var O = await _getOV();
+    new O.Modal({
+      title: '정적 백드롭',
+      content: '<p>backdropClose: false — 배경을 클릭해도 닫히지 않습니다.</p><p style="font-size:0.8125rem;color:var(--text-tertiary)">닫기 버튼 또는 ESC 키로만 닫을 수 있습니다.</p>',
+      backdropClose: false, size: 'sm',
+      buttons: [{ text: '닫기', variant: 'primary', close: true }]
+    }).show();
+  }
+
+  // ── 단축 API ──
+  async function _shortcutAlert() {
+    await IMCAT.alert('저장이 완료되었습니다.');
+    document.getElementById('shortcut-result').textContent = 'alert() 완료';
+  }
+  async function _shortcutConfirm() {
+    var ok = await IMCAT.confirm('이 작업을 진행하시겠습니까?');
+    document.getElementById('shortcut-result').textContent = 'confirm() 결과: ' + ok;
+  }
+  async function _shortcutPrompt() {
+    var val = await IMCAT.prompt('이름을 입력하세요');
+    document.getElementById('shortcut-result').textContent = 'prompt() 결과: ' + (val === null ? '취소됨' : '"' + val + '"');
+  }
+
+  // ── Drawer 방향 ──
+  async function _showDrawer(pos) {
+    var O = await _getOV();
+    var items = ['대시보드', '프로필', '설정', '알림', '도움말'];
+    var content = '<ul style="list-style:none;padding:0;margin:0">';
+    items.forEach(function(item, i) {
+      content += '<li style="padding:0.625rem 0.75rem;border-bottom:1px solid var(--border-color);font-size:0.875rem;cursor:pointer;display:flex;align-items:center;gap:0.5rem"><i class="material-icons-outlined" style="font-size:1.125rem;color:var(--text-secondary)">' + ['dashboard','person','settings','notifications','help_outline'][i] + '</i>' + item + '</li>';
+    });
+    content += '</ul>';
+    new O.Drawer({
+      title: pos.charAt(0).toUpperCase() + pos.slice(1) + ' Drawer',
+      content: content,
+      position: pos,
+      width: '300px',
+      height: '240px'
+    }).show();
+  }
+
+  // ── Drawer 리치 콘텐츠 ──
+  async function _showDrawerMenu() {
+    var O = await _getOV();
+    var sections = [
+      { title: 'Navigation', items: ['대시보드', '분석', '리포트'] },
+      { title: 'Apps', items: ['캘린더', '채팅', '이메일'] },
+      { title: 'Settings', items: ['일반', '보안', '알림'] }
+    ];
+    var html = '';
+    sections.forEach(function(sec) {
+      html += '<div style="padding:0.5rem 1rem"><h6 style="font-size:0.6875rem;text-transform:uppercase;color:var(--text-tertiary);letter-spacing:0.05em;margin-bottom:0.375rem">' + sec.title + '</h6>';
+      sec.items.forEach(function(item) {
+        html += '<div style="padding:0.5rem 0;font-size:0.875rem;cursor:pointer;color:var(--text-secondary)">' + item + '</div>';
+      });
+      html += '</div>';
+    });
+    new O.Drawer({ title: '메뉴', content: html, position: 'left', width: '280px' }).show();
+  }
+
+  async function _showDrawerSettings() {
+    var O = await _getOV();
+    var html = '<div style="padding:0.5rem 0">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.625rem 0;border-bottom:1px solid var(--border-color)"><span style="font-size:0.875rem">다크 모드</span><label style="position:relative;display:inline-block;width:2.5rem;height:1.375rem"><input type="checkbox" style="opacity:0;width:0;height:0"><span style="position:absolute;cursor:pointer;inset:0;background:var(--bg-tertiary);border-radius:1rem;transition:.2s"></span></label></div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.625rem 0;border-bottom:1px solid var(--border-color)"><span style="font-size:0.875rem">알림 허용</span><label style="position:relative;display:inline-block;width:2.5rem;height:1.375rem"><input type="checkbox" checked style="opacity:0;width:0;height:0"><span style="position:absolute;cursor:pointer;inset:0;background:var(--primary);border-radius:1rem;transition:.2s"></span></label></div>' +
+      '<div style="padding:0.625rem 0;border-bottom:1px solid var(--border-color)"><span style="font-size:0.875rem;display:block;margin-bottom:0.375rem">언어</span><select class="form-control form-control-sm"><option>한국어</option><option>English</option><option>日本語</option></select></div>' +
+      '<div style="padding:0.625rem 0"><span style="font-size:0.875rem;display:block;margin-bottom:0.375rem">글꼴 크기</span><input type="range" min="12" max="20" value="14" style="width:100%"></div>' +
+      '</div>';
+    new O.Drawer({ title: '설정', content: html, position: 'right', width: '320px' }).show();
+  }
+
+  async function _showDrawerProfile() {
+    var O = await _getOV();
+    var html = '<div style="text-align:center;padding:1.5rem 0;border-bottom:1px solid var(--border-color)">' +
+      '<div style="width:4rem;height:4rem;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;font-size:1.5rem;font-weight:600">홍</div>' +
+      '<h4 style="margin:0 0 0.25rem;font-size:1rem">홍길동</h4>' +
+      '<p style="margin:0;font-size:0.8125rem;color:var(--text-tertiary)">hong@imcat.dev</p>' +
+      '</div>' +
+      '<div style="padding:0.75rem 0">' +
+      '<div style="display:flex;justify-content:space-around;text-align:center">' +
+      '<div><div style="font-size:1.25rem;font-weight:600">42</div><div style="font-size:0.75rem;color:var(--text-tertiary)">프로젝트</div></div>' +
+      '<div><div style="font-size:1.25rem;font-weight:600">128</div><div style="font-size:0.75rem;color:var(--text-tertiary)">커밋</div></div>' +
+      '<div><div style="font-size:1.25rem;font-weight:600">15</div><div style="font-size:0.75rem;color:var(--text-tertiary)">팀원</div></div>' +
+      '</div></div>';
+    new O.Drawer({ title: '프로필', content: html, position: 'right', width: '300px' }).show();
+  }
+
+  // ── Offcanvas ──
+  async function _showOffcanvas(pos) {
+    var O = await _getOV();
+    new O.Offcanvas({
+      title: 'Offcanvas (' + pos + ')',
+      content: '<div style="padding:0.5rem 0"><p style="font-size:0.875rem;color:var(--text-secondary)">Offcanvas는 Drawer의 변형으로 동일한 API를 사용합니다.</p><div class="alert alert--info" style="margin-top:0.75rem"><i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle">info</i> offcanvas 클래스가 자동 추가됩니다.</div></div>',
+      position: pos, width: '320px'
+    }).show();
+  }
+
+  // ── 이벤트 추적 ──
+  async function _showEventModal() {
+    var O = await _getOV();
+    var log = document.getElementById('event-log');
+    log.innerHTML = '';
+    function addLog(msg) {
+      var t = new Date().toLocaleTimeString('ko-KR');
+      log.innerHTML += '<div>[' + t + '] <strong>' + msg + '</strong></div>';
+      log.scrollTop = log.scrollHeight;
+    }
+    var modal = new O.Modal({
+      title: '이벤트 추적',
+      content: '<p>이 모달의 이벤트가 아래 로그에 기록됩니다.</p>',
+      size: 'sm',
+      buttons: [{ text: '닫기', variant: 'secondary', close: true }]
+    });
+    modal.on('beforeShow', function() { addLog('beforeShow'); });
+    modal.on('show', function() { addLog('show'); });
+    modal.on('beforeHide', function() { addLog('beforeHide'); });
+    modal.on('hide', function() { addLog('hide'); });
+    modal.show();
+  }
+</script>

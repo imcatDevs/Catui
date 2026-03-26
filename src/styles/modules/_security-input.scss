@@ -1,0 +1,400 @@
+// ============================================
+// Security Input Module SCSS
+// OTP 입력, PIN 입력, 비밀번호 강도 표시
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// OTP Input (인증 코드 입력)
+// ============================================
+.otp-input {
+  display: inline-flex;
+  flex-direction: column;
+
+  &__fields {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__field {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: 1.5px solid var(--border-color, $border-color);
+    border-radius: 8px;
+    background: var(--bg-primary, $bg-primary);
+    color: var(--text-primary, $text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: monospace;
+    text-align: center;
+    transition: border-color $duration-fast $ease-in-out, box-shadow $duration-fast $ease-in-out;
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &::placeholder {
+      color: var(--text-disabled, $text-disabled);
+      font-weight: 400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+    }
+
+    &:disabled {
+      background: var(--bg-tertiary, $bg-tertiary);
+      color: var(--text-disabled, $text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &__separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary, $text-secondary);
+  }
+
+  &__error {
+    margin-top: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--danger-color, $danger);
+  }
+
+  // 에러 상태
+  &--error &__field {
+    border-color: var(--danger-color, $danger);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($danger, 0.15);
+    }
+  }
+
+  // 비활성화
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  // 성공 상태
+  &--success &__field {
+    border-color: var(--success-color, $success);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($success, 0.15);
+    }
+  }
+
+  // 크기 변형
+  &--sm &__field {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+
+  &--lg &__field {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    border-radius: 10px;
+  }
+}
+
+// ============================================
+// PIN Input (보안 PIN 입력)
+// ============================================
+.pin-input {
+  display: inline-flex;
+  flex-direction: column;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__fields {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__field-wrapper {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &__field {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 1.5px solid var(--border-color, $border-color);
+    border-radius: 8px;
+    background: var(--bg-primary, $bg-primary);
+    color: var(--text-primary, $text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: monospace;
+    text-align: center;
+    transition: border-color $duration-fast $ease-in-out, box-shadow $duration-fast $ease-in-out;
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+    }
+
+    &:disabled {
+      background: var(--bg-tertiary, $bg-tertiary);
+      cursor: not-allowed;
+    }
+  }
+
+  &__dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--text-primary, $text-primary);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity $duration-fast $ease-in-out;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: none;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: 6px;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+    flex-shrink: 0;
+
+    .material-icons-outlined {
+      font-size: 1.125rem;
+    }
+
+    &:hover {
+      background: var(--bg-secondary, $bg-secondary);
+      color: var(--text-primary, $text-primary);
+    }
+  }
+
+  &__error {
+    margin-top: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--danger-color, $danger);
+  }
+
+  // 에러 상태
+  &--error &__field {
+    border-color: var(--danger-color, $danger);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($danger, 0.15);
+    }
+  }
+
+  // 비활성화
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  // 성공 상태
+  &--success .pin-input__field {
+    border-color: var(--success-color, $success);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($success, 0.15);
+    }
+  }
+
+  // 크기 변형
+  &--sm &__field-wrapper {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  &--sm &__field {
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+
+  &--lg &__field-wrapper {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  &--lg &__field {
+    font-size: 1.5rem;
+    border-radius: 10px;
+  }
+
+  // 가상 키패드
+  &__keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+    max-width: 16rem;
+  }
+
+  &__key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: 8px;
+    background: var(--bg-primary, $bg-primary);
+    color: var(--text-primary, $text-primary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+    user-select: none;
+
+    &:hover:not(:disabled) {
+      background: var(--bg-secondary, $bg-secondary);
+      border-color: var(--primary, $primary);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--bg-tertiary, $bg-tertiary);
+      transform: scale(0.95);
+    }
+
+    &--empty {
+      visibility: hidden;
+    }
+
+    &--backspace {
+      color: var(--danger-color, $danger);
+
+      .material-icons-outlined {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+// ============================================
+// Security Input (비밀번호 강도 표시)
+// ============================================
+.security-input {
+  position: relative;
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__field {
+    width: 100%;
+    padding: 0.625rem 2.75rem 0.625rem 0.875rem;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: 0.375rem;
+    background: var(--bg-primary, $bg-primary);
+    color: var(--text-primary, $text-primary);
+    font-size: 0.875rem;
+    font-family: monospace;
+    transition: border-color $duration-fast $ease-in-out, box-shadow $duration-fast $ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: var(--text-primary, $text-primary);
+    }
+  }
+
+  &__strength {
+    margin-top: 0.375rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__strength-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--bg-tertiary, $bg-tertiary);
+    overflow: hidden;
+
+    &-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+  }
+
+  &__strength-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &--weak    .security-input__strength-bar-fill { width: 25%; background: var(--danger-color, $danger); }
+  &--fair    .security-input__strength-bar-fill { width: 50%; background: var(--warning-color, $warning); }
+  &--good    .security-input__strength-bar-fill { width: 75%; background: var(--info-color, $info); }
+  &--strong  .security-input__strength-bar-fill { width: 100%; background: var(--success-color, $success); }
+
+  &--weak   .security-input__strength-label { color: var(--danger-color, $danger); }
+  &--fair   .security-input__strength-label { color: var(--warning-color, $warning); }
+  &--good   .security-input__strength-label { color: var(--info-color, $info); }
+  &--strong .security-input__strength-label { color: var(--success-color, $success); }
+}

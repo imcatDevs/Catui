@@ -1,0 +1,82 @@
+{
+  "name": "@imcat-ckim/catui",
+  "version": "1.1.2",
+  "description": "Lightweight, zero-build, ES6+ JavaScript web framework with dynamic module loading and integrated SPA routing",
+  "homepage": "https://imcat.dev",
+  "type": "module",
+  "main": "dist/imcat-ui.js",
+  "module": "dist/imcat-ui.esm.js",
+  "types": "types/imcat-ui.d.ts",
+  "style": "dist/imcat-ui.css",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "cross-env NODE_ENV=production rollup -c && npm run build:css && npm run build:css:all && npm run build:css:modules && npm run copy:fonts",
+    "build:css": "sass src/styles/imcat-ui.scss dist/imcat-ui.css --style compressed --no-source-map",
+    "build:css:all": "sass src/styles/imcat-ui.all.scss dist/imcat-ui.all.css --style compressed --no-source-map",
+    "build:css:modules": "node scripts/build-module-css.js",
+    "copy:fonts": "node scripts/copy-fonts.js",
+    "minify": "terser dist/imcat-ui.js -o dist/imcat-ui.min.js --compress --mangle",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "postbuild": "echo Build completed",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "serve": "http-server . -p 3000 -o",
+    "docs": "jsdoc -c jsdoc.json",
+    "docs:clean": "rimraf docs/jsdoc",
+    "docs:serve": "http-server docs/jsdoc -p 8080 -o",
+    "release": "npm run build && node scripts/create-release.cjs",
+    "release:only": "node scripts/create-release.cjs"
+  },
+  "keywords": [
+    "framework",
+    "spa",
+    "zero-build",
+    "lightweight",
+    "es6",
+    "dynamic-loading",
+    "xss-protection"
+  ],
+  "author": "IMCAT Team",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@eslint/js": "^9.0.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-replace": "^6.0.2",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.0.0",
+    "archiver": "^6.0.2",
+    "cross-env": "^10.1.0",
+    "docdash": "^2.0.2",
+    "eslint": "^9.0.0",
+    "globals": "^16.0.0",
+    "gzip-size-cli": "^5.1.0",
+    "http-server": "^14.1.1",
+    "jsdoc": "^4.0.2",
+    "jsdom": "^25.0.0",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.24.0",
+    "rollup-plugin-scss": "^4.0.0",
+    "sass": "^1.83.0",
+    "terser": "^5.36.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

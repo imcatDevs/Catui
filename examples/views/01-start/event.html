@@ -1,0 +1,92 @@
+<!-- Event Bus -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Event Bus</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Event Bus</h1>
+  <p class="page-desc">글로벌 pub/sub 이벤트 버스와 컴포넌트용 EventEmitterMixin.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-global">
+  <div class="demo-card__header"><span class="demo-card__title">글로벌 EventBus</span></div>
+  <div class="demo-card__body">
+    <div class="btn-group">
+      <button class="btn btn--primary" id="emit-btn">이벤트 발행</button>
+      <button class="btn btn--outline" id="clear-log-btn">로그 초기화</button>
+    </div>
+    <div class="card card--outlined" id="event-log-card">
+      <div class="card__body" id="event-log">이벤트 대기중...</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 글로벌 이벤트 구독</span>
+IMCAT.<span class="code-function">on</span>(<span class="code-string">'user:login'</span>, (data) => {
+  console.log(<span class="code-string">'로그인:'</span>, data.name);
+});
+
+<span class="code-comment">// 이벤트 발행</span>
+IMCAT.<span class="code-function">emit</span>(<span class="code-string">'user:login'</span>, { name: <span class="code-string">'홍길동'</span> });
+
+<span class="code-comment">// 1회성 구독</span>
+IMCAT.<span class="code-function">once</span>(<span class="code-string">'app:ready'</span>, () => { ... });
+
+<span class="code-comment">// 구독 해제</span>
+IMCAT.<span class="code-function">off</span>(<span class="code-string">'user:login'</span>);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-mixin">
+  <div class="demo-card__header"><span class="demo-card__title">EventEmitterMixin</span></div>
+  <div class="demo-card__desc">컴포넌트 내부 이벤트용 경량 믹스인. 글로벌 EventBus와 분리됩니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 컴포넌트에 이벤트 기능 추가</span>
+<span class="code-keyword">class</span> MyComponent {
+  <span class="code-function">constructor</span>() {
+    <span class="code-comment">// 방법 1: 객체에 직접 적용</span>
+    EventEmitterMixin.<span class="code-function">apply</span>(<span class="code-keyword">this</span>);
+
+    <span class="code-comment">// 방법 2: 별도 이벤트 버스 생성</span>
+    <span class="code-keyword">this</span>.events = EventEmitterMixin.<span class="code-function">create</span>();
+  }
+}
+
+<span class="code-keyword">const</span> comp = <span class="code-keyword">new</span> <span class="code-function">MyComponent</span>();
+comp.<span class="code-function">on</span>(<span class="code-string">'change'</span>, (val) => console.log(val));
+comp.<span class="code-function">emit</span>(<span class="code-string">'change'</span>, <span class="code-string">'새 값'</span>);
+comp.<span class="code-function">clearEvents</span>(); <span class="code-comment">// 모든 이벤트 해제</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-global" class="doc-toc__link is-active">글로벌 EventBus</a></li>
+    <li class="doc-toc__item"><a href="#s-mixin" class="doc-toc__link">EventEmitterMixin</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var evtCount = 0;
+  IMCAT.on('demo:event', function(data) {
+    var log = document.getElementById('event-log');
+    var line = document.createElement('div');
+    line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + data.message;
+    log.appendChild(line);
+  });
+  document.getElementById('emit-btn').addEventListener('click', function() {
+    evtCount++;
+    IMCAT.emit('demo:event', { message: '이벤트 #' + evtCount + ' 수신됨' });
+  });
+  document.getElementById('clear-log-btn').addEventListener('click', function() {
+    document.getElementById('event-log').textContent = '이벤트 대기중...';
+  });
+</script>

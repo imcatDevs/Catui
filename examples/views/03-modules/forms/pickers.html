@@ -1,0 +1,394 @@
+<!-- Pickers: DatePicker, TimePicker, ColorPicker, Countdown, DDay -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Pickers</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Pickers</h1>
+  <p class="page-desc">날짜, 시간, 색상 선택 및 Countdown/D-Day 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: DatePicker & TimePicker              -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-date">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">DatePicker & TimePicker</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">캘린더 기반 날짜 선택과 드롭다운 시간 선택</p>
+      </div>
+
+      <div class="demo-card__body">
+        <h5 style="font-weight:600;margin-bottom:1rem">Datepicker</h5>
+
+        <!-- Basic -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new DatePicker('#el')</code> — 기본 날짜 선택.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="dp-basic" class="form-control" placeholder="날짜를 선택하세요">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Default Date -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Default Date</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>picker.setValue('2026-01-15')</code> — 초기값 설정.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="dp-default" class="form-control" placeholder="날짜를 선택하세요">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (date) => { ... }</code> — 날짜 변경 시 콜백. 아래 선택 결과가 표시됩니다.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="dp-callback" class="form-control" placeholder="날짜를 선택하세요">
+            <p id="dp-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">아직 선택되지 않음</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-color, #dee2e6)"></div>
+
+      <div class="demo-card__body">
+        <h5 style="font-weight:600;margin-bottom:1rem">Timepicker</h5>
+
+        <!-- Basic TimePicker -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic (15분 간격)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new TimePicker('#el', { step: 15 })</code> — 15분 단위.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="tp-15" class="form-control" placeholder="시간 선택">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 30분 간격 -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">30분 간격</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new TimePicker('#el', { step: 30 })</code> — 30분 단위.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="tp-30" class="form-control" placeholder="시간 선택">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Preloading Time -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Preloading Time</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>picker.setValue('14:30')</code> — 초기 시간 설정.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="tp-preload" class="form-control" placeholder="시간 선택">
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> P = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'pickers'</span>);
+
+<span class="code-comment">// DatePicker</span>
+<span class="code-keyword">new</span> P.<span class="code-function">DatePicker</span>(<span class="code-string">'#input'</span>, {
+  format: <span class="code-string">'YYYY-MM-DD'</span>,
+  onChange: (date) => console.log(date)
+});
+
+<span class="code-comment">// TimePicker</span>
+<span class="code-keyword">new</span> P.<span class="code-function">TimePicker</span>(<span class="code-string">'#input'</span>, {
+  step: <span class="code-number">15</span>,
+  onChange: (time) => console.log(time)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: ColorPicker                          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-color">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">ColorPicker</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">프리셋 색상 + 네이티브 컬러 피커. 색상 미리보기 지원.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Classic -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">기본 프리셋</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new ColorPicker('#el')</code> — 기본 12색 프리셋 + 네이티브 컬러 인풋.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="cp-basic" class="form-control" placeholder="#3B82F6">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Custom Presets -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">커스텀 프리셋</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>presetColors: [...]</code> — 프리셋 색상을 커스터마이징.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="cp-custom" class="form-control" placeholder="#667eea">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (color) => { ... }</code> — 실시간 색상 미리보기.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="cp-callback" class="form-control" placeholder="#10B981">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem">
+              <span id="cp-preview-box" style="display:inline-block;width:1.5rem;height:1.5rem;border-radius:4px;border:1px solid var(--border-color);background:#10B981"></span>
+              <code id="cp-preview-text" style="font-size:0.8125rem">#10B981</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ColorPicker } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'pickers'</span>);
+<span class="code-keyword">new</span> <span class="code-function">ColorPicker</span>(<span class="code-string">'#input'</span>, {
+  defaultColor: <span class="code-string">'#3B82F6'</span>,
+  presetColors: [<span class="code-string">'#EF4444'</span>, <span class="code-string">'#22C55E'</span>, <span class="code-string">'#3B82F6'</span>],
+  onChange: (color) => console.log(color)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: Countdown & DDay                     -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-countdown">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Countdown & D-Day</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">실시간 카운트다운 타이머와 D-Day 카운터</p>
+      </div>
+
+      <div class="demo-card__body">
+        <h5 style="font-weight:600;margin-bottom:1rem">Countdown</h5>
+
+        <!-- 24시간 카운트다운 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">24시간 카운트다운</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>targetDate, showLabels: true</code> — 일/시/분/초 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="cd-24h"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 1시간 (일 숨김) -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">1시간 (일 숨김)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>showDays: false</code> — 일 단위를 숨기고 시간에 합산.</p>
+          </div>
+          <div style="flex:1">
+            <div id="cd-1h"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 라벨 없음 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">라벨 없는 카운트다운</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>showLabels: false</code> — 숫자만 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="cd-nolabel"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-color, #dee2e6)"></div>
+
+      <div class="demo-card__body">
+        <h5 style="font-weight:600;margin-bottom:1rem">D-Day Counter</h5>
+
+        <!-- 미래 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">미래 (D-N)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>targetDate</code>가 미래인 경우 — D-100 등으로 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="dd-future"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- D-Day -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">오늘 (D-Day)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>targetDate</code>가 오늘인 경우 — "D-Day" 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="dd-today"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 과거 -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">과거 (D+N)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>showPastDays: true</code> — 지난 일수 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="dd-past"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> P = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'pickers'</span>);
+
+<span class="code-comment">// Countdown</span>
+<span class="code-keyword">new</span> P.<span class="code-function">Countdown</span>(<span class="code-string">'#el'</span>, {
+  targetDate: <span class="code-keyword">new</span> <span class="code-function">Date</span>(Date.now() + <span class="code-number">86400000</span>),
+  showLabels: <span class="code-keyword">true</span>,
+  onComplete: () => alert(<span class="code-string">'완료!'</span>)
+});
+
+<span class="code-comment">// DDay</span>
+<span class="code-keyword">new</span> P.<span class="code-function">DDay</span>(<span class="code-string">'#el'</span>, {
+  targetDate: <span class="code-keyword">new</span> <span class="code-function">Date</span>(<span class="code-string">'2026-12-31'</span>),
+  title: <span class="code-string">'프로젝트 마감'</span>,
+  showPastDays: <span class="code-keyword">true</span>
+});</pre>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-date" class="doc-toc__link is-active">DatePicker &amp; TimePicker</a></li>
+    <li class="doc-toc__item"><a href="#s-color" class="doc-toc__link">ColorPicker</a></li>
+    <li class="doc-toc__item"><a href="#s-countdown" class="doc-toc__link">Countdown &amp; DDay</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var P = await IMCAT.use('pickers');
+
+    // ================================
+    // DatePicker
+    // ================================
+    new P.DatePicker('#dp-basic', { format: 'YYYY-MM-DD' });
+
+    var dpDefault = new P.DatePicker('#dp-default', { format: 'YYYY-MM-DD' });
+    dpDefault.setValue('2026-01-15');
+
+    new P.DatePicker('#dp-callback', {
+      format: 'YYYY-MM-DD',
+      onChange: function(date) {
+        document.getElementById('dp-result').textContent = '선택된 날짜: ' + date;
+        document.getElementById('dp-result').style.color = 'var(--primary)';
+      }
+    });
+
+    // ================================
+    // TimePicker
+    // ================================
+    new P.TimePicker('#tp-15', { step: 15 });
+    new P.TimePicker('#tp-30', { step: 30 });
+
+    var tpPreload = new P.TimePicker('#tp-preload', { step: 15 });
+    tpPreload.setValue('14:30');
+
+    // ================================
+    // ColorPicker
+    // ================================
+    new P.ColorPicker('#cp-basic', { defaultColor: '#3B82F6' });
+
+    new P.ColorPicker('#cp-custom', {
+      defaultColor: '#667eea',
+      presetColors: ['#1abc9c','#2ecc71','#3498db','#9b59b6','#f39c12','#e74c3c','#1a1a2e','#16213e','#0f3460','#e94560','#533483','#2b2d42']
+    });
+
+    var cpPreviewBox = document.getElementById('cp-preview-box');
+    var cpPreviewText = document.getElementById('cp-preview-text');
+    new P.ColorPicker('#cp-callback', {
+      defaultColor: '#10B981',
+      onChange: function(c) {
+        cpPreviewBox.style.backgroundColor = c;
+        cpPreviewText.textContent = c;
+      }
+    });
+
+    // ================================
+    // Countdown
+    // ================================
+    new P.Countdown('#cd-24h', {
+      targetDate: new Date(Date.now() + 86400000),
+      showLabels: true
+    });
+
+    new P.Countdown('#cd-1h', {
+      targetDate: new Date(Date.now() + 3600000),
+      showDays: false,
+      showLabels: true
+    });
+
+    new P.Countdown('#cd-nolabel', {
+      targetDate: new Date(Date.now() + 7200000),
+      showLabels: false
+    });
+
+    // ================================
+    // DDay
+    // ================================
+    var futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 100);
+    new P.DDay('#dd-future', { targetDate: futureDate, title: '프로젝트 마감' });
+
+    new P.DDay('#dd-today', { targetDate: new Date(), title: '출시일' });
+
+    var pastDate = new Date();
+    pastDate.setDate(pastDate.getDate() - 30);
+    new P.DDay('#dd-past', { targetDate: pastDate, title: '서비스 오픈', showPastDays: true });
+  })();
+</script>

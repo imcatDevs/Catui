@@ -1,0 +1,109 @@
+{
+  "sections": [
+    {
+      "title": "시작하기",
+      "items": [
+        { "id": "overview", "icon": "home", "text": "개요", "active": true },
+        { "id": "start-overview", "icon": "rocket_launch", "text": "빠른 시작", "view": "views/01-start/overview.html" },
+        { "id": "start-install", "icon": "download", "text": "설치", "view": "views/01-start/installation.html" },
+        { "id": "start-arch", "icon": "architecture", "text": "아키텍처", "view": "views/01-start/architecture.html" }
+      ]
+    },
+    {
+      "title": "Core API",
+      "items": [
+        { "id": "core-dom", "icon": "code", "text": "DOM", "view": "views/01-start/dom.html" },
+        { "id": "core-router", "icon": "route", "text": "Router", "view": "views/01-start/router.html" },
+        { "id": "core-event", "icon": "electric_bolt", "text": "Event Bus", "view": "views/01-start/event.html" },
+        { "id": "core-state", "icon": "data_object", "text": "State", "view": "views/01-start/state.html" },
+        { "id": "core-storage", "icon": "storage", "text": "Storage", "view": "views/01-start/storage.html" },
+        { "id": "core-template", "icon": "description", "text": "Template", "view": "views/01-start/template.html" },
+        { "id": "core-formatters", "icon": "format_list_numbered", "text": "Formatters", "view": "views/01-start/formatters.html" },
+        { "id": "core-security", "icon": "security", "text": "Security", "view": "views/01-start/security.html" }
+      ]
+    },
+    {
+      "title": "디자인 요소",
+      "items": [
+        { "id": "design-typo", "icon": "text_format", "text": "Typography", "view": "views/02-design/typography.html" },
+        { "id": "design-colors", "icon": "palette", "text": "Colors", "view": "views/02-design/colors.html" },
+        { "id": "design-icons", "icon": "emoji_emotions", "text": "Icons", "view": "views/02-design/icons.html" },
+        { "id": "design-buttons", "icon": "smart_button", "text": "Buttons", "view": "views/02-design/buttons.html" },
+        { "id": "design-forms", "icon": "edit_note", "text": "Forms", "view": "views/02-design/forms.html" },
+        { "id": "design-cards", "icon": "credit_card", "text": "Cards", "view": "views/02-design/cards.html" },
+        { "id": "design-alerts", "icon": "campaign", "text": "Alerts", "view": "views/02-design/alerts.html" },
+        { "id": "design-badges", "icon": "sell", "text": "Badges", "view": "views/02-design/badges.html" },
+        { "id": "design-tables", "icon": "table_chart", "text": "Tables", "view": "views/02-design/tables.html" },
+        { "id": "design-lists", "icon": "list", "text": "Lists", "view": "views/02-design/lists.html" },
+        { "id": "design-inputs", "icon": "input", "text": "Inputs", "view": "views/02-design/inputs.html" },
+        { "id": "design-progress", "icon": "linear_scale", "text": "Progress", "view": "views/02-design/progress.html" },
+        { "id": "design-avatars", "icon": "account_circle", "text": "Avatars", "view": "views/02-design/avatars.html" },
+        { "id": "design-flags", "icon": "flag", "text": "Flags", "view": "views/02-design/flags.html" },
+        { "id": "design-ribbons", "icon": "bookmark", "text": "Ribbons", "view": "views/02-design/ribbons.html" },
+        { "id": "design-grid", "icon": "grid_view", "text": "Grid & Layout", "view": "views/02-design/grid.html" },
+        { "id": "design-utilities", "icon": "build", "text": "Utilities", "view": "views/02-design/utilities.html" }
+      ]
+    },
+    {
+      "title": "모듈 — Overlays",
+      "items": [
+        { "id": "mod-overlays", "icon": "layers", "text": "Overlays", "view": "views/03-modules/overlays.html" },
+        { "id": "mod-dropdown", "icon": "expand_more", "text": "Dropdown", "view": "views/03-modules/dropdown.html" },
+        { "id": "mod-tooltips", "icon": "chat_bubble", "text": "Tooltips", "view": "views/03-modules/tooltips.html" }
+      ]
+    },
+    {
+      "title": "모듈 — Navigation",
+      "items": [
+        { "id": "mod-navigation", "icon": "tab", "text": "Navigation", "view": "views/03-modules/navigation.html" },
+        { "id": "mod-stepper", "icon": "format_list_numbered", "text": "Stepper", "view": "views/03-modules/stepper.html" },
+        { "id": "mod-scroll", "icon": "swap_vert", "text": "Scroll", "view": "views/03-modules/scroll.html" },
+        { "id": "mod-pagination", "icon": "first_page", "text": "Pagination", "view": "views/03-modules/pagination.html" }
+      ]
+    },
+    {
+      "title": "모듈 — Forms",
+      "items": [
+        { "id": "mod-form-elements", "icon": "edit_note", "text": "Elements", "view": "views/03-modules/forms/elements.html" },
+        { "id": "mod-form-layouts", "icon": "view_quilt", "text": "Layouts", "view": "views/03-modules/forms/layouts.html" },
+        { "id": "mod-form-validation", "icon": "check_circle", "text": "Validation", "view": "views/03-modules/forms/validation.html" },
+        { "id": "mod-form-wizard", "icon": "linear_scale", "text": "Wizard", "view": "views/03-modules/forms/wizard.html" },
+        { "id": "mod-form-uploads", "icon": "cloud_upload", "text": "File Uploads", "view": "views/03-modules/forms/file-uploads.html" },
+        { "id": "mod-form-pickers", "icon": "calendar_today", "text": "Pickers", "view": "views/03-modules/forms/pickers.html" },
+        { "id": "mod-form-selectors", "icon": "search", "text": "Selectors", "view": "views/03-modules/forms/selectors.html" },
+        { "id": "mod-form-range", "icon": "tune", "text": "Range Slider", "view": "views/03-modules/forms/range-slider.html" },
+        { "id": "mod-form-editors", "icon": "format_bold", "text": "Text Editors", "view": "views/03-modules/forms/text-editors.html" },
+        { "id": "mod-form-other", "icon": "extension", "text": "Other Plugins", "view": "views/03-modules/forms/other-plugins.html" },
+        { "id": "mod-form-security", "icon": "pin", "text": "Security Input", "view": "views/03-modules/forms/security-input.html" }
+      ]
+    },
+    {
+      "title": "모듈 — Display",
+      "items": [
+        { "id": "mod-feedback", "icon": "notifications", "text": "Feedback", "view": "views/03-modules/feedback.html" },
+        { "id": "mod-carousel", "icon": "view_carousel", "text": "Carousel", "view": "views/03-modules/carousel.html" },
+        { "id": "mod-data-viz", "icon": "bar_chart", "text": "Data Viz", "view": "views/03-modules/data-viz.html" },
+        { "id": "mod-live-status", "icon": "circle", "text": "Live Status", "view": "views/03-modules/live-status.html" },
+        { "id": "mod-imagelist", "icon": "grid_on", "text": "ImageList", "view": "views/03-modules/imagelist.html" },
+        { "id": "mod-media", "icon": "play_circle", "text": "Media Viewer", "view": "views/03-modules/media-viewer.html" },
+        { "id": "mod-advanced", "icon": "widgets", "text": "Advanced UI", "view": "views/03-modules/advanced-ui.html" },
+        { "id": "mod-social", "icon": "chat", "text": "Social", "view": "views/03-modules/social.html" },
+        { "id": "mod-gantt", "icon": "view_timeline", "text": "Gantt", "view": "views/03-modules/gantt.html" },
+        { "id": "mod-theme", "icon": "contrast", "text": "Theme", "view": "views/03-modules/theme.html" }
+      ]
+    },
+    {
+      "title": "활용",
+      "items": [
+        { "id": "usage-dashboard", "icon": "dashboard", "text": "대시보드", "view": "views/04-usage/dashboard.html", "badge": "NEW" },
+        { "id": "usage-crud", "icon": "table_rows", "text": "CRUD 관리", "view": "views/04-usage/crud-app.html", "badge": "NEW" },
+        { "id": "usage-chat", "icon": "forum", "text": "채팅 앱", "view": "views/04-usage/chat-app.html", "badge": "NEW" },
+        { "id": "usage-project", "icon": "assignment", "text": "프로젝트 관리", "view": "views/04-usage/project-mgmt.html", "badge": "NEW" },
+        { "id": "usage-gallery", "icon": "photo_library", "text": "미디어 갤러리", "view": "views/04-usage/media-gallery.html", "badge": "NEW" },
+        { "id": "usage-social", "icon": "dynamic_feed", "text": "소셜 피드", "view": "views/04-usage/social-feed.html", "badge": "NEW" },
+        { "id": "usage-settings", "icon": "tune", "text": "설정 페이지", "view": "views/04-usage/settings.html", "badge": "NEW" },
+        { "id": "usage-ecommerce", "icon": "storefront", "text": "이커머스", "view": "views/04-usage/ecommerce.html", "badge": "NEW" }
+      ]
+    }
+  ]
+}

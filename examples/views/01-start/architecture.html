@@ -1,0 +1,116 @@
+<!-- 아키텍처 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">아키텍처</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">아키텍처</h1>
+  <p class="page-desc">IMCAT UI의 코어 구조와 모듈 시스템을 이해합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-core">
+  <div class="demo-card__header"><span class="demo-card__title">코어 구조</span></div>
+  <div class="demo-card__desc">프레임워크는 <code>IMCATCore</code> 싱글톤 클래스를 중심으로 20개 코어 모듈이 통합되어 있습니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 전역 진입점</span>
+window.IMCAT = <span class="code-keyword">new</span> <span class="code-function">IMCATCore</span>();
+
+<span class="code-comment">// 코어 모듈 (빌드 시 포함)</span>
+├── dom.js          <span class="code-comment">// DOM 조작 ($-like API)</span>
+├── router.js       <span class="code-comment">// SPA 라우팅</span>
+├── event.js        <span class="code-comment">// EventBus + EventEmitterMixin</span>
+├── state.js        <span class="code-comment">// 반응형 상태 관리</span>
+├── storage.js      <span class="code-comment">// localStorage 래퍼</span>
+├── api.js          <span class="code-comment">// Fetch API 래퍼</span>
+├── security.js     <span class="code-comment">// XSS 방어, 경로 검증</span>
+├── utils.js        <span class="code-comment">// 유틸리티 함수</span>
+├── helpers.js      <span class="code-comment">// 헬퍼 (폼, 다운로드, 스크롤)</span>
+├── template.js     <span class="code-comment">// 템플릿 엔진</span>
+├── formatters.js   <span class="code-comment">// 포맷터 (숫자, 날짜, 바이트)</span>
+├── config.js       <span class="code-comment">// 설정 관리</span>
+├── loader.js       <span class="code-comment">// 동적 모듈 로더</span>
+├── loading.js      <span class="code-comment">// 로딩 오버레이</span>
+├── animation.js    <span class="code-comment">// 애니메이션 유틸</span>
+├── form.js         <span class="code-comment">// 폼 검증</span>
+├── shortcuts.js    <span class="code-comment">// 단축 API (alert, confirm...)</span>
+├── auto-init.js    <span class="code-comment">// data-imcat 자동 초기화</span>
+└── url.js          <span class="code-comment">// URL 유틸리티</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-modules">
+  <div class="demo-card__header"><span class="demo-card__title">모듈 시스템</span></div>
+  <div class="demo-card__desc">22개 확장 모듈은 <code>IMCAT.use()</code>로 필요할 때 동적으로 로드됩니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 전체 모듈 로드 → 모든 export 반환</span>
+<span class="code-keyword">const</span> Nav = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-comment">// Nav = { Tabs, Accordion, Collapse, MegaMenu, TreeView }</span>
+
+<span class="code-comment">// 하위 모듈만 로드 → 특정 클래스만 반환</span>
+<span class="code-keyword">const</span> Tabs = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation/tabs'</span>);
+
+<span class="code-comment">// 모듈 로드 시 CSS도 자동 로드 (autoLoadModuleCSS: true)</span>
+<span class="code-comment">// dist/modules/navigation.css → &lt;head&gt;에 자동 삽입</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-namespaces">
+  <div class="demo-card__header"><span class="demo-card__title">네임스페이스</span></div>
+  <div class="demo-card__desc">코어 유틸리티는 네임스페이스 getter로 접근합니다.</div>
+  <div class="demo-card__body">
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="demoNamespace()">네임스페이스 확인</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 네임스페이스 접근</span>
+IMCAT.utils.<span class="code-function">randomId</span>(<span class="code-string">'btn'</span>);     <span class="code-comment">// 'btn-a1b2c3'</span>
+IMCAT.security.<span class="code-function">escape</span>(<span class="code-string">'&lt;script&gt;'</span>); <span class="code-comment">// '&amp;lt;script&amp;gt;'</span>
+IMCAT.helpers.<span class="code-function">copy</span>(<span class="code-string">'텍스트'</span>);      <span class="code-comment">// 클립보드 복사</span>
+
+<span class="code-comment">// 하위 호환: 직접 호출도 가능</span>
+IMCAT.<span class="code-function">isString</span>(<span class="code-string">'test'</span>);           <span class="code-comment">// true</span>
+IMCAT.<span class="code-function">escape</span>(<span class="code-string">'&lt;b&gt;bold&lt;/b&gt;'</span>);     <span class="code-comment">// '&amp;lt;b&amp;gt;bold...'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-lifecycle">
+  <div class="demo-card__header"><span class="demo-card__title">메모리 관리</span></div>
+  <div class="demo-card__desc">뷰 전환 시 <code>destroy()</code> 패턴으로 리소스를 자동 정리합니다.</div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 인스턴스 등록 → 뷰 전환 시 자동 destroy()</span>
+<span class="code-keyword">const</span> modal = <span class="code-keyword">new</span> <span class="code-function">Modal</span>({ ... });
+IMCAT.view.<span class="code-function">registerInstance</span>(modal);
+
+<span class="code-comment">// 단축 API는 자동 등록됨</span>
+<span class="code-keyword">const</span> modal2 = <span class="code-keyword">await</span> IMCAT.<span class="code-function">modal</span>({ title: <span class="code-string">'제목'</span> });
+<span class="code-comment">// → 뷰 이동 시 자동으로 modal2.destroy() 호출</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-core" class="doc-toc__link is-active">코어 구조</a></li>
+    <li class="doc-toc__item"><a href="#s-modules" class="doc-toc__link">모듈 시스템</a></li>
+    <li class="doc-toc__item"><a href="#s-namespaces" class="doc-toc__link">네임스페이스</a></li>
+    <li class="doc-toc__item"><a href="#s-lifecycle" class="doc-toc__link">메모리 관리</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  function demoNamespace() {
+    var id = IMCAT.utils.randomId('demo');
+    var escaped = IMCAT.security.escape('<b>bold & "quotes"</b>');
+    IMCAT.toast.success('randomId: ' + id);
+    setTimeout(function() { IMCAT.toast.info('escape: ' + escaped); }, 500);
+  }
+</script>

@@ -1,0 +1,102 @@
+<!-- Formatters -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">Formatters</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Formatters</h1>
+  <p class="page-desc">숫자, 날짜, 바이트, 전화번호 등 다양한 포맷터를 제공합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-number">
+  <div class="demo-card__header"><span class="demo-card__title">숫자 포맷</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table" id="fmt-number-table">
+        <thead><tr><th>입력</th><th>결과</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT.format.<span class="code-function">number</span>(<span class="code-number">1234567</span>);       <span class="code-comment">// '1,234,567'</span>
+IMCAT.format.<span class="code-function">currency</span>(<span class="code-number">49900</span>);       <span class="code-comment">// '₩49,900'</span>
+IMCAT.format.<span class="code-function">percent</span>(<span class="code-number">0.856</span>);        <span class="code-comment">// '85.6%'</span>
+IMCAT.format.<span class="code-function">bytes</span>(<span class="code-number">1536000</span>);        <span class="code-comment">// '1.46 MB'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-date">
+  <div class="demo-card__header"><span class="demo-card__title">날짜 포맷</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table" id="fmt-date-table">
+        <thead><tr><th>함수</th><th>결과</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT.format.<span class="code-function">date</span>(<span class="code-keyword">new</span> <span class="code-function">Date</span>());         <span class="code-comment">// '2025-03-14'</span>
+IMCAT.format.<span class="code-function">time</span>(<span class="code-keyword">new</span> <span class="code-function">Date</span>());         <span class="code-comment">// '14:30:00'</span>
+IMCAT.format.<span class="code-function">datetime</span>(<span class="code-keyword">new</span> <span class="code-function">Date</span>());     <span class="code-comment">// '2025-03-14 14:30:00'</span>
+IMCAT.format.<span class="code-function">relative</span>(<span class="code-keyword">new</span> <span class="code-function">Date</span>());     <span class="code-comment">// '방금 전'</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-text">
+  <div class="demo-card__header"><span class="demo-card__title">텍스트 포맷</span></div>
+  <div class="demo-card__code">
+<pre>IMCAT.format.<span class="code-function">phone</span>(<span class="code-string">'01012345678'</span>);     <span class="code-comment">// '010-1234-5678'</span>
+IMCAT.format.<span class="code-function">mask</span>(<span class="code-string">'홍길동'</span>, <span class="code-number">1</span>);        <span class="code-comment">// '홍**'</span>
+IMCAT.format.<span class="code-function">truncate</span>(<span class="code-string">'긴 텍스트...'</span>, <span class="code-number">10</span>); <span class="code-comment">// '긴 텍스트...'</span></pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-number" class="doc-toc__link is-active">숫자</a></li>
+    <li class="doc-toc__item"><a href="#s-date" class="doc-toc__link">날짜</a></li>
+    <li class="doc-toc__item"><a href="#s-text" class="doc-toc__link">텍스트</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  // 숫자 포맷 데모
+  var numData = [
+    ['1234567', function() { return IMCAT.format.number(1234567); }],
+    ['49900 (currency)', function() { return IMCAT.format.currency(49900); }],
+    ['0.856 (percent)', function() { return IMCAT.format.percent(0.856); }],
+    ['1536000 (bytes)', function() { return IMCAT.format.bytes(1536000); }]
+  ];
+  var numBody = document.querySelector('#fmt-number-table tbody');
+  numData.forEach(function(item) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + item[0] + '</td><td><code>' + item[1]() + '</code></td>';
+    numBody.appendChild(tr);
+  });
+
+  // 날짜 포맷 데모
+  var now = new Date();
+  var dateData = [
+    ['date()', function() { return IMCAT.format.date(now); }],
+    ['time()', function() { return IMCAT.format.time(now); }],
+    ['datetime()', function() { return IMCAT.format.datetime(now); }],
+    ['relative()', function() { return IMCAT.format.relative(now); }]
+  ];
+  var dateBody = document.querySelector('#fmt-date-table tbody');
+  dateData.forEach(function(item) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + item[0] + '</td><td><code>' + item[1]() + '</code></td>';
+    dateBody.appendChild(tr);
+  });
+</script>

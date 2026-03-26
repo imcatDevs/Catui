@@ -1,0 +1,324 @@
+<!-- 활용: 설정 페이지 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">설정</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">설정</h1>
+  <p class="page-desc">Tabs + Forms + Validation + Pickers + FileUpload + Toast를 조합한 설정 페이지 예제</p>
+</div>
+
+<!-- 탭 기반 설정 -->
+<div id="settings-tabs">
+  <div class="tabs">
+    <div class="tabs__list" role="tablist">
+      <button class="tabs__tab is-active" role="tab" aria-selected="true"><i class="material-icons-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">person</i>프로필</button>
+      <button class="tabs__tab" role="tab" aria-selected="false"><i class="material-icons-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">security</i>보안</button>
+      <button class="tabs__tab" role="tab" aria-selected="false"><i class="material-icons-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">notifications</i>알림</button>
+      <button class="tabs__tab" role="tab" aria-selected="false"><i class="material-icons-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">palette</i>외관</button>
+    </div>
+    <div class="tabs__content">
+
+      <!-- 프로필 탭 -->
+      <div class="tabs__panel" role="tabpanel">
+        <div class="card card--outlined">
+          <div class="card__header"><h4 class="card__title">프로필 정보</h4></div>
+          <div class="card__body">
+            <form id="profile-form">
+              <!-- 아바타 -->
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+                <div style="width:80px;height:80px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700">D</div>
+                <div>
+                  <button type="button" class="btn btn--sm btn--outline" onclick="IMCAT.toast.info('프로필 사진 변경')">사진 변경</button>
+                  <button type="button" class="btn btn--sm btn--outline btn--danger" onclick="IMCAT.toast.warning('사진 삭제됨')">삭제</button>
+                  <p class="body2 text-muted" style="margin:4px 0 0">JPG, PNG 최대 2MB</p>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                  <label class="form-label">이름 <span class="text-danger">*</span></label>
+                  <input type="text" class="form-input" id="set-name" value="개발자" data-validate="required">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">사용자명 <span class="text-danger">*</span></label>
+                  <input type="text" class="form-input" id="set-username" value="dev_user" data-validate="required">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">이메일 <span class="text-danger">*</span></label>
+                  <input type="email" class="form-input" id="set-email" value="dev@example.com" data-validate="required,email">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">전화번호</label>
+                  <input type="tel" class="form-input" id="set-phone" value="010-1234-5678">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">자기소개</label>
+                <textarea class="form-input" rows="3" placeholder="간단한 자기소개를 작성하세요">IMCAT UI 프레임워크 개발자입니다.</textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">생년월일</label>
+                <div id="set-birthdate"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">웹사이트</label>
+                <input type="url" class="form-input" value="https://imcat.dev" placeholder="https://example.com">
+              </div>
+              <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+                <button type="button" class="btn btn--outline" onclick="IMCAT.toast.info('변경 취소')">취소</button>
+                <button type="button" class="btn btn--primary" onclick="saveProfile()">저장</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 보안 탭 -->
+      <div class="tabs__panel" role="tabpanel" hidden>
+        <div class="card card--outlined" style="margin-bottom:16px">
+          <div class="card__header"><h4 class="card__title">비밀번호 변경</h4></div>
+          <div class="card__body">
+            <form id="password-form">
+              <div class="form-group">
+                <label class="form-label">현재 비밀번호</label>
+                <input type="password" class="form-input" id="set-pw-current" data-validate="required">
+              </div>
+              <div class="form-group">
+                <label class="form-label">새 비밀번호</label>
+                <input type="password" class="form-input" id="set-pw-new" data-validate="required,minLength:8">
+                <p class="body2 text-muted">영문, 숫자, 특수문자 포함 8자 이상</p>
+              </div>
+              <div class="form-group">
+                <label class="form-label">새 비밀번호 확인</label>
+                <input type="password" class="form-input" id="set-pw-confirm" data-validate="required">
+              </div>
+              <button type="button" class="btn btn--primary" onclick="changePassword()">비밀번호 변경</button>
+            </form>
+          </div>
+        </div>
+        <div class="card card--outlined" style="margin-bottom:16px">
+          <div class="card__header"><h4 class="card__title">2단계 인증</h4></div>
+          <div class="card__body">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <strong>TOTP 인증</strong>
+                <p class="body2 text-muted" style="margin:0">Google Authenticator 또는 호환 앱 사용</p>
+              </div>
+              <label class="switch"><input type="checkbox" onchange="IMCAT.toast.info(this.checked?'2FA 활성화':'2FA 비활성화')"><span class="switch__slider"></span></label>
+            </div>
+          </div>
+        </div>
+        <div class="card card--outlined">
+          <div class="card__header"><h4 class="card__title">세션 관리</h4></div>
+          <div class="card__body">
+            <div class="list list--divided">
+              <div class="list__item" style="display:flex;align-items:center;gap:12px">
+                <i class="material-icons-outlined text-success">computer</i>
+                <div style="flex:1"><strong>현재 세션</strong> — Chrome / Windows<p class="body2 text-muted" style="margin:0">서울, 한국 · 방금 전</p></div>
+                <span class="badge badge--success">활성</span>
+              </div>
+              <div class="list__item" style="display:flex;align-items:center;gap:12px">
+                <i class="material-icons-outlined text-muted">phone_iphone</i>
+                <div style="flex:1"><strong>iPhone 15</strong> — Safari / iOS<p class="body2 text-muted" style="margin:0">서울, 한국 · 2시간 전</p></div>
+                <button class="btn btn--xs btn--outline btn--danger" onclick="IMCAT.toast.warning('세션 종료됨')">종료</button>
+              </div>
+              <div class="list__item" style="display:flex;align-items:center;gap:12px">
+                <i class="material-icons-outlined text-muted">laptop</i>
+                <div style="flex:1"><strong>MacBook Pro</strong> — Firefox / macOS<p class="body2 text-muted" style="margin:0">부산, 한국 · 1일 전</p></div>
+                <button class="btn btn--xs btn--outline btn--danger" onclick="IMCAT.toast.warning('세션 종료됨')">종료</button>
+              </div>
+            </div>
+            <button class="btn btn--danger btn--sm" style="margin-top:12px" onclick="IMCAT.toast.warning('다른 모든 세션이 종료되었습니다')">다른 세션 모두 종료</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 알림 탭 -->
+      <div class="tabs__panel" role="tabpanel" hidden>
+        <div class="card card--outlined">
+          <div class="card__header"><h4 class="card__title">알림 설정</h4></div>
+          <div class="card__body">
+            <div class="table-wrapper">
+              <table class="table">
+                <thead><tr><th>알림 유형</th><th style="text-align:center">이메일</th><th style="text-align:center">푸시</th><th style="text-align:center">SMS</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>새 댓글</strong><p class="body2 text-muted" style="margin:0">내 게시물에 댓글이 달릴 때</p></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>좋아요</strong><p class="body2 text-muted" style="margin:0">내 게시물에 좋아요가 눌릴 때</p></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>팔로우</strong><p class="body2 text-muted" style="margin:0">새로운 팔로워가 생길 때</p></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>보안 알림</strong><p class="body2 text-muted" style="margin:0">새 기기 로그인, 비밀번호 변경 등</p></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                    <td style="text-align:center"><input type="checkbox" checked></td>
+                  </tr>
+                  <tr>
+                    <td><strong>마케팅</strong><p class="body2 text-muted" style="margin:0">뉴스레터 및 프로모션</p></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                    <td style="text-align:center"><input type="checkbox"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:16px">
+              <button class="btn btn--primary" onclick="IMCAT.toast.success('알림 설정이 저장되었습니다')">저장</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 외관 탭 -->
+      <div class="tabs__panel" role="tabpanel" hidden>
+        <div class="card card--outlined" style="margin-bottom:16px">
+          <div class="card__header"><h4 class="card__title">테마</h4></div>
+          <div class="card__body">
+            <div id="set-theme-area"></div>
+          </div>
+        </div>
+        <div class="card card--outlined" style="margin-bottom:16px">
+          <div class="card__header"><h4 class="card__title">테마 색상</h4></div>
+          <div class="card__body">
+            <div id="set-color-picker"></div>
+          </div>
+        </div>
+        <div class="card card--outlined">
+          <div class="card__header"><h4 class="card__title">언어 및 지역</h4></div>
+          <div class="card__body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="form-group">
+                <label class="form-label">언어</label>
+                <select class="form-select" onchange="IMCAT.toast.info('언어: '+this.value)">
+                  <option selected>한국어</option>
+                  <option>English</option>
+                  <option>日本語</option>
+                  <option>中文</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">시간대</label>
+                <select class="form-select">
+                  <option selected>Asia/Seoul (UTC+9)</option>
+                  <option>Asia/Tokyo (UTC+9)</option>
+                  <option>America/New_York (UTC-5)</option>
+                  <option>Europe/London (UTC+0)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">날짜 형식</label>
+                <select class="form-select">
+                  <option selected>YYYY-MM-DD</option>
+                  <option>DD/MM/YYYY</option>
+                  <option>MM/DD/YYYY</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">숫자 형식</label>
+                <select class="form-select">
+                  <option selected>1,234.56</option>
+                  <option>1.234,56</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:16px">
+              <button class="btn btn--primary" onclick="IMCAT.toast.success('지역 설정 저장됨')">저장</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (async function() {
+    // 탭 초기화
+    var Nav = await IMCAT.use('navigation');
+    new Nav.Tabs('#settings-tabs .tabs');
+
+    // 생년월일 DatePicker
+    var Pickers = await IMCAT.use('pickers');
+    new Pickers.DatePicker('#set-birthdate', {
+      defaultDate: '1995-06-15',
+      format: 'YYYY-MM-DD',
+      placeholder: '생년월일 선택'
+    });
+
+    // 테마 토글
+    var ThemeModule = await IMCAT.use('theme');
+    var theme = ThemeModule.createTheme({ transition: 'fade' });
+    var themeArea = document.getElementById('set-theme-area');
+    if (themeArea) {
+      var resolved = theme.getResolved();
+      themeArea.innerHTML = '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+        '<button class="btn ' + (resolved === 'light' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'light\')"><i class="material-icons-outlined">light_mode</i> 라이트</button>' +
+        '<button class="btn ' + (resolved === 'dark' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'dark\')"><i class="material-icons-outlined">dark_mode</i> 다크</button>' +
+        '<button class="btn ' + (theme.get() === 'system' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'system\')"><i class="material-icons-outlined">settings_brightness</i> 시스템</button>' +
+        '</div>';
+    }
+
+    // 색상 피커
+    new Pickers.ColorPicker('#set-color-picker', {
+      presetColors: ['#2563eb', '#7c3aed', '#db2777', '#ea580c', '#16a34a', '#0891b2'],
+      defaultColor: '#2563eb',
+      onChange: function(color) { IMCAT.toast.info('테마 색상: ' + color); }
+    });
+  })();
+
+  async function setThemeMode(mode) {
+    var ThemeModule = await IMCAT.use('theme');
+    var theme = ThemeModule.getTheme() || ThemeModule.createTheme({ transition: 'fade' });
+    theme.set(mode);
+    IMCAT.toast.info(mode === 'light' ? '라이트 모드' : mode === 'dark' ? '다크 모드' : '시스템 모드');
+    var themeArea = document.getElementById('set-theme-area');
+    if (themeArea) {
+      var resolved = theme.getResolved();
+      themeArea.innerHTML = '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+        '<button class="btn ' + (resolved === 'light' && mode !== 'system' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'light\')"><i class="material-icons-outlined">light_mode</i> 라이트</button>' +
+        '<button class="btn ' + (resolved === 'dark' && mode !== 'system' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'dark\')"><i class="material-icons-outlined">dark_mode</i> 다크</button>' +
+        '<button class="btn ' + (mode === 'system' ? 'btn--primary' : 'btn--outline') + '" onclick="setThemeMode(\'system\')"><i class="material-icons-outlined">settings_brightness</i> 시스템</button>' +
+        '</div>';
+    }
+  }
+
+  function saveProfile() {
+    var name = document.getElementById('set-name').value.trim();
+    var email = document.getElementById('set-email').value.trim();
+    if (!name || !email) {
+      IMCAT.toast.error('이름과 이메일은 필수입니다');
+      return;
+    }
+    IMCAT.toast.success('프로필이 저장되었습니다');
+  }
+
+  async function changePassword() {
+    var cur = document.getElementById('set-pw-current').value;
+    var pw = document.getElementById('set-pw-new').value;
+    var confirm = document.getElementById('set-pw-confirm').value;
+    if (!cur || !pw || !confirm) { IMCAT.toast.error('모든 필드를 입력하세요'); return; }
+    if (pw.length < 8) { IMCAT.toast.error('비밀번호는 8자 이상이어야 합니다'); return; }
+    if (pw !== confirm) { IMCAT.toast.error('비밀번호가 일치하지 않습니다'); return; }
+    IMCAT.toast.success('비밀번호가 변경되었습니다');
+    document.getElementById('set-pw-current').value = '';
+    document.getElementById('set-pw-new').value = '';
+    document.getElementById('set-pw-confirm').value = '';
+  }
+</script>

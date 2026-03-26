@@ -1,0 +1,135 @@
+// ============================================
+// Avatars (코어 컴포넌트)
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// 아바타 공통 (이미지 찌그러짐 방지)
+[class*='avatar-'] > img,
+img[class*='avatar-'] {
+  object-fit: cover;
+}
+
+// 아바타 크기 (토큰 기반)
+.avatar-xs {
+  height: $component-avatar-size-xs;
+  width: $component-avatar-size-xs;
+}
+
+.avatar-sm {
+  height: $component-avatar-size-sm;
+  width: $component-avatar-size-sm;
+}
+
+.avatar-md {
+  height: $component-avatar-size-md;
+  width: $component-avatar-size-md;
+}
+
+.avatar-lg {
+  height: $component-avatar-size-lg;
+  width: $component-avatar-size-lg;
+}
+
+.avatar-xl {
+  height: $component-avatar-size-xl;
+  width: $component-avatar-size-xl;
+}
+
+.avatar-2xl {
+  height: $component-avatar-size-2xl;
+  width: $component-avatar-size-2xl;
+}
+
+// 아바타 이니셜 (배경색 + 텍스트)
+.avatar-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.avatar-xs .avatar-title { font-size: 0.625rem; }
+.avatar-sm .avatar-title { font-size: 0.75rem; }
+.avatar-md .avatar-title { font-size: 1rem; }
+.avatar-lg .avatar-title { font-size: 1.25rem; }
+.avatar-xl .avatar-title { font-size: 1.5rem; }
+.avatar-2xl .avatar-title { font-size: 1.75rem; }
+
+// 아바타 그룹 (겹치기, 토큰 기반)
+.avatar-group {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: calc($component-avatar-group-spacing * -1);
+
+  .avatar-group__item {
+    margin-left: $component-avatar-group-overlap;
+    border: $component-avatar-group-border-width solid var(--bg-primary, $component-avatar-group-border);
+    border-radius: 50%;
+    transition: transform 150ms $ease-in-out;
+
+    &:hover {
+      z-index: 1;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// 아바타 온라인 상태 인디케이터
+.avatar-status {
+  position: relative;
+  display: inline-block;
+
+  &__indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary, $bg-primary);
+    background: var(--bg-tertiary, $bg-tertiary);
+
+    &--online { background: $success; }
+    &--away { background: $warning; }
+    &--busy { background: $error; }
+    &--offline { background: var(--text-tertiary, $text-tertiary); }
+  }
+}
+
+// 이미지 유틸리티
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: var(--bg-primary, $bg-primary);
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: 0.25rem;
+}
+
+// NOTE: .rounded, .rounded-circle은 base/_typography.scss 유틸리티에서 정의
+// 중복 정의하지 않음
+
+// 플래그 아이콘 유틸리티
+.flag-xs { height: 14px; }
+.flag-sm { height: 18px; }
+.flag-md { height: 24px; }
+.flag-lg { height: 32px; }
+.flag-xl { height: 48px; }
+
+// 플래그 배지 (아바타 우하단 국기 표시)
+.flag-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  border: 2px solid var(--bg-primary, $bg-primary);
+  border-radius: $component-avatar-border-radius;
+}

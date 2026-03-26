@@ -1,0 +1,986 @@
+// ============================================
+// Form Inputs Component SCSS
+// 폼 입력 필드 스타일 시스템
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Variables
+// ============================================
+$input-padding-y: 0.5rem;
+$input-padding-x: 0.75rem;
+$input-padding-y-sm: 0.375rem;
+$input-padding-x-sm: 0.625rem;
+$input-padding-y-lg: 0.625rem;
+$input-padding-x-lg: 1rem;
+$input-font-size: 0.9375rem;
+$input-font-size-sm: 0.8125rem;
+$input-font-size-lg: 1rem;
+$input-border-radius: $radius-lg;
+$input-border-width: 1px;
+$input-border-color: var(--border-color, $border-color);
+$input-bg: var(--bg-primary, $bg-primary);
+$input-color: var(--text-primary, $text-primary);
+$input-placeholder-color: var(--text-tertiary, $text-tertiary);
+$input-focus-border-color: var(--primary, $primary);
+$input-focus-shadow: 0 0 0 3px rgba($primary, 0.15);
+$input-disabled-bg: var(--bg-secondary, $bg-secondary);
+$input-transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+
+// ============================================
+// Form Group
+// ============================================
+.form-group {
+  margin-bottom: 1rem;
+}
+
+// ============================================
+// Form Label
+// ============================================
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary, $text-primary);
+
+  // Required indicator
+  .required {
+    color: $danger;
+    margin-left: 0.125rem;
+  }
+}
+
+// ============================================
+// Base Input
+// ============================================
+.form-input,
+.form-control {
+  display: block;
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  font-family: inherit;
+  font-size: $input-font-size;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $input-color;
+  background: $input-bg;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border-color;
+  border-radius: $input-border-radius;
+  transition: $input-transition;
+  appearance: none;
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-shadow;
+  }
+
+  &:disabled,
+  &.is-disabled {
+    background: $input-disabled-bg;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &[readonly] {
+    background: $input-disabled-bg;
+  }
+}
+
+// ============================================
+// Textarea
+// ============================================
+textarea.form-input,
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+// ============================================
+// Select
+// ============================================
+.form-select {
+  display: block;
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  padding-right: 2.5rem;
+  font-family: inherit;
+  font-size: $input-font-size;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $input-color;
+  background: $input-bg url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7280'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+  background-size: 1.25rem;
+  border: $input-border-width solid $input-border-color;
+  border-radius: $input-border-radius;
+  transition: $input-transition;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-shadow;
+  }
+
+  &:disabled {
+    background-color: $input-disabled-bg;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &[multiple] {
+    padding-right: $input-padding-x;
+    background-image: none;
+  }
+}
+
+// ============================================
+// Sizes
+// ============================================
+
+// Small (BEM alias → Bootstrap 호환으로 통합)
+.form-input--sm,
+.form-control--sm,
+.form-select--sm {
+  @extend .form-control-sm;
+}
+
+// Large (BEM alias → Bootstrap 호환으로 통합)
+.form-input--lg,
+.form-control--lg,
+.form-select--lg {
+  @extend .form-control-lg;
+}
+
+// ============================================
+// Validation States
+// ============================================
+
+// Success
+.form-input.is-valid,
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: $success;
+
+  &:focus {
+    border-color: $success;
+    box-shadow: 0 0 0 3px rgba($success, 0.15);
+  }
+}
+
+// Error
+.form-input.is-invalid,
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: $danger;
+
+  &:focus {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.15);
+  }
+}
+
+// ============================================
+// Validation Icons (입력 필드 내부 ✓/✗ 아이콘)
+// ============================================
+// .has-validation-icon 클래스를 부모에 추가하면 활성화
+// 또는 .form-control-icon-validation 클래스를 input에 직접 추가
+$form-validation-icon-valid: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%230ab39c' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+$form-validation-icon-invalid: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f06548'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f06548' stroke='none'/%3e%3c/svg%3e");
+
+.has-validation-icon {
+  .form-control.is-valid,
+  .form-control-icon-validation.is-valid {
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: $form-validation-icon-valid;
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  .form-control.is-invalid,
+  .form-control-icon-validation.is-invalid {
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: $form-validation-icon-invalid;
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  .form-select.is-valid {
+    padding-right: 4.125rem;
+    background-position: right 0.75rem center, center right 2.25rem;
+    background-size: 16px 12px, calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  .form-select.is-invalid {
+    padding-right: 4.125rem;
+    background-position: right 0.75rem center, center right 2.25rem;
+    background-size: 16px 12px, calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  textarea.form-control.is-valid,
+  textarea.form-control.is-invalid {
+    background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+  }
+}
+
+// was-validated + has-validation-icon 조합
+.was-validated.has-validation-icon {
+  .form-control:valid {
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: $form-validation-icon-valid;
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  .form-control:invalid {
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: $form-validation-icon-invalid;
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+
+  textarea.form-control:valid,
+  textarea.form-control:invalid {
+    background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+  }
+}
+
+// ============================================
+// Help Text & Error Message
+// ============================================
+.form-text,
+.help-block {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, $text-secondary);
+}
+
+// Form Control Plaintext
+.form-control-plaintext {
+  display: block;
+  width: 100%;
+  padding: $input-padding-y 0;
+  font-size: $input-font-size;
+  color: $input-color;
+  background: transparent;
+  border: solid transparent;
+  border-width: $input-border-width 0;
+}
+
+.form-error,
+.invalid-feedback {
+  display: none;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: $danger;
+
+  // was-validated 또는 is-invalid 인접 시 표시
+  .was-validated :invalid ~ &,
+  .is-invalid ~ & {
+    display: block;
+  }
+}
+
+.form-success,
+.valid-feedback {
+  display: none;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: $success;
+
+  // was-validated 또는 is-valid 인접 시 표시
+  .was-validated :valid ~ &,
+  .is-valid ~ & {
+    display: block;
+  }
+}
+
+// Tooltip 변형
+.invalid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: 0.375rem 0.75rem;
+  margin-top: 0.125rem;
+  font-size: 0.8125rem;
+  color: #fff;
+  background-color: $danger;
+  border-radius: 4px;
+}
+
+.valid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: 0.375rem 0.75rem;
+  margin-top: 0.125rem;
+  font-size: 0.8125rem;
+  color: #fff;
+  background-color: $success;
+  border-radius: 4px;
+}
+
+// was-validated 폼 전체 검증 상태
+.was-validated {
+  .form-control:valid,
+  .form-select:valid {
+    border-color: $success;
+  }
+
+  .form-control:invalid,
+  .form-select:invalid {
+    border-color: $danger;
+  }
+
+  :valid ~ .valid-feedback,
+  :valid ~ .valid-tooltip {
+    display: block;
+  }
+
+  :invalid ~ .invalid-feedback,
+  :invalid ~ .invalid-tooltip {
+    display: block;
+  }
+
+  .form-check-input:valid ~ .form-check-label {
+    color: $success;
+  }
+
+  .form-check-input:invalid ~ .form-check-label {
+    color: $danger;
+  }
+}
+
+// ============================================
+// Checkbox & Radio
+// ============================================
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.125rem;
+  background: $input-bg;
+  border: $input-border-width solid $input-border-color;
+  appearance: none;
+  cursor: pointer;
+  transition: $input-transition;
+
+  &[type="checkbox"] {
+    border-radius: 4px;
+  }
+
+  &[type="radio"] {
+    border-radius: 50%;
+  }
+
+  &:checked {
+    background: var(--primary, $primary);
+    border-color: var(--primary, $primary);
+  }
+
+  &[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+    background-size: 0.75rem;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &[type="radio"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='white'/%3E%3C/svg%3E");
+    background-size: 0.625rem;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: $input-focus-shadow;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.form-check-label {
+  font-size: 0.9375rem;
+  color: var(--text-primary, $text-primary);
+  cursor: pointer;
+
+  .form-check-input:disabled + & {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Inline checks
+.form-check--inline {
+  display: inline-flex;
+  margin-right: 1rem;
+}
+
+// ============================================
+// Switch (form-switch 토글 — ubold/Bootstrap 호환)
+// ============================================
+.form-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: var(--text-primary, $text-primary);
+
+  input[type="checkbox"] {
+    position: relative;
+    width: 2.5rem;
+    height: 1.25rem;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--bg-tertiary, $bg-tertiary);
+    border: $input-border-width solid $input-border-color;
+    border-radius: 9999px;
+    appearance: none;
+    cursor: pointer;
+    transition: background 200ms ease, border-color 200ms ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      width: 0.9rem;
+      height: 0.9rem;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 200ms ease;
+    }
+
+    &:checked {
+      background: var(--primary, $primary);
+      border-color: var(--primary, $primary);
+
+      &::before {
+        transform: translateX(1.2rem);
+      }
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: $input-focus-shadow;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// form-check form-switch 조합 (Bootstrap 호환)
+.form-check.form-switch {
+  padding-left: 0;
+  gap: 0.5rem;
+
+  .form-check-input {
+    width: 2.5rem;
+    height: 1.25rem;
+    margin: 0;
+    background: var(--bg-tertiary, $bg-tertiary);
+    border: $input-border-width solid $input-border-color;
+    border-radius: 9999px;
+    background-image: none;
+    position: relative;
+    cursor: pointer;
+    transition: background 200ms ease, border-color 200ms ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      width: 0.9rem;
+      height: 0.9rem;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 200ms ease;
+    }
+
+    &:checked {
+      background: var(--primary, $primary);
+      border-color: var(--primary, $primary);
+      background-image: none;
+
+      &::before {
+        transform: translateX(1.2rem);
+      }
+    }
+  }
+}
+
+// ============================================
+// Checkbox & Radio 래퍼 (form-checkbox, form-radio)
+// ============================================
+.form-checkbox,
+.form-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.375rem;
+  font-size: 0.9375rem;
+  color: var(--text-primary, $text-primary);
+  cursor: pointer;
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin: 0;
+    background: $input-bg;
+    border: $input-border-width solid $input-border-color;
+    appearance: none;
+    cursor: pointer;
+    transition: $input-transition;
+
+    &:focus {
+      outline: none;
+      box-shadow: $input-focus-shadow;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  input[type="checkbox"] {
+    border-radius: 4px;
+
+    &:checked {
+      background: var(--primary, $primary);
+      border-color: var(--primary, $primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+      background-size: 0.75rem;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  input[type="radio"] {
+    border-radius: 50%;
+
+    &:checked {
+      background: var(--primary, $primary);
+      border-color: var(--primary, $primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='white'/%3E%3C/svg%3E");
+      background-size: 0.625rem;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+// ============================================
+// Form Helper
+// ============================================
+.form-helper {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, $text-secondary);
+}
+
+// ============================================
+// Input Sizes (Bootstrap 호환)
+// ============================================
+.form-control-sm {
+  padding: $input-padding-y-sm $input-padding-x-sm;
+  font-size: $input-font-size-sm;
+  border-radius: 4px;
+}
+
+.form-control-lg {
+  padding: $input-padding-y-lg $input-padding-x-lg;
+  font-size: $input-font-size-lg;
+  border-radius: 8px;
+}
+
+// ============================================
+// Input Group Text (Bootstrap 호환)
+// ============================================
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: $input-padding-y $input-padding-x;
+  font-size: $input-font-size;
+  color: var(--text-secondary, $text-secondary);
+  background: var(--bg-secondary, $bg-secondary);
+  border: $input-border-width solid $input-border-color;
+  white-space: nowrap;
+
+  &:first-child {
+    border-radius: $input-border-radius 0 0 $input-border-radius;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0 $input-border-radius $input-border-radius 0;
+    border-left: none;
+  }
+}
+
+// ============================================
+// Form Range
+// ============================================
+.form-range {
+  width: 100%;
+  height: 1.5rem;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  // Webkit (Chrome, Edge, Safari)
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.5rem;
+    background: var(--bg-tertiary, $bg-tertiary);
+    border-radius: 9999px;
+    border: none;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: -0.3125rem;
+    background: var(--primary, $primary);
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 150ms ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  // Firefox
+  &::-moz-range-track {
+    width: 100%;
+    height: 0.5rem;
+    background: var(--bg-tertiary, $bg-tertiary);
+    border-radius: 9999px;
+    border: none;
+  }
+
+  &::-moz-range-thumb {
+    width: 1.125rem;
+    height: 1.125rem;
+    background: var(--primary, $primary);
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &:focus {
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 3px rgba($primary, 0.15), 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    &::-moz-range-thumb {
+      box-shadow: 0 0 0 3px rgba($primary, 0.15), 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+// ============================================
+// Input Group
+// ============================================
+.input-group {
+  display: flex;
+  width: 100%;
+
+  .form-input,
+  .form-control,
+  .form-select {
+    flex: 1;
+    min-width: 0;
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: $input-border-radius 0 0 $input-border-radius;
+    }
+
+    &:last-child {
+      border-radius: 0 $input-border-radius $input-border-radius 0;
+    }
+
+    &:not(:first-child) {
+      margin-left: -$input-border-width;
+    }
+
+    &:focus {
+      z-index: 1;
+    }
+  }
+}
+
+// BEM alias → Bootstrap 호환 클래스로 통합
+.input-group__text {
+  @extend .input-group-text;
+
+  i {
+    font-size: 1.125rem;
+  }
+}
+
+.input-group__btn {
+  .btn {
+    border-radius: 0;
+    
+    &:first-child {
+      border-radius: $input-border-radius 0 0 $input-border-radius;
+    }
+
+    &:last-child {
+      border-radius: 0 $input-border-radius $input-border-radius 0;
+    }
+  }
+}
+
+// ============================================
+// Floating Labels (BEM + Bootstrap 표준 통합)
+// ============================================
+.form-floating {
+  position: relative;
+
+  // 공통 패딩 (floating label 공간 확보)
+  .form-input,
+  > .form-control,
+  > .form-select {
+    padding-top: 1.625rem;
+    padding-bottom: 0.375rem;
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  // BEM 라벨 (.form-floating__label)
+  .form-input,
+  .form-control {
+    &:focus,
+    &:not(:placeholder-shown) {
+      ~ .form-floating__label {
+        transform: translateY(-0.5rem) scale(0.85);
+        color: var(--primary, $primary);
+      }
+    }
+  }
+
+  .form-floating__label {
+    position: absolute;
+    top: 0;
+    left: $input-padding-x;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: $input-font-size;
+    color: $input-placeholder-color;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 150ms ease-in-out, color 150ms ease-in-out;
+  }
+
+  // Bootstrap 표준 라벨 (label after input)
+  > .form-control,
+  > .form-select {
+    &:focus,
+    &:not(:placeholder-shown) {
+      ~ label {
+        transform: translateY(-0.5rem) scale(0.85);
+        color: var(--primary, $primary);
+        opacity: 0.75;
+      }
+    }
+  }
+
+  > label {
+    position: absolute;
+    top: 0;
+    left: $input-padding-x;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: $input-font-size;
+    color: $input-placeholder-color;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 150ms ease-in-out, color 150ms ease-in-out, opacity 150ms ease-in-out;
+  }
+}
+
+// ============================================
+// Input Group Merge (비밀번호 표시/숨김, ubold 스타일)
+// ============================================
+.input-group-merge {
+  display: flex;
+  width: 100%;
+
+  .form-control {
+    flex: 1;
+    min-width: 0;
+    border-right: none;
+    border-radius: $input-border-radius 0 0 $input-border-radius;
+
+    &:focus {
+      z-index: 1;
+    }
+  }
+
+  .input-group-text {
+    border-left: none;
+    border-radius: 0 $input-border-radius $input-border-radius 0;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+}
+
+// ============================================
+// 파일 인풋 (type="file")
+// ============================================
+.form-control[type="file"] {
+  padding: 0.375rem 0.75rem;
+  line-height: 2;
+
+  &::file-selector-button {
+    padding: 0.375rem 0.75rem;
+    margin: -0.375rem 0.75rem -0.375rem -0.75rem;
+    color: var(--text-primary, $text-primary);
+    background: var(--bg-secondary, $bg-secondary);
+    border: 0;
+    border-right: $input-border-width solid $input-border-color;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 150ms ease;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+}
+
+// ============================================
+// 컬러 인풋 (type="color")
+// ============================================
+.form-control[type="color"] {
+  width: 3rem;
+  height: 2.25rem;
+  padding: 0.25rem;
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 4px;
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: 4px;
+  }
+}
+
+// ============================================
+// Search Input
+// ============================================
+.form-search {
+  position: relative;
+
+  .form-input,
+  .form-control {
+    padding-left: 2.5rem;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary, $text-tertiary);
+    pointer-events: none;
+
+    i {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.25rem;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary, $text-tertiary);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+
+    .form-input:not(:placeholder-shown) ~ & {
+      opacity: 1;
+    }
+
+    &:hover {
+      color: var(--text-primary, $text-primary);
+    }
+  }
+}

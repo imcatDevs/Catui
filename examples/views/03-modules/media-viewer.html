@@ -1,0 +1,306 @@
+<!-- Media Viewer -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Media Viewer</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Media Viewer</h1>
+  <p class="page-desc">반응형 임베드, VideoPlayer, AudioPlayer, ImageViewer 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. 반응형 임베드 비디오                        -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-embed">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">반응형 임베드 비디오</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">ratio 유틸리티로 다양한 비율의 iframe 임베드</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <!-- 21:9 -->
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">21:9 비율</p>
+        <div class="ratio ratio-21x9">
+          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube 21:9" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <!-- 16:9 -->
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">16:9 비율</p>
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube 16:9" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <!-- 4:3 -->
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">4:3 비율</p>
+        <div class="ratio ratio-4x3">
+          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube 4:3" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <!-- 1:1 -->
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">1:1 비율</p>
+        <div class="ratio ratio-1x1">
+          <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube 1:1" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 21:9 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"ratio ratio-21x9"</span>&gt;
+  &lt;<span class="code-tag">iframe</span> <span class="code-attr">src</span>=<span class="code-string">"https://www.youtube.com/embed/..."</span> <span class="code-attr">allowfullscreen</span>&gt;&lt;/<span class="code-tag">iframe</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 16:9 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"ratio ratio-16x9"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 4:3 / 1:1 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"ratio ratio-4x3"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"ratio ratio-1x1"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. EmbedVideo JS API                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-embed-api">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">EmbedVideo (JS API)</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">프로그래밍 방식 임베드: URL 자동 변환 (YouTube/Vimeo), 비율 변경</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">EmbedVideo — 16:9 + shadow</p>
+        <div id="embed-demo-1"></div>
+      </div>
+      <div>
+        <p class="text-secondary" style="font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem">EmbedVideo — 4:3 + rounded</p>
+        <div id="embed-demo-2"></div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;">
+      <button class="btn btn--outline btn--sm" onclick="changeRatio('21x9')">21:9</button>
+      <button class="btn btn--outline btn--sm" onclick="changeRatio('16x9')">16:9</button>
+      <button class="btn btn--outline btn--sm" onclick="changeRatio('4x3')">4:3</button>
+      <button class="btn btn--outline btn--sm" onclick="changeRatio('1x1')">1:1</button>
+      <span class="text-muted" style="font-size:0.75rem; margin-left:0.5rem">← 좌측 임베드 비율 변경</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { EmbedVideo } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'media-viewer'</span>);
+
+<span class="code-comment">// YouTube URL 자동 변환</span>
+<span class="code-keyword">const</span> embed = <span class="code-keyword">new</span> <span class="code-function">EmbedVideo</span>(<span class="code-string">'#container'</span>, {
+  url: <span class="code-string">'https://www.youtube.com/watch?v=zpOULjyy-n8'</span>,
+  ratio: <span class="code-string">'16x9'</span>,
+  shadow: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// 비율 변경</span>
+embed.<span class="code-function">setRatio</span>(<span class="code-string">'21x9'</span>);
+
+<span class="code-comment">// URL 변경</span>
+embed.<span class="code-function">setSrc</span>(<span class="code-string">'https://vimeo.com/123456789'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. VideoPlayer                                -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-video">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">VideoPlayer</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">커스텀 컨트롤: 재생/일시정지, 진행 바, 볼륨, 속도, PIP, 전체 화면</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="max-width:640px;">
+      <div id="video-demo"></div>
+    </div>
+    <div style="margin-top:0.75rem;">
+      <p class="text-muted" style="font-size:0.75rem; margin:0">키보드: <kbd>Space/K</kbd> 재생 · <kbd>←→</kbd> 탐색 · <kbd>↑↓</kbd> 볼륨 · <kbd>M</kbd> 음소거 · <kbd>F</kbd> 전체 화면</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { VideoPlayer } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'media-viewer'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">VideoPlayer</span>(<span class="code-string">'#container'</span>, {
+  src: <span class="code-string">'video.mp4'</span>,
+  poster: <span class="code-string">'thumbnail.jpg'</span>,
+  controls: <span class="code-keyword">true</span>,
+  customControls: <span class="code-keyword">true</span>,
+  autoplay: <span class="code-keyword">false</span>,
+  playbackRates: [<span class="code-number">0.5</span>, <span class="code-number">1</span>, <span class="code-number">1.5</span>, <span class="code-number">2</span>],
+  onPlay: () =&gt; <span class="code-function">console.log</span>(<span class="code-string">'재생'</span>),
+  onEnded: () =&gt; <span class="code-function">console.log</span>(<span class="code-string">'종료'</span>)
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. AudioPlayer                                -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-audio">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">AudioPlayer</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">커스텀 오디오 플레이어: 앨범 커버, 곡 정보, 진행 바, 볼륨</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="max-width:560px;">
+      <div id="audio-demo"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { AudioPlayer } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'media-viewer'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">AudioPlayer</span>(<span class="code-string">'#container'</span>, {
+  src: <span class="code-string">'audio.mp3'</span>,
+  title: <span class="code-string">'음악 제목'</span>,
+  artist: <span class="code-string">'아티스트'</span>,
+  cover: <span class="code-string">'cover.jpg'</span>,
+  volume: <span class="code-number">0.8</span>
+});
+
+<span class="code-comment">// 트랙 변경</span>
+player.<span class="code-function">setTrack</span>(<span class="code-string">'new.mp3'</span>, <span class="code-string">'새 제목'</span>, <span class="code-string">'새 아티스트'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. ImageViewer                                -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-imgviewer">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">ImageViewer</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">이미지 확대/축소, 회전, 다운로드 — 마우스 휠 줌 지원</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="max-width:480px;">
+      <div id="imgviewer-demo"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { ImageViewer } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'media-viewer'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">ImageViewer</span>(<span class="code-string">'#container'</span>, {
+  src: <span class="code-string">'photo.jpg'</span>,
+  alt: <span class="code-string">'사진 설명'</span>,
+  zoomable: <span class="code-keyword">true</span>,
+  rotatable: <span class="code-keyword">true</span>,
+  downloadable: <span class="code-keyword">true</span>,
+  minZoom: <span class="code-number">0.5</span>,
+  maxZoom: <span class="code-number">3</span>
+});</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. API 레퍼런스                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>클래스</th><th>주요 옵션</th><th>주요 메서드</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>EmbedVideo</code></td>
+            <td><code>url</code>, <code>ratio</code>, <code>shadow</code>, <code>rounded</code>, <code>autoplay</code></td>
+            <td><code>setSrc(url)</code>, <code>setRatio(r)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>VideoPlayer</code></td>
+            <td><code>src</code>, <code>poster</code>, <code>customControls</code>, <code>playbackRates</code></td>
+            <td><code>play()</code>, <code>pause()</code>, <code>seek(t)</code>, <code>togglePIP()</code>, <code>toggleFullscreen()</code></td>
+          </tr>
+          <tr>
+            <td><code>AudioPlayer</code></td>
+            <td><code>src</code>, <code>title</code>, <code>artist</code>, <code>cover</code>, <code>volume</code></td>
+            <td><code>play()</code>, <code>pause()</code>, <code>setTrack(src, title, artist, cover)</code></td>
+          </tr>
+          <tr>
+            <td><code>ImageViewer</code></td>
+            <td><code>src</code>, <code>alt</code>, <code>zoomable</code>, <code>rotatable</code>, <code>downloadable</code></td>
+            <td><code>zoomIn()</code>, <code>zoomOut()</code>, <code>rotate(deg)</code>, <code>reset()</code>, <code>download()</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-muted" style="font-size:0.75rem;margin:0.5rem 0 0">CSS 유틸리티: <code>.ratio</code> + <code>.ratio-21x9</code> / <code>.ratio-16x9</code> / <code>.ratio-4x3</code> / <code>.ratio-1x1</code></p>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-embed" class="doc-toc__link is-active">반응형 임베드</a></li>
+    <li class="doc-toc__item"><a href="#s-embed-api" class="doc-toc__link">EmbedVideo API</a></li>
+    <li class="doc-toc__item"><a href="#s-video" class="doc-toc__link">VideoPlayer</a></li>
+    <li class="doc-toc__item"><a href="#s-audio" class="doc-toc__link">AudioPlayer</a></li>
+    <li class="doc-toc__item"><a href="#s-imgviewer" class="doc-toc__link">ImageViewer</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var embedInstance1 = null;
+
+  (async function() {
+    var M = await IMCAT.use('media-viewer');
+
+    // EmbedVideo 데모
+    embedInstance1 = new M.EmbedVideo('#embed-demo-1', {
+      url: 'https://www.youtube.com/embed/zpOULjyy-n8?rel=0',
+      ratio: '16x9',
+      shadow: true
+    });
+    new M.EmbedVideo('#embed-demo-2', {
+      url: 'https://www.youtube.com/embed/zpOULjyy-n8?rel=0',
+      ratio: '4x3',
+      rounded: true
+    });
+
+    // VideoPlayer 데모
+    new M.VideoPlayer('#video-demo', {
+      src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      poster: 'https://picsum.photos/seed/vidposter/640/360',
+      controls: true,
+      customControls: true
+    });
+
+    // AudioPlayer 데모
+    new M.AudioPlayer('#audio-demo', {
+      src: 'https://www.w3schools.com/html/horse.ogg',
+      title: '샘플 오디오',
+      artist: 'W3Schools',
+      volume: 0.8
+    });
+
+    // ImageViewer 데모
+    new M.ImageViewer('#imgviewer-demo', {
+      src: 'https://picsum.photos/seed/imgview/800/600',
+      alt: '샘플 이미지',
+      zoomable: true,
+      rotatable: true,
+      downloadable: true
+    });
+  })();
+
+  function changeRatio(ratio) {
+    if (embedInstance1) embedInstance1.setRatio(ratio);
+  }
+</script>

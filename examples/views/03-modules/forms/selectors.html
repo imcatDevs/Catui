@@ -1,0 +1,394 @@
+<!-- Selectors: Autocomplete, MultiSelect, RangeSlider -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Selectors</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Selectors</h1>
+  <p class="page-desc">Autocomplete, MultiSelect, RangeSlider 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Autocomplete                         -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-autocomplete">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Autocomplete</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">텍스트 입력 시 자동완성 드롭다운. 배열 또는 async 함수 소스 지원.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Basic -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new Autocomplete('#el', { source: [...] })</code> — 배열 기반 자동완성.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="ac-basic" class="form-control" placeholder="도시 이름 입력...">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Highlight -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Highlight Match</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>highlight: true</code> — 검색어 일치 부분 강조 (기본값).</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="ac-highlight" class="form-control" placeholder="프로그래밍 언어 검색...">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Async Source -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Async Source</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>source: async (query) => [...]</code> — 비동기 함수 소스. 딜레이 시뮬레이션.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="ac-async" class="form-control" placeholder="과일 검색 (비동기)...">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onSelect Callback -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onSelect Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onSelect: (item) => { ... }</code> — 항목 선택 시 콜백.</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="ac-callback" class="form-control" placeholder="국가 검색...">
+            <p id="ac-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">아직 선택되지 않음</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> S = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'selectors'</span>);
+<span class="code-keyword">new</span> S.<span class="code-function">Autocomplete</span>(<span class="code-string">'#input'</span>, {
+  source: [<span class="code-string">'서울'</span>, <span class="code-string">'부산'</span>, <span class="code-string">'대구'</span>],
+  minLength: <span class="code-number">1</span>,
+  maxResults: <span class="code-number">10</span>,
+  highlight: <span class="code-keyword">true</span>,
+  onSelect: (item) => console.log(item)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: MultiSelect                          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-multiselect">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">MultiSelect</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">태그 기반 다중 선택. 검색, 태그 제거, 커스텀 태그 생성 지원.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Default -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Default</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new MultiSelect('#el', { options: [...] })</code> — 기본 다중 선택.</p>
+          </div>
+          <div style="flex:1">
+            <div id="ms-basic"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- With Remove Button / Pre-selected -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Pre-selected + Remove</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>selected: ['js','ts']</code> — 초기 선택값. &times; 버튼으로 개별 제거.</p>
+          </div>
+          <div style="flex:1">
+            <div id="ms-preselect"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Allow Create -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Allow Create</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>allowCreate: true</code> — 목록에 없는 값도 직접 입력하여 추가.</p>
+          </div>
+          <div style="flex:1">
+            <div id="ms-create"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Max Items -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Max Items Limit</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>maxItems: 3</code> — 최대 선택 수 제한.</p>
+          </div>
+          <div style="flex:1">
+            <div id="ms-max"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (values) => { ... }</code> — 선택 변경 시 콜백.</p>
+          </div>
+          <div style="flex:1">
+            <div id="ms-callback"></div>
+            <p id="ms-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">선택: []</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> S = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'selectors'</span>);
+<span class="code-keyword">new</span> S.<span class="code-function">MultiSelect</span>(<span class="code-string">'#el'</span>, {
+  options: [
+    { value: <span class="code-string">'js'</span>, label: <span class="code-string">'JavaScript'</span> },
+    { value: <span class="code-string">'ts'</span>, label: <span class="code-string">'TypeScript'</span> }
+  ],
+  selected: [<span class="code-string">'js'</span>],
+  allowCreate: <span class="code-keyword">true</span>,
+  maxItems: <span class="code-number">3</span>,
+  onChange: (values) => console.log(values)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: RangeSlider                          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-range">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">RangeSlider</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">드래그 가능한 범위 슬라이더. 단일/이중 핸들, 툴팁, 커스텀 포맷 지원.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Range (default) -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Range (이중 핸들)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>range: true, value: [20, 80]</code> — 기본 범위 선택.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-range"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Single -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Single (단일 핸들)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>range: false, value: 50</code> — 단일 값 선택.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-single"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Custom Format -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Custom Format</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>formatValue: (v) => v.toLocaleString() + '원'</code> — 값 포맷 커스터마이징.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-format"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Step -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Step</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>step: 10</code> — 10 단위로 이동.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-step"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;align-items:center;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (value) => { ... }</code> — 드래그 중 실시간 값 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="rs-callback"></div>
+            <p id="rs-result" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">값: [25, 75]</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> S = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'selectors'</span>);
+<span class="code-keyword">new</span> S.<span class="code-function">RangeSlider</span>(<span class="code-string">'#el'</span>, {
+  min: <span class="code-number">0</span>, max: <span class="code-number">100</span>,
+  value: [<span class="code-number">20</span>, <span class="code-number">80</span>],
+  step: <span class="code-number">1</span>,
+  range: <span class="code-keyword">true</span>,
+  showTooltip: <span class="code-keyword">true</span>,
+  formatValue: (v) => v + <span class="code-string">'%'</span>,
+  onChange: (val) => console.log(val)
+});</pre>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-autocomplete" class="doc-toc__link is-active">Autocomplete</a></li>
+    <li class="doc-toc__item"><a href="#s-multiselect" class="doc-toc__link">MultiSelect</a></li>
+    <li class="doc-toc__item"><a href="#s-range" class="doc-toc__link">RangeSlider</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var S = await IMCAT.use('selectors');
+
+    // ================================
+    // Autocomplete
+    // ================================
+    var cities = ['서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '수원', '성남', '고양', '용인', '창원', '화성', '청주'];
+
+    new S.Autocomplete('#ac-basic', {
+      source: cities,
+      minLength: 1
+    });
+
+    new S.Autocomplete('#ac-highlight', {
+      source: ['JavaScript', 'TypeScript', 'Python', 'Java', 'Go', 'Rust', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Kotlin'],
+      minLength: 1,
+      highlight: true
+    });
+
+    new S.Autocomplete('#ac-async', {
+      source: async function(query) {
+        await new Promise(function(r) { setTimeout(r, 500); });
+        var fruits = ['사과', '바나나', '포도', '딸기', '수박', '참외', '복숭아', '귤', '자두', '블루베리', '라즈베리', '체리'];
+        return fruits.filter(function(f) { return f.includes(query); });
+      },
+      minLength: 1,
+      delay: 200
+    });
+
+    new S.Autocomplete('#ac-callback', {
+      source: ['대한민국', '미국', '일본', '중국', '영국', '프랑스', '독일', '캐나다', '호주', '브라질'],
+      minLength: 1,
+      onSelect: function(item) {
+        document.getElementById('ac-result').textContent = '선택: ' + item;
+        document.getElementById('ac-result').style.color = 'var(--primary)';
+      }
+    });
+
+    // ================================
+    // MultiSelect
+    // ================================
+    var langOptions = [
+      { value: 'js', label: 'JavaScript' },
+      { value: 'ts', label: 'TypeScript' },
+      { value: 'py', label: 'Python' },
+      { value: 'java', label: 'Java' },
+      { value: 'go', label: 'Go' },
+      { value: 'rust', label: 'Rust' },
+      { value: 'cpp', label: 'C++' },
+      { value: 'ruby', label: 'Ruby' }
+    ];
+
+    new S.MultiSelect('#ms-basic', {
+      options: langOptions.slice(0, 5),
+      placeholder: '언어를 선택하세요'
+    });
+
+    new S.MultiSelect('#ms-preselect', {
+      options: langOptions,
+      selected: ['js', 'ts'],
+      placeholder: '언어를 선택하세요'
+    });
+
+    new S.MultiSelect('#ms-create', {
+      options: langOptions.slice(0, 4),
+      allowCreate: true,
+      placeholder: '선택 또는 직접 입력...'
+    });
+
+    new S.MultiSelect('#ms-max', {
+      options: langOptions,
+      maxItems: 3,
+      placeholder: '최대 3개 선택'
+    });
+
+    new S.MultiSelect('#ms-callback', {
+      options: langOptions.slice(0, 5),
+      placeholder: '언어를 선택하세요',
+      onChange: function(vals) {
+        document.getElementById('ms-result').textContent = '선택: [' + vals.join(', ') + ']';
+        document.getElementById('ms-result').style.color = 'var(--primary)';
+      }
+    });
+
+    // ================================
+    // RangeSlider
+    // ================================
+    new S.RangeSlider('#rs-range', {
+      min: 0, max: 100, value: [20, 80], step: 1
+    });
+
+    new S.RangeSlider('#rs-single', {
+      min: 0, max: 100, value: 50, range: false, step: 1
+    });
+
+    new S.RangeSlider('#rs-format', {
+      min: 0, max: 100000, value: [20000, 80000], step: 5000,
+      formatValue: function(v) { return v.toLocaleString() + '원'; }
+    });
+
+    new S.RangeSlider('#rs-step', {
+      min: 0, max: 100, value: [30, 70], step: 10
+    });
+
+    new S.RangeSlider('#rs-callback', {
+      min: 0, max: 100, value: [25, 75], step: 1,
+      onChange: function(val) {
+        document.getElementById('rs-result').textContent = '값: [' + val.join(', ') + ']';
+        document.getElementById('rs-result').style.color = 'var(--primary)';
+      }
+    });
+  })();
+</script>

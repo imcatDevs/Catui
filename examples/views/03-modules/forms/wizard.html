@@ -1,0 +1,290 @@
+<!-- Form Wizard: Basic, Validation, Without Progress, onComplete -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Wizard</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Form Wizard</h1>
+  <p class="page-desc">단계별 폼 위저드. 진행률 표시, 유효성 검사, 완료 콜백 지원.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Basic Wizard (5단계)                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-basic">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Basic Wizard</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">5단계 학생 등록 폼. 이전/다음 버튼으로 탐색. 각 단계별 폼 필드 구성.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <div id="wz-basic"></div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> F = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> F.<span class="code-function">FormWizard</span>(<span class="code-string">'#el'</span>, {
+  steps: [
+    { title: <span class="code-string">'학생 정보'</span>, content: <span class="code-string">'...'</span> },
+    { title: <span class="code-string">'주소'</span>, content: <span class="code-string">'...'</span> },
+    ...
+  ],
+  onComplete: (data) => console.log(data)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: Validation Support                   -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-validation">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Validation Support</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">각 단계에 <code>validate</code> 콜백 설정. 검증 실패 시 다음 단계 진행 차단.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <div id="wz-validate"></div>
+        <p id="wz-validate-msg" style="margin:0.75rem 0 0;font-size:0.8125rem;color:var(--text-secondary)"></p>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: Without Progress Bar                 -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-noprogress">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Without Progress Bar</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem"><code>showProgress: false</code> — 단계 인디케이터 없이 콘텐츠와 네비게이션만 표시.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <div id="wz-noprogress"></div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 4: onComplete Callback                  -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-complete">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">onComplete Callback</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">마지막 단계에서 완료 시 모든 패널의 폼 데이터를 자동 수집하여 콜백 전달.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <div id="wz-complete"></div>
+        <div id="wz-complete-result" style="margin-top:0.75rem"></div>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">Basic Wizard</a></li>
+    <li class="doc-toc__item"><a href="#s-validation" class="doc-toc__link">Validation</a></li>
+    <li class="doc-toc__item"><a href="#s-noprogress" class="doc-toc__link">Without Progress</a></li>
+    <li class="doc-toc__item"><a href="#s-complete" class="doc-toc__link">onComplete</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var F = await IMCAT.use('forms');
+    var _l = 'display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem';
+    var _r = 'display:grid;grid-template-columns:1fr 1fr;gap:1rem';
+
+    // ================================
+    // 1. Basic Wizard (5단계)
+    // ================================
+    new F.FormWizard('#wz-basic', {
+      steps: [
+        {
+          title: '학생 정보',
+          content:
+            '<div style="' + _r + '">' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">이름</label><input type="text" name="fullname" class="form-control" placeholder="홍길동"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">이메일</label><input type="email" name="email" class="form-control" placeholder="email@example.com"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">전화번호</label><input type="tel" name="phone" class="form-control" placeholder="010-1234-5678"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">생년월일</label><input type="date" name="dob" class="form-control"></div>' +
+            '</div>'
+        },
+        {
+          title: '주소 정보',
+          content:
+            '<div style="' + _r + '">' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">도로명 주소</label><input type="text" name="street" class="form-control" placeholder="테헤란로 123"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">도시</label><input type="text" name="city" class="form-control" placeholder="서울"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">지역</label><input type="text" name="state" class="form-control" placeholder="서울특별시"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">우편번호</label><input type="text" name="zip" class="form-control" placeholder="06235"></div>' +
+            '</div>'
+        },
+        {
+          title: '과정 선택',
+          content:
+            '<div style="' + _r + '">' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">과정</label><select name="course" class="form-control"><option value="">선택</option><option>공학</option><option>의학</option><option>경영</option></select></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">등록 유형</label><select name="enrollment" class="form-control"><option value="">선택</option><option>전일제</option><option>시간제</option></select></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">선호 시간</label><select name="batch" class="form-control"><option value="">선택</option><option>오전 (9~12시)</option><option>오후 (1~5시)</option><option>저녁 (6~9시)</option></select></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">수업 방식</label><select name="mode" class="form-control"><option value="">선택</option><option>대면</option><option>온라인</option><option>혼합</option></select></div>' +
+            '</div>'
+        },
+        {
+          title: '보호자 정보',
+          content:
+            '<div style="' + _r + '">' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">보호자 이름</label><input type="text" name="parent_name" class="form-control" placeholder="홍부모"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">관계</label><input type="text" name="relation" class="form-control" placeholder="부 / 모"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">보호자 전화</label><input type="tel" name="parent_phone" class="form-control" placeholder="010-9876-5432"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">보호자 이메일</label><input type="email" name="parent_email" class="form-control" placeholder="parent@example.com"></div>' +
+            '</div>'
+        },
+        {
+          title: '서류 제출',
+          content:
+            '<div style="max-width:28rem">' +
+              '<div style="margin-bottom:1rem"><label style="' + _l + '">신분증 사본</label><input type="file" name="id_proof" class="form-control"></div>' +
+              '<div style="margin-bottom:1rem"><label style="' + _l + '">성적증명서</label><input type="file" name="marksheet" class="form-control"></div>' +
+            '</div>'
+        }
+      ],
+      onComplete: function(data) {
+        if (typeof IMCAT !== 'undefined' && IMCAT.toast) {
+          IMCAT.toast.success('등록이 완료되었습니다!');
+        }
+      }
+    });
+
+    // ================================
+    // 2. Validation Support
+    // ================================
+    new F.FormWizard('#wz-validate', {
+      steps: [
+        {
+          title: '이름 입력',
+          content: '<div style="max-width:24rem"><label style="' + _l + '">이름 <span style="color:var(--danger-color)">*</span></label>' +
+            '<input type="text" id="wz-v-name" class="form-control" placeholder="이름을 입력하세요"></div>',
+          validate: function() {
+            var v = document.getElementById('wz-v-name');
+            if (!v || !v.value.trim()) {
+              document.getElementById('wz-validate-msg').textContent = '이름을 입력해주세요.';
+              document.getElementById('wz-validate-msg').style.color = 'var(--danger-color)';
+              if (v) { v.classList.add('is-invalid'); v.focus(); }
+              return false;
+            }
+            v.classList.remove('is-invalid');
+            v.classList.add('is-valid');
+            document.getElementById('wz-validate-msg').textContent = '';
+            return true;
+          }
+        },
+        {
+          title: '이메일 입력',
+          content: '<div style="max-width:24rem"><label style="' + _l + '">이메일 <span style="color:var(--danger-color)">*</span></label>' +
+            '<input type="email" id="wz-v-email" class="form-control" placeholder="email@example.com"></div>',
+          validate: function() {
+            var v = document.getElementById('wz-v-email');
+            if (!v || !v.value.includes('@')) {
+              document.getElementById('wz-validate-msg').textContent = '유효한 이메일을 입력해주세요.';
+              document.getElementById('wz-validate-msg').style.color = 'var(--danger-color)';
+              if (v) { v.classList.add('is-invalid'); v.focus(); }
+              return false;
+            }
+            v.classList.remove('is-invalid');
+            v.classList.add('is-valid');
+            document.getElementById('wz-validate-msg').textContent = '';
+            return true;
+          }
+        },
+        {
+          title: '전화번호',
+          content: '<div style="max-width:24rem"><label style="' + _l + '">전화번호 <span style="color:var(--danger-color)">*</span></label>' +
+            '<input type="tel" id="wz-v-phone" class="form-control" placeholder="010-1234-5678"></div>',
+          validate: function() {
+            var v = document.getElementById('wz-v-phone');
+            if (!v || v.value.trim().length < 10) {
+              document.getElementById('wz-validate-msg').textContent = '유효한 전화번호를 입력해주세요 (최소 10자).';
+              document.getElementById('wz-validate-msg').style.color = 'var(--danger-color)';
+              if (v) { v.classList.add('is-invalid'); v.focus(); }
+              return false;
+            }
+            v.classList.remove('is-invalid');
+            v.classList.add('is-valid');
+            document.getElementById('wz-validate-msg').textContent = '';
+            return true;
+          }
+        },
+        {
+          title: '완료',
+          content: '<div style="text-align:center;padding:1.5rem 0">' +
+            '<i class="material-icons-outlined" style="font-size:3rem;color:var(--success-color)">check_circle</i>' +
+            '<h4 style="margin:0.5rem 0 0.25rem;font-weight:600">검증 완료!</h4>' +
+            '<p class="text-muted" style="margin:0;font-size:0.875rem">모든 단계 검증을 통과했습니다.</p></div>'
+        }
+      ],
+      onValidationError: function(step) {
+        console.log('Validation failed at step', step);
+      }
+    });
+
+    // ================================
+    // 3. Without Progress
+    // ================================
+    new F.FormWizard('#wz-noprogress', {
+      showProgress: false,
+      steps: [
+        {
+          title: '1단계',
+          content: '<div style="padding:1rem 0"><h5 style="font-weight:600;margin-bottom:0.5rem">첫 번째 단계</h5>' +
+            '<p class="text-muted" style="font-size:0.875rem;margin:0">진행 표시줄 없이 콘텐츠와 네비게이션 버튼만 표시됩니다. 단순한 마법사 UI에 적합합니다.</p></div>'
+        },
+        {
+          title: '2단계',
+          content: '<div style="padding:1rem 0"><h5 style="font-weight:600;margin-bottom:0.5rem">두 번째 단계</h5>' +
+            '<p class="text-muted" style="font-size:0.875rem;margin:0">이전/다음 버튼으로만 탐색합니다.</p></div>'
+        },
+        {
+          title: '3단계',
+          content: '<div style="padding:1rem 0"><h5 style="font-weight:600;margin-bottom:0.5rem">마지막 단계</h5>' +
+            '<p class="text-muted" style="font-size:0.875rem;margin:0">완료 버튼을 누르면 <code>onComplete</code> 콜백이 실행됩니다.</p></div>'
+        }
+      ]
+    });
+
+    // ================================
+    // 4. onComplete Callback
+    // ================================
+    new F.FormWizard('#wz-complete', {
+      steps: [
+        {
+          title: '개인 정보',
+          content:
+            '<div style="' + _r + ';max-width:30rem">' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">이름</label><input type="text" name="fullname" class="form-control" placeholder="홍길동"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">직책</label><input type="text" name="role" class="form-control" placeholder="개발자"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">이메일</label><input type="email" name="email" class="form-control" placeholder="email@example.com"></div>' +
+              '<div style="margin-bottom:0.75rem"><label style="' + _l + '">전화번호</label><input type="tel" name="phone" class="form-control" placeholder="010-1234-5678"></div>' +
+            '</div>'
+        },
+        {
+          title: '확인',
+          content: '<div style="padding:1rem 0"><p style="font-size:0.875rem;margin:0">입력한 정보를 확인하고 <strong>완료</strong> 버튼을 누르세요. 폼 데이터가 JSON으로 아래에 출력됩니다.</p></div>'
+        }
+      ],
+      onComplete: function(data) {
+        var el = document.getElementById('wz-complete-result');
+        el.innerHTML = '<div style="padding:0.75rem;background:var(--bg-secondary);border-radius:0.5rem;border:1px solid var(--border-color)">' +
+          '<strong style="font-size:0.8125rem">수집된 데이터:</strong>' +
+          '<pre style="margin:0.5rem 0 0;font-size:0.8125rem;white-space:pre-wrap">' + JSON.stringify(data, null, 2) + '</pre></div>';
+      }
+    });
+  })();
+</script>

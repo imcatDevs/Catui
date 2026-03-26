@@ -1,0 +1,413 @@
+// ============================================
+// Overlays Module SCSS
+// Modal, Drawer, Offcanvas
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// Variables
+$overlay-backdrop-bg: rgba(0, 0, 0, 0.5);
+$overlay-backdrop-blur: 4px;
+$overlay-z-index: $z-index-modal;
+$overlay-animation-duration: 300ms;
+$overlay-border-radius: 4px;
+
+// Backdrop
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: $overlay-z-index;
+  background: $overlay-backdrop-bg;
+  backdrop-filter: blur($overlay-backdrop-blur);
+  opacity: 0;
+  transition: opacity $overlay-animation-duration ease-in-out;
+  
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
+// Modal
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  z-index: $overlay-z-index + 1;
+  width: 100%;
+  max-width: 32rem;
+  max-height: calc(100vh - 4rem);
+  background: var(--bg-primary, $bg-primary);
+  border-radius: $overlay-border-radius;
+  box-shadow: $shadow-xl;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: opacity $overlay-animation-duration ease-in-out, transform $overlay-animation-duration ease-in-out;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &--sm { max-width: 24rem; }
+  &--lg { max-width: 48rem; }
+  &--xl { max-width: 64rem; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary, $text-primary);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    color: var(--text-secondary, $text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+}
+
+// Drawer
+.drawer {
+  position: fixed;
+  z-index: $overlay-z-index + 1;
+  background: var(--bg-primary, $bg-primary);
+  box-shadow: $shadow-xl;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform $overlay-animation-duration ease-in-out;
+
+  &--left {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 90vw;
+    transform: translateX(-100%);
+
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 90vw;
+    transform: translateX(100%);
+
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--top {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50vh;
+    max-height: 90vh;
+    transform: translateY(-100%);
+
+    &.is-visible { transform: translateY(0); }
+  }
+
+  &--bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50vh;
+    max-height: 90vh;
+    transform: translateY(100%);
+
+    &.is-visible { transform: translateY(0); }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary, $text-primary);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+}
+
+// Offcanvas
+.offcanvas {
+  position: fixed;
+  z-index: $overlay-z-index + 1;
+  background: var(--bg-primary, $bg-primary);
+  box-shadow: $shadow-xl;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform $overlay-animation-duration ease-in-out;
+
+  &--left {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 400px;
+    max-width: 100vw;
+    transform: translateX(-100%);
+
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    max-width: 100vw;
+    transform: translateX(100%);
+
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--top {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    max-height: 100vh;
+    transform: translateY(-100%);
+
+    &.is-visible { transform: translateY(0); }
+  }
+
+  &--bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    max-height: 100vh;
+    transform: translateY(100%);
+
+    &.is-visible { transform: translateY(0); }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary, $text-primary);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+}
+
+// Alert Dialog
+.alert-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  z-index: $overlay-z-index + 1;
+  width: 100%;
+  max-width: 24rem;
+  background: var(--bg-primary, $bg-primary);
+  border-radius: $overlay-border-radius;
+  box-shadow: $shadow-xl;
+  opacity: 0;
+  text-align: center;
+  transition: opacity $overlay-animation-duration ease-in-out, transform $overlay-animation-duration ease-in-out;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    margin: 1.5rem auto 1rem;
+    border-radius: 50%;
+    font-size: 2rem;
+
+    &--success { background: $bg-success; color: $success; }
+    &--error { background: $bg-error; color: $error; }
+    &--warning { background: $bg-warning; color: $warning; }
+    &--info { background: $bg-info; color: $info; }
+  }
+
+  &__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary, $text-primary);
+  }
+
+  &__message {
+    margin: 0;
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-secondary, $text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  &__input {
+    width: calc(100% - 3rem);
+    margin: 0 1.5rem 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: 4px;
+    font-size: 0.9375rem;
+    background: var(--bg-primary, $bg-primary);
+    color: var(--text-primary, $text-primary);
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+  }
+
+  &__footer {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color, $border-color);
+  }
+}
+
+// Responsive
+@media (max-width: 576px) {
+  .modal {
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 4rem);
+
+    &--sm, &--lg, &--xl {
+      max-width: calc(100vw - 2rem);
+    }
+  }
+
+  .drawer {
+    &--left, &--right {
+      width: 100%;
+      max-width: 100vw;
+    }
+  }
+}

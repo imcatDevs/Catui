@@ -1,0 +1,333 @@
+<!-- Carousel -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Carousel</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Carousel</h1>
+  <p class="page-desc">이미지/콘텐츠 슬라이더 컴포넌트 — 다양한 전환 효과, 캡션, 멀티 슬라이드, 썸네일, 반응형 지원</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- 1. Slides Only -->
+<div class="demo-card" id="s-slides-only">
+  <div class="demo-card__header"><span class="demo-card__title">Slides Only</span></div>
+  <div class="demo-card__desc">화살표, 도트 없이 자동 재생만 동작하는 가장 단순한 형태입니다.</div>
+  <div class="demo-card__body"><div id="carousel-slides-only"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  autoplay: <span class="code-keyword">true</span>,
+  autoplaySpeed: <span class="code-number">3000</span>,
+  arrows: <span class="code-keyword">false</span>,
+  dots: <span class="code-keyword">false</span>,
+  draggable: <span class="code-keyword">false</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 2. With Controls -->
+<div class="demo-card" id="s-controls">
+  <div class="demo-card__header"><span class="demo-card__title">With Controls</span></div>
+  <div class="demo-card__desc">좌우 화살표(<code>arrows: true</code>)를 추가하여 수동으로 슬라이드를 전환합니다.</div>
+  <div class="demo-card__body"><div id="carousel-controls"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  arrows: <span class="code-keyword">true</span>,
+  dots: <span class="code-keyword">false</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 3. With Indicators -->
+<div class="demo-card" id="s-indicators">
+  <div class="demo-card__header"><span class="demo-card__title">With Indicators</span></div>
+  <div class="demo-card__desc">하단 도트 인디케이터(<code>dots: true</code>)와 화살표를 함께 표시합니다.</div>
+  <div class="demo-card__body"><div id="carousel-indicators"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  autoplay: <span class="code-keyword">true</span>,
+  autoplaySpeed: <span class="code-number">3000</span>,
+  dots: <span class="code-keyword">true</span>,
+  arrows: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 4. With Captions -->
+<div class="demo-card" id="s-captions">
+  <div class="demo-card__header"><span class="demo-card__title">With Captions</span></div>
+  <div class="demo-card__desc">슬라이드 아이템에 <code>title</code>과 <code>description</code>을 지정하면 이미지 위에 캡션 오버레이가 표시됩니다.</div>
+  <div class="demo-card__body"><div id="carousel-captions"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [
+    { src: <span class="code-string">'img.jpg'</span>, title: <span class="code-string">'제목'</span>, description: <span class="code-string">'설명 텍스트'</span> },
+    ...
+  ],
+  arrows: <span class="code-keyword">true</span>,
+  dots: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 5. Crossfade -->
+<div class="demo-card" id="s-fade">
+  <div class="demo-card__header"><span class="demo-card__title">Crossfade</span></div>
+  <div class="demo-card__desc"><code>effect: 'fade'</code>로 슬라이드 대신 페이드 전환을 적용합니다.</div>
+  <div class="demo-card__body"><div id="carousel-fade"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  effect: <span class="code-string">'fade'</span>,
+  autoplay: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 6. 전환 효과 모음 (IMCAT 고유: scale, flip, cube) -->
+<div class="demo-card" id="s-effects">
+  <div class="demo-card__header"><span class="demo-card__title">전환 효과 모음</span></div>
+  <div class="demo-card__desc">IMCAT Carousel은 5가지 전환 효과를 지원합니다: <code>slide</code>, <code>fade</code>, <code>scale</code>, <code>flip</code>, <code>cube</code></div>
+  <div class="demo-card__body" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+    <div>
+      <p style="margin:0 0 0.5rem;font-weight:600;font-size:0.875rem;">Scale 효과</p>
+      <div id="carousel-scale"></div>
+    </div>
+    <div>
+      <p style="margin:0 0 0.5rem;font-weight:600;font-size:0.875rem;">Flip 효과</p>
+      <div id="carousel-flip"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 사용 가능한 effect 값</span>
+effect: <span class="code-string">'slide'</span>  <span class="code-comment">// 기본 수평 슬라이드</span>
+effect: <span class="code-string">'fade'</span>   <span class="code-comment">// 페이드 인/아웃</span>
+effect: <span class="code-string">'scale'</span>  <span class="code-comment">// 축소/확대 전환</span>
+effect: <span class="code-string">'flip'</span>   <span class="code-comment">// Y축 회전 전환</span>
+effect: <span class="code-string">'cube'</span>   <span class="code-comment">// 큐브 회전 전환</span></pre>
+  </div>
+</div>
+
+<!-- 7. 멀티 슬라이드 -->
+<div class="demo-card" id="s-multi">
+  <div class="demo-card__header"><span class="demo-card__title">멀티 슬라이드</span></div>
+  <div class="demo-card__desc"><code>slidesToShow</code>로 한 번에 여러 슬라이드를 표시합니다. <code>slidesToScroll</code>로 스크롤 단위를 조절합니다.</div>
+  <div class="demo-card__body"><div id="carousel-multi"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  slidesToShow: <span class="code-number">3</span>,
+  slidesToScroll: <span class="code-number">1</span>,
+  dots: <span class="code-keyword">true</span>,
+  loop: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 8. 카운터 + 썸네일 -->
+<div class="demo-card" id="s-thumb">
+  <div class="demo-card__header"><span class="demo-card__title">카운터 &amp; 썸네일</span></div>
+  <div class="demo-card__desc"><code>thumbnails: true</code>로 하단 썸네일 네비게이션, <code>counter: true</code>로 현재/전체 카운터를 표시합니다.</div>
+  <div class="demo-card__body"><div id="carousel-thumb"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  thumbnails: <span class="code-keyword">true</span>,
+  counter: <span class="code-keyword">true</span>,
+  dots: <span class="code-keyword">false</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 9. Pause on Hover -->
+<div class="demo-card" id="s-pause">
+  <div class="demo-card__header"><span class="demo-card__title">Pause on Hover</span></div>
+  <div class="demo-card__desc"><code>pauseOnHover: true</code>(기본값)로 마우스를 올리면 자동 재생이 일시 중지됩니다. 아래 슬라이더 위에 마우스를 올려보세요.</div>
+  <div class="demo-card__body"><div id="carousel-pause"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Carousel</span>(<span class="code-string">'#container'</span>, {
+  items: [...],
+  autoplay: <span class="code-keyword">true</span>,
+  autoplaySpeed: <span class="code-number">2000</span>,
+  pauseOnHover: <span class="code-keyword">true</span>  <span class="code-comment">// 기본값</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 10. 옵션 레퍼런스 -->
+<div class="demo-card" id="s-options">
+  <div class="demo-card__header"><span class="demo-card__title">옵션 레퍼런스</span></div>
+  <div class="demo-card__desc">Carousel 컴포넌트에서 사용할 수 있는 전체 옵션 목록입니다.</div>
+  <div class="demo-card__body">
+    <table class="table table--striped" style="font-size:0.8125rem;">
+      <thead>
+        <tr><th>옵션</th><th>타입</th><th>기본값</th><th>설명</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>items</code></td><td>Array</td><td><code>[]</code></td><td>슬라이드 아이템 배열 <code>[{src, alt, title, description}]</code></td></tr>
+        <tr><td><code>startIndex</code></td><td>Number</td><td><code>0</code></td><td>시작 슬라이드 인덱스</td></tr>
+        <tr><td><code>arrows</code></td><td>Boolean</td><td><code>true</code></td><td>좌우 화살표 표시</td></tr>
+        <tr><td><code>dots</code></td><td>Boolean</td><td><code>true</code></td><td>하단 도트 인디케이터</td></tr>
+        <tr><td><code>counter</code></td><td>Boolean</td><td><code>false</code></td><td>현재/전체 카운터 표시</td></tr>
+        <tr><td><code>thumbnails</code></td><td>Boolean</td><td><code>false</code></td><td>썸네일 네비게이션</td></tr>
+        <tr><td><code>autoplay</code></td><td>Boolean</td><td><code>false</code></td><td>자동 재생</td></tr>
+        <tr><td><code>autoplaySpeed</code></td><td>Number</td><td><code>3000</code></td><td>자동 재생 간격 (ms)</td></tr>
+        <tr><td><code>pauseOnHover</code></td><td>Boolean</td><td><code>true</code></td><td>호버 시 자동 재생 일시 정지</td></tr>
+        <tr><td><code>loop</code></td><td>Boolean</td><td><code>true</code></td><td>무한 루프</td></tr>
+        <tr><td><code>slidesToShow</code></td><td>Number</td><td><code>1</code></td><td>한 번에 보여줄 슬라이드 수</td></tr>
+        <tr><td><code>slidesToScroll</code></td><td>Number</td><td><code>1</code></td><td>한 번에 스크롤할 슬라이드 수</td></tr>
+        <tr><td><code>speed</code></td><td>Number</td><td><code>300</code></td><td>전환 속도 (ms)</td></tr>
+        <tr><td><code>easing</code></td><td>String</td><td><code>'easeOutCubic'</code></td><td>전환 이징 함수</td></tr>
+        <tr><td><code>effect</code></td><td>String</td><td><code>'slide'</code></td><td>전환 효과: <code>slide</code>, <code>fade</code>, <code>scale</code>, <code>flip</code>, <code>cube</code></td></tr>
+        <tr><td><code>draggable</code></td><td>Boolean</td><td><code>true</code></td><td>드래그/스와이프 가능 여부</td></tr>
+        <tr><td><code>swipeThreshold</code></td><td>Number</td><td><code>50</code></td><td>스와이프 인식 임계값 (px)</td></tr>
+        <tr><td><code>responsive</code></td><td>Array</td><td><code>null</code></td><td>반응형 설정 <code>[{breakpoint, settings}]</code></td></tr>
+        <tr><td><code>onSlideChange</code></td><td>Function</td><td><code>null</code></td><td>슬라이드 전환 콜백 <code>(current, prev) =&gt; {}</code></td></tr>
+        <tr><td><code>onInit</code></td><td>Function</td><td><code>null</code></td><td>초기화 완료 콜백 <code>(carousel) =&gt; {}</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-slides-only" class="doc-toc__link is-active">Slides Only</a></li>
+    <li class="doc-toc__item"><a href="#s-controls" class="doc-toc__link">With Controls</a></li>
+    <li class="doc-toc__item"><a href="#s-indicators" class="doc-toc__link">With Indicators</a></li>
+    <li class="doc-toc__item"><a href="#s-captions" class="doc-toc__link">With Captions</a></li>
+    <li class="doc-toc__item"><a href="#s-fade" class="doc-toc__link">Crossfade</a></li>
+    <li class="doc-toc__item"><a href="#s-effects" class="doc-toc__link">전환 효과 모음</a></li>
+    <li class="doc-toc__item"><a href="#s-multi" class="doc-toc__link">멀티 슬라이드</a></li>
+    <li class="doc-toc__item"><a href="#s-thumb" class="doc-toc__link">카운터 &amp; 썸네일</a></li>
+    <li class="doc-toc__item"><a href="#s-pause" class="doc-toc__link">Pause on Hover</a></li>
+    <li class="doc-toc__item"><a href="#s-options" class="doc-toc__link">옵션 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var CM = await IMCAT.use('carousel');
+    var Carousel = CM.Carousel;
+
+    // 공통 슬라이드 데이터
+    var slides = [
+      { src: 'assets/images/140-800x400.jpg', alt: '슬라이드 1' },
+      { src: 'assets/images/375-800x400.jpg', alt: '슬라이드 2' },
+      { src: 'assets/images/614-800x400.jpg', alt: '슬라이드 3' },
+      { src: 'assets/images/204-800x400.jpg', alt: '슬라이드 4' },
+      { src: 'assets/images/672-800x400.jpg', alt: '슬라이드 5' }
+    ];
+
+    // 캡션 포함 슬라이드
+    var captionSlides = [
+      { src: 'assets/images/140-800x400.jpg', alt: '슬라이드 1', title: '첫 번째 슬라이드', description: '캡션 오버레이가 이미지 위에 표시됩니다.' },
+      { src: 'assets/images/375-800x400.jpg', alt: '슬라이드 2', title: '두 번째 슬라이드', description: 'title과 description 옵션으로 텍스트를 추가할 수 있습니다.' },
+      { src: 'assets/images/614-800x400.jpg', alt: '슬라이드 3', title: '세 번째 슬라이드', description: '다양한 콘텐츠를 슬라이드에 포함할 수 있습니다.' }
+    ];
+
+    // 1. Slides Only — 컨트롤 없이 자동 재생만
+    new Carousel('#carousel-slides-only', {
+      items: slides.slice(0, 3),
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: false,
+      dots: false,
+      draggable: false
+    });
+
+    // 2. With Controls — 화살표만
+    new Carousel('#carousel-controls', {
+      items: slides.slice(0, 3),
+      arrows: true,
+      dots: false
+    });
+
+    // 3. With Indicators — 도트 + 화살표 + 자동 재생
+    new Carousel('#carousel-indicators', {
+      items: slides.slice(0, 3),
+      autoplay: true,
+      autoplaySpeed: 3000,
+      dots: true,
+      arrows: true
+    });
+
+    // 4. With Captions — 캡션 오버레이
+    new Carousel('#carousel-captions', {
+      items: captionSlides,
+      arrows: true,
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: 4000
+    });
+
+    // 5. Crossfade
+    new Carousel('#carousel-fade', {
+      items: slides.slice(0, 3),
+      effect: 'fade',
+      autoplay: true,
+      autoplaySpeed: 2500,
+      dots: true,
+      arrows: true
+    });
+
+    // 6. 전환 효과: Scale
+    new Carousel('#carousel-scale', {
+      items: slides.slice(0, 3),
+      effect: 'scale',
+      autoplay: true,
+      autoplaySpeed: 2500,
+      arrows: true,
+      dots: false
+    });
+
+    // 6. 전환 효과: Flip
+    new Carousel('#carousel-flip', {
+      items: slides.slice(0, 3),
+      effect: 'flip',
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: true,
+      dots: false
+    });
+
+    // 7. 멀티 슬라이드
+    new Carousel('#carousel-multi', {
+      items: slides,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: true,
+      loop: true
+    });
+
+    // 8. 카운터 + 썸네일
+    new Carousel('#carousel-thumb', {
+      items: slides.slice(0, 4),
+      thumbnails: true,
+      counter: true,
+      dots: false,
+      arrows: true
+    });
+
+    // 9. Pause on Hover — 빠른 자동 재생 + 호버 일시정지
+    new Carousel('#carousel-pause', {
+      items: slides.slice(0, 3),
+      autoplay: true,
+      autoplaySpeed: 2000,
+      pauseOnHover: true,
+      dots: true,
+      arrows: true
+    });
+  })();
+</script>

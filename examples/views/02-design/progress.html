@@ -1,0 +1,260 @@
+<!-- Progress Bar 데모 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Progress</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Progress</h1>
+  <p class="page-desc">프로그레스바 컴포넌트 — 기본, 컬러, 스트라이프, 크기, 수직, 스택</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- 기본 예제 -->
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 예제</span></div>
+  <div class="demo-card__desc">기본 프로그레스바. <code>.progress</code> 래퍼 안에 <code>.progress__bar</code>를 배치합니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress"><div class="progress__bar" style="width:0%;"></div></div>
+    <div class="progress"><div class="progress__bar" style="width:25%;"></div></div>
+    <div class="progress"><div class="progress__bar" style="width:50%;"></div></div>
+    <div class="progress"><div class="progress__bar" style="width:75%;"></div></div>
+    <div class="progress"><div class="progress__bar" style="width:100%;"></div></div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:25%"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 라벨 -->
+<div class="demo-card" id="s-label">
+  <div class="demo-card__header"><span class="demo-card__title">라벨</span></div>
+  <div class="demo-card__desc"><code>.progress--labeled</code>를 사용하면 바 안에 텍스트 라벨을 표시할 수 있습니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress progress--labeled">
+      <div class="progress__bar" style="width:25%;"></div>
+      <span class="progress__label">25%</span>
+    </div>
+    <div class="progress progress--labeled">
+      <div class="progress__bar" style="width:65%;"></div>
+      <span class="progress__label">65%</span>
+    </div>
+    <div class="progress progress--labeled">
+      <div class="progress__bar" style="width:100%;"></div>
+      <span class="progress__label">완료!</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--labeled</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:65%"&gt;&lt;/div&gt;
+  &lt;span class="<span class="code-string">progress__label</span>"&gt;65%&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 컬러 변형 -->
+<div class="demo-card" id="s-colors">
+  <div class="demo-card__header"><span class="demo-card__title">컬러 변형</span></div>
+  <div class="demo-card__desc"><code>.progress--{color}</code> 수식어로 다양한 색상을 적용합니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress"><div class="progress__bar" style="width:20%;"></div></div>
+    <div class="progress progress--success"><div class="progress__bar" style="width:35%;"></div></div>
+    <div class="progress progress--info"><div class="progress__bar" style="width:50%;"></div></div>
+    <div class="progress progress--warning"><div class="progress__bar" style="width:65%;"></div></div>
+    <div class="progress progress--danger"><div class="progress__bar" style="width:80%;"></div></div>
+    <div class="progress progress--secondary"><div class="progress__bar" style="width:95%;"></div></div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--success</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:35%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--warning</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--danger</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--info</span>"&gt;...&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 스택(다중) -->
+<div class="demo-card" id="s-stacked">
+  <div class="demo-card__header"><span class="demo-card__title">스택 (다중 바)</span></div>
+  <div class="demo-card__desc"><code>.progress--stacked</code>로 여러 <code>.progress__bar</code>를 하나의 프로그레스바에 쌓을 수 있습니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress progress--stacked">
+      <div class="progress__bar" style="width:15%;"></div>
+      <div class="progress__bar" style="width:30%;background:var(--success-color, #22C55E);"></div>
+      <div class="progress__bar" style="width:20%;background:var(--info-color, #3B82F6);"></div>
+    </div>
+    <div class="progress progress--stacked progress--lg">
+      <div class="progress__bar" style="width:25%;"></div>
+      <div class="progress__bar" style="width:15%;background:var(--warning-color, #EAB308);"></div>
+      <div class="progress__bar" style="width:35%;background:var(--danger-color, #EF4444);"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--stacked</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:15%"&gt;&lt;/div&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:30%;background:var(--success-color, #22C55E)"&gt;&lt;/div&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:20%;background:var(--info-color, #3B82F6)"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 스트라이프 -->
+<div class="demo-card" id="s-striped">
+  <div class="demo-card__header"><span class="demo-card__title">스트라이프</span></div>
+  <div class="demo-card__desc"><code>.progress--striped</code>로 줄무늬 효과, <code>.progress--animated</code>를 추가하면 움직이는 애니메이션이 적용됩니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress progress--striped"><div class="progress__bar" style="width:15%;"></div></div>
+    <div class="progress progress--striped progress--success"><div class="progress__bar" style="width:30%;"></div></div>
+    <div class="progress progress--striped progress--info"><div class="progress__bar" style="width:50%;"></div></div>
+    <div class="progress progress--striped progress--warning"><div class="progress__bar" style="width:70%;"></div></div>
+    <div class="progress progress--striped progress--danger"><div class="progress__bar" style="width:90%;"></div></div>
+    <p class="text-secondary" style="margin:0.5rem 0 0;font-size:0.8125rem;">애니메이션 스트라이프:</p>
+    <div class="progress progress--striped progress--animated"><div class="progress__bar" style="width:75%;"></div></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 기본 스트라이프 --&gt;</span>
+&lt;div class="<span class="code-string">progress progress--striped</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:30%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- 애니메이션 스트라이프 --&gt;</span>
+&lt;div class="<span class="code-string">progress progress--striped progress--animated</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="width:75%"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 크기 -->
+<div class="demo-card" id="s-sizes">
+  <div class="demo-card__header"><span class="demo-card__title">크기</span></div>
+  <div class="demo-card__desc"><code>.progress--xs</code> ~ <code>.progress--xxl</code>로 높이를 조절합니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">xs (0.25rem)</p>
+      <div class="progress progress--xs"><div class="progress__bar" style="width:70%;"></div></div>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">sm (0.375rem)</p>
+      <div class="progress progress--sm"><div class="progress__bar" style="width:30%;"></div></div>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">기본 (0.5rem)</p>
+      <div class="progress"><div class="progress__bar" style="width:50%;"></div></div>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">lg (0.75rem)</p>
+      <div class="progress progress--lg progress--success"><div class="progress__bar" style="width:45%;"></div></div>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">xl (1rem)</p>
+      <div class="progress progress--xl progress--info"><div class="progress__bar" style="width:60%;"></div></div>
+    </div>
+    <div>
+      <p class="text-secondary" style="margin:0 0 0.25rem;font-size:0.75rem;">xxl (1.25rem)</p>
+      <div class="progress progress--xxl progress--warning"><div class="progress__bar" style="width:40%;"></div></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--xs</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--sm</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress</span>"&gt;...&lt;/div&gt;             <span class="code-comment">&lt;!-- 기본 --&gt;</span>
+&lt;div class="<span class="code-string">progress progress--lg</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--xl</span>"&gt;...&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--xxl</span>"&gt;...&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 비확정(Indeterminate) -->
+<div class="demo-card" id="s-indeterminate">
+  <div class="demo-card__header"><span class="demo-card__title">비확정 (Indeterminate)</span></div>
+  <div class="demo-card__desc"><code>.progress--indeterminate</code>로 진행률을 알 수 없는 로딩 상태를 표현합니다.</div>
+  <div class="demo-card__body" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div class="progress progress--indeterminate"><div class="progress__bar"></div></div>
+    <div class="progress progress--indeterminate progress--success"><div class="progress__bar"></div></div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--indeterminate</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 수직 프로그레스바 -->
+<div class="demo-card" id="s-vertical">
+  <div class="demo-card__header"><span class="demo-card__title">수직 프로그레스바</span></div>
+  <div class="demo-card__desc"><code>.progress--vertical</code>로 위에서 아래로 채워지는 수직 프로그레스바를 만듭니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:0;">
+    <div class="progress progress--vertical">
+      <div class="progress__bar" style="height:10%;"></div>
+    </div>
+    <div class="progress progress--vertical">
+      <div class="progress__bar" style="height:25%;background:var(--success-color, #22C55E);"></div>
+    </div>
+    <div class="progress progress--vertical progress--lg">
+      <div class="progress__bar" style="height:50%;background:var(--info-color, #3B82F6);"></div>
+    </div>
+    <div class="progress progress--vertical progress--xl">
+      <div class="progress__bar" style="height:75%;background:var(--warning-color, #EAB308);"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--vertical</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="height:25%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--vertical progress--lg</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="height:50%"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+<!-- 수직 하단 프로그레스바 -->
+<div class="demo-card" id="s-vertical-bottom">
+  <div class="demo-card__header"><span class="demo-card__title">수직 하단 프로그레스바</span></div>
+  <div class="demo-card__desc"><code>.progress--vertical-bottom</code>으로 아래에서 위로 채워지는 수직 프로그레스바를 만듭니다.</div>
+  <div class="demo-card__body" style="display:flex;align-items:flex-end;gap:0;">
+    <div class="progress progress--vertical-bottom">
+      <div class="progress__bar" style="height:10%;"></div>
+    </div>
+    <div class="progress progress--vertical-bottom">
+      <div class="progress__bar" style="height:25%;background:var(--success-color, #22C55E);"></div>
+    </div>
+    <div class="progress progress--vertical-bottom progress--lg">
+      <div class="progress__bar" style="height:50%;background:var(--info-color, #3B82F6);"></div>
+    </div>
+    <div class="progress progress--vertical-bottom progress--xl">
+      <div class="progress__bar" style="height:75%;background:var(--warning-color, #EAB308);"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;div class="<span class="code-string">progress progress--vertical-bottom</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="height:25%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="<span class="code-string">progress progress--vertical-bottom progress--xl</span>"&gt;
+  &lt;div class="<span class="code-string">progress__bar</span>" style="height:75%"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 예제</a></li>
+    <li class="doc-toc__item"><a href="#s-label" class="doc-toc__link">라벨</a></li>
+    <li class="doc-toc__item"><a href="#s-colors" class="doc-toc__link">컬러 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-stacked" class="doc-toc__link">스택 (다중 바)</a></li>
+    <li class="doc-toc__item"><a href="#s-striped" class="doc-toc__link">스트라이프</a></li>
+    <li class="doc-toc__item"><a href="#s-sizes" class="doc-toc__link">크기</a></li>
+    <li class="doc-toc__item"><a href="#s-indeterminate" class="doc-toc__link">비확정</a></li>
+    <li class="doc-toc__item"><a href="#s-vertical" class="doc-toc__link">수직</a></li>
+    <li class="doc-toc__item"><a href="#s-vertical-bottom" class="doc-toc__link">수직 하단</a></li>
+  </ul>
+</aside>
+</div>

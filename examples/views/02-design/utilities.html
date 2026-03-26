@@ -1,0 +1,848 @@
+<!-- Utilities -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인</li>
+      <li class="breadcrumb-item active">유틸리티</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">유틸리티</h1>
+  <p class="page-desc">CSS 유틸리티 클래스</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. Color & Background                        -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-color-bg">
+  <div class="demo-card__header"><span class="demo-card__title">Color &amp; Background</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.text-bg-*</code> 유틸리티로 배경색과 대비 텍스트 색상을 한 번에 적용합니다.
+    </p>
+    <div class="d-flex flex-column gap-2">
+      <div class="text-bg-primary p-2 rounded">Primary (.text-bg-primary)</div>
+      <div class="text-bg-secondary p-2 rounded">Secondary (.text-bg-secondary)</div>
+      <div class="text-bg-success p-2 rounded">Success (.text-bg-success)</div>
+      <div class="text-bg-danger p-2 rounded">Danger (.text-bg-danger)</div>
+      <div class="text-bg-warning p-2 rounded">Warning (.text-bg-warning)</div>
+      <div class="text-bg-info p-2 rounded">Info (.text-bg-info)</div>
+      <div class="text-bg-light p-2 rounded">Light (.text-bg-light)</div>
+      <div class="text-bg-dark p-2 rounded">Dark (.text-bg-dark)</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"text-bg-primary p-2"</span>&gt;Primary&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"text-bg-success p-2"</span>&gt;Success&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"text-bg-warning p-2"</span>&gt;Warning&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"text-bg-dark p-2"</span>&gt;Dark&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. Background Opacity                        -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-bg-opacity">
+  <div class="demo-card__header"><span class="demo-card__title">Background Opacity</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.bg-opacity-*</code> 클래스로 배경색의 투명도를 조절합니다.
+    </p>
+    <div class="d-flex flex-column gap-1" style="max-width:400px">
+      <div class="bg-primary p-2 text-white rounded">기본 Primary</div>
+      <div class="bg-primary bg-opacity-75 p-2 text-white rounded">75% opacity</div>
+      <div class="bg-primary bg-opacity-50 p-2 rounded">50% opacity</div>
+      <div class="bg-primary bg-opacity-25 p-2 rounded">25% opacity</div>
+      <div class="bg-primary bg-opacity-10 p-2 rounded">10% opacity</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-primary p-2 text-white"</span>&gt;기본&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-primary bg-opacity-75 p-2"</span>&gt;75%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-primary bg-opacity-50 p-2"</span>&gt;50%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-primary bg-opacity-25 p-2"</span>&gt;25%&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. Opacity                                    -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-opacity">
+  <div class="demo-card__header"><span class="demo-card__title">Opacity</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.opacity-*</code> 클래스로 요소 전체 투명도를 설정합니다.
+    </p>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="opacity-100 p-2 bg-primary text-white fw-bold rounded">100%</div>
+      <div class="opacity-75 p-2 bg-primary text-white fw-bold rounded">75%</div>
+      <div class="opacity-50 p-2 bg-primary text-white fw-bold rounded">50%</div>
+      <div class="opacity-25 p-2 bg-primary text-white fw-bold rounded">25%</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"opacity-100 bg-primary"</span>&gt;100%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"opacity-75 bg-primary"</span>&gt;75%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"opacity-50 bg-primary"</span>&gt;50%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"opacity-25 bg-primary"</span>&gt;25%&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. Border Radius                              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-border-radius">
+  <div class="demo-card__header"><span class="demo-card__title">Border Radius</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      방향별 / 크기별 border-radius 유틸리티
+    </p>
+    <h6 class="fw-semibold mb-2">방향별</h6>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <div class="bg-light border p-3 rounded" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">.rounded</div>
+      <div class="bg-light border p-3 rounded-top" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">top</div>
+      <div class="bg-light border p-3 rounded-end" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">end</div>
+      <div class="bg-light border p-3 rounded-bottom" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">bottom</div>
+      <div class="bg-light border p-3 rounded-start" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">start</div>
+      <div class="bg-light border p-3 rounded-circle" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">circle</div>
+      <div class="bg-light border p-3 rounded-pill" style="width:80px;height:40px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">pill</div>
+    </div>
+    <h6 class="fw-semibold mb-2">크기별</h6>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="bg-light border p-3 rounded-0" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">0</div>
+      <div class="bg-light border p-3 rounded-1" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">1</div>
+      <div class="bg-light border p-3 rounded-2" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">2</div>
+      <div class="bg-light border p-3 rounded-3" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">3</div>
+      <div class="bg-light border p-3 rounded-4" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">4</div>
+      <div class="bg-light border p-3 rounded-5" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6875rem">5</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 방향별 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-top"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-circle"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-pill"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 크기별 (0~5) --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-0"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-3"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"rounded-5"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. Shadows                                    -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-shadows">
+  <div class="demo-card__header"><span class="demo-card__title">Shadows</span></div>
+  <div class="demo-card__body">
+    <div class="d-flex flex-column gap-2" style="max-width:400px">
+      <div class="shadow-none p-2 bg-light rounded">No shadow (.shadow-none)</div>
+      <div class="shadow-sm p-2 rounded">Small shadow (.shadow-sm)</div>
+      <div class="shadow p-2 rounded">Regular shadow (.shadow)</div>
+      <div class="shadow-md p-2 rounded">Medium shadow (.shadow-md)</div>
+      <div class="shadow-lg p-2 rounded">Large shadow (.shadow-lg)</div>
+      <div class="shadow-xl p-2 rounded">Extra large (.shadow-xl)</div>
+      <div class="shadow-2xl p-2 rounded">2XL shadow (.shadow-2xl)</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow-sm"</span>&gt;Small&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow"</span>&gt;Regular&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow-md"</span>&gt;Medium&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow-lg"</span>&gt;Large&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow-xl"</span>&gt;XL&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"shadow-2xl"</span>&gt;2XL&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-1. Border Color & Width                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-border-color">
+  <div class="demo-card__header"><span class="demo-card__title">Border Color &amp; Width</span></div>
+  <div class="demo-card__body">
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">색상별 Border</h6>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <div class="border border-primary p-2 rounded" style="font-size:0.75rem">.border-primary</div>
+      <div class="border border-success p-2 rounded" style="font-size:0.75rem">.border-success</div>
+      <div class="border border-danger p-2 rounded" style="font-size:0.75rem">.border-danger</div>
+      <div class="border border-warning p-2 rounded" style="font-size:0.75rem">.border-warning</div>
+      <div class="border border-info p-2 rounded" style="font-size:0.75rem">.border-info</div>
+      <div class="border border-dark p-2 rounded" style="font-size:0.75rem">.border-dark</div>
+      <div class="border border-light p-2 rounded bg-dark text-white" style="font-size:0.75rem">.border-light</div>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">두께별 Border</h6>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="border border-1 p-2 rounded" style="font-size:0.75rem">.border-1</div>
+      <div class="border border-2 p-2 rounded" style="font-size:0.75rem">.border-2</div>
+      <div class="border border-3 p-2 rounded" style="font-size:0.75rem">.border-3</div>
+      <div class="border border-4 p-2 rounded" style="font-size:0.75rem">.border-4</div>
+      <div class="border border-5 p-2 rounded" style="font-size:0.75rem">.border-5</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"border border-primary"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"border border-3"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-2. Container                                -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-container">
+  <div class="demo-card__header"><span class="demo-card__title">Container</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.container</code>는 반응형 max-width를 적용하고, <code>.container-fluid</code>는 항상 100% 너비입니다.
+    </p>
+    <div class="bg-light border rounded p-3 mb-2">
+      <div class="container bg-primary bg-opacity-10 p-2 rounded text-center" style="font-size:0.75rem">.container (반응형 max-width)</div>
+    </div>
+    <div class="bg-light border rounded p-3">
+      <div class="container-fluid bg-primary bg-opacity-10 p-2 rounded text-center" style="font-size:0.75rem">.container-fluid (100%)</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"container"</span>&gt;반응형 컨테이너&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"container-fluid"</span>&gt;100% 컨테이너&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-3. Cursor                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-cursor">
+  <div class="demo-card__header"><span class="demo-card__title">Cursor</span></div>
+  <div class="demo-card__body">
+    <div class="d-flex flex-wrap gap-2">
+      <div class="cursor-pointer p-2 bg-light rounded" style="font-size:0.75rem">.cursor-pointer</div>
+      <div class="cursor-default p-2 bg-light rounded" style="font-size:0.75rem">.cursor-default</div>
+      <div class="cursor-not-allowed p-2 bg-light rounded" style="font-size:0.75rem">.cursor-not-allowed</div>
+      <div class="cursor-wait p-2 bg-light rounded" style="font-size:0.75rem">.cursor-wait</div>
+      <div class="cursor-text p-2 bg-light rounded" style="font-size:0.75rem">.cursor-text</div>
+      <div class="cursor-move p-2 bg-light rounded" style="font-size:0.75rem">.cursor-move</div>
+      <div class="cursor-grab p-2 bg-light rounded" style="font-size:0.75rem">.cursor-grab</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"cursor-pointer"</span>&gt;클릭 가능&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"cursor-not-allowed"</span>&gt;금지&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-4. Float & Clearfix                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-float">
+  <div class="demo-card__header"><span class="demo-card__title">Float &amp; Clearfix</span></div>
+  <div class="demo-card__body">
+    <div class="clearfix bg-light border rounded p-2 mb-2">
+      <div class="float-start bg-primary text-white p-2 rounded me-2" style="font-size:0.75rem">.float-start</div>
+      <p class="mb-0" style="font-size:0.8125rem">텍스트가 왼쪽 플로트 요소를 감쌉니다. clearfix로 부모가 자식을 포함합니다.</p>
+    </div>
+    <div class="clearfix bg-light border rounded p-2">
+      <div class="float-end bg-primary text-white p-2 rounded ms-2" style="font-size:0.75rem">.float-end</div>
+      <p class="mb-0" style="font-size:0.8125rem">텍스트가 오른쪽 플로트 요소를 감쌉니다.</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"clearfix"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"float-start"</span>&gt;왼쪽&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">p</span>&gt;텍스트...&lt;/<span class="code-tag">p</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-5. Vertical Align                           -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-valign">
+  <div class="demo-card__header"><span class="demo-card__title">Vertical Align</span></div>
+  <div class="demo-card__body">
+    <div class="bg-light border rounded p-2" style="font-size:0.75rem; line-height:3rem;">
+      <span class="align-top bg-primary text-white p-1 rounded">.align-top</span>
+      <span class="align-middle bg-success text-white p-1 rounded">.align-middle</span>
+      <span class="align-bottom bg-danger text-white p-1 rounded">.align-bottom</span>
+      <span class="align-baseline bg-warning p-1 rounded">.align-baseline</span>
+      <span class="align-text-top bg-info text-white p-1 rounded">.align-text-top</span>
+      <span class="align-text-bottom bg-secondary text-white p-1 rounded">.align-text-bottom</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">span</span> <span class="code-attr">class</span>=<span class="code-string">"align-middle"</span>&gt;수직 중앙&lt;/<span class="code-tag">span</span>&gt;
+&lt;<span class="code-tag">span</span> <span class="code-attr">class</span>=<span class="code-string">"align-top"</span>&gt;상단&lt;/<span class="code-tag">span</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-6. Ratio (Aspect Ratio)                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-ratio">
+  <div class="demo-card__header"><span class="demo-card__title">Aspect Ratio</span></div>
+  <div class="demo-card__body">
+    <div class="d-flex flex-wrap gap-3">
+      <div style="width:150px">
+        <div class="ratio ratio-1x1 bg-light border rounded">
+          <div class="d-flex align-items-center justify-content-center" style="font-size:0.75rem">1:1</div>
+        </div>
+        <code style="font-size:0.625rem">.ratio-1x1</code>
+      </div>
+      <div style="width:200px">
+        <div class="ratio ratio-4x3 bg-light border rounded">
+          <div class="d-flex align-items-center justify-content-center" style="font-size:0.75rem">4:3</div>
+        </div>
+        <code style="font-size:0.625rem">.ratio-4x3</code>
+      </div>
+      <div style="width:200px">
+        <div class="ratio ratio-16x9 bg-light border rounded">
+          <div class="d-flex align-items-center justify-content-center" style="font-size:0.75rem">16:9</div>
+        </div>
+        <code style="font-size:0.625rem">.ratio-16x9</code>
+      </div>
+      <div style="width:200px">
+        <div class="ratio ratio-21x9 bg-light border rounded">
+          <div class="d-flex align-items-center justify-content-center" style="font-size:0.75rem">21:9</div>
+        </div>
+        <code style="font-size:0.625rem">.ratio-21x9</code>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"ratio ratio-16x9"</span>&gt;
+  &lt;<span class="code-tag">iframe</span> <span class="code-attr">src</span>=<span class="code-string">"..."</span>&gt;&lt;/<span class="code-tag">iframe</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-7. Visually Hidden                          -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-sr-only">
+  <div class="demo-card__header"><span class="demo-card__title">Visually Hidden (접근성)</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.visually-hidden</code> / <code>.sr-only</code>는 시각적으로 숨기지만 스크린 리더에는 읽흩니다.
+    </p>
+    <div class="bg-light border rounded p-3">
+      <span class="visually-hidden">이 텍스트는 스크린 리더만 읽을 수 있습니다</span>
+      <p class="mb-0" style="font-size:0.8125rem">위에 <code>.visually-hidden</code> 요소가 있지만 보이지 않습니다.</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">span</span> <span class="code-attr">class</span>=<span class="code-string">"visually-hidden"</span>&gt;스크린 리더용&lt;/<span class="code-tag">span</span>&gt;
+&lt;<span class="code-tag">span</span> <span class="code-attr">class</span>=<span class="code-string">"sr-only"</span>&gt;별칭&lt;/<span class="code-tag">span</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5-8. Order & Flex 확장                         -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-order">
+  <div class="demo-card__header"><span class="demo-card__title">Order &amp; Flex 확장</span></div>
+  <div class="demo-card__body">
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Order</h6>
+    <div class="d-flex gap-1 mb-3">
+      <div class="order-3 bg-primary text-white p-2 rounded" style="font-size:0.75rem">A (.order-3)</div>
+      <div class="order-1 bg-success text-white p-2 rounded" style="font-size:0.75rem">B (.order-1)</div>
+      <div class="order-2 bg-warning p-2 rounded" style="font-size:0.75rem">C (.order-2)</div>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Flex Shrink / Grow</h6>
+    <div class="d-flex gap-1">
+      <div class="flex-grow-1 bg-primary text-white p-2 rounded" style="font-size:0.75rem">.flex-grow-1</div>
+      <div class="flex-shrink-0 bg-light border p-2 rounded" style="font-size:0.75rem">.flex-shrink-0 (축소 안 됨)</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex"</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"order-3"</span>&gt;A&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"order-1"</span>&gt;B&lt;/<span class="code-tag">div</span>&gt;
+  &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"order-2"</span>&gt;C&lt;/<span class="code-tag">div</span>&gt;
+&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. Position                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-position">
+  <div class="demo-card__header"><span class="demo-card__title">Position</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1.5rem;">
+      <!-- Arrange -->
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">엣지 배치</h6>
+        <div class="position-relative bg-light border rounded" style="height:150px">
+          <div class="position-absolute top-0 start-0 bg-dark rounded" style="width:24px;height:24px"></div>
+          <div class="position-absolute top-0 end-0 bg-dark rounded" style="width:24px;height:24px"></div>
+          <div class="position-absolute top-50 start-50 bg-dark rounded" style="width:24px;height:24px"></div>
+          <div class="position-absolute bottom-0 start-0 bg-dark rounded" style="width:24px;height:24px"></div>
+          <div class="position-absolute bottom-0 end-0 bg-dark rounded" style="width:24px;height:24px"></div>
+        </div>
+      </div>
+      <!-- Center -->
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">translate-middle</h6>
+        <div class="position-relative bg-light border rounded" style="height:150px">
+          <div class="position-absolute top-0 start-0 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-0 start-50 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-0 start-100 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 start-0 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 start-50 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 start-100 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-100 start-0 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-100 start-50 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-100 start-100 translate-middle bg-primary rounded-circle" style="width:20px;height:20px"></div>
+        </div>
+      </div>
+      <!-- Axis -->
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">translate-middle-x/y</h6>
+        <div class="position-relative bg-light border rounded" style="height:150px">
+          <div class="position-absolute top-0 start-50 translate-middle-x bg-success rounded" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 start-0 translate-middle-y bg-success rounded" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 start-50 translate-middle bg-success rounded" style="width:20px;height:20px"></div>
+          <div class="position-absolute top-50 end-0 translate-middle-y bg-success rounded" style="width:20px;height:20px"></div>
+          <div class="position-absolute bottom-0 start-50 translate-middle-x bg-success rounded" style="width:20px;height:20px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- 엣지 배치 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"position-absolute top-0 start-0"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"position-absolute bottom-0 end-0"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 중앙 배치 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"position-absolute top-50 start-50 translate-middle"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- 축별 중앙 --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"position-absolute top-0 start-50 translate-middle-x"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"position-absolute top-50 start-0 translate-middle-y"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 7. Width & Height                             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-sizing">
+  <div class="demo-card__header"><span class="demo-card__title">Width &amp; Height</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Width</h6>
+        <div class="w-25 p-2 bg-light rounded mb-1" style="font-size:0.75rem">.w-25</div>
+        <div class="w-50 p-2 bg-light rounded mb-1" style="font-size:0.75rem">.w-50</div>
+        <div class="w-75 p-2 bg-light rounded mb-1" style="font-size:0.75rem">.w-75</div>
+        <div class="w-100 p-2 bg-light rounded mb-1" style="font-size:0.75rem">.w-100</div>
+        <div class="w-auto p-2 bg-light rounded" style="font-size:0.75rem;display:inline-block">.w-auto</div>
+      </div>
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Height</h6>
+        <div class="d-flex flex-wrap gap-2 align-items-start" style="height:200px">
+          <div class="h-25 p-2 bg-light rounded" style="font-size:0.75rem">.h-25</div>
+          <div class="h-50 p-2 bg-light rounded" style="font-size:0.75rem">.h-50</div>
+          <div class="h-75 p-2 bg-light rounded" style="font-size:0.75rem">.h-75</div>
+          <div class="h-100 p-2 bg-light rounded" style="font-size:0.75rem">.h-100</div>
+          <div class="h-auto p-2 bg-light rounded" style="font-size:0.75rem">.h-auto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"w-25"</span>&gt;25%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"w-50"</span>&gt;50%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"w-100"</span>&gt;100%&lt;/<span class="code-tag">div</span>&gt;
+
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"h-25"</span>&gt;25%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"h-50"</span>&gt;50%&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"h-100"</span>&gt;100%&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 8. Object Fit                                 -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-object-fit">
+  <div class="demo-card__header"><span class="demo-card__title">Object Fit</span></div>
+  <div class="demo-card__body">
+    <div class="d-flex flex-wrap gap-3 text-center">
+      <div>
+        <div class="border rounded" style="width:100px;height:100px;overflow:hidden">
+          <img src="https://picsum.photos/seed/objfit/200/300" class="object-fit-contain w-100 h-100" alt="contain">
+        </div>
+        <code style="font-size:0.6875rem">.object-fit-contain</code>
+      </div>
+      <div>
+        <div class="border rounded" style="width:100px;height:100px;overflow:hidden">
+          <img src="https://picsum.photos/seed/objfit/200/300" class="object-fit-cover w-100 h-100" alt="cover">
+        </div>
+        <code style="font-size:0.6875rem">.object-fit-cover</code>
+      </div>
+      <div>
+        <div class="border rounded" style="width:100px;height:100px;overflow:hidden">
+          <img src="https://picsum.photos/seed/objfit/200/300" class="object-fit-fill w-100 h-100" alt="fill">
+        </div>
+        <code style="font-size:0.6875rem">.object-fit-fill</code>
+      </div>
+      <div>
+        <div class="border rounded" style="width:100px;height:100px;overflow:hidden">
+          <img src="https://picsum.photos/seed/objfit/200/300" class="object-fit-scale w-100 h-100" alt="scale">
+        </div>
+        <code style="font-size:0.6875rem">.object-fit-scale</code>
+      </div>
+      <div>
+        <div class="border rounded" style="width:100px;height:100px;overflow:hidden">
+          <img src="https://picsum.photos/seed/objfit/200/300" class="object-fit-none w-100 h-100" alt="none">
+        </div>
+        <code style="font-size:0.6875rem">.object-fit-none</code>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"object-fit-contain"</span> ...&gt;
+&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"object-fit-cover"</span> ...&gt;
+&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"object-fit-fill"</span> ...&gt;
+&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"object-fit-scale"</span> ...&gt;
+&lt;<span class="code-tag">img</span> <span class="code-attr">class</span>=<span class="code-string">"object-fit-none"</span> ...&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 9. Overflow                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-overflow">
+  <div class="demo-card__header"><span class="demo-card__title">Overflow</span></div>
+  <div class="demo-card__body">
+    <div class="d-flex flex-wrap gap-3">
+      <div class="overflow-auto p-2 bg-light rounded" style="max-width:200px; max-height:80px; font-size:0.75rem">
+        <code>.overflow-auto</code> — 이 영역은 내용이 넘치면 스크롤바가 자동으로 나타납니다. 충분히 긴 텍스트를 넣어서 확인할 수 있습니다.
+      </div>
+      <div class="overflow-hidden p-2 bg-light rounded" style="max-width:200px; max-height:80px; font-size:0.75rem">
+        <code>.overflow-hidden</code> — 이 영역은 내용이 넘치면 잘립니다. 스크롤바가 나타나지 않습니다.
+      </div>
+      <div class="overflow-visible p-2 bg-light rounded" style="max-width:200px; max-height:80px; font-size:0.75rem">
+        <code>.overflow-visible</code> — 이 영역은 내용이 넘쳐서 밖으로 보입니다.
+      </div>
+      <div class="overflow-scroll p-2 bg-light rounded" style="max-width:200px; max-height:80px; font-size:0.75rem">
+        <code>.overflow-scroll</code> — 이 영역은 항상 스크롤바가 표시됩니다.
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"overflow-auto"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"overflow-hidden"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"overflow-visible"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"overflow-scroll"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 10. Pointer Events & User Select              -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-interaction">
+  <div class="demo-card__header"><span class="demo-card__title">Pointer Events &amp; User Select</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Pointer Events</h6>
+        <p style="font-size:0.8125rem"><a href="#" class="pe-none" tabindex="-1">이 링크</a>는 클릭할 수 없습니다. (<code>.pe-none</code>)</p>
+        <p style="font-size:0.8125rem"><a href="#">이 링크</a>는 정상 동작합니다. (<code>.pe-auto</code>)</p>
+      </div>
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">User Select</h6>
+        <p class="user-select-all bg-light p-2 rounded" style="font-size:0.8125rem">클릭 시 전체 선택됩니다. (<code>.user-select-all</code>)</p>
+        <p class="user-select-none bg-light p-2 rounded" style="font-size:0.8125rem">텍스트를 선택할 수 없습니다. (<code>.user-select-none</code>)</p>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Pointer Events --&gt;</span>
+&lt;<span class="code-tag">a</span> <span class="code-attr">href</span>=<span class="code-string">"#"</span> <span class="code-attr">class</span>=<span class="code-string">"pe-none"</span>&gt;클릭 불가&lt;/<span class="code-tag">a</span>&gt;
+&lt;<span class="code-tag">a</span> <span class="code-attr">href</span>=<span class="code-string">"#"</span> <span class="code-attr">class</span>=<span class="code-string">"pe-auto"</span>&gt;클릭 가능&lt;/<span class="code-tag">a</span>&gt;
+
+<span class="code-comment">&lt;!-- User Select --&gt;</span>
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"user-select-all"</span>&gt;전체 선택&lt;/<span class="code-tag">p</span>&gt;
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"user-select-none"</span>&gt;선택 불가&lt;/<span class="code-tag">p</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 11. Z-index                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-zindex">
+  <div class="demo-card__header"><span class="demo-card__title">Z-index</span></div>
+  <div class="demo-card__body">
+    <div class="position-relative" style="height:180px; z-index:1;">
+      <div class="z-3 position-absolute p-4 rounded-3 bg-primary opacity-75" style="top:0;left:0"></div>
+      <div class="z-2 position-absolute p-4 rounded-3 bg-success opacity-75" style="top:16px;left:16px"></div>
+      <div class="z-1 position-absolute p-4 rounded-3 bg-warning opacity-75" style="top:32px;left:32px"></div>
+      <div class="z-0 position-absolute p-4 rounded-3 bg-danger opacity-75" style="top:48px;left:48px"></div>
+      <div class="z-n1 position-absolute p-4 rounded-3 bg-info opacity-75" style="top:64px;left:64px"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"z-3 position-absolute"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"z-2 position-absolute"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"z-1 position-absolute"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"z-0 position-absolute"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"z-n1 position-absolute"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 12. Display & Flex                            -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-display">
+  <div class="demo-card__header"><span class="demo-card__title">Display &amp; Flex</span></div>
+  <div class="demo-card__body">
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Display</h6>
+    <div class="d-flex flex-wrap gap-2 mb-3" style="font-size:0.75rem">
+      <code class="p-1 bg-light rounded">.d-none</code>
+      <code class="p-1 bg-light rounded">.d-block</code>
+      <code class="p-1 bg-light rounded">.d-inline</code>
+      <code class="p-1 bg-light rounded">.d-inline-block</code>
+      <code class="p-1 bg-light rounded">.d-flex</code>
+      <code class="p-1 bg-light rounded">.d-inline-flex</code>
+      <code class="p-1 bg-light rounded">.d-grid</code>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Flex Direction</h6>
+    <div class="d-flex gap-2 mb-2">
+      <div class="d-flex flex-row gap-1 bg-light p-2 rounded" style="font-size:0.6875rem">
+        <span class="bg-primary text-white p-1 rounded">1</span>
+        <span class="bg-primary text-white p-1 rounded">2</span>
+        <span class="bg-primary text-white p-1 rounded">3</span>
+        <code style="font-size:0.625rem">.flex-row</code>
+      </div>
+      <div class="d-flex flex-column gap-1 bg-light p-2 rounded" style="font-size:0.6875rem">
+        <span class="bg-primary text-white p-1 rounded">1</span>
+        <span class="bg-primary text-white p-1 rounded">2</span>
+        <code style="font-size:0.625rem">.flex-column</code>
+      </div>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Justify Content</h6>
+    <div class="d-flex flex-column gap-1 mb-2">
+      <div class="d-flex justify-content-start gap-1 bg-light p-2 rounded" style="font-size:0.625rem"><span class="bg-primary text-white p-1 rounded">1</span><span class="bg-primary text-white p-1 rounded">2</span><span class="bg-primary text-white p-1 rounded">3</span><code class="ms-auto">.justify-content-start</code></div>
+      <div class="d-flex justify-content-center gap-1 bg-light p-2 rounded" style="font-size:0.625rem"><span class="bg-primary text-white p-1 rounded">1</span><span class="bg-primary text-white p-1 rounded">2</span><span class="bg-primary text-white p-1 rounded">3</span></div>
+      <div class="d-flex justify-content-between gap-1 bg-light p-2 rounded" style="font-size:0.625rem"><span class="bg-primary text-white p-1 rounded">1</span><span class="bg-primary text-white p-1 rounded">2</span><span class="bg-primary text-white p-1 rounded">3</span></div>
+      <div class="d-flex justify-content-evenly gap-1 bg-light p-2 rounded" style="font-size:0.625rem"><span class="bg-primary text-white p-1 rounded">1</span><span class="bg-primary text-white p-1 rounded">2</span><span class="bg-primary text-white p-1 rounded">3</span></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Display --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-none"</span>&gt;숨김&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- Flex --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex flex-row gap-2"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex flex-column"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex justify-content-between"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex justify-content-evenly"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex align-items-center"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 13. Font & Text                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-font-text">
+  <div class="demo-card__header"><span class="demo-card__title">Font &amp; Text</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Font Weight (fw-*)</h6>
+        <p class="fw-light mb-1">.fw-light — 가벼운 텍스트</p>
+        <p class="fw-normal mb-1">.fw-normal — 보통 텍스트</p>
+        <p class="fw-medium mb-1">.fw-medium — 중간 굵기</p>
+        <p class="fw-semibold mb-1">.fw-semibold — 세미볼드</p>
+        <p class="fw-bold mb-1">.fw-bold — 볼드 텍스트</p>
+      </div>
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Font Size (fs-*)</h6>
+        <p class="fs-1 mb-1" style="line-height:1.2">.fs-1</p>
+        <p class="fs-3 mb-1" style="line-height:1.2">.fs-3</p>
+        <p class="fs-5 mb-1">.fs-5</p>
+        <p class="fs-6 mb-1">.fs-6</p>
+        <p class="fs-sm mb-1">.fs-sm</p>
+        <p class="fs-xs mb-0">.fs-xs</p>
+      </div>
+    </div>
+    <hr>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Text Align</h6>
+        <p class="text-start bg-light p-1 rounded mb-1" style="font-size:0.8125rem">.text-start (왼쪽)</p>
+        <p class="text-center bg-light p-1 rounded mb-1" style="font-size:0.8125rem">.text-center (가운데)</p>
+        <p class="text-end bg-light p-1 rounded mb-1" style="font-size:0.8125rem">.text-end (오른쪽)</p>
+      </div>
+      <div>
+        <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Text Truncate / Wrap</h6>
+        <p class="text-truncate bg-light p-1 rounded mb-1" style="font-size:0.8125rem;max-width:250px">.text-truncate — 이 텍스트는 길어지면 말줄임 처리됩니다</p>
+        <p class="text-nowrap bg-light p-1 rounded mb-1" style="font-size:0.8125rem;max-width:250px;overflow:hidden">.text-nowrap — 줄바꿈 없음</p>
+        <p class="text-break bg-light p-1 rounded mb-0" style="font-size:0.8125rem;max-width:250px">.text-break — averylongwordthatwillbreakintomultiplelines</p>
+      </div>
+    </div>
+    <hr>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Line Height (lh-*)</h6>
+    <div class="d-flex flex-wrap gap-3" style="font-size:0.8125rem">
+      <div class="bg-light p-2 rounded lh-1" style="max-width:120px">.lh-1<br>줄 높이 1</div>
+      <div class="bg-light p-2 rounded lh-sm" style="max-width:120px">.lh-sm<br>줄 높이 sm</div>
+      <div class="bg-light p-2 rounded lh-base" style="max-width:120px">.lh-base<br>줄 높이 base</div>
+      <div class="bg-light p-2 rounded lh-lg" style="max-width:120px">.lh-lg<br>줄 높이 lg</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Font Weight --&gt;</span>
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"fw-bold"</span>&gt;볼드&lt;/<span class="code-tag">p</span>&gt;
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"fw-semibold"</span>&gt;세미볼드&lt;/<span class="code-tag">p</span>&gt;
+
+<span class="code-comment">&lt;!-- Font Size --&gt;</span>
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"fs-4"</span>&gt;1.5rem&lt;/<span class="code-tag">p</span>&gt;
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"fs-sm"</span>&gt;0.875rem&lt;/<span class="code-tag">p</span>&gt;
+
+<span class="code-comment">&lt;!-- Text --&gt;</span>
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"text-truncate"</span>&gt;말줄임&lt;/<span class="code-tag">p</span>&gt;
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"text-nowrap"</span>&gt;줄바꿈 없음&lt;/<span class="code-tag">p</span>&gt;
+&lt;<span class="code-tag">p</span> <span class="code-attr">class</span>=<span class="code-string">"lh-1"</span>&gt;줄 높이 1&lt;/<span class="code-tag">p</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 14. Spacing                                   -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-spacing">
+  <div class="demo-card__header"><span class="demo-card__title">Spacing</span></div>
+  <div class="demo-card__body">
+    <p class="text-muted" style="font-size:0.8125rem">
+      <code>.m-*</code> / <code>.p-*</code> 유틸리티 (0~5 단계). 방향별: <code>t/b/s/e/x/y</code>
+    </p>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Margin</h6>
+    <div class="d-flex flex-wrap gap-1 mb-3">
+      <div class="bg-light border rounded" style="font-size:0.625rem"><div class="bg-primary text-white p-1 m-0">.m-0</div></div>
+      <div class="bg-light border rounded" style="font-size:0.625rem"><div class="bg-primary text-white p-1 m-1">.m-1</div></div>
+      <div class="bg-light border rounded" style="font-size:0.625rem"><div class="bg-primary text-white p-1 m-2">.m-2</div></div>
+      <div class="bg-light border rounded" style="font-size:0.625rem"><div class="bg-primary text-white p-1 m-3">.m-3</div></div>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Padding</h6>
+    <div class="d-flex flex-wrap gap-1 mb-3">
+      <div class="bg-primary text-white rounded p-0" style="font-size:0.625rem">.p-0</div>
+      <div class="bg-primary text-white rounded p-1" style="font-size:0.625rem">.p-1</div>
+      <div class="bg-primary text-white rounded p-2" style="font-size:0.625rem">.p-2</div>
+      <div class="bg-primary text-white rounded p-3" style="font-size:0.625rem">.p-3</div>
+      <div class="bg-primary text-white rounded p-4" style="font-size:0.625rem">.p-4</div>
+      <div class="bg-primary text-white rounded p-5" style="font-size:0.625rem">.p-5</div>
+    </div>
+    <h6 class="fw-semibold mb-2" style="font-size:0.8125rem">Gap</h6>
+    <div class="d-flex flex-wrap gap-3 bg-light p-2 rounded mb-2" style="font-size:0.75rem">
+      <span class="bg-primary text-white p-1 rounded">1</span>
+      <span class="bg-primary text-white p-1 rounded">2</span>
+      <span class="bg-primary text-white p-1 rounded">3</span>
+      <code>.gap-3</code>
+    </div>
+    <p class="text-muted" style="font-size:0.75rem;margin:0">
+      <code>.gap-1</code>(0.25rem) · <code>.gap-2</code>(0.5rem) · <code>.gap-3</code>(1rem) · <code>.gap-4</code>(1.5rem) · <code>.gap-5</code>(3rem)
+    </p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- Margin --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"mt-3 mb-2 ms-auto"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"mx-auto"</span>&gt;수평 중앙&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- Padding --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"p-3 px-4 py-2"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;
+
+<span class="code-comment">&lt;!-- Gap --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-string">"d-flex gap-3"</span>&gt;...&lt;/<span class="code-tag">div</span>&gt;</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 15. API 레퍼런스 테이블                       -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-reference">
+  <div class="demo-card__header"><span class="demo-card__title">전체 유틸리티 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.75rem">
+        <thead><tr><th>카테고리</th><th>클래스</th></tr></thead>
+        <tbody>
+          <tr><td class="fw-semibold">Color &amp; BG</td><td><code>.text-bg-{primary|secondary|success|danger|warning|info|light|dark}</code></td></tr>
+          <tr><td class="fw-semibold">BG Opacity</td><td><code>.bg-opacity-{75|50|25|10}</code></td></tr>
+          <tr><td class="fw-semibold">Opacity</td><td><code>.opacity-{100|75|50|25|0}</code></td></tr>
+          <tr><td class="fw-semibold">Display</td><td><code>.d-{none|block|inline|inline-block|flex|inline-flex|grid}</code></td></tr>
+          <tr><td class="fw-semibold">Flex</td><td><code>.flex-{row|column|wrap|nowrap|fill|grow-0|grow-1|shrink-0|row-reverse|column-reverse}</code></td></tr>
+          <tr><td class="fw-semibold">Justify</td><td><code>.justify-content-{start|end|center|between|around|evenly}</code></td></tr>
+          <tr><td class="fw-semibold">Align</td><td><code>.align-items-{start|end|center|stretch|baseline}</code> · <code>.align-self-{start|end|center|stretch}</code></td></tr>
+          <tr><td class="fw-semibold">Gap</td><td><code>.gap-{0|1|2|3|4|5}</code></td></tr>
+          <tr><td class="fw-semibold">Position</td><td><code>.position-{static|relative|absolute|fixed|sticky}</code></td></tr>
+          <tr><td class="fw-semibold">Position Edge</td><td><code>.top-{0|50|100}</code> · <code>.bottom-{0|50|100}</code> · <code>.start-{0|50|100}</code> · <code>.end-{0|50|100}</code></td></tr>
+          <tr><td class="fw-semibold">Translate</td><td><code>.translate-middle</code> · <code>.translate-middle-x</code> · <code>.translate-middle-y</code></td></tr>
+          <tr><td class="fw-semibold">Overflow</td><td><code>.overflow-{auto|hidden|visible|scroll}</code> · <code>.overflow-x-auto</code> · <code>.overflow-y-auto</code></td></tr>
+          <tr><td class="fw-semibold">Width</td><td><code>.w-{25|50|75|100|auto}</code></td></tr>
+          <tr><td class="fw-semibold">Height</td><td><code>.h-{25|50|75|100|auto}</code></td></tr>
+          <tr><td class="fw-semibold">Spacing</td><td><code>.m-{0~5}</code> · <code>.p-{0~5}</code> · 방향별: <code>t/b/s/e/x/y</code> · <code>.ms-auto</code> · <code>.me-auto</code> · <code>.mx-auto</code></td></tr>
+          <tr><td class="fw-semibold">Border</td><td><code>.border</code> · <code>.border-{0|top|bottom|start|end}</code> · <code>.border-dashed</code> · <code>.border-{primary|success|danger|warning|info|dark|light}</code> · <code>.border-{1|2|3|4|5}</code></td></tr>
+          <tr><td class="fw-semibold">Rounded</td><td><code>.rounded</code> · <code>.rounded-{0|1|2|3|4|5}</code> · <code>.rounded-{top|end|bottom|start|circle|pill}</code></td></tr>
+          <tr><td class="fw-semibold">Shadow</td><td><code>.shadow-{none|sm|md|lg|xl|2xl}</code> · <code>.shadow</code></td></tr>
+          <tr><td class="fw-semibold">Font Weight</td><td><code>.fw-{light|normal|medium|semibold|bold}</code></td></tr>
+          <tr><td class="fw-semibold">Font Size</td><td><code>.fs-{1|2|3|4|5|6|sm|xs|lg|xl|xxl}</code></td></tr>
+          <tr><td class="fw-semibold">Line Height</td><td><code>.lh-{1|sm|base|lg}</code></td></tr>
+          <tr><td class="fw-semibold">Text</td><td><code>.text-{start|center|end|truncate|wrap|nowrap|break}</code></td></tr>
+          <tr><td class="fw-semibold">Object Fit</td><td><code>.object-fit-{contain|cover|fill|scale|none}</code></td></tr>
+          <tr><td class="fw-semibold">Z-index</td><td><code>.z-{n1|0|1|2|3}</code></td></tr>
+          <tr><td class="fw-semibold">Visibility</td><td><code>.visible</code> · <code>.invisible</code></td></tr>
+          <tr><td class="fw-semibold">Pointer</td><td><code>.pe-none</code> · <code>.pe-auto</code></td></tr>
+          <tr><td class="fw-semibold">User Select</td><td><code>.user-select-{all|auto|none}</code></td></tr>
+          <tr><td class="fw-semibold">Container</td><td><code>.container</code> · <code>.container-fluid</code> · <code>.container-{sm|md|lg|xl}</code></td></tr>
+          <tr><td class="fw-semibold">Viewport</td><td><code>.vh-100</code> · <code>.vw-100</code> · <code>.min-vh-100</code></td></tr>
+          <tr><td class="fw-semibold">Cursor</td><td><code>.cursor-{pointer|default|not-allowed|wait|text|move|grab|grabbing|help|crosshair|zoom-in|zoom-out}</code></td></tr>
+          <tr><td class="fw-semibold">Float</td><td><code>.float-{start|end|none}</code> · <code>.clearfix</code></td></tr>
+          <tr><td class="fw-semibold">V-Align</td><td><code>.align-{top|middle|bottom|baseline|text-top|text-bottom}</code></td></tr>
+          <tr><td class="fw-semibold">Ratio</td><td><code>.ratio</code> · <code>.ratio-{1x1|4x3|16x9|21x9}</code></td></tr>
+          <tr><td class="fw-semibold">접근성</td><td><code>.visually-hidden</code> · <code>.sr-only</code> · <code>.visually-hidden-focusable</code></td></tr>
+          <tr><td class="fw-semibold">Order</td><td><code>.order-{0|1|2|3|4|5|first|last}</code></td></tr>
+          <tr><td class="fw-semibold">Flex 확장</td><td><code>.flex-shrink-1</code> · <code>.flex-grow-0</code> · <code>.flex-grow-1</code></td></tr>
+          <tr><td class="fw-semibold">Transition</td><td><code>.transition</code> · <code>.transition-none</code></td></tr>
+          <tr><td class="fw-semibold">Text 확장</td><td><code>.text-black</code> · <code>.text-light</code> · <code>.text-body</code> · <code>.text-decoration-{none|underline|line-through}</code> · <code>.fst-{italic|normal}</code></td></tr>
+          <tr><td class="fw-semibold">Grid</td><td><code>.grid</code> · <code>.grid-cols-{1~12}</code> · <code>.col-span-{1~12|full}</code> · <code>.grid-rows-{1~6}</code> · <code>.row-span-{1~6|full}</code></td></tr>
+          <tr><td class="fw-semibold">기타</td><td><code>.stretched-link</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-color-bg" class="doc-toc__link is-active">Color &amp; Background</a></li>
+    <li class="doc-toc__item"><a href="#s-bg-opacity" class="doc-toc__link">Background Opacity</a></li>
+    <li class="doc-toc__item"><a href="#s-opacity" class="doc-toc__link">Opacity</a></li>
+    <li class="doc-toc__item"><a href="#s-border-radius" class="doc-toc__link">Border Radius</a></li>
+    <li class="doc-toc__item"><a href="#s-shadows" class="doc-toc__link">Shadows</a></li>
+    <li class="doc-toc__item"><a href="#s-border-color" class="doc-toc__link">Border Color &amp; Width</a></li>
+    <li class="doc-toc__item"><a href="#s-container" class="doc-toc__link">Container</a></li>
+    <li class="doc-toc__item"><a href="#s-cursor" class="doc-toc__link">Cursor</a></li>
+    <li class="doc-toc__item"><a href="#s-float" class="doc-toc__link">Float &amp; Clearfix</a></li>
+    <li class="doc-toc__item"><a href="#s-valign" class="doc-toc__link">Vertical Align</a></li>
+    <li class="doc-toc__item"><a href="#s-ratio" class="doc-toc__link">Aspect Ratio</a></li>
+    <li class="doc-toc__item"><a href="#s-sr-only" class="doc-toc__link">Visually Hidden</a></li>
+    <li class="doc-toc__item"><a href="#s-order" class="doc-toc__link">Order &amp; Flex</a></li>
+    <li class="doc-toc__item"><a href="#s-position" class="doc-toc__link">Position</a></li>
+    <li class="doc-toc__item"><a href="#s-sizing" class="doc-toc__link">Width &amp; Height</a></li>
+    <li class="doc-toc__item"><a href="#s-object-fit" class="doc-toc__link">Object Fit</a></li>
+    <li class="doc-toc__item"><a href="#s-overflow" class="doc-toc__link">Overflow</a></li>
+    <li class="doc-toc__item"><a href="#s-interaction" class="doc-toc__link">Pointer &amp; Select</a></li>
+    <li class="doc-toc__item"><a href="#s-zindex" class="doc-toc__link">Z-index</a></li>
+    <li class="doc-toc__item"><a href="#s-display" class="doc-toc__link">Display &amp; Flex</a></li>
+    <li class="doc-toc__item"><a href="#s-font-text" class="doc-toc__link">Font &amp; Text</a></li>
+    <li class="doc-toc__item"><a href="#s-spacing" class="doc-toc__link">Spacing</a></li>
+    <li class="doc-toc__item"><a href="#s-reference" class="doc-toc__link">전체 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>

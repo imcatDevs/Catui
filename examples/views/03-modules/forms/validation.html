@@ -1,0 +1,447 @@
+<!-- Form Validation: Custom Styles, Tooltips, Server-side, Supported Elements, Browser Defaults -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Validation</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Form Validation</h1>
+  <p class="page-desc">HTML5 유효성 검사, 커스텀 피드백, 서버 사이드, 브라우저 기본 검증 패턴</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Custom styles Validation             -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-custom">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Custom Styles Validation</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">novalidate + JS로 커스텀 피드백 메시지 표시. 제출 시 유효성 검사 실행.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form id="form-custom" class="needs-validation" novalidate onsubmit="return false">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label for="vc01" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control" id="vc01" value="길동" required>
+              <div class="valid-feedback">확인되었습니다!</div>
+              <div class="invalid-feedback">이름을 입력해주세요.</div>
+            </div>
+            <div>
+              <label for="vc02" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">성</label>
+              <input type="text" class="form-control" id="vc02" value="홍" required>
+              <div class="valid-feedback">확인되었습니다!</div>
+              <div class="invalid-feedback">성을 입력해주세요.</div>
+            </div>
+            <div>
+              <label for="vc03" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">사용자명</label>
+              <div style="display:flex">
+                <span style="display:flex;align-items:center;padding:0 0.75rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-right:none;border-radius:6px 0 0 6px;font-size:0.875rem;color:var(--text-secondary)">@</span>
+                <input type="text" class="form-control" id="vc03" placeholder="username" required style="border-radius:0 6px 6px 0">
+              </div>
+              <div class="invalid-feedback">사용자명을 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label for="vc04" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">도시</label>
+              <input type="text" class="form-control" id="vc04" placeholder="서울" required>
+              <div class="invalid-feedback">도시를 입력해주세요.</div>
+            </div>
+            <div>
+              <label for="vc05" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">지역</label>
+              <select class="form-control" id="vc05" required>
+                <option selected disabled value="">선택...</option>
+                <option>서울</option><option>경기</option><option>부산</option><option>대구</option>
+              </select>
+              <div class="invalid-feedback">지역을 선택해주세요.</div>
+            </div>
+            <div>
+              <label for="vc06" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control" id="vc06" placeholder="06235" required>
+              <div class="invalid-feedback">우편번호를 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="vc07" required>
+              <label class="form-check-label" for="vc07">이용 약관에 동의합니다</label>
+              <div class="invalid-feedback">약관에 동의해야 합니다.</div>
+            </div>
+          </div>
+          <button class="btn btn--primary" type="submit">제출</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: Tooltips Validation                  -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-tooltips">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Tooltips</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">피드백을 툴팁 형태로 표시. <code>position: relative</code> 부모 필요.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form id="form-tooltip" class="needs-validation" novalidate onsubmit="return false">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control" value="민수" required>
+              <div class="valid-tooltip">확인!</div>
+            </div>
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">성</label>
+              <input type="text" class="form-control" value="김" required>
+              <div class="valid-tooltip">확인!</div>
+            </div>
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">학번</label>
+              <div style="display:flex">
+                <span style="display:flex;align-items:center;padding:0 0.75rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-right:none;border-radius:6px 0 0 6px;font-size:0.875rem">ID</span>
+                <input type="text" class="form-control" placeholder="2024001" required style="border-radius:0 6px 6px 0">
+              </div>
+              <div class="invalid-tooltip">유효한 학번을 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">도시</label>
+              <input type="text" class="form-control" value="서울" required>
+              <div class="invalid-tooltip">도시를 입력해주세요.</div>
+            </div>
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">학과</label>
+              <select class="form-control" required>
+                <option selected disabled value="">선택...</option>
+                <option>컴퓨터공학</option><option>전자공학</option><option>경영학</option>
+              </select>
+              <div class="invalid-tooltip">학과를 선택해주세요.</div>
+            </div>
+            <div style="position:relative">
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control" value="06235" required>
+              <div class="invalid-tooltip">우편번호를 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="vt07" required>
+              <label class="form-check-label" for="vt07">등록 확인합니다.</label>
+              <div class="invalid-tooltip">확인이 필요합니다.</div>
+            </div>
+          </div>
+          <button class="btn btn--primary" type="submit"><i class="material-icons-outlined" style="font-size:1rem;vertical-align:middle;margin-right:0.25rem">person_add</i> 등록 제출</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: Server-side Validation               -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-server">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Server-side</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">서버 응답 후 <code>.is-valid</code> / <code>.is-invalid</code> 클래스로 상태 표시. 피드백이 항상 보임.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form onsubmit="return false">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control is-valid" value="홍길동" required>
+              <div class="valid-feedback" style="display:block">확인되었습니다!</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">성</label>
+              <input type="text" class="form-control is-valid" value="홍" required>
+              <div class="valid-feedback" style="display:block">확인되었습니다!</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">사용자명</label>
+              <div style="display:flex">
+                <span style="display:flex;align-items:center;padding:0 0.75rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-right:none;border-radius:6px 0 0 6px;font-size:0.875rem">@</span>
+                <input type="text" class="form-control is-invalid" required style="border-radius:0 6px 6px 0">
+              </div>
+              <div class="invalid-feedback" style="display:block">사용자명을 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">도시</label>
+              <input type="text" class="form-control is-invalid" required>
+              <div class="invalid-feedback" style="display:block">도시를 입력해주세요.</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">지역</label>
+              <select class="form-control is-invalid" required>
+                <option selected disabled value="">선택...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback" style="display:block">지역을 선택해주세요.</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control is-invalid" required>
+              <div class="invalid-feedback" style="display:block">우편번호를 입력해주세요.</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" style="border-color:var(--danger-color)" required>
+              <label class="form-check-label">이용 약관에 동의합니다</label>
+              <div class="invalid-feedback" style="display:block">약관에 동의해야 합니다.</div>
+            </div>
+          </div>
+          <button class="btn btn--primary" type="submit">제출</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 4: Supported Elements                   -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-elements">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Supported Elements</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem"><code>.was-validated</code> 클래스 적용 시 자동으로 유효성 상태 표시</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form class="was-validated" onsubmit="return false">
+          <div style="margin-bottom:1rem">
+            <label for="vs-textarea" class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">Textarea</label>
+            <textarea class="form-control" id="vs-textarea" placeholder="필수 입력 텍스트 영역" required></textarea>
+            <div class="invalid-feedback">메시지를 입력해주세요.</div>
+          </div>
+          <div class="form-check" style="margin-bottom:0.75rem">
+            <input type="checkbox" class="form-check-input" id="vs-check1" required>
+            <label class="form-check-label" for="vs-check1">이 체크박스를 선택하세요</label>
+            <div class="invalid-feedback">필수 선택 항목입니다.</div>
+          </div>
+          <div class="form-check" style="margin-bottom:0.25rem">
+            <input type="radio" class="form-check-input" id="vs-radio1" name="vs-radio" required>
+            <label class="form-check-label" for="vs-radio1">이 라디오를 선택하세요</label>
+          </div>
+          <div class="form-check" style="margin-bottom:1rem">
+            <input type="radio" class="form-check-input" id="vs-radio2" name="vs-radio" required>
+            <label class="form-check-label" for="vs-radio2">또는 이 라디오를 선택하세요</label>
+            <div class="invalid-feedback">라디오를 선택해주세요.</div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <select class="form-control" required>
+              <option value="">메뉴 선택...</option>
+              <option value="1">옵션 1</option><option value="2">옵션 2</option><option value="3">옵션 3</option>
+            </select>
+            <div class="invalid-feedback">선택 항목을 선택해주세요.</div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <input type="file" class="form-control" required>
+            <div class="invalid-feedback">파일을 선택해주세요.</div>
+          </div>
+          <button class="btn btn--primary" type="submit" disabled>제출</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 5: Validation with Icons                -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-icons">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">검증 아이콘 형식</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">
+          <code>.has-validation-icon</code> 클래스 적용 시 입력 필드 내부에 ✓/✗ SVG 아이콘 표시.
+          <code>.is-valid</code> → 녹색 체크, <code>.is-invalid</code> → 빨간 경고 아이콘.
+        </p>
+      </div>
+
+      <div class="demo-card__body">
+
+        <!-- 5-1: Server-side (수동) 아이콘 -->
+        <h6 style="font-weight:600;margin-bottom:0.75rem">Server-side + 아이콘</h6>
+        <p class="text-muted" style="font-size:0.8125rem;margin-bottom:1rem"><code>.is-valid</code> / <code>.is-invalid</code> 클래스를 직접 부여. 아이콘이 입력 오른쪽에 표시됩니다.</p>
+
+        <form class="has-validation-icon" onsubmit="return false">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control is-valid" value="홍길동">
+              <div class="valid-feedback" style="display:block">확인되었습니다!</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일</label>
+              <input type="email" class="form-control is-invalid" value="not-an-email">
+              <div class="invalid-feedback" style="display:block">유효한 이메일을 입력해주세요.</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">전화번호</label>
+              <input type="tel" class="form-control is-valid" value="010-1234-5678">
+              <div class="valid-feedback" style="display:block">확인되었습니다!</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">주소</label>
+              <input type="text" class="form-control is-invalid">
+              <div class="invalid-feedback" style="display:block">주소를 입력해주세요.</div>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control is-valid" value="06235">
+              <div class="valid-feedback" style="display:block">확인!</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비고</label>
+            <textarea class="form-control is-invalid" rows="2" placeholder="필수 입력"></textarea>
+            <div class="invalid-feedback" style="display:block">내용을 입력해주세요.</div>
+          </div>
+        </form>
+
+        <div style="margin:1.5rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 5-2: 실시간 검증 아이콘 (JS) -->
+        <h6 style="font-weight:600;margin-bottom:0.75rem">실시간 검증 + 아이콘</h6>
+        <p class="text-muted" style="font-size:0.8125rem;margin-bottom:1rem">입력 시 실시간으로 <code>.is-valid</code> / <code>.is-invalid</code> 클래스와 아이콘이 토글됩니다.</p>
+
+        <form id="form-icon-live" class="has-validation-icon" onsubmit="return false" style="max-width:28rem">
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일 (실시간)</label>
+            <input type="email" id="vi-email" class="form-control" placeholder="email@example.com">
+            <div class="valid-feedback">유효한 이메일입니다!</div>
+            <div class="invalid-feedback">올바른 이메일 형식이 아닙니다.</div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비밀번호 (6자 이상)</label>
+            <input type="password" id="vi-pass" class="form-control" placeholder="비밀번호 입력">
+            <div class="valid-feedback">안전한 비밀번호입니다!</div>
+            <div class="invalid-feedback">6자 이상 입력해주세요.</div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">URL (https://)</label>
+            <input type="url" id="vi-url" class="form-control" placeholder="https://example.com">
+            <div class="valid-feedback">유효한 URL입니다!</div>
+            <div class="invalid-feedback">https://로 시작하는 URL을 입력해주세요.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 6: Browser Defaults                     -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-browser">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Browser Defaults</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">novalidate 없이 브라우저 기본 유효성 검사 UI 사용</p>
+      </div>
+
+      <div class="demo-card__body">
+        <form>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label>
+              <input type="text" class="form-control" value="홍길동" required>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">성</label>
+              <input type="text" class="form-control" value="홍" required>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">사용자명</label>
+              <div style="display:flex">
+                <span style="display:flex;align-items:center;padding:0 0.75rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-right:none;border-radius:6px 0 0 6px;font-size:0.875rem">@</span>
+                <input type="text" class="form-control" required style="border-radius:0 6px 6px 0">
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">도시</label>
+              <input type="text" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">지역</label>
+              <select class="form-control" required>
+                <option selected disabled value="">선택...</option>
+                <option>서울</option><option>경기</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">우편번호</label>
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="vb-agree" required>
+              <label class="form-check-label" for="vb-agree">이용 약관에 동의합니다</label>
+            </div>
+          </div>
+          <button class="btn btn--primary" type="submit">제출</button>
+        </form>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-custom" class="doc-toc__link is-active">Custom Styles</a></li>
+    <li class="doc-toc__item"><a href="#s-tooltips" class="doc-toc__link">Tooltips</a></li>
+    <li class="doc-toc__item"><a href="#s-server" class="doc-toc__link">Server-side</a></li>
+    <li class="doc-toc__item"><a href="#s-elements" class="doc-toc__link">Supported Elements</a></li>
+    <li class="doc-toc__item"><a href="#s-icons" class="doc-toc__link">검증 아이콘</a></li>
+    <li class="doc-toc__item"><a href="#s-browser" class="doc-toc__link">Browser Defaults</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  // Custom Styles / Tooltips Validation
+  (function() {
+    var forms = document.querySelectorAll('.needs-validation');
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        form.classList.add('was-validated');
+      });
+    });
+  })();
+
+  // 실시간 검증 아이콘 (Card 5)
+  (function() {
+    function liveValidate(id, testFn) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('input', function() {
+        var val = el.value.trim();
+        var vf = el.parentElement.querySelector('.valid-feedback');
+        var ivf = el.parentElement.querySelector('.invalid-feedback');
+        if (!val) {
+          el.classList.remove('is-valid', 'is-invalid');
+          if (vf) vf.style.display = '';
+          if (ivf) ivf.style.display = '';
+          return;
+        }
+        var ok = testFn(val);
+        el.classList.toggle('is-valid', ok);
+        el.classList.toggle('is-invalid', !ok);
+        if (vf) vf.style.display = ok ? 'block' : '';
+        if (ivf) ivf.style.display = ok ? '' : 'block';
+      });
+    }
+    liveValidate('vi-email', function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+    liveValidate('vi-pass', function(v) { return v.length >= 6; });
+    liveValidate('vi-url', function(v) { return /^https:\/\/.+/.test(v); });
+  })();
+</script>

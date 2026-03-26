@@ -1,0 +1,430 @@
+<!-- Navigation: Sidebar, Tabs, Accordion, Collapse, MegaMenu, TreeView -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Navigation</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Navigation</h1>
+  <p class="page-desc">Sidebar, Tabs, Accordion, Collapse, MegaMenu, TreeView 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Sidebar -->
+<div class="demo-card" id="s-sidebar">
+  <div class="demo-card__header"><span class="demo-card__title">Sidebar</span></div>
+  <div class="demo-card__body">
+    <p style="margin-bottom:0.75rem;font-size:0.8125rem;color:var(--text-secondary)">다단계 메뉴, 뱃지, 토글(expanded/collapsed) 지원.</p>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem">
+      <button class="btn btn--primary btn--sm" id="sidebar-toggle-btn">토글 (Expanded/Collapsed)</button>
+      <button class="btn btn--outline btn--sm" id="sidebar-compact-btn">Compact 모드</button>
+      <button class="btn btn--outline btn--sm" id="sidebar-expand-all">모두 펼치기</button>
+      <button class="btn btn--outline btn--sm" id="sidebar-collapse-all">모두 접기</button>
+    </div>
+    <div style="display:flex;border:1px solid var(--border-color);border-radius:8px;overflow:hidden;height:480px">
+      <div id="sidebar-demo" style="height:100%"></div>
+      <div style="flex:1;padding:1.5rem;background:var(--bg-secondary);overflow-y:auto">
+        <div id="sidebar-content" style="font-size:0.875rem;color:var(--text-secondary)">사이드바 메뉴 항목을 클릭하면 여기에 표시됩니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Sidebar } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-keyword">const</span> sidebar = <span class="code-keyword">new</span> <span class="code-function">Sidebar</span>(<span class="code-string">'#container'</span>, {
+  mode: <span class="code-string">'expanded'</span>,       <span class="code-comment">// expanded | collapsed | compact</span>
+  showUserBox: <span class="code-keyword">true</span>,
+  user: { name: <span class="code-string">'홍길동'</span>, role: <span class="code-string">'Admin'</span> },
+  activeItem: <span class="code-string">'dashboard'</span>,
+  items: [
+    { type: <span class="code-string">'title'</span>, label: <span class="code-string">'메뉴'</span> },
+    { id: <span class="code-string">'dashboard'</span>, label: <span class="code-string">'대시보드'</span>, icon: <span class="code-string">'dashboard'</span>,
+      badge: { text: <span class="code-string">'4'</span>, variant: <span class="code-string">'success'</span> } },
+    { label: <span class="code-string">'앱'</span>, icon: <span class="code-string">'apps'</span>, children: [
+      { label: <span class="code-string">'캘린더'</span>, href: <span class="code-string">'#'</span> },
+      { label: <span class="code-string">'채팅'</span>, href: <span class="code-string">'#'</span> }
+    ]}
+  ],
+  onItemClick: <span class="code-keyword">function</span>(item, link) { <span class="code-comment">/* ... */</span> }
+});
+sidebar.<span class="code-function">setMode</span>(<span class="code-string">'collapsed'</span>); <span class="code-comment">// 프로그래밍 방식 토글</span></pre>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="demo-card" id="s-tabs">
+  <div class="demo-card__header"><span class="demo-card__title">Tabs</span></div>
+  <div class="demo-card__body">
+    <h4 style="font-size:0.875rem;margin-bottom:0.5rem;font-weight:600">Default Tabs</h4>
+    <div id="tabs-demo"></div>
+    <h4 style="font-size:0.875rem;margin:1.25rem 0 0.5rem;font-weight:600">Pills (Justified)</h4>
+    <div id="tabs-pills-demo"></div>
+    <h4 style="font-size:0.875rem;margin:1.25rem 0 0.5rem;font-weight:600">Bordered Tabs</h4>
+    <div id="tabs-bordered-demo"></div>
+    <h4 style="font-size:0.875rem;margin:1.25rem 0 0.5rem;font-weight:600">Vertical Tabs</h4>
+    <div id="tabs-vertical-demo"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Tabs } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-comment">// role="tablist", role="tab", role="tabpanel" 마크업 필요</span>
+<span class="code-keyword">new</span> <span class="code-function">Tabs</span>(<span class="code-string">'#container .tabs'</span>, {
+  activeIndex: <span class="code-number">0</span>,
+  orientation: <span class="code-string">'horizontal'</span>, <span class="code-comment">// horizontal | vertical</span>
+  keyboard: <span class="code-keyword">true</span>,
+  onChange: <span class="code-keyword">function</span>(index, tab, panel) { <span class="code-comment">/* ... */</span> }
+});</pre>
+  </div>
+</div>
+
+<!-- Accordion -->
+<div class="demo-card" id="s-accordion">
+  <div class="demo-card__header"><span class="demo-card__title">Accordion</span></div>
+  <div class="demo-card__body">
+    <div id="accordion-demo"></div>
+    <div style="margin-top:1rem">
+      <h4 style="font-size:0.875rem;margin-bottom:0.5rem">Separated 스타일 (multiple: true)</h4>
+      <div id="accordion-sep-demo"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Accordion } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-comment">// .accordion__item > .accordion__header + .accordion__content 구조 필요</span>
+<span class="code-keyword">new</span> <span class="code-function">Accordion</span>(<span class="code-string">'#container .accordion'</span>, {
+  multiple: <span class="code-keyword">false</span>,     <span class="code-comment">// true면 여러 개 동시 열기</span>
+  expandFirst: <span class="code-keyword">true</span>,
+  animation: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Collapse -->
+<div class="demo-card" id="s-collapse">
+  <div class="demo-card__header"><span class="demo-card__title">Collapse</span></div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" id="collapse-toggle">토글</button>
+    <div id="collapse-demo" style="margin-top:0.75rem">
+      <div class="alert alert--info" style="margin:0">이 영역은 Collapse 컴포넌트로 접었다 펼 수 있습니다. 애니메이션이 포함됩니다.</div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Collapse } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-keyword">const</span> collapse = <span class="code-keyword">new</span> <span class="code-function">Collapse</span>(<span class="code-string">'#collapse-demo'</span>, { expanded: <span class="code-keyword">false</span> });
+document.getElementById(<span class="code-string">'btn'</span>).addEventListener(<span class="code-string">'click'</span>, () => collapse.<span class="code-function">toggle</span>());</pre>
+  </div>
+</div>
+
+<!-- TreeView -->
+<div class="demo-card" id="s-treeview">
+  <div class="demo-card__header"><span class="demo-card__title">TreeView</span></div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+      <button class="btn btn--outline btn--sm" id="tree-expand-all">모두 펼치기</button>
+      <button class="btn btn--outline btn--sm" id="tree-collapse-all">모두 접기</button>
+    </div>
+    <div id="tree-demo" class="treeview"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { TreeView } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-comment">// .treeview__item > .treeview__toggle + .treeview__label + .treeview__children 구조</span>
+<span class="code-keyword">const</span> tree = <span class="code-keyword">new</span> <span class="code-function">TreeView</span>(<span class="code-string">'#tree-demo'</span>);
+tree.<span class="code-function">expandAll</span>();
+tree.<span class="code-function">collapseAll</span>();</pre>
+  </div>
+</div>
+
+<!-- MegaMenu -->
+<div class="demo-card" id="s-megamenu">
+  <div class="demo-card__header"><span class="demo-card__title">MegaMenu</span></div>
+  <div class="demo-card__body">
+    <div id="mega-demo" class="megamenu" style="display:flex;gap:0"></div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { MegaMenu } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'navigation'</span>);
+<span class="code-comment">// .megamenu__item > .megamenu__trigger + .megamenu__panel 구조</span>
+<span class="code-keyword">new</span> <span class="code-function">MegaMenu</span>(<span class="code-string">'#mega-demo'</span>, {
+  trigger: <span class="code-string">'click'</span>, <span class="code-comment">// hover | click</span>
+  closeOnOutside: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-sidebar" class="doc-toc__link is-active">Sidebar</a></li>
+    <li class="doc-toc__item"><a href="#s-tabs" class="doc-toc__link">Tabs</a></li>
+    <li class="doc-toc__item"><a href="#s-accordion" class="doc-toc__link">Accordion</a></li>
+    <li class="doc-toc__item"><a href="#s-collapse" class="doc-toc__link">Collapse</a></li>
+    <li class="doc-toc__item"><a href="#s-treeview" class="doc-toc__link">TreeView</a></li>
+    <li class="doc-toc__item"><a href="#s-megamenu" class="doc-toc__link">MegaMenu</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var Nav = await IMCAT.use('navigation');
+
+    // ================================
+    // Sidebar
+    // ================================
+    var sidebar = new Nav.Sidebar('#sidebar-demo', {
+      mode: 'expanded',
+      showUserBox: true,
+      user: { name: '홍길동', role: 'Admin' },
+      activeItem: 'dashboard',
+      items: [
+        { type: 'title', label: 'Navigation' },
+        { id: 'dashboard', label: '대시보드', icon: 'dashboard', badge: { text: '4', variant: 'success' } },
+        { type: 'title', label: 'Apps' },
+        { id: 'calendar', label: '캘린더', icon: 'event', href: '#' },
+        { id: 'chat', label: '채팅', icon: 'chat', href: '#', badge: { text: 'New', variant: 'danger' } },
+        { label: 'eCommerce', icon: 'shopping_cart', children: [
+          { id: 'products', label: '상품 목록', href: '#' },
+          { id: 'orders', label: '주문 관리', href: '#' },
+          { id: 'customers', label: '고객', href: '#' }
+        ]},
+        { label: 'CRM', icon: 'group', children: [
+          { id: 'crm-dash', label: '대시보드', href: '#' },
+          { id: 'crm-contacts', label: '연락처', href: '#' },
+          { label: '상세', icon: 'info', children: [
+            { id: 'crm-opp', label: '기회', href: '#' },
+            { id: 'crm-leads', label: '리드', href: '#' }
+          ]}
+        ]},
+        { label: '이메일', icon: 'mail', children: [
+          { id: 'inbox', label: '받은 편지함', href: '#' },
+          { id: 'compose', label: '작성', href: '#' }
+        ]},
+        { type: 'title', label: 'Components' },
+        { id: 'widgets', label: '위젯', icon: 'widgets', href: '#' },
+        { label: 'UI 요소', icon: 'palette', children: [
+          { id: 'buttons', label: '버튼', href: '#' },
+          { id: 'cards', label: '카드', href: '#' },
+          { id: 'modals', label: '모달', href: '#' },
+          { id: 'tabs', label: '탭', href: '#' }
+        ]},
+        { label: '차트', icon: 'bar_chart', children: [
+          { id: 'apex', label: 'Apex Charts', href: '#' },
+          { id: 'chartjs', label: 'Chart.js', href: '#' }
+        ]}
+      ],
+      onItemClick: function(item, link) {
+        var text = link.querySelector('.sidebar__menu-text');
+        var name = text ? text.textContent : '알 수 없음';
+        document.getElementById('sidebar-content').innerHTML =
+          '<div style="padding:1rem;background:var(--bg-primary);border-radius:8px;border:1px solid var(--border-color)">' +
+          '<strong style="font-size:1rem">' + name + '</strong>' +
+          '<p style="margin-top:0.5rem;color:var(--text-tertiary)">"' + name + '" 페이지 콘텐츠 영역입니다.</p></div>';
+      }
+    });
+
+    document.getElementById('sidebar-toggle-btn').addEventListener('click', function() {
+      sidebar.setMode(sidebar.getMode() === 'expanded' ? 'collapsed' : 'expanded');
+    });
+    document.getElementById('sidebar-compact-btn').addEventListener('click', function() {
+      sidebar.setMode('compact');
+    });
+    document.getElementById('sidebar-expand-all').addEventListener('click', function() { sidebar.expandAll(); });
+    document.getElementById('sidebar-collapse-all').addEventListener('click', function() { sidebar.collapseAll(); });
+
+    // ================================
+    // 탭 마크업 헬퍼
+    // ================================
+    function buildTabs(containerId, tabs, extraClass, orientation) {
+      var orient = orientation || 'horizontal';
+      var cls = 'tabs' + (extraClass ? ' ' + extraClass : '');
+      var html = '<div class="' + cls + '">';
+      html += '<div class="tabs__list" role="tablist">';
+      tabs.forEach(function(t, i) {
+        html += '<button class="tabs__tab" role="tab" aria-selected="' + (i === 0) + '">' + t.label + '</button>';
+      });
+      html += '</div><div class="tabs__content">';
+      tabs.forEach(function(t, i) {
+        html += '<div class="tabs__panel" role="tabpanel" style="' + (i !== 0 ? 'display:none' : '') + '">';
+        html += '<div style="padding:0.75rem 0">' + t.content + '</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+      document.getElementById(containerId).innerHTML = html;
+      return new Nav.Tabs('#' + containerId + ' .tabs', { orientation: orient });
+    }
+
+    // ================================
+    // Default Tabs
+    // ================================
+    buildTabs('tabs-demo', [
+      { label: 'Home', content: '<p>IMCAT UI는 경량 제로빌드 ES6+ JavaScript 웹 프레임워크입니다. 동적 모듈 로딩, SPA 라우팅, XSS 자동 방어를 핵심으로 합니다. 모든 UI 컴포넌트는 <code>IMCAT.use(\'모듈명\')</code>으로 런타임에 동적 로드되며, 트리 셰이킹 없이도 필요한 모듈만 로드하여 성능을 최적화합니다.</p>' },
+      { label: 'Profile', content: '<p>프레임워크는 20개 코어 모듈과 22개 확장 UI 컴포넌트로 구성됩니다. 코어 모듈에는 DOM 조작, 이벤트 시스템, 보안, 라우터, 상태 관리 등이 포함되며, 확장 모듈로는 오버레이, 드롭다운, 네비게이션, 피커, 폼, 차트 등을 제공합니다.</p>' },
+      { label: 'Messages', content: '<p>모든 컴포넌트는 <code>destroy()</code> 메서드를 구현하여 뷰 전환 시 메모리 누수를 방지합니다. EventBus(글로벌 통신)와 EventEmitterMixin(컴포넌트 내장 이벤트) 두 가지 이벤트 시스템을 제공하며, BEM 명명 규칙을 일관되게 따릅니다.</p>' }
+    ]);
+
+    // ================================
+    // Pills (Justified)
+    // ================================
+    buildTabs('tabs-pills-demo', [
+      { label: '최근', content: '<p>최근 업데이트된 컴포넌트: Sidebar (다단계 메뉴, 뱃지, 토글 모드), DataTable (정렬/필터/페이지네이션), Chart (bar/line/pie/doughnut), Kanban (드래그 앤 드롭), Calendar (이벤트 관리). 모든 컴포넌트는 SCSS 디자인 토큰을 통해 일관된 스타일을 유지합니다.</p>' },
+      { label: '인기', content: '<p>가장 많이 사용되는 모듈: <strong>overlays</strong> (Modal, Toast, Drawer), <strong>navigation</strong> (Tabs, Accordion, Sidebar), <strong>forms</strong> (Validation, InputMask). 각 모듈은 <code>IMCAT.use()</code>로 독립적으로 로드할 수 있어 번들 크기를 최소화합니다.</p>' },
+      { label: '추천', content: '<p>시작하기 추천 순서: 1) 코어 번들 로드, 2) <code>IMCAT.use(\'theme\')</code>로 테마 설정, 3) 필요한 UI 모듈 동적 로드, 4) <code>data-imcat</code> 속성으로 자동 초기화 활용. Security 모듈이 XSS 방어를 자동으로 처리합니다.</p>' }
+    ], 'tabs--pills');
+
+    // ================================
+    // Bordered Tabs
+    // ================================
+    buildTabs('tabs-bordered-demo', [
+      { label: 'Home', content: '<p>Bordered 스타일 탭은 각 탭에 테두리가 추가되어 시각적 구분이 명확합니다. <code>tabs--bordered</code> 패턴으로 구현했으며, 활성 탭 하단에 강조 색상 라인이 표시됩니다. 카드형 레이아웃과 함께 사용하면 효과적입니다.</p>' },
+      { label: 'Profile', content: '<p>탭 컴포넌트는 키보드 접근성을 완벽히 지원합니다. 좌/우 화살표로 탭 이동, Home/End 키로 처음/끝 탭 선택, Enter로 활성화할 수 있습니다. <code>aria-selected</code>, <code>aria-controls</code>, <code>role="tab"</code> 등 ARIA 속성이 자동 설정됩니다.</p>' },
+      { label: 'Messages', content: '<p>탭 변경 시 <code>onChange</code> 콜백과 <code>change</code> 이벤트가 발생하여 탭 전환에 따른 데이터 로딩이나 UI 업데이트를 처리할 수 있습니다. 애니메이션은 opacity + translateY 조합으로 부드러운 전환 효과를 제공합니다.</p>' }
+    ], 'tabs--bordered');
+
+    // ================================
+    // Vertical Tabs (좌측)
+    // ================================
+    buildTabs('tabs-vertical-demo', [
+      { label: 'Home', content: '<p>Vertical 탭은 좌측에 탭 목록이 배치되고 우측에 콘텐츠가 표시되는 레이아웃입니다. <code>orientation: \'vertical\'</code> 옵션으로 활성화하며, 키보드 네비게이션도 상/하 화살표로 자동 전환됩니다. 사이드 패널이 필요한 설정 페이지, 프로필 편집 등에 적합합니다.</p>' },
+      { label: 'Profile', content: '<p>Vertical 탭은 <code>aria-orientation="vertical"</code> 속성이 자동 설정되어 스크린 리더가 올바르게 탭 방향을 인식합니다. 반응형 디자인에서는 모바일 화면에서 수평 레이아웃으로 전환하는 것을 권장합니다.</p>' },
+      { label: 'Settings', content: '<p>설정 예시: <code>new Tabs(\'#container\', { orientation: \'vertical\', keyboard: true, animation: true, animationDuration: 300, activeIndex: 0 })</code>. 수직 탭의 너비와 콘텐츠 영역 비율은 CSS로 자유롭게 조정할 수 있습니다.</p>' },
+      { label: 'Messages', content: '<p>네 번째 탭도 정상적으로 작동합니다. 탭 개수에 제한이 없으며, 스크롤이 필요한 경우 탭 리스트 영역에 overflow-y: auto를 적용할 수 있습니다. <code>select(index)</code> 메서드로 프로그래밍 방식의 탭 전환도 가능합니다.</p>' }
+    ], 'tabs--vertical', 'vertical');
+
+    // ================================
+    // Accordion (기본 — Q&A)
+    // ================================
+    var accData = [
+      { title: 'IMCAT UI란 무엇인가요?', content: '경량 제로빌드 ES6+ JavaScript 웹 프레임워크입니다. 동적 모듈 로딩, SPA 라우팅, XSS 자동 방어를 핵심으로 합니다. 별도의 빌드 도구 없이 브라우저에서 직접 실행할 수 있으며, CDN이나 npm을 통해 간편하게 설치할 수 있습니다. 코어 번들 크기는 약 30KB(gzip)로 매우 가볍습니다.' },
+      { title: 'IMCAT UI를 프로젝트에 어떻게 적용하나요?', content: '<code>pnpm add @imcat-ckim/catui</code> 또는 CDN 링크를 통해 설치합니다. HTML에 <code>&lt;script src="imcat-ui.min.js"&gt;</code>를 추가하면 전역 <code>IMCAT</code> 객체가 생성되고, <code>IMCAT.use(\'모듈명\')</code>으로 필요한 컴포넌트를 동적 로드하여 사용합니다. ESM 방식도 지원합니다.' },
+      { title: '모듈은 몇 가지를 제공하나요?', content: '20개 코어 모듈(DOM, Event, Security, Router, Loader 등)과 22개 확장 UI 컴포넌트(Overlay, Navigation, DataViz, Forms, Feedback 등)를 제공합니다. 각 모듈은 독립적으로 로드 가능하며, 하위 모듈 추출도 지원합니다. 예: <code>IMCAT.use(\'overlays/modal\')</code>' },
+      { title: '보안 기능은 어떻게 동작하나요?', content: 'Security 모듈이 XSS 공격 방어, 경로 검증, 입력 새니타이징을 자동으로 처리합니다. 모든 사용자 입력은 <code>Security.escape()</code>로 이스케이프되며, <code>eval()</code>과 <code>new Function()</code> 사용이 금지됩니다. HTML 템플릿에서도 자동 이스케이프가 적용됩니다.' }
+    ];
+    var accHtml = '<div class="accordion">';
+    accData.forEach(function(item) {
+      accHtml += '<div class="accordion__item"><div class="accordion__header">' + item.title + '</div><div class="accordion__content"><p>' + item.content + '</p></div></div>';
+    });
+    accHtml += '</div>';
+    document.getElementById('accordion-demo').innerHTML = accHtml;
+    new Nav.Accordion('#accordion-demo .accordion', { multiple: false });
+
+    // Accordion (Separated — Custom 스타일)
+    var sepData = [
+      { title: '이 템플릿을 클라이언트 프로젝트에 사용할 수 있나요?', content: '네, MIT 라이선스로 배포되어 상업적 프로젝트를 포함한 모든 용도로 자유롭게 사용할 수 있습니다. 단, 라이선스 고지를 유지해야 합니다. npm 패키지로 의존성 관리가 간편하며, 버전 업데이트도 쉽게 적용할 수 있습니다.' },
+      { title: 'WordPress와 호환되나요?', content: '직접적인 WordPress 플러그인은 아니지만, WordPress 테마의 프론트엔드에 IMCAT UI를 통합할 수 있습니다. CDN 링크를 추가하고 기존 jQuery와 충돌 없이 사용 가능합니다. REST API와 연동하여 SPA 형태의 관리 대시보드도 구축할 수 있습니다.' },
+      { title: '커스텀 테마를 만들 수 있나요?', content: 'SCSS 변수 시스템을 통해 완전한 테마 커스터마이징이 가능합니다. <code>_variables.scss</code>에서 색상, 타이포그래피, 간격, z-index 등을 수정하면 전체 컴포넌트에 자동 반영됩니다. 다크 모드는 <code>IMCAT.use(\'theme\')</code>로 런타임 전환을 지원합니다.' }
+    ];
+    var sepHtml = '<div class="accordion accordion--separated">';
+    sepData.forEach(function(item) {
+      sepHtml += '<div class="accordion__item"><div class="accordion__header">' + item.title + '</div><div class="accordion__content"><p>' + item.content + '</p></div></div>';
+    });
+    sepHtml += '</div>';
+    document.getElementById('accordion-sep-demo').innerHTML = sepHtml;
+    new Nav.Accordion('#accordion-sep-demo .accordion', { multiple: true, expandFirst: false });
+
+    // ================================
+    // Collapse
+    // ================================
+    var collapseInstance = new Nav.Collapse('#collapse-demo', { expanded: false });
+    document.getElementById('collapse-toggle').addEventListener('click', function() {
+      collapseInstance.toggle();
+    });
+
+    // ================================
+    // TreeView (DOM 마크업 생성)
+    // ================================
+    function buildTreeHtml(nodes) {
+      var html = '';
+      nodes.forEach(function(n) {
+        var hasKids = n.children && n.children.length > 0;
+        html += '<div class="treeview__item">';
+        if (hasKids) {
+          html += '<button class="treeview__toggle"><i class="material-icons-outlined">chevron_right</i></button>';
+        } else {
+          html += '<span style="display:inline-block;width:1.25rem"></span>';
+        }
+        html += '<span class="treeview__label">';
+        if (n.icon) html += '<i class="material-icons-outlined treeview__label-icon">' + n.icon + '</i>';
+        html += '<span>' + n.label + '</span></span>';
+        if (hasKids) {
+          html += '<div class="treeview__children">' + buildTreeHtml(n.children) + '</div>';
+        }
+        html += '</div>';
+      });
+      return html;
+    }
+
+    var treeData = [
+      { label: 'src', icon: 'folder', children: [
+        { label: 'core', icon: 'folder', children: [
+          { label: 'index.js', icon: 'javascript' },
+          { label: 'dom.js', icon: 'javascript' },
+          { label: 'security.js', icon: 'javascript' },
+          { label: 'router.js', icon: 'javascript' }
+        ]},
+        { label: 'modules', icon: 'folder', children: [
+          { label: 'overlays.js', icon: 'javascript' },
+          { label: 'navigation.js', icon: 'javascript' },
+          { label: 'data-viz.js', icon: 'javascript' }
+        ]},
+        { label: 'styles', icon: 'folder', children: [
+          { label: 'imcat-ui.scss', icon: 'css' },
+          { label: 'abstracts/', icon: 'folder', children: [
+            { label: '_variables.scss', icon: 'css' },
+            { label: '_tokens.scss', icon: 'css' }
+          ]}
+        ]}
+      ]},
+      { label: 'dist', icon: 'folder', children: [
+        { label: 'imcat-ui.min.js', icon: 'javascript' },
+        { label: 'imcat-ui.css', icon: 'css' }
+      ]},
+      { label: 'package.json', icon: 'description' },
+      { label: 'README.md', icon: 'article' }
+    ];
+    document.getElementById('tree-demo').innerHTML = buildTreeHtml(treeData);
+    var treeInstance = new Nav.TreeView('#tree-demo');
+
+    document.getElementById('tree-expand-all').addEventListener('click', function() { treeInstance.expandAll(); });
+    document.getElementById('tree-collapse-all').addEventListener('click', function() { treeInstance.collapseAll(); });
+
+    // ================================
+    // MegaMenu (DOM 마크업 생성)
+    // ================================
+    var megaMenuData = [
+      {
+        label: '제품',
+        columns: [
+          { title: '프론트엔드', links: ['IMCAT UI', '컴포넌트', '유틸리티', '테마'] },
+          { title: '백엔드', links: ['API 서버', '데이터베이스', '인증'] },
+          { title: '도구', links: ['CLI', '플러그인', '템플릿'] }
+        ]
+      },
+      {
+        label: '리소스',
+        columns: [
+          { title: '학습', links: ['시작하기', '튜토리얼', '예제'] },
+          { title: '커뮤니티', links: ['GitHub', '디스코드', '블로그'] }
+        ]
+      }
+    ];
+
+    var megaHtml = '';
+    megaMenuData.forEach(function(item) {
+      megaHtml += '<div class="megamenu__item">';
+      megaHtml += '<button class="megamenu__trigger">' + item.label + ' <i class="material-icons-outlined" style="font-size:1rem">expand_more</i></button>';
+      megaHtml += '<div class="megamenu__panel"><div class="megamenu__columns">';
+      item.columns.forEach(function(col) {
+        megaHtml += '<div><div class="megamenu__column-title">' + col.title + '</div>';
+        col.links.forEach(function(link) {
+          megaHtml += '<a href="#" class="megamenu__link">' + link + '</a>';
+        });
+        megaHtml += '</div>';
+      });
+      megaHtml += '</div></div></div>';
+    });
+    document.getElementById('mega-demo').innerHTML = megaHtml;
+    new Nav.MegaMenu('#mega-demo', { trigger: 'click', closeOnOutside: true });
+
+  })();
+</script>

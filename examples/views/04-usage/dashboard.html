@@ -1,0 +1,309 @@
+<!-- 활용: 대시보드 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">대시보드</li>
+    </ol>
+  </nav>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <h1 class="page-title">대시보드</h1>
+      <p class="page-desc">IMCAT UI 컴포넌트를 조합한 관리자 대시보드 예제</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="dash-period-btn" class="btn btn--outline btn--sm">
+        <i class="material-icons-outlined">calendar_today</i> 이번 달
+      </button>
+      <button class="btn btn--outline btn--sm" onclick="IMCAT.toast.info('PDF 리포트 생성')">
+        <i class="material-icons-outlined">picture_as_pdf</i> 리포트
+      </button>
+      <button id="dash-noti-btn" class="btn btn--outline btn--sm" style="position:relative">
+        <i class="material-icons-outlined">notifications</i>
+        <span class="badge badge--danger badge--pill" style="position:absolute;top:-4px;right:-4px;font-size:0.625rem">5</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 통계 카드 -->
+<div class="card-grid" id="stat-cards">
+  <div class="card card--primary">
+    <div class="card__body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <p class="body2">총 사용자</p>
+        <i class="material-icons-outlined" style="opacity:0.5">group</i>
+      </div>
+      <div class="display-4" id="stat-users">0</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:4px">
+        <span class="badge badge--success badge--pill">+12%</span>
+        <span class="body2" style="opacity:0.75">지난달 대비</span>
+      </div>
+    </div>
+  </div>
+  <div class="card card--success">
+    <div class="card__body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <p class="body2">매출</p>
+        <i class="material-icons-outlined" style="opacity:0.5">payments</i>
+      </div>
+      <div class="display-4" id="stat-revenue">₩0</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:4px">
+        <span class="badge badge--success badge--pill">+8%</span>
+        <span class="body2" style="opacity:0.75">지난달 대비</span>
+      </div>
+    </div>
+  </div>
+  <div class="card card--warning">
+    <div class="card__body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <p class="body2">주문</p>
+        <i class="material-icons-outlined" style="opacity:0.5">shopping_cart</i>
+      </div>
+      <div class="display-4" id="stat-orders">0</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:4px">
+        <span class="badge badge--danger badge--pill">-3%</span>
+        <span class="body2" style="opacity:0.75">지난달 대비</span>
+      </div>
+    </div>
+  </div>
+  <div class="card card--info">
+    <div class="card__body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <p class="body2">접속자</p>
+        <i class="material-icons-outlined" style="opacity:0.5">person</i>
+      </div>
+      <div class="display-4" id="stat-online">0</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:4px">
+        <span class="badge badge--info badge--pill">실시간</span>
+        <span id="dash-live-dot" style="width:8px;height:8px;border-radius:50%;background:var(--success-color, #22C55E);animation:pulse 2s infinite"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 목표 진행률 -->
+<div class="card card--outlined">
+  <div class="card__header"><h4 class="card__title">이번 달 목표</h4></div>
+  <div class="card__body">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px">
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="body2">매출 목표</span><span class="body2 font-semibold">90%</span></div>
+        <div class="progress"><div class="progress__bar bg-primary" style="width:90%"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="body2">신규 가입</span><span class="body2 font-semibold">72%</span></div>
+        <div class="progress"><div class="progress__bar bg-success" style="width:72%"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="body2">고객 만족도</span><span class="body2 font-semibold">85%</span></div>
+        <div class="progress"><div class="progress__bar bg-info" style="width:85%"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="body2">버그 해결률</span><span class="body2 font-semibold">64%</span></div>
+        <div class="progress"><div class="progress__bar bg-warning" style="width:64%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 차트 + 최근 활동 -->
+<div class="card-grid">
+  <div class="card card--outlined">
+    <div class="card__header">
+      <h4 class="card__title">매출 추이</h4>
+      <div class="btn-group">
+        <button class="btn btn--xs btn--primary" onclick="dashChartType('line',this)">선형</button>
+        <button class="btn btn--xs btn--outline" onclick="dashChartType('bar',this)">막대</button>
+      </div>
+    </div>
+    <div class="card__body"><div id="dash-chart"></div></div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__header">
+      <h4 class="card__title">최근 활동</h4>
+      <button class="btn btn--xs btn--outline" onclick="IMCAT.toast.info('모든 활동 보기')">전체</button>
+    </div>
+    <div class="card__body" style="max-height:340px;overflow-y:auto">
+      <ul class="list list--divided" id="dash-activity"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 퀵 액션 + 서버 상태 -->
+<div class="card-grid">
+  <div class="card card--outlined">
+    <div class="card__header"><h4 class="card__title">빠른 작업</h4></div>
+    <div class="card__body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;text-align:center">
+        <button class="btn btn--outline" style="flex-direction:column;gap:8px;padding:16px" onclick="IMCAT.toast.success('사용자 추가 모달')">
+          <i class="material-icons-outlined">person_add</i><span class="body2">사용자 추가</span>
+        </button>
+        <button class="btn btn--outline" style="flex-direction:column;gap:8px;padding:16px" onclick="IMCAT.toast.info('상품 등록')">
+          <i class="material-icons-outlined">add_shopping_cart</i><span class="body2">상품 등록</span>
+        </button>
+        <button class="btn btn--outline" style="flex-direction:column;gap:8px;padding:16px" onclick="IMCAT.toast.info('공지사항 작성')">
+          <i class="material-icons-outlined">campaign</i><span class="body2">공지 작성</span>
+        </button>
+        <button class="btn btn--outline" style="flex-direction:column;gap:8px;padding:16px" onclick="IMCAT.toast.info('설정 열기')">
+          <i class="material-icons-outlined">settings</i><span class="body2">설정</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__header"><h4 class="card__title">시스템 상태</h4></div>
+    <div class="card__body" id="dash-server-status"></div>
+  </div>
+</div>
+
+<!-- 최근 주문 테이블 -->
+<div class="card card--outlined">
+  <div class="card__header">
+    <h4 class="card__title">최근 주문</h4>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn--sm btn--outline" onclick="IMCAT.helpers.downloadCSV([['주문번호','고객','금액','상태'],['#1234','홍길동','89000','완료'],['#1233','김영희','125000','배송중']], '주문목록.csv'); IMCAT.toast.success('CSV 다운로드 완료')">
+        <i class="material-icons-outlined">download</i> 내보내기
+      </button>
+      <button class="btn btn--sm btn--outline" onclick="IMCAT.toast.info('전체 보기')">전체 보기</button>
+    </div>
+  </div>
+  <div class="card__body"><div id="dash-table"></div></div>
+</div>
+
+<style>
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
+
+<script>
+  var dashChartInstance = null;
+
+  (async function() {
+    // 통계 애니메이션
+    var animate = function(el, target, prefix, suffix) {
+      var current = 0;
+      var step = Math.ceil(target / 30);
+      var timer = setInterval(function() {
+        current = Math.min(current + step, target);
+        el.textContent = (prefix || '') + current.toLocaleString() + (suffix || '');
+        if (current >= target) clearInterval(timer);
+      }, 30);
+    };
+    animate(document.getElementById('stat-users'), 12847, '', '');
+    animate(document.getElementById('stat-revenue'), 4520, '₩', '만');
+    animate(document.getElementById('stat-orders'), 384, '', '');
+    animate(document.getElementById('stat-online'), 127, '', '');
+
+    // 기간 필터 드롭다운
+    var Dropdown = await IMCAT.use('dropdown');
+    new Dropdown(document.getElementById('dash-period-btn'), {
+      items: [
+        { text: '오늘', action: function() { document.getElementById('dash-period-btn').innerHTML = '<i class="material-icons-outlined">calendar_today</i> 오늘'; IMCAT.toast.info('오늘 기간으로 전환'); } },
+        { text: '이번 주', action: function() { document.getElementById('dash-period-btn').innerHTML = '<i class="material-icons-outlined">calendar_today</i> 이번 주'; IMCAT.toast.info('이번 주 기간으로 전환'); } },
+        { text: '이번 달', active: true, action: function() { document.getElementById('dash-period-btn').innerHTML = '<i class="material-icons-outlined">calendar_today</i> 이번 달'; IMCAT.toast.info('이번 달 기간으로 전환'); } },
+        { text: '이번 분기', action: function() { document.getElementById('dash-period-btn').innerHTML = '<i class="material-icons-outlined">calendar_today</i> 이번 분기'; IMCAT.toast.info('이번 분기 기간으로 전환'); } },
+        { text: '올해', action: function() { document.getElementById('dash-period-btn').innerHTML = '<i class="material-icons-outlined">calendar_today</i> 올해'; IMCAT.toast.info('올해 기간으로 전환'); } }
+      ]
+    });
+
+    // 알림 드롭다운
+    new Dropdown(document.getElementById('dash-noti-btn'), {
+      items: [
+        { text: '새 주문 #1235 접수', icon: 'shopping_cart', action: function() { IMCAT.toast.info('새 주문 #1235 접수'); } },
+        { text: '서버 메모리 90% 도달', icon: 'warning', action: function() { IMCAT.toast.warning('서버 메모리 90% 도달'); } },
+        { text: '새 사용자 가입: 정민수', icon: 'person_add', action: function() { IMCAT.toast.info('새 사용자 가입: 정민수'); } },
+        { text: '배포 v1.1.2 완료', icon: 'verified', action: function() { IMCAT.toast.success('배포 v1.1.2 완료'); } },
+        { text: '고객 문의 2건 미처리', icon: 'chat', action: function() { IMCAT.toast.info('고객 문의 2건 미처리'); } },
+        { divider: true },
+        { text: '모든 알림 보기', icon: 'notifications', action: function() { IMCAT.toast.info('모든 알림 보기'); } }
+      ]
+    });
+
+    // 차트
+    var DV = await IMCAT.use('data-viz');
+    dashChartInstance = new DV.Chart('#dash-chart', {
+      type: 'line',
+      data: {
+        labels: ['1월','2월','3월','4월','5월','6월'],
+        datasets: [
+          { label: '매출(만원)', data: [3200,3800,3500,4100,4520,4800] },
+          { label: '비용(만원)', data: [2100,2300,2200,2600,2400,2700] }
+        ]
+      }
+    });
+
+    // 활동 로그
+    var activities = [
+      { icon: 'person_add', text: '새 사용자 가입: 김영희', time: '5분 전', color: 'primary' },
+      { icon: 'shopping_cart', text: '주문 #1234 결제 완료', time: '12분 전', color: 'success' },
+      { icon: 'verified', text: '배포 v1.1.2 성공', time: '25분 전', color: 'success' },
+      { icon: 'warning', text: '서버 CPU 사용률 85%', time: '30분 전', color: 'warning' },
+      { icon: 'chat', text: '고객 문의 3건 접수', time: '1시간 전', color: 'info' },
+      { icon: 'star', text: '앱 스토어 리뷰 ★4.8', time: '1시간 전', color: 'warning' },
+      { icon: 'delete', text: '휴면 계정 15건 정리', time: '2시간 전', color: 'danger' },
+      { icon: 'backup', text: '데이터베이스 백업 완료', time: '3시간 전', color: 'info' }
+    ];
+    var actList = document.getElementById('dash-activity');
+    activities.forEach(function(a) {
+      var li = document.createElement('li');
+      li.className = 'list__item';
+      li.innerHTML = '<i class="material-icons-outlined text-' + a.color + '" style="font-size:20px">' + a.icon + '</i> <div style="flex:1"><strong style="font-size:0.875rem">' + a.text + '</strong><p class="body2 text-muted" style="margin:0">' + a.time + '</p></div>';
+      actList.appendChild(li);
+    });
+
+    // 서버 상태
+    var serverEl = document.getElementById('dash-server-status');
+    var servers = [
+      { name: 'API 서버', status: 'online', uptime: '99.9%', load: '42%' },
+      { name: 'DB 서버', status: 'online', uptime: '99.7%', load: '67%' },
+      { name: 'CDN', status: 'online', uptime: '100%', load: '23%' },
+      { name: '배치 서버', status: 'warning', uptime: '98.2%', load: '85%' }
+    ];
+    var statusHtml = '<div class="list list--divided">';
+    servers.forEach(function(s) {
+      var color = s.status === 'online' ? 'success' : 'warning';
+      statusHtml += '<div class="list__item" style="display:flex;align-items:center;gap:12px">' +
+        '<span style="width:8px;height:8px;border-radius:50%;background:var(--' + color + ')"></span>' +
+        '<div style="flex:1"><strong style="font-size:0.875rem">' + s.name + '</strong></div>' +
+        '<span class="body2 text-muted">가동 ' + s.uptime + '</span>' +
+        '<span class="badge badge--' + color + '">' + s.load + '</span>' +
+        '</div>';
+    });
+    statusHtml += '</div>';
+    serverEl.innerHTML = statusHtml;
+
+    // 주문 테이블
+    new DV.DataTable('#dash-table', {
+      columns: [
+        { field: 'id', title: '주문번호' },
+        { field: 'customer', title: '고객', sortable: true },
+        { field: 'product', title: '상품' },
+        { field: 'amount', title: '금액', sortable: true },
+        { field: 'date', title: '날짜' },
+        { field: 'status', title: '상태', render: function(v) { return v; } }
+      ],
+      data: [
+        { id: '#1234', customer: '홍길동', product: 'Pro 라이선스', amount: '₩89,000', date: '2025-03-15', status: '<span class="badge badge--success">완료</span>' },
+        { id: '#1233', customer: '김영희', product: 'Team 플랜', amount: '₩125,000', date: '2025-03-14', status: '<span class="badge badge--warning">배송중</span>' },
+        { id: '#1232', customer: '이철수', product: 'Basic 플랜', amount: '₩45,000', date: '2025-03-14', status: '<span class="badge badge--info">준비중</span>' },
+        { id: '#1231', customer: '박지민', product: 'Enterprise', amount: '₩210,000', date: '2025-03-13', status: '<span class="badge badge--success">완료</span>' },
+        { id: '#1230', customer: '최수진', product: 'Pro 라이선스', amount: '₩67,000', date: '2025-03-13', status: '<span class="badge badge--danger">취소</span>' },
+        { id: '#1229', customer: '정민수', product: 'Team 플랜', amount: '₩98,000', date: '2025-03-12', status: '<span class="badge badge--success">완료</span>' }
+      ],
+      paginate: false, searchable: false
+    });
+  })();
+
+  function dashChartType(type, btn) {
+    btn.parentElement.querySelectorAll('.btn').forEach(function(b) {
+      b.className = 'btn btn--xs btn--outline';
+    });
+    btn.className = 'btn btn--xs btn--primary';
+    if (dashChartInstance && dashChartInstance.setType) {
+      dashChartInstance.setType(type);
+    } else {
+      IMCAT.toast.info(type === 'line' ? '선형 차트' : '막대 차트');
+    }
+  }
+</script>

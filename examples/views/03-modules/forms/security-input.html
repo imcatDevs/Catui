@@ -1,0 +1,413 @@
+<!-- Security Input: OTPInput, PinInput -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Security Input</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Security Input</h1>
+  <p class="page-desc">OTP 인증 코드, PIN 보안 입력. 자동 포커스 이동, 붙여넣기, 키패드 지원.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Basic OTP (2FA 인증)                  -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-otp-basic">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Two-Factor Authentication</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">6자리 인증 코드 입력. 자동 포커스 이동 + 붙여넣기 지원.</p>
+      </div>
+      <div class="demo-card__body">
+        <div style="max-width:22rem">
+          <p class="text-muted" style="font-size:0.8125rem;margin-bottom:0.25rem">인증 코드가 ******6789 으로 전송되었습니다.</p>
+          <label style="display:block;font-weight:500;margin-bottom:0.5rem;font-size:0.875rem">6자리 코드 입력 <span style="color:var(--danger-color)">*</span></label>
+          <div id="otp-basic"></div>
+          <button type="button" class="btn btn--primary" style="width:100%;margin-top:1rem" id="otp-basic-btn">확인</button>
+          <p class="text-muted" style="font-size:0.8125rem;margin-top:0.75rem;text-align:center">
+            코드를 못 받으셨나요? <a href="#" style="font-weight:600;text-decoration:underline">재전송</a>
+          </p>
+        </div>
+      </div>
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> SI = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'security-input'</span>);
+<span class="code-keyword">new</span> SI.<span class="code-function">OTPInput</span>(<span class="code-string">'#container'</span>, {
+  length: <span class="code-number">6</span>,
+  type: <span class="code-string">'number'</span>,
+  onComplete: (code) => console.log(code)
+});</pre>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: OTP 변형들                            -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-otp-variants">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">OTP 변형</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">구분선, 텍스트 타입, 마스킹, 크기 변형 등 다양한 OTP 옵션</p>
+      </div>
+      <div class="demo-card__body">
+
+        <!-- 구분선 OTP -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">구분선 (Separator)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>separator: true, separatorPosition: 3</code> — 3-3 형태 구분</p>
+          </div>
+          <div style="flex:1">
+            <div id="otp-separator"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 마스킹 OTP -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">마스킹 (Masked)</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>mask: true</code> — 입력값을 ●로 마스킹</p>
+          </div>
+          <div style="flex:1">
+            <div id="otp-masked"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 4자리 텍스트 -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">4자리 텍스트</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>length: 4, type: 'text'</code> — 영문+숫자 혼합 코드</p>
+          </div>
+          <div style="flex:1">
+            <div id="otp-text4"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 크기 변형 -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">크기 변형</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem">Small / Default / Large</p>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;flex-direction:column;gap:0.75rem">
+              <div id="otp-sm"></div>
+              <div id="otp-md"></div>
+              <div id="otp-lg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: OTP 상태 (에러/성공/비활성화)           -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-otp-states">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">OTP 상태</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">에러, 성공, 비활성화 상태 표시. API: <code>setError(msg)</code>, <code>setSuccess()</code>, <code>disable()</code></p>
+      </div>
+      <div class="demo-card__body">
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">에러 상태</h6>
+            <p class="text-muted" style="margin:0 0 0.5rem;font-size:0.8125rem">잘못된 코드 입력 시</p>
+            <div id="otp-error"></div>
+          </div>
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">성공 상태</h6>
+            <p class="text-muted" style="margin:0 0 0.5rem;font-size:0.8125rem">올바른 코드 입력 시</p>
+            <div id="otp-success"></div>
+          </div>
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">비활성화</h6>
+            <p class="text-muted" style="margin:0 0 0.5rem;font-size:0.8125rem">입력 불가 상태</p>
+            <div id="otp-disabled"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 4: Basic PIN (잠금화면)                   -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-pin-basic">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">PIN Lock Screen</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">4자리 PIN 입력 + 마스킹 + 보이기/숨기기 토글.</p>
+      </div>
+      <div class="demo-card__body">
+        <div style="max-width:20rem;text-align:center">
+          <div style="width:4rem;height:4rem;border-radius:50%;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
+            <i class="material-icons-outlined" style="font-size:2rem;color:var(--text-secondary)">person</i>
+          </div>
+          <h5 style="font-weight:600;margin-bottom:0.25rem">사용자</h5>
+          <p class="text-muted" style="font-size:0.8125rem;margin-bottom:1rem">화면이 잠겼습니다. PIN을 입력하세요.</p>
+          <label style="display:block;font-weight:500;margin-bottom:0.5rem;font-size:0.875rem;text-align:left">4자리 PIN 입력 <span style="color:var(--danger-color)">*</span></label>
+          <div id="pin-basic"></div>
+          <button type="button" class="btn btn--primary" style="width:100%;margin-top:1rem" id="pin-basic-btn">확인</button>
+          <p class="text-muted" style="font-size:0.8125rem;margin-top:0.75rem">
+            본인이 아닌가요? <a href="#" style="font-weight:600;text-decoration:underline">로그인으로 돌아가기</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 5: PIN 변형                              -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-pin-variants">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">PIN 변형</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">6자리, 마스킹 해제, 에러/성공 상태</p>
+      </div>
+      <div class="demo-card__body">
+
+        <!-- 6자리 PIN -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">6자리 PIN</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>length: 6</code> — 6자리 보안 PIN</p>
+          </div>
+          <div style="flex:1">
+            <div id="pin-6digit"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 마스킹 해제 -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">마스킹 해제</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>mask: false</code> — 입력값 그대로 표시</p>
+          </div>
+          <div style="flex:1">
+            <div id="pin-nomask"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- 에러/성공 -->
+        <div class="row" style="display:flex;gap:1.5rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">에러 / 성공 상태</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem">
+              올바른 PIN: <code>1234</code> → 성공, 그 외 → 에러
+            </p>
+          </div>
+          <div style="flex:1">
+            <div id="pin-validate"></div>
+            <p id="pin-validate-msg" style="font-size:0.8125rem;margin-top:0.375rem"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 6: PIN + 가상 키패드                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-pin-keypad">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">가상 키패드</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem"><code>keypad: true</code> — 화면 키패드로 입력. 모바일/키로거 방지.</p>
+      </div>
+      <div class="demo-card__body">
+        <div style="max-width:18rem">
+          <div id="pin-keypad"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 7: PIN + 셔플 키패드                      -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-pin-shuffle">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">셔플 키패드</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem"><code>shuffleKeypad: true</code> — 매번 키 배치 변경으로 보안 강화. 완료 시 자동 셔플.</p>
+      </div>
+      <div class="demo-card__body">
+        <div style="max-width:18rem">
+          <div id="pin-shuffle"></div>
+        </div>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-otp-basic" class="doc-toc__link is-active">OTP 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-otp-variants" class="doc-toc__link">OTP 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-otp-states" class="doc-toc__link">OTP 상태</a></li>
+    <li class="doc-toc__item"><a href="#s-pin-basic" class="doc-toc__link">PIN 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-pin-variants" class="doc-toc__link">PIN 변형</a></li>
+    <li class="doc-toc__item"><a href="#s-pin-keypad" class="doc-toc__link">가상 키패드</a></li>
+    <li class="doc-toc__item"><a href="#s-pin-shuffle" class="doc-toc__link">셔플 키패드</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var SI = await IMCAT.use('security-input');
+    var toast = (typeof IMCAT !== 'undefined' && IMCAT.toast) ? IMCAT.toast : { success: console.log, error: console.log };
+
+    // ================================
+    // 1. Basic OTP (2FA)
+    // ================================
+    var otpBasic = new SI.OTPInput('#otp-basic', {
+      length: 6,
+      type: 'number',
+      placeholder: '',
+      autoFocus: false,
+      onComplete: function(code) {
+        toast.success('인증 코드: ' + code);
+      }
+    });
+
+    document.getElementById('otp-basic-btn').addEventListener('click', function() {
+      var code = otpBasic.getValue();
+      if (code.length < 6) {
+        otpBasic.setError('6자리 코드를 모두 입력해주세요.');
+      } else {
+        otpBasic.clearError();
+        otpBasic.setSuccess();
+        toast.success('인증 완료! 코드: ' + code);
+      }
+    });
+
+    // ================================
+    // 2. OTP 변형
+    // ================================
+    new SI.OTPInput('#otp-separator', {
+      length: 6,
+      type: 'number',
+      separator: true,
+      separatorPosition: 3,
+      autoFocus: false,
+      placeholder: '·'
+    });
+
+    new SI.OTPInput('#otp-masked', {
+      length: 6,
+      type: 'number',
+      mask: true,
+      autoFocus: false,
+      placeholder: ''
+    });
+
+    new SI.OTPInput('#otp-text4', {
+      length: 4,
+      type: 'text',
+      autoFocus: false,
+      placeholder: '-'
+    });
+
+    // 크기 변형 (size 옵션으로 적용)
+    new SI.OTPInput('#otp-sm', { length: 4, type: 'number', size: 'sm', autoFocus: false, placeholder: '' });
+    new SI.OTPInput('#otp-md', { length: 4, type: 'number', size: 'md', autoFocus: false, placeholder: '' });
+    new SI.OTPInput('#otp-lg', { length: 4, type: 'number', size: 'lg', autoFocus: false, placeholder: '' });
+
+    // ================================
+    // 3. OTP 상태
+    // ================================
+    var otpErr = new SI.OTPInput('#otp-error', { length: 6, type: 'number', autoFocus: false, error: true, errorMessage: '잘못된 인증 코드입니다.' });
+
+    var otpOk = new SI.OTPInput('#otp-success', { length: 6, type: 'number', autoFocus: false });
+    otpOk.setValue('123456');
+    otpOk.setSuccess();
+
+    new SI.OTPInput('#otp-disabled', { length: 6, type: 'number', autoFocus: false, disabled: true });
+
+    // ================================
+    // 4. Basic PIN (Lock Screen)
+    // ================================
+    var pinBasic = new SI.PinInput('#pin-basic', {
+      length: 4,
+      mask: true,
+      showToggle: true,
+      autoFocus: false,
+      onComplete: function(pin) {
+        toast.success('PIN 입력 완료');
+      }
+    });
+
+    document.getElementById('pin-basic-btn').addEventListener('click', function() {
+      var pin = pinBasic.getValue();
+      if (pin.length < 4) {
+        pinBasic.setError('4자리 PIN을 모두 입력해주세요.');
+      } else {
+        pinBasic.clearError();
+        pinBasic.setSuccess();
+        toast.success('잠금 해제! PIN: ' + pin);
+      }
+    });
+
+    // ================================
+    // 5. PIN 변형
+    // ================================
+    new SI.PinInput('#pin-6digit', { length: 6, mask: true, showToggle: true, autoFocus: false });
+
+    new SI.PinInput('#pin-nomask', { length: 4, mask: false, showToggle: false, autoFocus: false });
+
+    var pinValidate = new SI.PinInput('#pin-validate', {
+      length: 4,
+      mask: true,
+      showToggle: true,
+      autoFocus: false,
+      onComplete: function(pin) {
+        var msg = document.getElementById('pin-validate-msg');
+        if (pin === '1234') {
+          pinValidate.setSuccess();
+          msg.textContent = '올바른 PIN입니다!';
+          msg.style.color = 'var(--success-color)';
+        } else {
+          pinValidate.setError('잘못된 PIN입니다. 다시 시도하세요.');
+          msg.textContent = '';
+          setTimeout(function() { pinValidate.clear(); pinValidate.clearError(); }, 1500);
+        }
+      }
+    });
+
+    // ================================
+    // 6. PIN + 키패드
+    // ================================
+    new SI.PinInput('#pin-keypad', {
+      length: 4,
+      mask: true,
+      showToggle: true,
+      keypad: true,
+      autoFocus: false,
+      onComplete: function(pin) { toast.success('키패드 PIN: ' + pin); }
+    });
+
+    // ================================
+    // 7. PIN + 셔플 키패드
+    // ================================
+    var pinShuffle = new SI.PinInput('#pin-shuffle', {
+      length: 4,
+      mask: true,
+      showToggle: true,
+      keypad: true,
+      shuffleKeypad: true,
+      autoFocus: false,
+      onComplete: function(pin) {
+        toast.success('셔플 PIN: ' + pin);
+        setTimeout(function() { pinShuffle.clear(); pinShuffle.shuffleKeypad(); }, 500);
+      }
+    });
+  })();
+</script>

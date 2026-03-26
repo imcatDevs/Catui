@@ -1,0 +1,319 @@
+<!-- Theme — 라이트/다크 모드 및 커스텀 테마 관리 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Theme</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Theme</h1>
+  <p class="page-desc">라이트/다크/시스템 테마 — View Transitions API 기반 전환 효과 (circle, fade, slide)</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. 기본 테마 전환                             -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">기본 테마 전환</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">Light / Dark / System 3가지 모드. localStorage 자동 저장, 시스템 테마 변경 감지.</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+      <div class="theme-switcher" id="switcher-basic">
+        <button class="theme-switcher__button" data-theme-set="light">
+          <i class="material-icons-outlined">light_mode</i> Light
+        </button>
+        <button class="theme-switcher__button" data-theme-set="dark">
+          <i class="material-icons-outlined">dark_mode</i> Dark
+        </button>
+        <button class="theme-switcher__button" data-theme-set="system">
+          <i class="material-icons-outlined">desktop_windows</i> System
+        </button>
+      </div>
+      <div class="color-scheme-indicator" id="theme-status">
+        <span class="color-scheme-indicator__icon"><i class="material-icons-outlined">palette</i></span>
+        <span class="color-scheme-indicator__status" id="theme-status-text">—</span>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> TM = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'theme'</span>);
+<span class="code-keyword">const</span> theme = <span class="code-keyword">new</span> TM.<span class="code-function">Theme</span>({
+  defaultTheme: <span class="code-string">'system'</span>,  <span class="code-comment">// 'light' | 'dark' | 'system'</span>
+  storageKey: <span class="code-string">'imcat-theme'</span>,
+  onChange: (resolved, setting) =&gt; {
+    console.log(<span class="code-string">'적용:'</span>, resolved, <span class="code-string">'설정:'</span>, setting);
+  }
+});
+
+theme.<span class="code-function">set</span>(<span class="code-string">'dark'</span>);     <span class="code-comment">// 다크 모드</span>
+theme.<span class="code-function">set</span>(<span class="code-string">'system'</span>);   <span class="code-comment">// 시스템 모드</span>
+theme.<span class="code-function">toggle</span>();       <span class="code-comment">// light ↔ dark 전환</span>
+theme.<span class="code-function">isDark</span>();       <span class="code-comment">// → true/false</span>
+theme.<span class="code-function">getResolved</span>(); <span class="code-comment">// → 'light' 또는 'dark'</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. 전환 효과                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-transitions">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">전환 효과</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">View Transitions API 활용. 미지원 브라우저에서는 폴백 애니메이션 자동 적용.</p>
+  </div>
+  <div class="demo-card__body">
+    <p style="font-size:0.8125rem;color:var(--text-secondary);margin:0 0 0.75rem">전환 효과를 선택한 후 토글 버튼을 누르세요:</p>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem">
+      <button class="btn btn--sm btn--outline" data-trans="none">None</button>
+      <button class="btn btn--sm btn--outline" data-trans="fade">Fade</button>
+      <button class="btn btn--sm btn--outline" data-trans="slide">Slide</button>
+      <button class="btn btn--sm btn--primary" data-trans="circle">Circle</button>
+      <button class="btn btn--sm btn--outline" data-trans="circle-top-left">Circle ↖</button>
+      <button class="btn btn--sm btn--outline" data-trans="circle-center">Circle Center</button>
+    </div>
+    <button class="btn btn--primary" id="btn-toggle-effect">
+      <i class="material-icons-outlined">dark_mode</i> 테마 토글
+    </button>
+    <span class="text-muted" style="font-size:0.75rem;margin-left:0.5rem" id="current-trans-label">현재: circle</span>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> theme = <span class="code-keyword">new</span> TM.<span class="code-function">Theme</span>({
+  transition: <span class="code-string">'circle'</span>,       <span class="code-comment">// 'none' | 'fade' | 'slide' | 'circle' | 'circle-*'</span>
+  transitionDuration: <span class="code-number">800</span>   <span class="code-comment">// ms</span>
+});
+
+<span class="code-comment">// 런타임에 전환 효과 변경</span>
+theme.<span class="code-function">setTransition</span>(<span class="code-string">'fade'</span>, <span class="code-number">500</span>);
+
+<span class="code-comment">// 전환 효과 타입 상수</span>
+Theme.TRANSITIONS.FADE;            <span class="code-comment">// 'fade'</span>
+Theme.TRANSITIONS.CIRCLE;          <span class="code-comment">// 'circle'</span>
+Theme.TRANSITIONS.CIRCLE_CENTER;   <span class="code-comment">// 'circle-center'</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. 클릭 위치 기반 원형 전환                    -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-circle-at">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">클릭 위치 원형 전환</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem"><code>toggleWithEvent(e)</code> — 마우스 클릭 위치에서 원이 확산되며 테마 전환</p>
+  </div>
+  <div class="demo-card__body">
+    <div id="circle-area" style="padding:2rem;background:var(--bg-tertiary);border-radius:0.5rem;text-align:center;cursor:pointer;user-select:none">
+      <i class="material-icons-outlined" style="font-size:2rem;color:var(--text-secondary)">touch_app</i>
+      <p style="font-size:0.875rem;margin:0.5rem 0 0;color:var(--text-secondary)">아무 곳이나 클릭하면 해당 위치에서 원형 전환</p>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 클릭 이벤트 기반 전환</span>
+button.addEventListener(<span class="code-string">'click'</span>, (e) =&gt; {
+  theme.<span class="code-function">toggleWithEvent</span>(e);
+});
+
+<span class="code-comment">// 특정 좌표에서 전환</span>
+theme.<span class="code-function">setWithCircleAt</span>(<span class="code-string">'dark'</span>, <span class="code-number">100</span>, <span class="code-number">200</span>, <span class="code-number">800</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. 커스텀 테마 등록                           -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-custom">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">커스텀 테마</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">CSS 변수 기반 커스텀 테마 등록 및 적용</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <button class="btn btn--sm btn--outline" id="btn-theme-light">Light</button>
+      <button class="btn btn--sm btn--outline" id="btn-theme-dark">Dark</button>
+      <button class="btn btn--sm" id="btn-theme-ocean" style="background:#0ea5e9;color:#fff">Ocean</button>
+      <button class="btn btn--sm" id="btn-theme-forest" style="background:#16a34a;color:#fff">Forest</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 커스텀 테마 등록</span>
+theme.<span class="code-function">register</span>(<span class="code-string">'ocean'</span>, {
+  <span class="code-string">'--bg-primary'</span>: <span class="code-string">'#0c4a6e'</span>,
+  <span class="code-string">'--bg-secondary'</span>: <span class="code-string">'#075985'</span>,
+  <span class="code-string">'--text-primary'</span>: <span class="code-string">'#e0f2fe'</span>,
+  <span class="code-string">'--border-color'</span>: <span class="code-string">'#0369a1'</span>
+});
+
+<span class="code-comment">// 커스텀 테마 적용</span>
+theme.<span class="code-function">set</span>(<span class="code-string">'ocean'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. API 레퍼런스                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>옵션</th><th>기본값</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>defaultTheme</code></td><td>'system'</td><td>'light' | 'dark' | 'system'</td></tr>
+          <tr><td><code>storageKey</code></td><td>'imcat-theme'</td><td>localStorage 키</td></tr>
+          <tr><td><code>transition</code></td><td>'none'</td><td>'none' | 'fade' | 'slide' | 'circle' | 'circle-*'</td></tr>
+          <tr><td><code>transitionDuration</code></td><td>800</td><td>전환 애니메이션 시간 (ms)</td></tr>
+          <tr><td><code>themes</code></td><td>{}</td><td>커스텀 테마 CSS 변수 객체</td></tr>
+          <tr><td><code>onChange</code></td><td>null</td><td>(resolvedTheme, settingTheme) 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.5rem">메서드</h6>
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>메서드</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>set(theme, save?, animate?)</code></td><td>테마 설정</td></tr>
+          <tr><td><code>get()</code></td><td>현재 설정값 반환 ('light' | 'dark' | 'system')</td></tr>
+          <tr><td><code>getResolved()</code></td><td>실제 적용된 테마 ('light' | 'dark')</td></tr>
+          <tr><td><code>toggle(animate?)</code></td><td>light ↔ dark 전환</td></tr>
+          <tr><td><code>toggleWithEvent(event, theme?)</code></td><td>클릭 위치 기반 원형 전환</td></tr>
+          <tr><td><code>setWithCircleAt(theme, x, y, dur?)</code></td><td>특정 좌표에서 원형 전환</td></tr>
+          <tr><td><code>setTransition(type, dur?)</code></td><td>전환 효과 변경</td></tr>
+          <tr><td><code>register(name, vars)</code></td><td>커스텀 테마 등록</td></tr>
+          <tr><td><code>onChange(listener)</code></td><td>변경 리스너 등록, 구독 해제 함수 반환</td></tr>
+          <tr><td><code>isDark()</code> / <code>isLight()</code></td><td>현재 모드 확인</td></tr>
+          <tr><td><code>getSystemTheme()</code></td><td>OS 테마 반환</td></tr>
+          <tr><td><code>reset()</code></td><td>기본 테마로 초기화</td></tr>
+          <tr><td><code>destroy()</code></td><td>인스턴스 정리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.5rem">팩토리 함수</h6>
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>함수</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>createTheme(opts)</code></td><td>싱글톤 생성 (이미 있으면 기존 반환)</td></tr>
+          <tr><td><code>getTheme()</code></td><td>기존 싱글톤 가져오기</td></tr>
+          <tr><td><code>initTheme(opts)</code></td><td>기존 파괴 후 새로 생성</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 전환</a></li>
+    <li class="doc-toc__item"><a href="#s-transitions" class="doc-toc__link">전환 효과</a></li>
+    <li class="doc-toc__item"><a href="#s-circle-at" class="doc-toc__link">클릭 위치 전환</a></li>
+    <li class="doc-toc__item"><a href="#s-custom" class="doc-toc__link">커스텀 테마</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var _themeInstance = null;
+  (async function() {
+    var TM = await IMCAT.use('theme');
+
+    // ── 1. 기본 테마 전환 ──
+    _themeInstance = new TM.Theme({
+      defaultTheme: 'system',
+      transition: 'circle',
+      transitionDuration: 600,
+      onChange: function(resolved, setting) {
+        // 상태 표시 업데이트
+        var statusEl = document.getElementById('theme-status-text');
+        if (statusEl) statusEl.textContent = resolved + (setting === 'system' ? ' (system)' : '');
+        // 스위처 버튼 활성화
+        document.querySelectorAll('#switcher-basic .theme-switcher__button').forEach(function(btn) {
+          btn.classList.toggle('is-active', btn.dataset.themeSet === setting);
+        });
+      }
+    });
+
+    // 초기 상태 표시
+    var initResolved = _themeInstance.getResolved();
+    var initSetting = _themeInstance.get();
+    document.getElementById('theme-status-text').textContent = initResolved + (initSetting === 'system' ? ' (system)' : '');
+    document.querySelectorAll('#switcher-basic .theme-switcher__button').forEach(function(btn) {
+      btn.classList.toggle('is-active', btn.dataset.themeSet === initSetting);
+    });
+
+    // 스위처 버튼 이벤트
+    document.getElementById('switcher-basic').addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-theme-set]');
+      if (btn && _themeInstance) {
+        _themeInstance.set(btn.dataset.themeSet);
+      }
+    });
+
+    // ── 2. 전환 효과 ──
+    var currentTrans = 'circle';
+    var transLabel = document.getElementById('current-trans-label');
+
+    document.querySelectorAll('[data-trans]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        currentTrans = btn.dataset.trans;
+        _themeInstance.setTransition(currentTrans, 600);
+        transLabel.textContent = '현재: ' + currentTrans;
+        // 버튼 활성화 표시
+        document.querySelectorAll('[data-trans]').forEach(function(b) {
+          b.className = b.dataset.trans === currentTrans ? 'btn btn--sm btn--primary' : 'btn btn--sm btn--outline';
+        });
+      });
+    });
+
+    document.getElementById('btn-toggle-effect').addEventListener('click', function() {
+      if (_themeInstance) _themeInstance.toggle();
+    });
+
+    // ── 3. 클릭 위치 원형 전환 ──
+    document.getElementById('circle-area').addEventListener('click', function(e) {
+      if (_themeInstance) _themeInstance.toggleWithEvent(e);
+    });
+
+    // ── 4. 커스텀 테마 ──
+    _themeInstance.register('ocean', {
+      '--text-primary': '#e0f2fe',
+      '--text-secondary': '#7dd3fc',
+      '--text-muted': '#38bdf8',
+      '--bg-primary': '#0c4a6e',
+      '--bg-secondary': '#075985',
+      '--bg-tertiary': '#0369a1',
+      '--border-color': '#0284c7',
+      '--border-color-dark': '#0ea5e9'
+    });
+
+    _themeInstance.register('forest', {
+      '--text-primary': '#dcfce7',
+      '--text-secondary': '#86efac',
+      '--text-muted': '#4ade80',
+      '--bg-primary': '#14532d',
+      '--bg-secondary': '#166534',
+      '--bg-tertiary': '#15803d',
+      '--border-color': '#16a34a',
+      '--border-color-dark': '#22c55e'
+    });
+
+    document.getElementById('btn-theme-light').addEventListener('click', function() { _themeInstance.set('light'); });
+    document.getElementById('btn-theme-dark').addEventListener('click', function() { _themeInstance.set('dark'); });
+    document.getElementById('btn-theme-ocean').addEventListener('click', function() { _themeInstance.set('ocean'); });
+    document.getElementById('btn-theme-forest').addEventListener('click', function() { _themeInstance.set('forest'); });
+  })();
+</script>

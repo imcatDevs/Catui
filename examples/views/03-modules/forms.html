@@ -1,0 +1,456 @@
+<!-- Forms: FileUpload, Rating, SignaturePad, FormWizard -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Forms</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Forms</h1>
+  <p class="page-desc">FileUpload, Rating, SignaturePad, FormWizard 컴포넌트</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- FileUpload 기본 -->
+<div class="demo-card" id="s-upload">
+  <div class="demo-card__header"><span class="demo-card__title">FileUpload — 기본</span></div>
+  <div class="demo-card__desc">드래그 앤 드롭 또는 클릭으로 파일을 업로드합니다. 이미지 미리보기, 파일 크기/타입 검증 포함.</div>
+  <div class="demo-card__body"><div id="upload-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { FileUpload } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> <span class="code-function">FileUpload</span>(<span class="code-string">'#container'</span>, {
+  accept: <span class="code-string">'image/*,.pdf'</span>,
+  maxSize: <span class="code-number">5</span> * <span class="code-number">1024</span> * <span class="code-number">1024</span>,  <span class="code-comment">// 5MB</span>
+  multiple: <span class="code-keyword">true</span>,
+  maxFiles: <span class="code-number">10</span>,
+  dropzone: <span class="code-keyword">true</span>,
+  preview: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- FileUpload 단일 + 진행률 -->
+<div class="demo-card" id="s-upload-single">
+  <div class="demo-card__header"><span class="demo-card__title">FileUpload — 단일 파일 &amp; 진행률</span></div>
+  <div class="demo-card__desc">단일 파일 모드 + showProgress 옵션으로 업로드 시뮬레이션.</div>
+  <div class="demo-card__body">
+    <div id="upload-single-demo"></div>
+    <button class="btn btn--primary btn--sm" id="btn-simulate" style="margin-top:0.75rem" disabled>업로드 시뮬레이션</button>
+    <p id="upload-status" style="margin-top:0.375rem;font-size:0.8125rem;color:var(--text-tertiary)">파일을 선택한 후 버튼을 클릭하세요.</p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> fu = <span class="code-keyword">new</span> <span class="code-function">FileUpload</span>(<span class="code-string">'#container'</span>, {
+  accept: <span class="code-string">'image/*'</span>,
+  multiple: <span class="code-keyword">false</span>,
+  showProgress: <span class="code-keyword">true</span>,
+  maxSize: <span class="code-number">2</span> * <span class="code-number">1024</span> * <span class="code-number">1024</span>,
+  onChange: (files) => console.log(files)
+});
+<span class="code-comment">// 업로드 시뮬레이션 (2초)</span>
+<span class="code-keyword">await</span> fu.<span class="code-function">simulateUpload</span>(<span class="code-number">2000</span>);</pre>
+  </div>
+</div>
+
+<!-- Rating 기본 -->
+<div class="demo-card" id="s-rating">
+  <div class="demo-card__header"><span class="demo-card__title">Rating — 기본</span></div>
+  <div class="demo-card__desc">별점 입력. 클릭으로 값 설정, 마우스 오버 시 하이라이트.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;flex-direction:column;gap:0.75rem">
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">기본:</span>
+        <span id="rating-default"></span>
+        <span id="rating-default-val" style="font-size:0.8125rem;color:var(--text-tertiary);margin-left:0.5rem">3점</span>
+      </div>
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">비활성:</span>
+        <span id="rating-readonly"></span>
+        <span style="font-size:0.8125rem;color:var(--text-tertiary);margin-left:0.5rem">(readonly)</span>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Rating } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#container'</span>, {
+  max: <span class="code-number">5</span>,
+  value: <span class="code-number">3</span>,
+  onChange: (val) => console.log(val)
+});
+<span class="code-comment">// 읽기 전용</span>
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#readonly'</span>, { value: <span class="code-number">4</span>, readonly: <span class="code-keyword">true</span> });</pre>
+  </div>
+</div>
+
+<!-- Rating 크기 & 커스텀 -->
+<div class="demo-card" id="s-rating-variant">
+  <div class="demo-card__header"><span class="demo-card__title">Rating — 크기 &amp; 커스텀</span></div>
+  <div class="demo-card__desc">size 옵션(sm/md/lg), 커스텀 아이콘, 색상 변경.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;flex-direction:column;gap:0.75rem">
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">Small:</span>
+        <span id="rating-sm"></span>
+      </div>
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">Medium:</span>
+        <span id="rating-md"></span>
+      </div>
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">Large:</span>
+        <span id="rating-lg"></span>
+      </div>
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">하트:</span>
+        <span id="rating-heart"></span>
+      </div>
+      <div>
+        <span style="font-size:0.8125rem;font-weight:500;display:inline-block;width:4rem">10점:</span>
+        <span id="rating-ten"></span>
+        <span id="rating-ten-val" style="font-size:0.8125rem;color:var(--text-tertiary);margin-left:0.5rem">7점</span>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">// 크기 변형</span>
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#sm'</span>, { size: <span class="code-string">'sm'</span>, value: <span class="code-number">2</span> });
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#lg'</span>, { size: <span class="code-string">'lg'</span>, value: <span class="code-number">4</span> });
+<span class="code-comment">// 하트 아이콘 + 빨간색</span>
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#heart'</span>, {
+  icon: <span class="code-string">'favorite'</span>,
+  iconEmpty: <span class="code-string">'favorite_border'</span>,
+  color: <span class="code-string">'#ef4444'</span>,
+  value: <span class="code-number">3</span>
+});
+<span class="code-comment">// 10점 척도</span>
+<span class="code-keyword">new</span> <span class="code-function">Rating</span>(<span class="code-string">'#ten'</span>, { max: <span class="code-number">10</span>, value: <span class="code-number">7</span>, size: <span class="code-string">'sm'</span> });</pre>
+  </div>
+</div>
+
+<!-- SignaturePad 기본 -->
+<div class="demo-card" id="s-signature">
+  <div class="demo-card__header"><span class="demo-card__title">SignaturePad — 기본</span></div>
+  <div class="demo-card__desc">마우스/터치로 서명을 그립니다. 지우기/저장 버튼 내장, base64 이미지 추출.</div>
+  <div class="demo-card__body"><div id="sig-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { SignaturePad } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">const</span> pad = <span class="code-keyword">new</span> <span class="code-function">SignaturePad</span>(<span class="code-string">'#container'</span>, {
+  width: <span class="code-number">400</span>,
+  height: <span class="code-number">200</span>,
+  penColor: <span class="code-string">'#000'</span>,
+  penWidth: <span class="code-number">2</span>,
+  backgroundColor: <span class="code-string">'#fff'</span>
+});
+pad.<span class="code-function">toDataURL</span>();    <span class="code-comment">// base64 PNG</span>
+pad.<span class="code-function">isEmpty</span>();       <span class="code-comment">// 비어있는지 확인</span>
+pad.<span class="code-function">clear</span>();</pre>
+  </div>
+</div>
+
+<!-- SignaturePad 커스텀 -->
+<div class="demo-card" id="s-signature-custom">
+  <div class="demo-card__header"><span class="demo-card__title">SignaturePad — 커스텀 스타일</span></div>
+  <div class="demo-card__desc">펜 색상, 두께, 배경색을 변경합니다.</div>
+  <div class="demo-card__body">
+    <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <div>
+        <p style="font-size:0.8125rem;font-weight:500;margin-bottom:0.375rem">파란 펜 (두께 3)</p>
+        <div id="sig-blue"></div>
+      </div>
+      <div>
+        <p style="font-size:0.8125rem;font-weight:500;margin-bottom:0.375rem">빨간 펜 (크림 배경)</p>
+        <div id="sig-red"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FormWizard 기본 -->
+<div class="demo-card" id="s-wizard">
+  <div class="demo-card__header"><span class="demo-card__title">FormWizard — 기본</span></div>
+  <div class="demo-card__desc">단계별 폼. 프로그레스 바, 이전/다음 네비게이션, 유효성 검사 지원.</div>
+  <div class="demo-card__body"><div id="wizard-demo"></div></div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { FormWizard } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> <span class="code-function">FormWizard</span>(<span class="code-string">'#container'</span>, {
+  steps: [
+    { title: <span class="code-string">'기본 정보'</span>, content: <span class="code-string">'&lt;form&gt;...&lt;/form&gt;'</span> },
+    { title: <span class="code-string">'상세 정보'</span>, content: <span class="code-string">'...'</span> },
+    { title: <span class="code-string">'완료'</span>, content: <span class="code-string">'...'</span> }
+  ],
+  onStepChange: (step) => console.log(step),
+  onComplete: (data) => console.log(data)
+});</pre>
+  </div>
+</div>
+
+<!-- FormWizard 고급 -->
+<div class="demo-card" id="s-wizard-advanced">
+  <div class="demo-card__header"><span class="demo-card__title">FormWizard — 유효성 검사 &amp; 데이터 수집</span></div>
+  <div class="demo-card__desc">validate 함수로 단계별 유효성 검사. onComplete에서 모든 폼 데이터 자동 수집.</div>
+  <div class="demo-card__body">
+    <div id="wizard-validate-demo"></div>
+    <p id="wizard-result" style="margin-top:0.75rem;font-size:0.8125rem;color:var(--text-tertiary)"></p>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">FormWizard</span>(<span class="code-string">'#container'</span>, {
+  steps: [
+    {
+      title: <span class="code-string">'계정'</span>,
+      content: <span class="code-string">'&lt;input name="email" ...&gt;'</span>,
+      validate: <span class="code-keyword">async</span> () => {
+        <span class="code-keyword">const</span> v = document.querySelector(<span class="code-string">'[name="email"]'</span>).value;
+        <span class="code-keyword">return</span> v.includes(<span class="code-string">'@'</span>);
+      }
+    },
+    ...
+  ],
+  onComplete: (data) => {
+    console.log(<span class="code-string">'수집된 데이터:'</span>, data);
+  }
+});</pre>
+  </div>
+</div>
+
+<!-- API 레퍼런스 -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body" style="overflow-x:auto">
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead><tr><th>컴포넌트</th><th>옵션</th><th>기본값</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="8"><strong>FileUpload</strong></td><td><code>accept</code></td><td>'*/*'</td><td>허용 파일 타입 (MIME, 확장자)</td></tr>
+        <tr><td><code>multiple</code></td><td>false</td><td>다중 파일 허용</td></tr>
+        <tr><td><code>maxSize</code></td><td>10MB</td><td>최대 파일 크기 (바이트)</td></tr>
+        <tr><td><code>maxFiles</code></td><td>10</td><td>최대 파일 수</td></tr>
+        <tr><td><code>dropzone</code></td><td>true</td><td>드래그 앤 드롭 영역</td></tr>
+        <tr><td><code>preview</code></td><td>true</td><td>파일 미리보기</td></tr>
+        <tr><td><code>showProgress</code></td><td>false</td><td>업로드 진행률 표시</td></tr>
+        <tr><td><code>onChange</code></td><td>null</td><td>(files) => {} 콜백</td></tr>
+        <tr><td rowspan="6"><strong>Rating</strong></td><td><code>max</code></td><td>5</td><td>최대 별점</td></tr>
+        <tr><td><code>value</code></td><td>0</td><td>초기값</td></tr>
+        <tr><td><code>readonly</code></td><td>false</td><td>읽기 전용</td></tr>
+        <tr><td><code>icon</code></td><td>'star'</td><td>채워진 아이콘 (material-icons)</td></tr>
+        <tr><td><code>iconEmpty</code></td><td>'star_border'</td><td>빈 아이콘</td></tr>
+        <tr><td><code>size</code></td><td>'md'</td><td>'sm' | 'md' | 'lg'</td></tr>
+        <tr><td rowspan="4"><strong>SignaturePad</strong></td><td><code>width</code></td><td>400</td><td>캔버스 너비 (px)</td></tr>
+        <tr><td><code>height</code></td><td>200</td><td>캔버스 높이 (px)</td></tr>
+        <tr><td><code>penColor</code></td><td>'#000'</td><td>펜 색상</td></tr>
+        <tr><td><code>penWidth</code></td><td>2</td><td>펜 두께</td></tr>
+        <tr><td rowspan="5"><strong>FormWizard</strong></td><td><code>steps</code></td><td>[]</td><td>{ title, content, validate? }</td></tr>
+        <tr><td><code>showProgress</code></td><td>true</td><td>진행률 표시</td></tr>
+        <tr><td><code>showNavigation</code></td><td>true</td><td>이전/다음 버튼</td></tr>
+        <tr><td><code>onStepChange</code></td><td>null</td><td>(step) => {} 콜백</td></tr>
+        <tr><td><code>onComplete</code></td><td>null</td><td>(data) => {} 완료 콜백</td></tr>
+      </tbody>
+    </table>
+    <h4 style="font-size:0.8125rem;font-weight:600;margin:1rem 0 0.375rem">메서드</h4>
+    <table class="table" style="font-size:0.8125rem;margin:0">
+      <thead><tr><th>컴포넌트</th><th>메서드</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="4"><strong>FileUpload</strong></td><td><code>getFiles()</code></td><td>파일 배열 반환</td></tr>
+        <tr><td><code>clear()</code></td><td>파일 목록 초기화</td></tr>
+        <tr><td><code>setProgress(name, %)</code></td><td>진행률 업데이트</td></tr>
+        <tr><td><code>simulateUpload(ms)</code></td><td>업로드 시뮬레이션</td></tr>
+        <tr><td rowspan="2"><strong>Rating</strong></td><td><code>getValue()</code></td><td>현재 값 반환</td></tr>
+        <tr><td><code>setValue(n)</code></td><td>값 설정</td></tr>
+        <tr><td rowspan="3"><strong>SignaturePad</strong></td><td><code>toDataURL(type)</code></td><td>base64 이미지 반환</td></tr>
+        <tr><td><code>isEmpty()</code></td><td>비어있는지 확인</td></tr>
+        <tr><td><code>clear()</code></td><td>캔버스 초기화</td></tr>
+        <tr><td rowspan="3"><strong>FormWizard</strong></td><td><code>next() / prev()</code></td><td>단계 이동</td></tr>
+        <tr><td><code>goToStep(n)</code></td><td>특정 단계로 이동</td></tr>
+        <tr><td><code>getCurrentStep()</code></td><td>현재 단계 반환</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-upload" class="doc-toc__link is-active">FileUpload 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-upload-single" class="doc-toc__link">FileUpload 진행률</a></li>
+    <li class="doc-toc__item"><a href="#s-rating" class="doc-toc__link">Rating 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-rating-variant" class="doc-toc__link">Rating 크기/커스텀</a></li>
+    <li class="doc-toc__item"><a href="#s-signature" class="doc-toc__link">SignaturePad 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-signature-custom" class="doc-toc__link">SignaturePad 커스텀</a></li>
+    <li class="doc-toc__item"><a href="#s-wizard" class="doc-toc__link">FormWizard 기본</a></li>
+    <li class="doc-toc__item"><a href="#s-wizard-advanced" class="doc-toc__link">FormWizard 유효성</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var F = await IMCAT.use('forms');
+
+    // ── FileUpload 기본 ──
+    new F.FileUpload('#upload-demo', {
+      accept: 'image/*,.pdf,.doc,.docx',
+      maxSize: 5 * 1024 * 1024,
+      multiple: true,
+      maxFiles: 5,
+      dropzoneText: '이미지, PDF, 문서를 드래그하거나 클릭 (최대 5개)',
+      onChange: function(files) {
+        IMCAT.toast.info(files.length + '개 파일 선택됨');
+      },
+      onError: function(msg) {
+        IMCAT.toast.error(msg);
+      }
+    });
+
+    // ── FileUpload 단일 + 진행률 ──
+    var fuSingle = new F.FileUpload('#upload-single-demo', {
+      accept: 'image/*',
+      multiple: false,
+      showProgress: true,
+      maxSize: 2 * 1024 * 1024,
+      dropzoneText: '이미지를 선택하세요 (최대 2MB)',
+      onChange: function(files) {
+        document.getElementById('btn-simulate').disabled = files.length === 0;
+        document.getElementById('upload-status').textContent = files.length > 0 ? '파일 선택 완료. 시뮬레이션을 시작하세요.' : '파일을 선택하세요.';
+      }
+    });
+    document.getElementById('btn-simulate').addEventListener('click', async function() {
+      this.disabled = true;
+      document.getElementById('upload-status').textContent = '업로드 중...';
+      await fuSingle.simulateUpload(2000);
+      document.getElementById('upload-status').textContent = '업로드 완료!';
+      IMCAT.toast.success('업로드가 완료되었습니다.');
+    });
+
+    // ── Rating 기본 ──
+    new F.Rating('#rating-default', {
+      max: 5,
+      value: 3,
+      onChange: function(val) {
+        document.getElementById('rating-default-val').textContent = val + '점';
+      }
+    });
+    new F.Rating('#rating-readonly', {
+      max: 5,
+      value: 4,
+      readonly: true
+    });
+
+    // ── Rating 크기 & 커스텀 ──
+    new F.Rating('#rating-sm', { max: 5, value: 2, size: 'sm' });
+    new F.Rating('#rating-md', { max: 5, value: 3, size: 'md' });
+    new F.Rating('#rating-lg', { max: 5, value: 4, size: 'lg' });
+    new F.Rating('#rating-heart', {
+      max: 5, value: 3,
+      icon: 'favorite',
+      iconEmpty: 'favorite_border',
+      color: '#ef4444'
+    });
+    new F.Rating('#rating-ten', {
+      max: 10, value: 7, size: 'sm',
+      color: '#6366f1',
+      onChange: function(val) {
+        document.getElementById('rating-ten-val').textContent = val + '점';
+      }
+    });
+
+    // ── SignaturePad 기본 ──
+    new F.SignaturePad('#sig-demo', {
+      width: 420,
+      height: 160,
+      penColor: '#000000',
+      penWidth: 2
+    });
+
+    // ── SignaturePad 커스텀 ──
+    new F.SignaturePad('#sig-blue', {
+      width: 260,
+      height: 120,
+      penColor: '#2563eb',
+      penWidth: 3,
+      backgroundColor: '#f0f9ff'
+    });
+    new F.SignaturePad('#sig-red', {
+      width: 260,
+      height: 120,
+      penColor: '#dc2626',
+      penWidth: 2,
+      backgroundColor: '#fefce8'
+    });
+
+    // ── FormWizard 기본 ──
+    new F.FormWizard('#wizard-demo', {
+      steps: [
+        {
+          title: '기본 정보',
+          content: '<div style="display:flex;flex-direction:column;gap:0.75rem;padding:0.5rem 0">' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이름</label><input type="text" class="form-control" name="name" placeholder="홍길동"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일</label><input type="email" class="form-control" name="email" placeholder="email@example.com"></div></div>'
+        },
+        {
+          title: '상세 정보',
+          content: '<div style="display:flex;flex-direction:column;gap:0.75rem;padding:0.5rem 0">' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">직업</label><select class="form-control" name="job"><option value="">선택하세요</option><option>개발자</option><option>디자이너</option><option>매니저</option></select></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">소개</label><textarea class="form-control" name="bio" rows="2" placeholder="간단한 자기소개..."></textarea></div></div>'
+        },
+        {
+          title: '완료',
+          content: '<div style="text-align:center;padding:2rem 0"><i class="material-icons-outlined" style="font-size:3rem;color:var(--success,#22c55e)">check_circle</i><h3 style="margin:0.75rem 0 0.25rem;font-size:1.125rem">등록 완료!</h3><p style="color:var(--text-secondary);font-size:0.875rem">모든 단계가 완료되었습니다.</p></div>'
+        }
+      ],
+      onStepChange: function(step) {
+        IMCAT.toast.info('단계 ' + (step + 1) + '으로 이동');
+      },
+      onComplete: function(data) {
+        IMCAT.toast.success('폼 전송 완료!');
+        console.log('FormWizard data:', data);
+      }
+    });
+
+    // ── FormWizard 유효성 검사 ──
+    new F.FormWizard('#wizard-validate-demo', {
+      steps: [
+        {
+          title: '계정',
+          content: '<div style="padding:0.5rem 0"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">이메일 <span style="color:var(--danger-color, #EF4444)">*</span></label><input type="email" class="form-control" name="v_email" placeholder="email@example.com"><p style="font-size:0.75rem;color:var(--text-tertiary);margin-top:0.25rem">@ 포함된 이메일을 입력해야 다음 단계로 이동합니다.</p></div>',
+          validate: function() {
+            var v = document.querySelector('[name="v_email"]');
+            if (!v || !v.value.includes('@')) {
+              IMCAT.toast.error('올바른 이메일을 입력하세요.');
+              return false;
+            }
+            return true;
+          }
+        },
+        {
+          title: '비밀번호',
+          content: '<div style="padding:0.5rem 0"><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">비밀번호 <span style="color:var(--danger-color, #EF4444)">*</span></label><input type="password" class="form-control" name="v_pw" placeholder="6자 이상"><p style="font-size:0.75rem;color:var(--text-tertiary);margin-top:0.25rem">최소 6자 이상 입력해야 합니다.</p></div>',
+          validate: function() {
+            var v = document.querySelector('[name="v_pw"]');
+            if (!v || v.value.length < 6) {
+              IMCAT.toast.error('비밀번호는 6자 이상이어야 합니다.');
+              return false;
+            }
+            return true;
+          }
+        },
+        {
+          title: '프로필',
+          content: '<div style="display:flex;flex-direction:column;gap:0.75rem;padding:0.5rem 0">' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">닉네임</label><input type="text" class="form-control" name="v_nick" placeholder="닉네임"></div>' +
+            '<div><label style="display:block;font-weight:500;margin-bottom:0.25rem;font-size:0.875rem">관심 분야</label><select class="form-control" name="v_interest"><option>프론트엔드</option><option>백엔드</option><option>디자인</option><option>데브옵스</option></select></div></div>'
+        },
+        {
+          title: '완료',
+          content: '<div style="text-align:center;padding:2rem 0"><i class="material-icons-outlined" style="font-size:3rem;color:var(--primary)">celebration</i><h3 style="margin:0.75rem 0 0.25rem;font-size:1.125rem">가입 완료!</h3><p style="color:var(--text-secondary);font-size:0.875rem">완료 버튼을 클릭하면 수집된 데이터가 표시됩니다.</p></div>'
+        }
+      ],
+      onComplete: function(data) {
+        var result = document.getElementById('wizard-result');
+        result.innerHTML = '<strong>수집된 데이터:</strong> ' + JSON.stringify(data, null, 0);
+        IMCAT.toast.success('가입 완료! 데이터가 수집되었습니다.');
+      }
+    });
+  })();
+</script>

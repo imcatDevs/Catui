@@ -1,0 +1,307 @@
+<!-- Tooltips: Tooltip, Popover -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Tooltips</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Tooltips &amp; Popovers</h1>
+  <p class="page-desc">Tooltip과 Popover 컴포넌트 — 요소에 부가 정보를 표시합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- Tooltip 방향 -->
+<div class="demo-card" id="s-tooltip">
+  <div class="demo-card__header"><span class="demo-card__title">Tooltip 방향</span></div>
+  <div class="demo-card__desc">placement 옵션으로 4방향 배치가 가능합니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--secondary" id="tip-top">Tooltip on top</button>
+      <button class="btn btn--secondary" id="tip-bottom">Tooltip on bottom</button>
+      <button class="btn btn--secondary" id="tip-left">Tooltip on left</button>
+      <button class="btn btn--secondary" id="tip-right">Tooltip on right</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Tooltip } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'tooltips'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#element'</span>, {
+  content: <span class="code-string">'툴팁 텍스트'</span>,
+  placement: <span class="code-string">'top'</span> <span class="code-comment">// 'top' | 'right' | 'bottom' | 'left'</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 버튼 색상별 Tooltip -->
+<div class="demo-card" id="s-color">
+  <div class="demo-card__header"><span class="demo-card__title">버튼 색상별 Tooltip</span></div>
+  <div class="demo-card__desc">모든 버튼 스타일에 툴팁을 적용할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="btn btn--primary" id="tip-c-pri">Primary</button>
+      <button class="btn btn--secondary" id="tip-c-sec">Secondary</button>
+      <button class="btn btn--success" id="tip-c-suc">Success</button>
+      <button class="btn btn--info" id="tip-c-inf">Info</button>
+      <button class="btn btn--warning" id="tip-c-war">Warning</button>
+      <button class="btn btn--danger" id="tip-c-dan">Danger</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#btn'</span>, { content: <span class="code-string">'Primary 버튼'</span> });</pre>
+  </div>
+</div>
+
+<!-- 트리거 방식 -->
+<div class="demo-card" id="s-trigger">
+  <div class="demo-card__header"><span class="demo-card__title">트리거 방식</span></div>
+  <div class="demo-card__desc">trigger 옵션으로 hover, click, focus 방식을 지원합니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <button class="btn btn--outline-primary" id="tip-hover">Hover (기본)</button>
+      <button class="btn btn--outline-info" id="tip-click">Click 트리거</button>
+      <button class="btn btn--outline-success" id="tip-focus">Focus 트리거</button>
+      <span id="tip-data" data-tooltip="data-tooltip 속성으로 설정된 툴팁" style="text-decoration: underline dotted; cursor: help;">data 속성 방식</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#el'</span>, { content: <span class="code-string">'클릭!'</span>, trigger: <span class="code-string">'click'</span> });
+<span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#el'</span>, { content: <span class="code-string">'포커스!'</span>, trigger: <span class="code-string">'focus'</span> });
+<span class="code-comment">// data 속성: &lt;span data-tooltip="텍스트"&gt;</span></pre>
+  </div>
+</div>
+
+<!-- HTML 콘텐츠 Tooltip -->
+<div class="demo-card" id="s-tooltip-html">
+  <div class="demo-card__header"><span class="demo-card__title">HTML 콘텐츠 Tooltip</span></div>
+  <div class="demo-card__desc">html: true 옵션으로 풍부한 HTML 콘텐츠를 표시할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <button class="btn btn--outline-primary" id="tip-html-bold">굵은 텍스트</button>
+      <button class="btn btn--outline-success" id="tip-html-list">리스트</button>
+      <button class="btn btn--outline-warning" id="tip-html-badge">뱃지 포함</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#el'</span>, {
+  content: <span class="code-string">'&lt;strong&gt;굵은&lt;/strong&gt; 텍스트'</span>,
+  html: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- 지연 시간 -->
+<div class="demo-card" id="s-delay">
+  <div class="demo-card__header"><span class="demo-card__title">지연 시간 (Delay)</span></div>
+  <div class="demo-card__desc">delay 옵션으로 표시/숨김 지연 시간을 조절할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--sm btn--primary" id="tip-d0">즉시 (0ms)</button>
+      <button class="btn btn--sm btn--primary" id="tip-d200">200ms</button>
+      <button class="btn btn--sm btn--primary" id="tip-d500">500ms</button>
+      <button class="btn btn--sm btn--primary" id="tip-d1000">1000ms</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#el'</span>, {
+  content: <span class="code-string">'지연 500ms'</span>,
+  delay: { show: <span class="code-number">500</span>, hide: <span class="code-number">100</span> }
+});</pre>
+  </div>
+</div>
+
+<!-- 인라인 Tooltip -->
+<div class="demo-card" id="s-inline">
+  <div class="demo-card__header"><span class="demo-card__title">아이콘 &amp; 인라인 Tooltip</span></div>
+  <div class="demo-card__desc">아이콘, 링크, 텍스트 등 다양한 인라인 요소에 적용할 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 1.5rem; align-items: center;">
+      <i class="material-icons-outlined" id="tip-icon-help" style="cursor: help; font-size: 1.5rem; color: var(--primary);">help_outline</i>
+      <i class="material-icons-outlined" id="tip-icon-info" style="cursor: help; font-size: 1.5rem; color: var(--info-color, #3B82F6);">info</i>
+      <i class="material-icons-outlined" id="tip-icon-warn" style="cursor: help; font-size: 1.5rem; color: var(--warning-color, #EAB308);">warning</i>
+      <a href="#" id="tip-link" style="text-decoration: underline;">도움말 링크</a>
+      <span id="tip-abbr" style="border-bottom: 1px dotted var(--text-tertiary); cursor: help;">HTML</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#icon'</span>, { content: <span class="code-string">'도움말'</span> });
+<span class="code-keyword">new</span> <span class="code-function">Tooltip</span>(<span class="code-string">'#abbr'</span>, { content: <span class="code-string">'HyperText Markup Language'</span> });</pre>
+  </div>
+</div>
+
+<!-- Popover 방향 -->
+<div class="demo-card" id="s-popover">
+  <div class="demo-card__header"><span class="demo-card__title">Popover 방향</span></div>
+  <div class="demo-card__desc">placement 옵션으로 Popover의 방향을 지정합니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--secondary" id="pop-top">Popover on top</button>
+      <button class="btn btn--secondary" id="pop-bottom">Popover on bottom</button>
+      <button class="btn btn--secondary" id="pop-right">Popover on right</button>
+      <button class="btn btn--secondary" id="pop-left">Popover on left</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { Popover } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'tooltips'</span>);
+<span class="code-keyword">new</span> <span class="code-function">Popover</span>(<span class="code-string">'#element'</span>, {
+  title: <span class="code-string">'제목'</span>,
+  content: <span class="code-string">'&lt;p&gt;내용&lt;/p&gt;'</span>,
+  placement: <span class="code-string">'top'</span>,
+  trigger: <span class="code-string">'click'</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Dismissible Popover -->
+<div class="demo-card" id="s-dismiss">
+  <div class="demo-card__header"><span class="demo-card__title">Dismissible Popover</span></div>
+  <div class="demo-card__desc">외부 클릭 시 자동으로 닫히는 Popover입니다.</div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" id="pop-dismiss">Dismissible popover</button>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Popover</span>(<span class="code-string">'#el'</span>, {
+  title: <span class="code-string">'Dismissible popover'</span>,
+  content: <span class="code-string">'외부를 클릭하면 닫힙니다.'</span>,
+  dismissible: <span class="code-keyword">true</span>
+});</pre>
+  </div>
+</div>
+
+<!-- Hover Popover + HTML 콘텐츠 -->
+<div class="demo-card" id="s-popover-hover">
+  <div class="demo-card__header"><span class="demo-card__title">Hover Popover &amp; HTML 콘텐츠</span></div>
+  <div class="demo-card__desc">trigger: 'hover'로 마우스 오버 시 표시되며, 풍부한 HTML을 담을 수 있습니다.</div>
+  <div class="demo-card__body">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button class="btn btn--outline-info" id="pop-hover">Hover Popover</button>
+      <button class="btn btn--outline-success" id="pop-html">HTML 콘텐츠</button>
+      <button class="btn btn--outline-warning" id="pop-interactive">인터랙티브</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">new</span> <span class="code-function">Popover</span>(<span class="code-string">'#el'</span>, {
+  title: <span class="code-string">'Hover'</span>,
+  content: <span class="code-string">'마우스 오버로 표시'</span>,
+  trigger: <span class="code-string">'hover'</span>
+});</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-tooltip" class="doc-toc__link is-active">Tooltip 방향</a></li>
+    <li class="doc-toc__item"><a href="#s-color" class="doc-toc__link">색상별 Tooltip</a></li>
+    <li class="doc-toc__item"><a href="#s-trigger" class="doc-toc__link">트리거 방식</a></li>
+    <li class="doc-toc__item"><a href="#s-tooltip-html" class="doc-toc__link">HTML Tooltip</a></li>
+    <li class="doc-toc__item"><a href="#s-delay" class="doc-toc__link">지연 시간</a></li>
+    <li class="doc-toc__item"><a href="#s-inline" class="doc-toc__link">아이콘 &amp; 인라인</a></li>
+    <li class="doc-toc__item"><a href="#s-popover" class="doc-toc__link">Popover 방향</a></li>
+    <li class="doc-toc__item"><a href="#s-dismiss" class="doc-toc__link">Dismissible Popover</a></li>
+    <li class="doc-toc__item"><a href="#s-popover-hover" class="doc-toc__link">Hover Popover</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var TT = await IMCAT.use('tooltips');
+    var Tooltip = TT.Tooltip;
+    var Popover = TT.Popover;
+
+    // ── Tooltip 방향 ──
+    new Tooltip('#tip-top', { content: '위쪽 툴팁', placement: 'top' });
+    new Tooltip('#tip-bottom', { content: '아래쪽 툴팁', placement: 'bottom' });
+    new Tooltip('#tip-left', { content: '왼쪽 툴팁', placement: 'left' });
+    new Tooltip('#tip-right', { content: '오른쪽 툴팁', placement: 'right' });
+
+    // ── 버튼 색상별 Tooltip ──
+    var colorMap = { pri: 'Primary', sec: 'Secondary', suc: 'Success', inf: 'Info', war: 'Warning', dan: 'Danger' };
+    Object.keys(colorMap).forEach(function(k) {
+      new Tooltip('#tip-c-' + k, { content: colorMap[k] + ' 버튼 툴팁' });
+    });
+
+    // ── 트리거 방식 ──
+    new Tooltip('#tip-hover', { content: 'Hover 시 표시됩니다', placement: 'bottom' });
+    new Tooltip('#tip-click', { content: '클릭으로 열림! 다시 클릭하면 닫힘', trigger: 'click', placement: 'bottom' });
+    new Tooltip('#tip-focus', { content: '포커스 시 표시, 블러 시 사라짐', trigger: 'focus', placement: 'top' });
+    new Tooltip('#tip-data', { placement: 'top' });
+
+    // ── HTML 콘텐츠 Tooltip ──
+    new Tooltip('#tip-html-bold', {
+      content: '<strong>굵은</strong> 텍스트와 <em>기울임</em>',
+      html: true, placement: 'bottom'
+    });
+    new Tooltip('#tip-html-list', {
+      content: '<ul style="margin:0;padding-left:1rem;text-align:left"><li>항목 1</li><li>항목 2</li><li>항목 3</li></ul>',
+      html: true, placement: 'bottom'
+    });
+    new Tooltip('#tip-html-badge', {
+      content: '상태: <span style="background:#10b981;color:#fff;padding:2px 6px;border-radius:4px;font-size:11px">완료</span>',
+      html: true, placement: 'bottom'
+    });
+
+    // ── 지연 시간 ──
+    new Tooltip('#tip-d0', { content: '즉시 표시!', delay: { show: 0, hide: 0 } });
+    new Tooltip('#tip-d200', { content: '200ms 후 표시', delay: { show: 200, hide: 100 } });
+    new Tooltip('#tip-d500', { content: '500ms 후 표시', delay: { show: 500, hide: 100 } });
+    new Tooltip('#tip-d1000', { content: '1초 후 표시', delay: { show: 1000, hide: 200 } });
+
+    // ── 아이콘 & 인라인 ──
+    new Tooltip('#tip-icon-help', { content: '도움말 아이콘' });
+    new Tooltip('#tip-icon-info', { content: '정보 아이콘' });
+    new Tooltip('#tip-icon-warn', { content: '경고 아이콘' });
+    new Tooltip('#tip-link', { content: '이 링크를 클릭하면 도움말 페이지로 이동합니다' });
+    new Tooltip('#tip-abbr', { content: 'HyperText Markup Language' });
+
+    // ── Popover 방향 ──
+    new Popover('#pop-top', {
+      title: 'Popover on top',
+      content: '<p>위쪽에 표시되는 Popover입니다.</p>',
+      placement: 'top', trigger: 'click'
+    });
+    new Popover('#pop-bottom', {
+      title: 'Popover on bottom',
+      content: '<p>아래쪽에 표시되는 Popover입니다.</p>',
+      placement: 'bottom', trigger: 'click'
+    });
+    new Popover('#pop-right', {
+      title: 'Popover on right',
+      content: '<p>오른쪽에 표시되는 Popover입니다.</p>',
+      placement: 'right', trigger: 'click'
+    });
+    new Popover('#pop-left', {
+      title: 'Popover on left',
+      content: '<p>왼쪽에 표시되는 Popover입니다.</p>',
+      placement: 'left', trigger: 'click'
+    });
+
+    // ── Dismissible Popover ──
+    new Popover('#pop-dismiss', {
+      title: 'Dismissible popover',
+      content: '<p>외부를 클릭하면 닫힙니다. 정말 편리한 기능이죠?</p>',
+      placement: 'bottom', trigger: 'click', dismissible: true
+    });
+
+    // ── Hover Popover & HTML 콘텐츠 ──
+    new Popover('#pop-hover', {
+      title: 'Hover Popover',
+      content: '<p>마우스를 올리면 표시되고, 벗어나면 사라집니다.</p>',
+      placement: 'bottom', trigger: 'hover'
+    });
+    new Popover('#pop-html', {
+      title: 'HTML 콘텐츠',
+      content: '<p>풍부한 HTML을 담을 수 있습니다.</p><ul style="margin:0;padding-left:1.25rem"><li>항목 1</li><li>항목 2</li><li>항목 3</li></ul><hr style="margin:.5rem 0"><button class="btn btn--sm btn--primary" onclick="IMCAT.toast.success(\'확인!\')">확인</button>',
+      placement: 'bottom', trigger: 'click'
+    });
+    new Popover('#pop-interactive', {
+      title: '인터랙티브 Popover',
+      content: '<p>Popover 안에 <strong>버튼</strong>이나 <em>링크</em>를 넣을 수 있습니다.</p><div style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn btn--sm btn--success" onclick="IMCAT.toast.success(\'승인!\')">승인</button><button class="btn btn--sm btn--danger" onclick="IMCAT.toast.error(\'거부!\')">거부</button></div>',
+      placement: 'bottom', trigger: 'click'
+    });
+  })();
+</script>

@@ -1,0 +1,156 @@
+<!-- File Uploads: Dropzone, Multiple, Accept Filter -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">File Uploads</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">File Uploads</h1>
+  <p class="page-desc">드래그 앤 드롭 파일 업로드. 미리보기, 다중 업로드, 파일 타입 필터 지원.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Dropzone                             -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-dropzone">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Dropzone</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">드래그 앤 드롭 영역 + 클릭으로 파일 업로드. 미리보기 자동 표시.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Basic -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Basic Dropzone</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>new FileUpload('#el')</code> — 기본 드롭존. 모든 파일 타입 허용.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-basic"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Image Only -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Image Only</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>accept: 'image/*'</code> — 이미지 파일만 허용. 미리보기 썸네일 표시.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-image"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Multiple Files -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Multiple Files</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>multiple: true, maxFiles: 5</code> — 최대 5개 파일 동시 업로드.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-multi"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Size Limit -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Size Limit</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>maxSize: 2 * 1024 * 1024</code> — 2MB 파일 크기 제한.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-size"></div>
+            <p id="fu-size-msg" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)"></p>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Accept PDF -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Accept PDF + Images</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>accept: 'image/*,.pdf'</code> — 이미지와 PDF만 허용.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-accept"></div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- onChange Callback -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">onChange Callback</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>onChange: (files) => { ... }</code> — 파일 변경 시 콜백.</p>
+          </div>
+          <div style="flex:1">
+            <div id="fu-callback"></div>
+            <p id="fu-callback-msg" style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--text-tertiary)">파일 없음</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> F = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'forms'</span>);
+<span class="code-keyword">new</span> F.<span class="code-function">FileUpload</span>(<span class="code-string">'#el'</span>, {
+  accept: <span class="code-string">'image/*,.pdf'</span>,
+  multiple: <span class="code-keyword">true</span>,
+  maxSize: <span class="code-number">5</span> * <span class="code-number">1024</span> * <span class="code-number">1024</span>,
+  maxFiles: <span class="code-number">10</span>,
+  dropzoneText: <span class="code-string">'파일을 드래그하세요'</span>,
+  onChange: (files) => console.log(files)
+});</pre>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-dropzone" class="doc-toc__link is-active">Dropzone</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  (async function() {
+    var F = await IMCAT.use('forms');
+
+    new F.FileUpload('#fu-basic', {});
+
+    new F.FileUpload('#fu-image', { accept: 'image/*' });
+
+    new F.FileUpload('#fu-multi', { multiple: true, maxFiles: 5 });
+
+    new F.FileUpload('#fu-size', {
+      maxSize: 2 * 1024 * 1024,
+      onError: function(err) {
+        document.getElementById('fu-size-msg').textContent = err;
+        document.getElementById('fu-size-msg').style.color = 'var(--danger-color, #EF4444)';
+      }
+    });
+
+    new F.FileUpload('#fu-accept', { accept: 'image/*,.pdf', multiple: true });
+
+    new F.FileUpload('#fu-callback', {
+      onChange: function(files) {
+        var msg = files.length ? files.length + '개 파일: ' + files.map(function(f) { return f.name; }).join(', ') : '파일 없음';
+        document.getElementById('fu-callback-msg').textContent = msg;
+        document.getElementById('fu-callback-msg').style.color = files.length ? 'var(--primary)' : 'var(--text-tertiary)';
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,46 @@
+/*!
+ * IMCAT UI Framework v__IMCAT_VERSION__
+ * 모던 UI 컴포넌트 라이브러리
+ * Copyright 2025 IMCAT UI
+ * Licensed under MIT
+ */
+
+// ============================================
+// IMCAT UI - Main Entry Point
+// ============================================
+
+// ============================================
+// 1. Abstracts (변수, 믹스인, 함수)
+// ============================================
+@use 'abstracts/variables' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/mixins' as *;
+@use 'abstracts/themes';
+@use 'abstracts/fonts';
+
+// ============================================
+// 2. Base (기본 스타일)
+// ============================================
+@use 'base/reset';
+@use 'base/typography';
+
+// ============================================
+// 3. Components (기본 컴포넌트)
+// ============================================
+@use 'components/buttons';
+@use 'components/cards';
+@use 'components/alerts';
+@use 'components/badges';
+@use 'components/tables';
+@use 'components/lists';
+@use 'components/inputs';
+@use 'components/progress';
+@use 'components/avatars';
+@use 'components/ribbons';
+
+// ============================================
+// 4. Modules (모듈 스타일)
+// 개별 모듈 CSS는 dist/modules/*.css로 빌드됩니다.
+// IMCAT.use('모듈명') 시 autoLoadModuleCSS 설정에 따라 자동 로드됩니다.
+// 전체 번들이 필요한 경우 imcat-ui.all.scss를 사용하세요.
+// ============================================

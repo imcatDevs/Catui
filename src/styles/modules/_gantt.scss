@@ -1,0 +1,467 @@
+// ============================================
+// Gantt Module SCSS
+// .gantt — 고급 간트 차트 (gantt.js 사용)
+// .gantt-simple — 간단한 간트 차트 (독립 사용)
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Gantt Chart (고급)
+// ============================================
+.gantt {
+  overflow-x: auto;
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: $component-card-border-radius;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__view-buttons {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $component-badge-size-sm-border-radius;
+    overflow: hidden;
+  }
+
+  &__view-btn {
+    padding: 0.375rem 0.75rem;
+    border: none;
+    background: var(--bg-primary, $bg-primary);
+    font-size: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+
+    &:not(:last-child) {
+      border-right: 1px solid var(--border-color, $border-color);
+    }
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+
+    &--active {
+      background: var(--primary, $primary);
+      color: white;
+
+      &:hover {
+        background: var(--primary, $primary);
+      }
+    }
+  }
+
+  &__today-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--border-color, $border-color);
+    background: var(--bg-primary, $bg-primary);
+    border-radius: $component-badge-size-sm-border-radius;
+    font-size: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+
+    .material-icons-outlined {
+      font-size: 0.875rem;
+    }
+
+    &:hover {
+      border-color: var(--primary, $primary);
+      color: var(--primary, $primary);
+    }
+  }
+
+  &__body {
+    display: flex;
+    min-width: max-content;
+  }
+
+  // Sidebar (task names)
+  &__sidebar {
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &__sidebar-header {
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary, $text-secondary);
+    border-bottom: 1px solid var(--border-color, $border-color);
+    display: flex;
+    align-items: center;
+  }
+
+  &__sidebar-content {
+    overflow-y: auto;
+  }
+
+  &__task-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, $border-color);
+  }
+
+  &__task-name {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--text-primary, $text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  &__task-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__task-assignee {
+    font-size: 0.6875rem;
+    color: var(--text-tertiary, $text-tertiary);
+    margin-left: auto;
+  }
+
+  &__task-bullet {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--text-tertiary, $text-tertiary);
+    flex-shrink: 0;
+  }
+
+  &__collapse-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    border-radius: 2px;
+    flex-shrink: 0;
+
+    .material-icons-outlined {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  // Chart area
+  &__chart-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &__timeline {
+    display: flex;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+  }
+
+  &__timeline-cells {
+    display: flex;
+  }
+
+  &__timeline-cell {
+    flex-shrink: 0;
+    padding: 0.25rem;
+    font-size: 0.6875rem;
+    text-align: center;
+    color: var(--text-secondary, $text-secondary);
+    border-right: 1px solid var(--border-color, $border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--weekend {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+
+    &--today {
+      background: rgba($primary, 0.1);
+      font-weight: 600;
+      color: var(--primary, $primary);
+    }
+  }
+
+  &__timeline-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__chart {
+    position: relative;
+  }
+
+  // Bar rows
+  &__bar-row {
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid var(--border-color, $border-color);
+  }
+
+  &__grid-cell {
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color, $border-color);
+
+    &--weekend {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  // Task bar
+  &__bar {
+    position: absolute;
+    top: 0.375rem;
+    height: calc(100% - 0.75rem);
+    border-radius: $component-badge-size-sm-border-radius;
+    background: var(--primary, $primary);
+    color: white;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    transition: opacity $duration-fast $ease-in-out;
+    min-width: 40px;
+    z-index: 1;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &--draggable {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  &__bar-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: $component-badge-size-sm-border-radius;
+  }
+
+  &__bar-label {
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__bar-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    cursor: ew-resize;
+
+    &--left { left: 0; }
+    &--right { right: 0; }
+  }
+
+  // Today line
+  &__today-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $error;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__today-marker {
+    position: absolute;
+    top: -1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.125rem 0.375rem;
+    background: $error;
+    color: white;
+    font-size: 0.625rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  // Dependencies (arrows)
+  &__dependencies {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &__dependency-line {
+    stroke: var(--text-tertiary, $text-tertiary);
+    stroke-width: 1.5;
+  }
+}
+
+// ============================================
+// Gantt Simple (간단한 간트 차트)
+// ============================================
+.gantt-simple {
+  overflow-x: auto;
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: $component-card-border-radius;
+  background: var(--bg-primary, $bg-primary);
+
+  &__header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    background: var(--bg-secondary, $bg-secondary);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  &__header-label {
+    min-width: 12rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary, $text-secondary);
+    border-right: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+  }
+
+  &__header-dates {
+    display: flex;
+    flex: 1;
+  }
+
+  &__header-date {
+    flex: 1;
+    min-width: 3rem;
+    padding: 0.625rem 0.25rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+    border-right: 1px solid var(--border-color, $border-color);
+
+    &--today {
+      color: var(--primary, $primary);
+      font-weight: 600;
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    min-height: 3rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: var(--bg-secondary, $bg-secondary);
+    }
+  }
+
+  &__row-label {
+    min-width: 12rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary, $text-primary);
+    border-right: 1px solid var(--border-color, $border-color);
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__timeline {
+    position: relative;
+    flex: 1;
+    height: 3rem;
+  }
+
+  &__bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.5rem;
+    border-radius: $component-badge-size-sm-border-radius;
+    background: var(--primary, $primary);
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity $duration-fast $ease-in-out;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--completed {
+      background: $success;
+    }
+
+    &--delayed {
+      background: $error;
+    }
+
+    &--in-progress {
+      background: $warning;
+    }
+  }
+
+  &__today-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $error;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+  }
+}

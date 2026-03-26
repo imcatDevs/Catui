@@ -1,0 +1,296 @@
+// ============================================
+// Advanced UI Module SCSS
+// SplitPane, QRCode, CodeBlock, CopyToClipboard, SimpleColorPicker
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// ============================================
+// SplitPane
+// ============================================
+.split-pane {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &--vertical {
+    flex-direction: column;
+  }
+
+  &__panel {
+    overflow: auto;
+    min-width: 0;
+    min-height: 0;
+
+    &--first {
+      flex-shrink: 0;
+    }
+
+    &--second {
+      flex: 1;
+    }
+  }
+
+  &__gutter {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary, $bg-secondary);
+    border: 1px solid var(--border-color, $border-color);
+    transition: background $duration-fast $ease-in-out;
+
+    &:hover {
+      background: var(--bg-tertiary, $bg-tertiary);
+    }
+  }
+
+  &--horizontal > .split-pane__gutter {
+    width: 6px;
+    cursor: col-resize;
+    border-width: 0 1px;
+  }
+
+  &--vertical > .split-pane__gutter {
+    height: 6px;
+    cursor: row-resize;
+    border-width: 1px 0;
+  }
+
+  &.is-dragging {
+    user-select: none;
+
+    .split-pane__gutter {
+      background: rgba($primary, 0.15);
+      border-color: var(--primary, $primary);
+    }
+  }
+}
+
+// ============================================
+// QR Code
+// ============================================
+.qrcode {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  &__image {
+    padding: 1rem;
+    background: white;
+    border-radius: $component-badge-size-md-border-radius;
+    box-shadow: $shadow-sm;
+
+    canvas,
+    svg,
+    img {
+      display: block;
+    }
+  }
+
+  &__label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary, $text-secondary);
+    text-align: center;
+  }
+
+  &__download {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color, $border-color);
+    background: var(--bg-primary, $bg-primary);
+    border-radius: $component-button-size-md-border-radius;
+    font-size: 0.875rem;
+    color: var(--text-primary, $text-primary);
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+
+    &:hover {
+      border-color: var(--primary, $primary);
+      color: var(--primary, $primary);
+    }
+  }
+
+  // With logo
+  &--logo {
+    .qrcode__image {
+      position: relative;
+    }
+
+    .qrcode__logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.25rem;
+      background: white;
+      border-radius: $component-badge-size-sm-border-radius;
+    }
+  }
+}
+
+// ============================================
+// CodeBlock
+// ============================================
+.code-block {
+  border: 1px solid var(--border-color, $border-color);
+  border-radius: $component-card-border-radius;
+  overflow: hidden;
+  background: var(--bg-secondary, $bg-secondary);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color, $border-color);
+    background: var(--bg-tertiary, $bg-tertiary);
+  }
+
+  &__language {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary, $text-secondary);
+  }
+
+  &__copy {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--border-color, $border-color);
+    background: var(--bg-primary, $bg-primary);
+    border-radius: $component-badge-size-sm-border-radius;
+    font-size: 0.75rem;
+    color: var(--text-secondary, $text-secondary);
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+
+    .material-icons-outlined {
+      font-size: 0.875rem;
+    }
+
+    &:hover {
+      border-color: var(--primary, $primary);
+      color: var(--primary, $primary);
+    }
+
+    &.is-copied {
+      border-color: $success;
+      color: $success;
+    }
+  }
+
+  &__pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  &__code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--text-primary, $text-primary);
+  }
+
+  &__line-number {
+    display: inline-block;
+    width: 2.5rem;
+    text-align: right;
+    padding-right: 1rem;
+    color: var(--text-tertiary, $text-tertiary);
+    user-select: none;
+  }
+}
+
+// ============================================
+// CopyToClipboard (버튼에 적용되는 상태 클래스)
+// ============================================
+.copy-to-clipboard {
+  &.is-copied {
+    color: $success;
+    border-color: $success;
+  }
+}
+
+// ============================================
+// SimpleColorPicker
+// ============================================
+.simple-color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__swatch {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all $duration-fast $ease-in-out;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    &.is-active {
+      border-color: var(--text-primary, $text-primary);
+      box-shadow: 0 0 0 2px var(--bg-primary, $bg-primary), 0 0 0 4px var(--text-primary, $text-primary);
+    }
+  }
+
+  &__input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__native {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $component-badge-size-sm-border-radius;
+    cursor: pointer;
+    background: transparent;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 2px;
+    }
+
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 2px;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.375rem 0.625rem;
+    border: 1px solid var(--border-color, $border-color);
+    border-radius: $component-badge-size-sm-border-radius;
+    font-size: 0.875rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--text-primary, $text-primary);
+    background: var(--bg-primary, $bg-primary);
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary, $primary);
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+}

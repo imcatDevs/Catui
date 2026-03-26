@@ -1,0 +1,348 @@
+<!-- Lists -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">디자인 요소</li>
+      <li class="breadcrumb-item active">Lists</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Lists</h1>
+  <p class="page-desc">다양한 스타일의 목록 컴포넌트 — BEM list + Bootstrap list-group</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- BEM 기본 리스트 -->
+<div class="demo-card" id="s-basic">
+  <div class="demo-card__header"><span class="demo-card__title">기본 리스트 (BEM)</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Bordered</p>
+        <ul class="list list--bordered">
+          <li class="list__item"><i class="material-icons-outlined">folder</i> 문서</li>
+          <li class="list__item"><i class="material-icons-outlined">image</i> 이미지</li>
+          <li class="list__item"><i class="material-icons-outlined">music_note</i> 음악</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Divided</p>
+        <ul class="list list--divided">
+          <li class="list__item"><i class="material-icons-outlined">person</i> 홍길동</li>
+          <li class="list__item"><i class="material-icons-outlined">person</i> 김영희</li>
+          <li class="list__item"><i class="material-icons-outlined">person</i> 이철수</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Clickable & Active</p>
+        <ul class="list list--bordered">
+          <li class="list__item list__item--clickable is-active">
+            <i class="material-icons-outlined">dashboard</i> 대시보드
+          </li>
+          <li class="list__item list__item--clickable">
+            <i class="material-icons-outlined">settings</i> 설정
+          </li>
+          <li class="list__item list__item--clickable is-disabled">
+            <i class="material-icons-outlined">block</i> 비활성
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;ul class="<span class="code-string">list list--bordered</span>"&gt;
+  &lt;li class="<span class="code-string">list__item</span>"&gt;항목&lt;/li&gt;
+  &lt;li class="<span class="code-string">list__item list__item--clickable is-active</span>"&gt;활성&lt;/li&gt;
+&lt;/ul&gt;</pre>
+  </div>
+</div>
+
+<!-- List Group 기본 -->
+<div class="demo-card" id="s-listgroup">
+  <div class="demo-card__header"><span class="demo-card__title">List Group (Bootstrap 호환)</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Basic</p>
+        <ul class="list-group">
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">cloud</i> Google Drive</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">chat</i> Facebook Messenger</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">phone_iphone</i> Apple</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">support</i> Intercom Support</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">payment</i> Paypal</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Active item</p>
+        <ul class="list-group">
+          <li class="list-group-item active"><i class="material-icons-outlined" style="font-size:1rem;">cloud</i> Google Drive</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">chat</i> Facebook Messenger</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">phone_iphone</i> Apple</li>
+          <li class="list-group-item"><i class="material-icons-outlined" style="font-size:1rem;">support</i> Intercom Support</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Disabled item</p>
+        <ul class="list-group">
+          <li class="list-group-item disabled">Google Drive</li>
+          <li class="list-group-item">Facebook Messenger</li>
+          <li class="list-group-item">Apple</li>
+          <li class="list-group-item">Intercom Support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;ul class="<span class="code-string">list-group</span>"&gt;
+  &lt;li class="<span class="code-string">list-group-item active</span>"&gt;Active&lt;/li&gt;
+  &lt;li class="<span class="code-string">list-group-item</span>"&gt;Normal&lt;/li&gt;
+  &lt;li class="<span class="code-string">list-group-item disabled</span>"&gt;Disabled&lt;/li&gt;
+&lt;/ul&gt;</pre>
+  </div>
+</div>
+
+<!-- Links, Flush, Horizontal -->
+<div class="demo-card" id="s-variants">
+  <div class="demo-card__header"><span class="demo-card__title">Links & Flush & Horizontal</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Links & Buttons</p>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action active">Paypal Payment</a>
+          <a href="#" class="list-group-item list-group-item-action">Google Drive</a>
+          <a href="#" class="list-group-item list-group-item-action">Facebook Messenger</a>
+          <a href="#" class="list-group-item list-group-item-action disabled">Intercom (비활성)</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Flush</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Google Drive</li>
+          <li class="list-group-item">Facebook Messenger</li>
+          <li class="list-group-item">Apple</li>
+          <li class="list-group-item">Intercom Support</li>
+          <li class="list-group-item">Paypal</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Horizontal</p>
+        <ul class="list-group list-group-horizontal" style="margin-bottom:0.75rem;">
+          <li class="list-group-item">Google</li>
+          <li class="list-group-item">Whatsapp</li>
+          <li class="list-group-item">Facebook</li>
+        </ul>
+        <ul class="list-group list-group-horizontal">
+          <li class="list-group-item">Apple</li>
+          <li class="list-group-item">PayPal</li>
+          <li class="list-group-item">Intercom</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;a class="<span class="code-string">list-group-item list-group-item-action</span>"&gt;링크&lt;/a&gt;
+
+&lt;ul class="<span class="code-string">list-group list-group-flush</span>"&gt;...&lt;/ul&gt;
+
+&lt;ul class="<span class="code-string">list-group list-group-horizontal</span>"&gt;...&lt;/ul&gt;</pre>
+  </div>
+</div>
+
+<!-- Contextual Colors -->
+<div class="demo-card" id="s-colors">
+  <div class="demo-card__header"><span class="demo-card__title">Contextual Colors</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">색상 배경</p>
+        <ul class="list-group">
+          <li class="list-group-item">Default item</li>
+          <li class="list-group-item list-group-item-primary">Primary item</li>
+          <li class="list-group-item list-group-item-secondary">Secondary item</li>
+          <li class="list-group-item list-group-item-success">Success item</li>
+          <li class="list-group-item list-group-item-danger">Danger item</li>
+          <li class="list-group-item list-group-item-warning">Warning item</li>
+          <li class="list-group-item list-group-item-info">Info item</li>
+          <li class="list-group-item list-group-item-light">Light item</li>
+          <li class="list-group-item list-group-item-dark">Dark item</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">색상 + Action Link</p>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">Default</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Primary</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">Success</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Danger</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Warning</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-info">Info</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Dark</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;li class="<span class="code-string">list-group-item list-group-item-primary</span>"&gt;Primary&lt;/li&gt;
+&lt;li class="<span class="code-string">list-group-item list-group-item-success</span>"&gt;Success&lt;/li&gt;</pre>
+  </div>
+</div>
+
+<!-- 리치 콘텐츠 -->
+<div class="demo-card" id="s-rich">
+  <div class="demo-card__header"><span class="demo-card__title">리치 콘텐츠</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">BEM 방식</p>
+        <ul class="list list--bordered">
+          <li class="list__item">
+            <div class="list__icon"><i class="material-icons-outlined">mail</i></div>
+            <div class="list__content">
+              <div class="list__title">새 메시지</div>
+              <div class="list__subtitle">김영희님이 메시지를 보냈습니다.</div>
+            </div>
+            <div class="list__meta">3분 전</div>
+          </li>
+          <li class="list__item">
+            <div class="list__icon"><i class="material-icons-outlined">event</i></div>
+            <div class="list__content">
+              <div class="list__title">일정 알림</div>
+              <div class="list__subtitle">오후 3시 회의가 있습니다.</div>
+            </div>
+            <div class="list__meta">1시간 전</div>
+          </li>
+          <li class="list__item">
+            <div class="list__icon"><i class="material-icons-outlined">update</i></div>
+            <div class="list__content">
+              <div class="list__title">시스템 업데이트</div>
+              <div class="list__subtitle">v2.0 업데이트가 완료되었습니다.</div>
+            </div>
+            <div class="list__meta">어제</div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">List Group 커스텀</p>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action active" style="flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;width:100%;justify-content:space-between;">
+              <strong>List group item heading</strong>
+              <small>3 days ago</small>
+            </div>
+            <p style="margin:0.5rem 0 0;font-size:0.875rem;opacity:0.85;">현재 활성화된 항목의 상세 내용입니다.</p>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action" style="flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;width:100%;justify-content:space-between;">
+              <strong>Another heading</strong>
+              <small class="text-muted">5 days ago</small>
+            </div>
+            <p style="margin:0.5rem 0 0;font-size:0.875rem;" class="text-secondary">두 번째 항목의 상세 내용입니다.</p>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action" style="flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;width:100%;justify-content:space-between;">
+              <strong>Third heading</strong>
+              <small class="text-muted">1 week ago</small>
+            </div>
+            <p style="margin:0.5rem 0 0;font-size:0.875rem;" class="text-secondary">세 번째 항목의 상세 내용입니다.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-comment">&lt;!-- BEM 리치 리스트 --&gt;</span>
+&lt;li class="<span class="code-string">list__item</span>"&gt;
+  &lt;div class="<span class="code-string">list__icon</span>"&gt;...&lt;/div&gt;
+  &lt;div class="<span class="code-string">list__content</span>"&gt;
+    &lt;div class="<span class="code-string">list__title</span>"&gt;제목&lt;/div&gt;
+    &lt;div class="<span class="code-string">list__subtitle</span>"&gt;부제목&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="<span class="code-string">list__meta</span>"&gt;3분 전&lt;/div&gt;
+&lt;/li&gt;</pre>
+  </div>
+</div>
+
+<!-- 번호 목록 & 배지 포함 -->
+<div class="demo-card" id="s-numbered">
+  <div class="demo-card__header"><span class="demo-card__title">번호 목록 & 배지 포함</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Numbered List Group</p>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item">첫 번째 항목</li>
+          <li class="list-group-item">두 번째 항목</li>
+          <li class="list-group-item">세 번째 항목</li>
+          <li class="list-group-item">네 번째 항목</li>
+        </ol>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">배지 포함 리스트</p>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">받은편지함 <span class="badge bg-primary rounded-pill">14</span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">보낸편지함 <span class="badge badge-soft-success rounded-pill">2</span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">임시보관함 <span class="badge badge-outline-warning rounded-pill">5</span></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">스팸 <span class="badge bg-danger rounded-pill">99+</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;ol class="<span class="code-string">list-group list-group-numbered</span>"&gt;
+  &lt;li class="list-group-item"&gt;항목&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;li class="<span class="code-string">list-group-item d-flex justify-content-between align-items-center</span>"&gt;
+  받은편지함 &lt;span class="badge bg-primary rounded-pill"&gt;14&lt;/span&gt;
+&lt;/li&gt;</pre>
+  </div>
+</div>
+
+<!-- 체크박스 리스트 -->
+<div class="demo-card" id="s-checkbox">
+  <div class="demo-card__header"><span class="demo-card__title">체크박스 & 라디오 리스트</span></div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Checkbox</p>
+        <ul class="list-group" style="max-width:400px;">
+          <li class="list-group-item"><input type="checkbox" checked> 프로젝트 설정 완료</li>
+          <li class="list-group-item"><input type="checkbox" checked> 디자인 시안 검토</li>
+          <li class="list-group-item"><input type="checkbox"> 코드 리뷰 진행</li>
+          <li class="list-group-item"><input type="checkbox"> 배포 준비</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-secondary" style="margin-bottom:0.5rem;">Radio</p>
+        <ul class="list-group" style="max-width:400px;">
+          <li class="list-group-item"><input type="radio" name="plan" checked> Basic 플랜</li>
+          <li class="list-group-item"><input type="radio" name="plan"> Pro 플랜</li>
+          <li class="list-group-item"><input type="radio" name="plan"> Enterprise 플랜</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>&lt;li class="<span class="code-string">list-group-item</span>"&gt;
+  &lt;input type="checkbox" checked&gt; 항목
+&lt;/li&gt;</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-basic" class="doc-toc__link is-active">기본 (BEM)</a></li>
+    <li class="doc-toc__item"><a href="#s-listgroup" class="doc-toc__link">List Group</a></li>
+    <li class="doc-toc__item"><a href="#s-variants" class="doc-toc__link">Links & Flush & Horizontal</a></li>
+    <li class="doc-toc__item"><a href="#s-colors" class="doc-toc__link">Contextual Colors</a></li>
+    <li class="doc-toc__item"><a href="#s-rich" class="doc-toc__link">리치 콘텐츠</a></li>
+    <li class="doc-toc__item"><a href="#s-numbered" class="doc-toc__link">번호 & 배지</a></li>
+    <li class="doc-toc__item"><a href="#s-checkbox" class="doc-toc__link">체크박스 & 라디오</a></li>
+  </ul>
+</aside>
+</div>

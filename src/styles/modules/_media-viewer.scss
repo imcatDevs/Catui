@@ -1,0 +1,736 @@
+// ============================================
+// Media Viewer Module SCSS
+// Ratio 유틸리티 / VideoPlayer / AudioPlayer / ImageViewer / Lightbox
+// Ubold ui-videos.html 참조
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+
+// ──────────────────────────────────────────────
+// 1. Ratio 유틸리티 (반응형 임베드)
+//    Ubold: ratio ratio-21x9, ratio-16x9, ratio-4x3, ratio-1x1
+// ──────────────────────────────────────────────
+
+.ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    content: '';
+    width: 100%;
+  }
+
+  > * {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  // iframe 기본
+  > iframe {
+    border: 0;
+    border-radius: $radius-md;
+  }
+}
+
+// 비율 프리셋
+.ratio-21x9::before { padding-top: calc(9 / 21 * 100%); }   // 42.857%
+.ratio-16x9::before { padding-top: calc(9 / 16 * 100%); }   // 56.25%
+.ratio-4x3::before  { padding-top: calc(3 / 4 * 100%); }    // 75%
+.ratio-1x1::before  { padding-top: 100%; }
+
+// 커스텀 비율: --ratio 변수 사용
+.ratio-custom::before { padding-top: var(--ratio, 56.25%); }
+
+
+// ──────────────────────────────────────────────
+// 2. EmbedVideo 래퍼
+// ──────────────────────────────────────────────
+
+.embed-video {
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: #000;
+
+  &--rounded { border-radius: $radius-lg; }
+  &--shadow  { box-shadow: $shadow-lg; }
+
+  iframe {
+    border: 0;
+    border-radius: inherit;
+  }
+}
+
+
+// ──────────────────────────────────────────────
+// 3. VideoPlayer — 커스텀 HTML5 비디오 플레이어
+// ──────────────────────────────────────────────
+
+.video-player {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: $radius-md;
+  overflow: hidden;
+  line-height: 0;
+
+  // 컨트롤 숨김 상태
+  &.controls-hidden .video-player__controls {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__video {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+  }
+
+  // 오버레이 (큰 재생 버튼)
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.25s ease;
+  }
+
+  &.is-playing &__overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__big-play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background: #fff;
+    }
+
+    i { font-size: 2rem; }
+  }
+
+  // 로딩 스피너
+  &__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    &.is-visible { opacity: 1; }
+  }
+
+  &__spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin-video 0.8s linear infinite;
+  }
+
+  // 컨트롤 바
+  &__controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 2rem 0.75rem 0.5rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  // 진행 바
+  &__progress {
+    padding: 0.25rem 0;
+    cursor: pointer;
+  }
+
+  &__progress-bar {
+    position: relative;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+      height: 6px;
+    }
+  }
+
+  &__progress-buffered {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: inherit;
+  }
+
+  &__progress-played {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--primary, #3b82f6);
+    border-radius: inherit;
+    transition: width 0.1s linear;
+  }
+
+  &__progress-handle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    margin-left: -6px;
+    background: var(--primary, #3b82f6);
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  &__progress:hover &__progress-handle {
+    opacity: 1;
+  }
+
+  // 컨트롤 좌우 배치
+  &__controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.375rem;
+  }
+
+  &__controls-left,
+  &__controls-right {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  // 컨트롤 버튼
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    transition: background-color 0.15s ease;
+
+    &:hover { background: rgba(255, 255, 255, 0.15); }
+
+    i { font-size: 1.25rem; }
+
+    &--speed span {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+
+  // 볼륨 슬라이더
+  &__volume {
+    display: flex;
+    align-items: center;
+  }
+
+  &__volume-slider {
+    display: none;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.2s ease;
+  }
+
+  &__volume:hover &__volume-slider {
+    display: block;
+    width: 60px;
+  }
+
+  &__volume-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  // 시간 표시
+  &__time {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 0.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__separator {
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0.125rem;
+  }
+}
+
+@keyframes spin-video {
+  to { transform: rotate(360deg); }
+}
+
+
+// ──────────────────────────────────────────────
+// 4. AudioPlayer — 커스텀 오디오 플레이어
+// ──────────────────────────────────────────────
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary, #f8f9fa);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: $radius-md;
+
+  // 앨범 커버
+  &__cover {
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: $radius-sm;
+    background: var(--bg-tertiary, #e5e7eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--text-tertiary, #9ca3af);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    i { font-size: 1.5rem; }
+  }
+
+  // 곡 정보
+  &__info {
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a1a);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+
+  &__artist {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #6b7280);
+  }
+
+  // 컨트롤 영역
+  &__controls {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 진행 바
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+  }
+
+  &__time {
+    font-size: 0.6875rem;
+    color: var(--text-tertiary, #9ca3af);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  &__progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border-color, #e5e7eb);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    width: 0;
+    background: var(--primary, #3b82f6);
+    border-radius: inherit;
+    transition: width 0.1s linear;
+  }
+
+  // 버튼 그룹
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-primary, #1a1a1a);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover { background: var(--bg-tertiary, rgba(0, 0, 0, 0.05)); }
+
+    i { font-size: 1.25rem; }
+
+    // 재생 버튼 강조
+    &--play {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--primary, #3b82f6);
+      color: #fff;
+
+      &:hover { background: var(--primary-hover, #2563eb); }
+    }
+  }
+
+  // 볼륨
+  &__volume {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 4px;
+    background: var(--border-color, #e5e7eb);
+    border-radius: 2px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      background: var(--primary, #3b82f6);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}
+
+
+// ──────────────────────────────────────────────
+// 5. ImageViewer — 이미지 확대/회전/다운로드
+// ──────────────────────────────────────────────
+
+.image-viewer {
+  position: relative;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: var(--bg-secondary, #f8f9fa);
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    overflow: hidden;
+    cursor: grab;
+
+    &:active { cursor: grabbing; }
+  }
+
+  &__image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  // 하단 툴바
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: var(--bg-primary, #fff);
+    border-top: 1px solid var(--border-color, #e5e7eb);
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: $radius-sm;
+    background: var(--bg-primary, #fff);
+    color: var(--text-secondary, #6b7280);
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: var(--bg-secondary, #f8f9fa);
+      color: var(--text-primary, #1a1a1a);
+      border-color: var(--primary, #3b82f6);
+    }
+
+    i { font-size: 1.125rem; }
+  }
+
+  &__zoom-level {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary, #6b7280);
+    min-width: 3rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+
+// ──────────────────────────────────────────────
+// 6. Lightbox 오버레이 (기존 유지)
+// ──────────────────────────────────────────────
+
+.media-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: background-color 0.15s ease;
+    z-index: 1;
+
+    &:hover { background: rgba(255, 255, 255, 0.2); }
+  }
+
+  &__content {
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  &__img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: $radius-sm;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    user-select: none;
+  }
+
+  &__video {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: $radius-sm;
+    outline: none;
+  }
+
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: background-color 0.15s ease;
+    z-index: 1;
+
+    &:hover { background: rgba(255, 255, 255, 0.2); }
+    &--prev { left: -4rem; }
+    &--next { right: -4rem; }
+
+    &.is-disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  &__caption {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    text-align: center;
+    max-width: 60ch;
+  }
+
+  &__thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    max-width: 90vw;
+  }
+
+  &__thumb {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 0.1875rem;
+    cursor: pointer;
+    opacity: 0.5;
+    border: 2px solid transparent;
+    transition: opacity 0.15s ease, border-color 0.15s ease;
+
+    &:hover { opacity: 0.8; }
+
+    &.is-active {
+      opacity: 1;
+      border-color: var(--primary, #3b82f6);
+    }
+  }
+
+  &__counter {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8125rem;
+  }
+}
+
+
+// ──────────────────────────────────────────────
+// 7. 다크모드 대응
+// ──────────────────────────────────────────────
+
+[data-theme='dark'] {
+  .audio-player {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+  }
+
+  .image-viewer {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+
+    &__toolbar {
+      background: var(--bg-primary);
+      border-top-color: var(--border-color);
+    }
+
+    &__btn {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+      color: var(--text-secondary);
+
+      &:hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+      }
+    }
+  }
+}

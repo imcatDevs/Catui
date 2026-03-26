@@ -1,0 +1,373 @@
+<!-- Advanced UI — SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">모듈</li>
+      <li class="breadcrumb-item active">Advanced UI</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Advanced UI</h1>
+  <p class="page-desc">SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<!-- ============================================ -->
+<!-- 1. SplitPane                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-split">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">SplitPane</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">크기 조절 가능한 분할 패널 — 드래그, 터치, 키보드(←→↑↓) 지원</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <!-- 수평 -->
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">수평 분할</p>
+        <div id="split-h" style="height:200px; border:1px solid var(--border-color,#e5e7eb); border-radius:0.375rem; overflow:hidden;">
+          <div style="padding:1rem; background:var(--bg-secondary,#f8f9fa);">
+            <p class="fw-semibold mb-1" style="font-size:0.8125rem">왼쪽 패널</p>
+            <p class="text-muted" style="font-size:0.75rem;margin:0">구분선을 드래그하세요</p>
+          </div>
+          <div style="padding:1rem;">
+            <p class="fw-semibold mb-1" style="font-size:0.8125rem">오른쪽 패널</p>
+            <p class="text-muted" style="font-size:0.75rem;margin:0">키보드: ← → 로 조절</p>
+          </div>
+        </div>
+      </div>
+      <!-- 수직 -->
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">수직 분할</p>
+        <div id="split-v" style="height:200px; border:1px solid var(--border-color,#e5e7eb); border-radius:0.375rem; overflow:hidden;">
+          <div style="padding:1rem; background:var(--bg-secondary,#f8f9fa);">
+            <p class="fw-semibold mb-1" style="font-size:0.8125rem">상단 패널</p>
+          </div>
+          <div style="padding:1rem;">
+            <p class="fw-semibold mb-1" style="font-size:0.8125rem">하단 패널</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.75rem">
+      <button class="btn btn--outline btn--sm" onclick="splitH && splitH.setSizes([30,70])">30:70</button>
+      <button class="btn btn--outline btn--sm" onclick="splitH && splitH.setSizes([50,50])">50:50</button>
+      <button class="btn btn--outline btn--sm" onclick="splitH && splitH.setSizes([70,30])">70:30</button>
+      <span class="text-muted" style="font-size:0.75rem; margin-left:0.5rem">← 수평 패널 크기 변경</span>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { SplitPane } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'advanced-ui'</span>);
+
+<span class="code-comment">// 수평 분할</span>
+<span class="code-keyword">const</span> split = <span class="code-keyword">new</span> <span class="code-function">SplitPane</span>(<span class="code-string">'#container'</span>, {
+  direction: <span class="code-string">'horizontal'</span>,
+  initialSizes: [<span class="code-number">50</span>, <span class="code-number">50</span>],
+  minSizes: [<span class="code-number">80</span>, <span class="code-number">80</span>],
+  gutterSize: <span class="code-number">8</span>,
+  collapsible: <span class="code-keyword">true</span>,
+  onDragEnd: (sizes) =&gt; <span class="code-function">console.log</span>(sizes)
+});
+
+<span class="code-comment">// 프로그래밍 방식 크기 변경</span>
+split.<span class="code-function">setSizes</span>([<span class="code-number">30</span>, <span class="code-number">70</span>]);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. QRCode                                     -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-qr">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">QRCode</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">QR Server API 기반 QR 코드 생성 — 실제 스캔 가능, 다운로드 지원</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: auto 1fr; gap:1.5rem; align-items:start;">
+      <div id="qr-demo" style="min-width:180px;"></div>
+      <div>
+        <div class="mb-2">
+          <label class="fw-semibold" style="font-size:0.8125rem;display:block;margin-bottom:0.25rem">QR 텍스트</label>
+          <input type="text" class="form-input" id="qr-input" value="https://imcat.dev" style="font-size:0.8125rem">
+        </div>
+        <div class="mb-2">
+          <label class="fw-semibold" style="font-size:0.8125rem;display:block;margin-bottom:0.25rem">크기</label>
+          <div class="d-flex gap-1">
+            <button class="btn btn--outline btn--sm" onclick="qrInst && (qrInst.setSize(120), this.blur())">120</button>
+            <button class="btn btn--outline btn--sm" onclick="qrInst && (qrInst.setSize(180), this.blur())">180</button>
+            <button class="btn btn--outline btn--sm" onclick="qrInst && (qrInst.setSize(250), this.blur())">250</button>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn--primary btn--sm" id="qr-generate">생성</button>
+          <button class="btn btn--outline btn--sm" id="qr-download">다운로드</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { QRCode } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'advanced-ui'</span>);
+
+<span class="code-keyword">const</span> qr = <span class="code-keyword">new</span> <span class="code-function">QRCode</span>(<span class="code-string">'#container'</span>, {
+  text: <span class="code-string">'https://imcat.dev'</span>,
+  size: <span class="code-number">200</span>,
+  colorDark: <span class="code-string">'000000'</span>,
+  correctLevel: <span class="code-string">'M'</span>
+});
+
+<span class="code-comment">// 텍스트 변경</span>
+qr.<span class="code-function">setText</span>(<span class="code-string">'새로운 URL'</span>);
+
+<span class="code-comment">// 다운로드</span>
+qr.<span class="code-function">download</span>(<span class="code-string">'my-qr.png'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. CodeBlock                                  -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-code">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">CodeBlock</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">복사 버튼 포함 코드 블록 — 라인 넘버, 언어 표시</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">라인 넘버 + 복사</p>
+        <div id="code-demo-1"></div>
+      </div>
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">복사만 (라인 넘버 없음)</p>
+        <div id="code-demo-2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { CodeBlock } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'advanced-ui'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">CodeBlock</span>(<span class="code-string">'#container'</span>, {
+  code: <span class="code-string">'const x = 42;'</span>,
+  language: <span class="code-string">'javascript'</span>,
+  lineNumbers: <span class="code-keyword">true</span>,  <span class="code-comment">// showLineNumbers 별칭</span>
+  copyButton: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// 코드 변경</span>
+block.<span class="code-function">setCode</span>(<span class="code-string">'console.log("Hello");'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. CopyToClipboard                            -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-copy">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">CopyToClipboard</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">버튼 바인딩 방식 + static 유틸리티 — 자동 피드백 포함</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <!-- 인스턴스 방식 -->
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">인스턴스 방식 (버튼 바인딩)</p>
+        <div class="mb-2">
+          <input type="text" class="form-input" id="copy-input-1" value="IMCAT UI Framework" style="font-size:0.8125rem">
+        </div>
+        <button class="btn btn--primary btn--sm" id="copy-btn-1"><span>클립보드 복사</span></button>
+      </div>
+      <!-- static 방식 -->
+      <div>
+        <p class="text-secondary fw-semibold mb-2" style="font-size:0.8125rem">Static 메서드 방식</p>
+        <div class="mb-2">
+          <input type="text" class="form-input" id="copy-input-2" value="https://imcat.dev" readonly style="font-size:0.8125rem">
+        </div>
+        <button class="btn btn--outline btn--sm" id="copy-btn-2">직접 복사</button>
+        <span id="copy-feedback" class="text-success fw-semibold" style="font-size:0.75rem;margin-left:0.5rem;display:none">복사됨!</span>
+      </div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { CopyToClipboard } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'advanced-ui'</span>);
+
+<span class="code-comment">// 1. 인스턴스 방식 — 버튼에 바인딩</span>
+<span class="code-keyword">new</span> <span class="code-function">CopyToClipboard</span>(<span class="code-string">'#button'</span>, {
+  target: <span class="code-string">'#input'</span>,
+  feedbackText: <span class="code-string">'복사됨!'</span>,
+  onSuccess: (text) =&gt; <span class="code-function">console.log</span>(<span class="code-string">'복사:'</span>, text)
+});
+
+<span class="code-comment">// 2. Static 방식 — 직접 호출</span>
+<span class="code-keyword">const</span> ok = <span class="code-keyword">await</span> CopyToClipboard.<span class="code-function">copy</span>(<span class="code-string">'텍스트'</span>);
+<span class="code-keyword">const</span> ok2 = <span class="code-keyword">await</span> CopyToClipboard.<span class="code-function">copyFrom</span>(<span class="code-string">'#element'</span>);</pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. SimpleColorPicker                          -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-color">
+  <div class="demo-card__header" style="display:block">
+    <span class="demo-card__title">SimpleColorPicker</span>
+    <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">프리셋 색상 선택기 — native color input 연동, 커스텀 팔레트</p>
+  </div>
+  <div class="demo-card__body">
+    <div style="display:grid; grid-template-columns: 1fr auto; gap:1.5rem; align-items:start;">
+      <div id="color-demo"></div>
+      <div id="color-preview" style="width:80px;height:80px;border-radius:0.5rem;background:#3b82f6;transition:background 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre><span class="code-keyword">const</span> { SimpleColorPicker } = <span class="code-keyword">await</span> IMCAT.<span class="code-function">use</span>(<span class="code-string">'advanced-ui'</span>);
+
+<span class="code-keyword">new</span> <span class="code-function">SimpleColorPicker</span>(<span class="code-string">'#container'</span>, {
+  colors: [<span class="code-string">'#667eea'</span>, <span class="code-string">'#f56565'</span>, <span class="code-string">'#48bb78'</span>],
+  value: <span class="code-string">'#3b82f6'</span>,
+  showInput: <span class="code-keyword">true</span>,
+  onChange: (color) =&gt; <span class="code-function">console.log</span>(color)
+});
+
+<span class="code-comment">// 프로그래밍 방식</span>
+picker.<span class="code-function">setValue</span>(<span class="code-string">'#ef4444'</span>);
+picker.<span class="code-function">getValue</span>();  <span class="code-comment">// '#ef4444'</span></pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. API 레퍼런스                               -->
+<!-- ============================================ -->
+<div class="demo-card" id="s-api">
+  <div class="demo-card__header"><span class="demo-card__title">API 레퍼런스</span></div>
+  <div class="demo-card__body">
+    <div class="table-wrapper">
+      <table class="table table--compact" style="font-size:0.8125rem">
+        <thead>
+          <tr><th>클래스</th><th>주요 옵션</th><th>주요 메서드</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>SplitPane</code></td>
+            <td><code>direction</code>, <code>initialSizes</code>, <code>minSizes</code>, <code>gutterSize</code>, <code>collapsible</code></td>
+            <td><code>setSizes([a,b])</code>, <code>getSizes()</code>, <code>collapseFirst()</code>, <code>collapseSecond()</code></td>
+          </tr>
+          <tr>
+            <td><code>QRCode</code></td>
+            <td><code>text</code>, <code>size</code>, <code>colorDark</code>, <code>colorLight</code>, <code>correctLevel</code></td>
+            <td><code>setText(s)</code>, <code>setSize(n)</code>, <code>setColors(d,l)</code>, <code>download(name)</code>, <code>toDataURL()</code></td>
+          </tr>
+          <tr>
+            <td><code>CopyToClipboard</code></td>
+            <td><code>target</code>, <code>text</code>, <code>feedbackText</code>, <code>feedbackDuration</code>, <code>onSuccess</code></td>
+            <td><code>static copy(text)</code>, <code>static copyFrom(selector)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>CodeBlock</code></td>
+            <td><code>code</code>, <code>language</code>, <code>lineNumbers</code>, <code>copyButton</code>, <code>copyText</code></td>
+            <td><code>setCode(s)</code>, <code>destroy()</code></td>
+          </tr>
+          <tr>
+            <td><code>SimpleColorPicker</code></td>
+            <td><code>colors</code>, <code>value</code>, <code>showInput</code>, <code>onChange</code></td>
+            <td><code>setValue(hex)</code>, <code>getValue()</code>, <code>destroy()</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-split" class="doc-toc__link is-active">SplitPane</a></li>
+    <li class="doc-toc__item"><a href="#s-qr" class="doc-toc__link">QRCode</a></li>
+    <li class="doc-toc__item"><a href="#s-code" class="doc-toc__link">CodeBlock</a></li>
+    <li class="doc-toc__item"><a href="#s-copy" class="doc-toc__link">CopyToClipboard</a></li>
+    <li class="doc-toc__item"><a href="#s-color" class="doc-toc__link">SimpleColorPicker</a></li>
+    <li class="doc-toc__item"><a href="#s-api" class="doc-toc__link">API 레퍼런스</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var splitH = null;
+  var qrInst = null;
+
+  (async function() {
+    var AU = await IMCAT.use('advanced-ui');
+
+    // ── SplitPane ──
+    splitH = new AU.SplitPane('#split-h', {
+      direction: 'horizontal',
+      initialSizes: [50, 50],
+      minSizes: [80, 80],
+      collapsible: true
+    });
+    new AU.SplitPane('#split-v', {
+      direction: 'vertical',
+      initialSizes: [40, 60],
+      minSizes: [60, 60]
+    });
+
+    // ── QRCode ──
+    qrInst = new AU.QRCode('#qr-demo', {
+      text: 'https://imcat.dev',
+      size: 180
+    });
+    document.getElementById('qr-generate').addEventListener('click', function() {
+      var text = document.getElementById('qr-input').value.trim();
+      if (text) qrInst.setText(text);
+    });
+    document.getElementById('qr-download').addEventListener('click', function() {
+      qrInst.download('imcat-qr.png');
+    });
+
+    // ── CodeBlock ──
+    new AU.CodeBlock('#code-demo-1', {
+      code: 'const app = new IMCATCore();\nconst modal = await IMCAT.use(\'overlays/modal\');\n\nnew modal({\n  title: \'Hello IMCAT\',\n  content: \'Welcome!\'\n}).show();',
+      language: 'javascript',
+      lineNumbers: true,
+      copyButton: true
+    });
+    new AU.CodeBlock('#code-demo-2', {
+      code: '.card {\n  border-radius: 0.5rem;\n  box-shadow: 0 1px 3px rgba(0,0,0,0.1);\n}',
+      language: 'css',
+      copyButton: true
+    });
+
+    // ── CopyToClipboard (인스턴스 방식) ──
+    new AU.CopyToClipboard('#copy-btn-1', {
+      target: '#copy-input-1',
+      feedbackText: '복사됨!',
+      onSuccess: function(text) { console.log('복사:', text); }
+    });
+
+    // ── CopyToClipboard (static 방식) ──
+    document.getElementById('copy-btn-2').addEventListener('click', async function() {
+      var input = document.getElementById('copy-input-2');
+      var ok = await AU.CopyToClipboard.copy(input.value);
+      if (ok) {
+        var fb = document.getElementById('copy-feedback');
+        fb.style.display = 'inline';
+        setTimeout(function() { fb.style.display = 'none'; }, 2000);
+      }
+    });
+
+    // ── SimpleColorPicker ──
+    new AU.SimpleColorPicker('#color-demo', {
+      colors: [
+        '#ef4444', '#f97316', '#f59e0b', '#22c55e', '#10b981',
+        '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7',
+        '#ec4899', '#64748b', '#1f2937', '#000000'
+      ],
+      value: '#3b82f6',
+      showInput: true,
+      onChange: function(color) {
+        document.getElementById('color-preview').style.background = color;
+      }
+    });
+  })();
+</script>

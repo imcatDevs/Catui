@@ -1,0 +1,115 @@
+<!-- DOM API -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#" catui-href="views/01-start/overview.html">시작하기</a></li>
+      <li class="breadcrumb-item active">DOM</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">DOM API</h1>
+  <p class="page-desc">jQuery와 유사한 체이닝 DOM 조작 API. <code>IMCAT(selector)</code>로 호출합니다.</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+<div class="demo-card" id="s-select">
+  <div class="demo-card__header"><span class="demo-card__title">요소 선택</span></div>
+  <div class="demo-card__body">
+    <div class="alert alert--info" id="dom-target">이 요소를 선택합니다</div>
+    <div class="btn-group">
+      <button class="btn btn--primary" onclick="IMCAT('#dom-target').addClass('alert--success').removeClass('alert--info')">addClass</button>
+      <button class="btn btn--secondary" onclick="IMCAT('#dom-target').addClass('alert--info').removeClass('alert--success')">원복</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT(<span class="code-string">'#element'</span>)         <span class="code-comment">// ID 선택</span>
+IMCAT(<span class="code-string">'.class'</span>)           <span class="code-comment">// 클래스 선택</span>
+IMCAT(<span class="code-string">'div.card'</span>)         <span class="code-comment">// CSS 셀렉터</span>
+IMCAT(domElement)          <span class="code-comment">// DOM 요소 래핑</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-class">
+  <div class="demo-card__header"><span class="demo-card__title">클래스 조작</span></div>
+  <div class="demo-card__body">
+    <div class="badge badge--primary" id="badge-demo">클릭하여 토글</div>
+    <div class="btn-group">
+      <button class="btn btn--sm btn--primary" onclick="IMCAT('#badge-demo').toggleClass('badge--danger')">toggleClass</button>
+      <button class="btn btn--sm btn--outline" onclick="alert(IMCAT('#badge-demo').hasClass('badge--danger'))">hasClass</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">addClass</span>(<span class="code-string">'active'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">removeClass</span>(<span class="code-string">'active'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">toggleClass</span>(<span class="code-string">'active'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">hasClass</span>(<span class="code-string">'active'</span>); <span class="code-comment">// boolean</span></pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-content">
+  <div class="demo-card__header"><span class="demo-card__title">콘텐츠 조작</span></div>
+  <div class="demo-card__body">
+    <div class="card card--outlined">
+      <div class="card__body" id="content-demo">원본 텍스트</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn--sm btn--primary" onclick="IMCAT('#content-demo').text('텍스트 변경됨')">text()</button>
+      <button class="btn btn--sm btn--secondary" onclick="IMCAT('#content-demo').html('<strong>HTML</strong> 변경됨')">html()</button>
+      <button class="btn btn--sm btn--outline" onclick="IMCAT('#content-demo').text('원본 텍스트')">원복</button>
+    </div>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">text</span>(<span class="code-string">'새 텍스트'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">html</span>(<span class="code-string">'&lt;b&gt;HTML&lt;/b&gt;'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">attr</span>(<span class="code-string">'title'</span>, <span class="code-string">'새 타이틀'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">css</span>(<span class="code-string">'color'</span>, <span class="code-string">'red'</span>);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-events">
+  <div class="demo-card__header"><span class="demo-card__title">이벤트</span></div>
+  <div class="demo-card__body">
+    <button class="btn btn--primary" id="event-btn">클릭하세요</button>
+    <span class="badge" id="event-count">0</span>
+  </div>
+  <div class="demo-card__code">
+<pre>IMCAT(<span class="code-string">'#btn'</span>).<span class="code-function">on</span>(<span class="code-string">'click'</span>, (e) => { ... });
+IMCAT(<span class="code-string">'#btn'</span>).<span class="code-function">off</span>(<span class="code-string">'click'</span>);
+IMCAT(<span class="code-string">'#btn'</span>).<span class="code-function">trigger</span>(<span class="code-string">'click'</span>);</pre>
+  </div>
+</div>
+
+<div class="demo-card" id="s-traverse">
+  <div class="demo-card__header"><span class="demo-card__title">탐색 & 반복</span></div>
+  <div class="demo-card__code">
+<pre>IMCAT(<span class="code-string">'.items'</span>).<span class="code-function">each</span>((el, i) => { ... });
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">find</span>(<span class="code-string">'.child'</span>);
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">parent</span>();
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">show</span>();
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">hide</span>();
+IMCAT(<span class="code-string">'.el'</span>).<span class="code-function">toggle</span>();</pre>
+  </div>
+</div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-select" class="doc-toc__link is-active">요소 선택</a></li>
+    <li class="doc-toc__item"><a href="#s-class" class="doc-toc__link">클래스 조작</a></li>
+    <li class="doc-toc__item"><a href="#s-content" class="doc-toc__link">콘텐츠 조작</a></li>
+    <li class="doc-toc__item"><a href="#s-events" class="doc-toc__link">이벤트</a></li>
+    <li class="doc-toc__item"><a href="#s-traverse" class="doc-toc__link">탐색 & 반복</a></li>
+  </ul>
+</aside>
+</div>
+
+<script>
+  var clickCount = 0;
+  IMCAT('#event-btn').on('click', function() {
+    clickCount++;
+    IMCAT('#event-count').text(clickCount);
+  });
+</script>

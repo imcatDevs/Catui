@@ -1,0 +1,191 @@
+// ============================================
+// Ribbons (코어 컴포넌트)
+// ubold bootstrap.min.css 원본 기반
+// ============================================
+
+@use '../abstracts/variables' as *;
+
+// 리본 박스 컨테이너
+.ribbon-box {
+  position: relative;
+
+  // 기본 리본
+  .ribbon {
+    position: relative;
+    clear: both;
+    padding: 5px 12px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+
+    // 접힌 꼬리 삼각형
+    &::before {
+      content: ' ';
+      border-style: solid;
+      border-width: 10px;
+      position: absolute;
+      bottom: -10px;
+      margin-bottom: -10px;
+      z-index: -1;
+    }
+
+    // 좌측 배치
+    &.float-start {
+      margin-left: -30px;
+      border-radius: 0 3px 3px 0;
+
+      &::before {
+        left: 0;
+      }
+    }
+
+    // 우측 배치
+    &.float-end {
+      margin-right: -30px;
+      border-radius: 3px 0 0 3px;
+
+      &::before {
+        right: 0;
+      }
+    }
+  }
+
+  // 리본 컨텐츠
+  .ribbon-content {
+    clear: both;
+  }
+
+  // ============================================
+  // 기본 리본 컬러 변형 + ::before 삼각형 색상
+  // ============================================
+  .ribbon--primary {
+    background: var(--primary, $primary);
+    &::before { border-color: var(--primary, $primary) transparent transparent; }
+  }
+
+  .ribbon--secondary {
+    background: var(--secondary, $secondary);
+    &::before { border-color: var(--secondary, $secondary) transparent transparent; }
+  }
+
+  .ribbon--success {
+    background: $success;
+    &::before { border-color: $success transparent transparent; }
+  }
+
+  .ribbon--info {
+    background: $info;
+    &::before { border-color: $info transparent transparent; }
+  }
+
+  .ribbon--warning {
+    background: $warning;
+    color: #1F2937;
+    &::before { border-color: $warning transparent transparent; }
+  }
+
+  .ribbon--danger {
+    background: $error;
+    &::before { border-color: $error transparent transparent; }
+  }
+
+  .ribbon--dark {
+    background: var(--text-primary, $text-primary);
+    &::before { border-color: var(--text-primary, $text-primary) transparent transparent; }
+  }
+
+  // ============================================
+  // 접힌 리본 (코너 배치) — ribbon-two
+  // ============================================
+  .ribbon-two {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+
+    span {
+      font-size: 13px;
+      color: #fff;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(-45deg);
+      width: 100px;
+      display: block;
+      position: absolute;
+      top: 19px;
+      left: -21px;
+      font-weight: 600;
+
+      // 접힌 효과 삼각형 (span의 pseudo)
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 100%;
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 100%;
+        border-left: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+      }
+    }
+  }
+
+  // ribbon-two 컬러 변형
+  .ribbon-two--primary span {
+    background: var(--primary, $primary);
+    &::before { border-left: 3px solid var(--primary, $primary); border-top: 3px solid var(--primary, $primary); }
+    &::after { border-right: 3px solid var(--primary, $primary); border-top: 3px solid var(--primary, $primary); }
+  }
+
+  .ribbon-two--secondary span {
+    background: var(--secondary, $secondary);
+    &::before { border-left: 3px solid var(--secondary, $secondary); border-top: 3px solid var(--secondary, $secondary); }
+    &::after { border-right: 3px solid var(--secondary, $secondary); border-top: 3px solid var(--secondary, $secondary); }
+  }
+
+  .ribbon-two--success span {
+    background: $success;
+    &::before { border-left: 3px solid $success; border-top: 3px solid $success; }
+    &::after { border-right: 3px solid $success; border-top: 3px solid $success; }
+  }
+
+  .ribbon-two--info span {
+    background: $info;
+    &::before { border-left: 3px solid $info; border-top: 3px solid $info; }
+    &::after { border-right: 3px solid $info; border-top: 3px solid $info; }
+  }
+
+  .ribbon-two--warning span {
+    background: $warning;
+    color: #1F2937;
+    &::before { border-left: 3px solid $warning; border-top: 3px solid $warning; }
+    &::after { border-right: 3px solid $warning; border-top: 3px solid $warning; }
+  }
+
+  .ribbon-two--danger span {
+    background: $error;
+    &::before { border-left: 3px solid $error; border-top: 3px solid $error; }
+    &::after { border-right: 3px solid $error; border-top: 3px solid $error; }
+  }
+
+  .ribbon-two--dark span {
+    background: var(--text-primary, $text-primary);
+    &::before { border-left: 3px solid var(--text-primary, $text-primary); border-top: 3px solid var(--text-primary, $text-primary); }
+    &::after { border-right: 3px solid var(--text-primary, $text-primary); border-top: 3px solid var(--text-primary, $text-primary); }
+  }
+}
+
+// 독립 사용 유틸리티 (ribbon-box 밖에서 사용)
+.float-start { float: left; }
+.float-end { float: right; }

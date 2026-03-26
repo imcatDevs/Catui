@@ -1,0 +1,159 @@
+<!-- 활용: 소셜 피드 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">소셜 피드</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">소셜 피드</h1>
+  <p class="page-desc">SocialFeed + Comments + ShareButtons + Tooltip을 조합한 소셜 네트워크 피드 예제</p>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start">
+  <!-- 메인 피드 -->
+  <div>
+    <!-- 새 글 작성 -->
+    <div class="card card--outlined" style="margin-bottom:20px">
+      <div class="card__body">
+        <div style="display:flex;gap:12px;align-items:start">
+          <div class="avatar avatar--md" style="background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:50%;width:40px;height:40px;font-weight:600">나</div>
+          <div style="flex:1">
+            <textarea id="new-post-text" class="form-input" rows="3" placeholder="무슨 생각을 하고 계신가요?" style="resize:none"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+              <div style="display:flex;gap:4px">
+                <button class="btn btn--xs btn--outline" onclick="IMCAT.toast.info('이미지 첨부')"><i class="material-icons-outlined">image</i></button>
+                <button class="btn btn--xs btn--outline" onclick="IMCAT.toast.info('동영상 첨부')"><i class="material-icons-outlined">videocam</i></button>
+                <button class="btn btn--xs btn--outline" onclick="IMCAT.toast.info('위치 추가')"><i class="material-icons-outlined">location_on</i></button>
+                <button class="btn btn--xs btn--outline" onclick="IMCAT.toast.info('투표 추가')"><i class="material-icons-outlined">poll</i></button>
+              </div>
+              <button class="btn btn--primary btn--sm" onclick="submitPost()">게시</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 피드 영역 -->
+    <div id="social-feed"></div>
+
+    <!-- 댓글 영역 -->
+    <div class="card card--outlined" style="margin-top:20px">
+      <div class="card__header"><h4 class="card__title">댓글</h4></div>
+      <div class="card__body"><div id="social-comments"></div></div>
+    </div>
+  </div>
+
+  <!-- 사이드바 -->
+  <div>
+    <!-- 프로필 카드 -->
+    <div class="card card--outlined" style="margin-bottom:16px">
+      <div class="card__body" style="text-align:center">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.5rem;font-weight:700">나</div>
+        <h4 style="margin:0 0 4px">개발자</h4>
+        <p class="body2 text-muted" style="margin:0 0 12px">@dev_user</p>
+        <div style="display:flex;justify-content:center;gap:24px">
+          <div style="text-align:center"><strong>128</strong><p class="body2 text-muted" style="margin:0">게시물</p></div>
+          <div style="text-align:center"><strong>1.2K</strong><p class="body2 text-muted" style="margin:0">팔로워</p></div>
+          <div style="text-align:center"><strong>342</strong><p class="body2 text-muted" style="margin:0">팔로잉</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 트렌딩 태그 -->
+    <div class="card card--outlined" style="margin-bottom:16px">
+      <div class="card__header"><h4 class="card__title">트렌딩</h4></div>
+      <div class="card__body">
+        <div class="list list--divided">
+          <div class="list__item list__item--clickable" onclick="IMCAT.toast.info('#IMCAT_UI 검색')">
+            <div><span class="body2 text-muted">개발</span><br><strong>#IMCAT_UI</strong><p class="body2 text-muted" style="margin:0">게시물 2.4K</p></div>
+          </div>
+          <div class="list__item list__item--clickable" onclick="IMCAT.toast.info('#JavaScript 검색')">
+            <div><span class="body2 text-muted">기술</span><br><strong>#JavaScript</strong><p class="body2 text-muted" style="margin:0">게시물 15K</p></div>
+          </div>
+          <div class="list__item list__item--clickable" onclick="IMCAT.toast.info('#WebDev 검색')">
+            <div><span class="body2 text-muted">개발</span><br><strong>#WebDev</strong><p class="body2 text-muted" style="margin:0">게시물 8.7K</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공유 버튼 -->
+    <div class="card card--outlined">
+      <div class="card__header"><h4 class="card__title">공유</h4></div>
+      <div class="card__body"><div id="social-share"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (async function() {
+    var Social = await IMCAT.use('social');
+
+    // 소셜 피드
+    new Social.SocialFeed('#social-feed', {
+      currentUser: { id: 'me', name: '개발자', avatar: '' },
+      posts: [
+        {
+          id: '1', userId: 'hong', userName: '홍길동',
+          text: 'IMCAT UI v1.1 출시! 🎉 EventEmitter 믹스인, 모듈 CSS 분리 등 새로운 기능이 추가되었습니다. 자세한 내용은 릴리스 노트를 확인하세요.',
+          createdAt: new Date(Date.now() - 3600000).toISOString(),
+          likes: 42, liked: true, commentCount: 12
+        },
+        {
+          id: '2', userId: 'kim', userName: '김영희',
+          text: 'IMCAT UI의 보안 모듈이 정말 인상적이네요. XSS 방어가 자동으로 적용되니 개발자 입장에서 실수할 여지가 줄어듭니다.',
+          createdAt: new Date(Date.now() - 7200000).toISOString(),
+          likes: 28, liked: false, commentCount: 5
+        },
+        {
+          id: '3', userId: 'park', userName: '박지민',
+          text: '오늘 IMCAT UI로 관리자 대시보드를 구현했습니다. Chart + DataTable + Modal 조합이 깔끔하게 동작하네요. 코드 50줄만에 완성! 👏',
+          images: ['assets/images/140-800x400.jpg', 'assets/images/375-800x400.jpg'],
+          createdAt: new Date(Date.now() - 10800000).toISOString(),
+          likes: 67, liked: false, commentCount: 8
+        }
+      ],
+      showCompose: false,
+      showActions: true
+    });
+
+    // 댓글 시스템
+    new Social.Comments('#social-comments', {
+      currentUser: { id: 'me', name: '개발자', avatar: '' },
+      comments: [
+        {
+          id: 'c1', userId: 'lee', userName: '이철수', avatar: '',
+          text: '대시보드 예제 코드 공유해주실 수 있나요?', createdAt: new Date(Date.now() - 1800000).toISOString(),
+          likes: 5, liked: false,
+          replies: [
+            { id: 'c1r1', userId: 'park', userName: '박지민', avatar: '', text: '네, GitHub에 올릴 예정입니다!', createdAt: new Date(Date.now() - 900000).toISOString(), likes: 2 }
+          ]
+        },
+        {
+          id: 'c2', userId: 'choi', userName: '최수진', avatar: '',
+          text: '보안 모듈 글 잘 봤습니다. sanitize() 함수의 상세한 설명도 부탁드려요.', createdAt: new Date(Date.now() - 3600000).toISOString(),
+          likes: 3, liked: true, replies: []
+        }
+      ],
+      allowReplies: true, allowEdit: true, allowDelete: true,
+      onSubmit: function(c) { IMCAT.toast.success('댓글이 등록되었습니다'); }
+    });
+
+    // 공유 버튼
+    new Social.ShareButtons('#social-share', {
+      url: 'https://imcat.dev',
+      title: 'IMCAT UI - 경량 웹 프레임워크',
+      platforms: ['twitter', 'facebook', 'linkedin', 'link'],
+      onShare: function(platform) { IMCAT.toast.info(platform + '으로 공유됨'); }
+    });
+  })();
+
+  function submitPost() {
+    var text = document.getElementById('new-post-text').value.trim();
+    if (!text) { IMCAT.toast.error('내용을 입력하세요'); return; }
+    IMCAT.toast.success('게시물이 등록되었습니다');
+    document.getElementById('new-post-text').value = '';
+  }
+</script>

@@ -1,0 +1,297 @@
+<!-- Form Elements: Input Types, Groups, Sizes, Checks/Radios -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Forms</li>
+      <li class="breadcrumb-item active">Elements</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">Form Elements</h1>
+  <p class="page-desc">텍스트 입력, 셀렉트, 체크박스, 라디오 등 기본 폼 요소</p>
+</div>
+
+<div class="doc-layout">
+<div class="doc-main">
+
+    <!-- ============================================ -->
+    <!-- Card 1: Input Textfield Types                -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-inputs">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Input Textfield Types</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">다양한 HTML5 입력 타입. <code>form-control</code> 클래스 적용.</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Text -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Text</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="text"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="text" class="form-control" placeholder="텍스트 입력">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Email -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Email</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="email"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="email" class="form-control" placeholder="email@example.com">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Password -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Password</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="password"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="password" class="form-control" placeholder="비밀번호" value="password123">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Number -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Number</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="number"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="number" class="form-control" placeholder="0" value="42">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- URL -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">URL</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="url"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="url" class="form-control" placeholder="https://example.com">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Tel -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Telephone</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="tel"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="tel" class="form-control" placeholder="010-1234-5678">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Search -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Search</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="search"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="search" class="form-control" placeholder="검색어 입력...">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Textarea -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Textarea</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;textarea&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <textarea class="form-control" rows="3" placeholder="여러 줄 입력..."></textarea>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Select -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Select</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;select&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <select class="form-control">
+              <option value="">선택하세요</option>
+              <option>옵션 1</option>
+              <option>옵션 2</option>
+              <option>옵션 3</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Disabled & Readonly -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Disabled & Readonly</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>disabled</code>, <code>readonly</code> 속성</p>
+          </div>
+          <div style="flex:1">
+            <input type="text" class="form-control" value="비활성화됨" disabled style="margin-bottom:0.5rem">
+            <input type="text" class="form-control" value="읽기 전용" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 2: Input Sizes                          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-sizes">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Input Sizes</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">소형, 기본, 대형 입력 필드 크기 변형</p>
+      </div>
+
+      <div class="demo-card__body">
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Small</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>.form-control-sm</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="text" class="form-control form-control-sm" placeholder=".form-control-sm">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Default</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>.form-control</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="text" class="form-control" placeholder=".form-control (기본)">
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Large</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>.form-control-lg</code></p>
+          </div>
+          <div style="flex:1">
+            <input type="text" class="form-control form-control-lg" placeholder=".form-control-lg">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Card 3: Checks, Radios and Switches          -->
+    <!-- ============================================ -->
+    <div class="demo-card" id="s-checks">
+      <div class="demo-card__header" style="display:block">
+        <span class="demo-card__title">Checks, Radios & Switches</span>
+        <p class="text-muted" style="margin:0.25rem 0 0;font-size:0.8125rem">체크박스, 라디오 버튼, 스위치 토글</p>
+      </div>
+
+      <div class="demo-card__body">
+        <!-- Checkboxes -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Checkboxes</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="checkbox"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;flex-direction:column;gap:0.5rem">
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="checkbox" checked> 체크박스 1 (선택됨)
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="checkbox"> 체크박스 2
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer;color:var(--text-tertiary)">
+                <input type="checkbox" disabled> 체크박스 3 (비활성)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Radios -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Radios</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem"><code>&lt;input type="radio"&gt;</code></p>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;flex-direction:column;gap:0.5rem">
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="radio" name="radio-demo" checked> 라디오 1 (선택됨)
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="radio" name="radio-demo"> 라디오 2
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer;color:var(--text-tertiary)">
+                <input type="radio" name="radio-demo" disabled> 라디오 3 (비활성)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin:1rem 0;border-top:1px dashed var(--border-color, #dee2e6)"></div>
+
+        <!-- Inline -->
+        <div class="row" style="display:flex;gap:1rem;margin-bottom:0">
+          <div style="flex:1">
+            <h6 style="font-weight:600;margin-bottom:0.25rem">Inline</h6>
+            <p class="text-muted" style="margin:0;font-size:0.8125rem">가로 배치 체크박스 & 라디오</p>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="checkbox" checked> HTML
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="checkbox" checked> CSS
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+                <input type="checkbox"> JavaScript
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+<aside class="doc-toc">
+  <div class="doc-toc__title">목차</div>
+  <ul class="doc-toc__list">
+    <li class="doc-toc__item"><a href="#s-inputs" class="doc-toc__link is-active">Input Types</a></li>
+    <li class="doc-toc__item"><a href="#s-sizes" class="doc-toc__link">Input Sizes</a></li>
+    <li class="doc-toc__item"><a href="#s-checks" class="doc-toc__link">Checks &amp; Radios</a></li>
+  </ul>
+</aside>
+</div>

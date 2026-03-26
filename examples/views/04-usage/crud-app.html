@@ -1,0 +1,248 @@
+<!-- 활용: CRUD 관리 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">CRUD 관리</li>
+    </ol>
+  </nav>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <h1 class="page-title">CRUD 관리</h1>
+      <p class="page-desc">DataTable + Modal + Drawer + Dropdown + Toast를 조합한 데이터 관리 예제</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn--outline btn--sm" onclick="crudExport()"><i class="material-icons-outlined">download</i> 내보내기</button>
+      <button class="btn btn--outline btn--sm" onclick="crudImport()"><i class="material-icons-outlined">upload</i> 가져오기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 통계 카드 -->
+<div class="card-grid" style="margin-bottom:20px">
+  <div class="card card--outlined">
+    <div class="card__body" style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--primary-light, #e0e7ff);display:flex;align-items:center;justify-content:center"><i class="material-icons-outlined text-primary">group</i></div>
+      <div><p class="body2 text-muted" style="margin:0">전체</p><strong id="crud-stat-total" style="font-size:1.25rem">0</strong></div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__body" style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:var(--radius-md);background:#dcfce7;display:flex;align-items:center;justify-content:center"><i class="material-icons-outlined text-success">check_circle</i></div>
+      <div><p class="body2 text-muted" style="margin:0">활성</p><strong id="crud-stat-active" style="font-size:1.25rem">0</strong></div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__body" style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:var(--radius-md);background:#fef9c3;display:flex;align-items:center;justify-content:center"><i class="material-icons-outlined text-warning">shield</i></div>
+      <div><p class="body2 text-muted" style="margin:0">관리자</p><strong id="crud-stat-admin" style="font-size:1.25rem">0</strong></div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__body" style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:var(--radius-md);background:#fce4ec;display:flex;align-items:center;justify-content:center"><i class="material-icons-outlined text-danger">block</i></div>
+      <div><p class="body2 text-muted" style="margin:0">비활성</p><strong id="crud-stat-inactive" style="font-size:1.25rem">0</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- 도구 바 + 테이블 -->
+<div class="card card--outlined">
+  <div class="card__header" style="flex-wrap:wrap;gap:8px">
+    <h4 class="card__title">사용자 관리</h4>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button id="crud-filter-role" class="btn btn--outline btn--sm"><i class="material-icons-outlined">filter_list</i> 역할</button>
+      <button class="btn btn--outline btn--sm btn--danger" id="crud-bulk-del" style="display:none" onclick="crudBulkDelete()"><i class="material-icons-outlined">delete</i> 선택 삭제</button>
+      <button class="btn btn--primary btn--sm" onclick="crudAdd()">
+        <i class="material-icons-outlined">add</i> 추가
+      </button>
+    </div>
+  </div>
+  <div class="card__body"><div id="crud-table"></div></div>
+</div>
+
+<script>
+  var crudData = [
+    { id: 1, name: '홍길동', email: 'hong@example.com', role: '관리자', status: '활성', joined: '2024-01-15', lastLogin: '2025-03-15' },
+    { id: 2, name: '김영희', email: 'kim@example.com', role: '편집자', status: '활성', joined: '2024-03-22', lastLogin: '2025-03-14' },
+    { id: 3, name: '이철수', email: 'lee@example.com', role: '뷰어', status: '비활성', joined: '2024-05-10', lastLogin: '2025-02-01' },
+    { id: 4, name: '박지민', email: 'park@example.com', role: '편집자', status: '활성', joined: '2024-06-18', lastLogin: '2025-03-13' },
+    { id: 5, name: '최수진', email: 'choi@example.com', role: '관리자', status: '활성', joined: '2024-02-08', lastLogin: '2025-03-15' },
+    { id: 6, name: '정민수', email: 'jung@example.com', role: '뷰어', status: '활성', joined: '2024-08-30', lastLogin: '2025-03-12' },
+    { id: 7, name: '강하나', email: 'kang@example.com', role: '편집자', status: '비활성', joined: '2024-09-14', lastLogin: '2025-01-20' },
+    { id: 8, name: '윤서준', email: 'yoon@example.com', role: '뷰어', status: '활성', joined: '2024-11-03', lastLogin: '2025-03-10' }
+  ];
+  var nextId = 9;
+  var dtInstance = null;
+  var crudFilterRole = '전체';
+
+  function updateStats() {
+    document.getElementById('crud-stat-total').textContent = crudData.length;
+    document.getElementById('crud-stat-active').textContent = crudData.filter(function(d){return d.status==='활성'}).length;
+    document.getElementById('crud-stat-admin').textContent = crudData.filter(function(d){return d.role==='관리자'}).length;
+    document.getElementById('crud-stat-inactive').textContent = crudData.filter(function(d){return d.status==='비활성'}).length;
+  }
+
+  async function initTable() {
+    var filtered = crudFilterRole === '전체' ? crudData : crudData.filter(function(d){return d.role === crudFilterRole;});
+    var DV = await IMCAT.use('data-viz');
+    document.getElementById('crud-table').innerHTML = '';
+    dtInstance = new DV.DataTable('#crud-table', {
+      columns: [
+        { field: 'id', title: 'ID', sortable: true },
+        { field: 'name', title: '이름', sortable: true },
+        { field: 'email', title: '이메일' },
+        { field: 'role', title: '역할', render: function(v) {
+          var c = v === '관리자' ? 'danger' : v === '편집자' ? 'warning' : 'info';
+          return '<span class="badge badge--' + c + ' badge--pill">' + v + '</span>';
+        }},
+        { field: 'status', title: '상태', render: function(v) { return '<span class="badge ' + (v === '활성' ? 'badge--success' : 'badge--secondary') + '">' + v + '</span>'; }},
+        { field: 'lastLogin', title: '마지막 로그인' },
+        { field: '_actions', title: '작업', sortable: false, render: function(_, row) {
+          return '<button class="btn btn--xs btn--outline" onclick="crudView(' + row.id + ')" title="상세"><i class="material-icons-outlined">visibility</i></button> ' +
+            '<button class="btn btn--xs btn--outline" onclick="crudEdit(' + row.id + ')" title="수정"><i class="material-icons-outlined">edit</i></button> ' +
+            '<button class="btn btn--xs btn--danger" onclick="crudDelete(' + row.id + ')" title="삭제"><i class="material-icons-outlined">delete</i></button>';
+        }}
+      ],
+      data: filtered,
+      paginate: true,
+      searchable: true
+    });
+    updateStats();
+  }
+
+  function formHtml(item) {
+    item = item || { name: '', email: '', role: '뷰어', status: '활성' };
+    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">' +
+      '<div class="form-group"><label class="form-label">이름 <span class="text-danger">*</span></label><input type="text" class="form-input" id="f-name" value="' + IMCAT.security.escape(item.name) + '"></div>' +
+      '<div class="form-group"><label class="form-label">이메일 <span class="text-danger">*</span></label><input type="email" class="form-input" id="f-email" value="' + IMCAT.security.escape(item.email) + '"></div>' +
+      '<div class="form-group"><label class="form-label">역할</label><select class="form-select" id="f-role"><option' + (item.role==='관리자'?' selected':'') + '>관리자</option><option' + (item.role==='편집자'?' selected':'') + '>편집자</option><option' + (item.role==='뷰어'?' selected':'') + '>뷰어</option></select></div>' +
+      '<div class="form-group"><label class="form-label">상태</label><select class="form-select" id="f-status"><option' + (item.status==='활성'?' selected':'') + '>활성</option><option' + (item.status==='비활성'?' selected':'') + '>비활성</option></select></div>' +
+      '</div>';
+  }
+
+  function getFormData() {
+    return {
+      name: document.getElementById('f-name').value,
+      email: document.getElementById('f-email').value,
+      role: document.getElementById('f-role').value,
+      status: document.getElementById('f-status').value
+    };
+  }
+
+  async function crudAdd() {
+    var Modal = await IMCAT.use('overlays/modal');
+    new Modal({
+      title: '사용자 추가',
+      content: formHtml(),
+      buttons: [
+        { text: '취소', variant: 'secondary', close: true },
+        { text: '추가', variant: 'primary', action: function() {
+          var d = getFormData();
+          if (!d.name || !d.email) { IMCAT.toast.error('이름과 이메일을 입력하세요'); return; }
+          d.id = nextId++;
+          d.joined = new Date().toISOString().slice(0,10);
+          d.lastLogin = '-';
+          crudData.push(d);
+          initTable();
+          IMCAT.toast.success(d.name + ' 추가됨');
+        }}
+      ]
+    }).show();
+  }
+
+  async function crudEdit(id) {
+    var item = crudData.find(function(d){return d.id === id;});
+    if (!item) return;
+    var Modal = await IMCAT.use('overlays/modal');
+    new Modal({
+      title: '사용자 수정: ' + IMCAT.security.escape(item.name),
+      content: formHtml(item),
+      buttons: [
+        { text: '취소', variant: 'secondary', close: true },
+        { text: '저장', variant: 'primary', action: function() {
+          Object.assign(item, getFormData());
+          initTable();
+          IMCAT.toast.success(item.name + ' 수정됨');
+        }}
+      ]
+    }).show();
+  }
+
+  async function crudView(id) {
+    var item = crudData.find(function(d){return d.id === id;});
+    if (!item) return;
+    var Drawer = await IMCAT.use('overlays/drawer');
+    var roleColor = item.role === '관리자' ? 'danger' : item.role === '편집자' ? 'warning' : 'info';
+    new Drawer({
+      title: '사용자 상세',
+      position: 'right',
+      size: 'md',
+      content: '<div style="text-align:center;padding:20px 0">' +
+        '<div style="width:64px;height:64px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5rem;font-weight:700">' + IMCAT.security.escape(item.name.charAt(0)) + '</div>' +
+        '<h3 style="margin:0 0 4px">' + IMCAT.security.escape(item.name) + '</h3>' +
+        '<span class="badge badge--' + roleColor + ' badge--pill">' + item.role + '</span> ' +
+        '<span class="badge ' + (item.status === '활성' ? 'badge--success' : 'badge--secondary') + '">' + item.status + '</span>' +
+        '</div>' +
+        '<div class="list list--divided">' +
+        '<div class="list__item"><i class="material-icons-outlined text-muted">email</i><div><strong>이메일</strong><p class="body2" style="margin:0">' + IMCAT.security.escape(item.email) + '</p></div></div>' +
+        '<div class="list__item"><i class="material-icons-outlined text-muted">calendar_today</i><div><strong>가입일</strong><p class="body2" style="margin:0">' + (item.joined || '-') + '</p></div></div>' +
+        '<div class="list__item"><i class="material-icons-outlined text-muted">login</i><div><strong>마지막 로그인</strong><p class="body2" style="margin:0">' + (item.lastLogin || '-') + '</p></div></div>' +
+        '</div>' +
+        '<div style="margin-top:20px;display:flex;gap:8px">' +
+        '<button class="btn btn--primary btn--sm" onclick="crudEdit(' + item.id + ')"><i class="material-icons-outlined">edit</i> 수정</button>' +
+        '<button class="btn btn--danger btn--sm" onclick="crudDelete(' + item.id + ')"><i class="material-icons-outlined">delete</i> 삭제</button>' +
+        '</div>'
+    }).show();
+  }
+
+  async function crudDelete(id) {
+    var ok = await IMCAT.confirm('이 사용자를 삭제하시겠습니까?');
+    if (ok) {
+      crudData = crudData.filter(function(d){return d.id !== id;});
+      initTable();
+      IMCAT.toast.warning('삭제됨');
+    }
+  }
+
+  async function crudBulkDelete() {
+    var ok = await IMCAT.confirm('비활성 사용자를 모두 삭제하시겠습니까?');
+    if (ok) {
+      var count = crudData.filter(function(d){return d.status==='비활성'}).length;
+      crudData = crudData.filter(function(d){return d.status !== '비활성';});
+      initTable();
+      IMCAT.toast.warning(count + '명의 비활성 사용자 삭제됨');
+    }
+  }
+
+  function crudExport() {
+    var rows = [['ID','이름','이메일','역할','상태','가입일']];
+    crudData.forEach(function(d) { rows.push([d.id, d.name, d.email, d.role, d.status, d.joined]); });
+    IMCAT.toast.success('CSV 파일 내보내기 완료 (' + crudData.length + '건)');
+  }
+
+  function crudImport() {
+    IMCAT.toast.info('CSV 가져오기 기능 (데모)');
+  }
+
+  (async function() {
+    // 역할 필터 드롭다운
+    var Dropdown = await IMCAT.use('dropdown');
+    new Dropdown(document.getElementById('crud-filter-role'), {
+      items: [
+        { text: '전체', active: true, action: function() { crudFilterRole = '전체'; document.getElementById('crud-filter-role').innerHTML = '<i class="material-icons-outlined">filter_list</i> 전체'; initTable(); } },
+        { text: '관리자', action: function() { crudFilterRole = '관리자'; document.getElementById('crud-filter-role').innerHTML = '<i class="material-icons-outlined">filter_list</i> 관리자'; initTable(); } },
+        { text: '편집자', action: function() { crudFilterRole = '편집자'; document.getElementById('crud-filter-role').innerHTML = '<i class="material-icons-outlined">filter_list</i> 편집자'; initTable(); } },
+        { text: '뷰어', action: function() { crudFilterRole = '뷰어'; document.getElementById('crud-filter-role').innerHTML = '<i class="material-icons-outlined">filter_list</i> 뷰어'; initTable(); } }
+      ]
+    });
+
+    // 비활성 사용자가 있으면 벌크 삭제 버튼 표시
+    if (crudData.some(function(d){return d.status==='비활성';})) {
+      document.getElementById('crud-bulk-del').style.display = '';
+    }
+
+    initTable();
+  })();
+</script>

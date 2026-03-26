@@ -1,0 +1,281 @@
+<!-- 활용: 이커머스 -->
+<div class="page-title-box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">활용</li>
+      <li class="breadcrumb-item active">이커머스</li>
+    </ol>
+  </nav>
+  <h1 class="page-title">이커머스</h1>
+  <p class="page-desc">Carousel + Cards + Dropdown + Modal + Pagination + Toast를 조합한 쇼핑몰 예제</p>
+</div>
+
+<!-- 프로모션 배너 -->
+<div class="card card--outlined" style="margin-bottom:20px;overflow:hidden">
+  <div id="promo-carousel"></div>
+</div>
+
+<!-- 필터 바 -->
+<div class="card card--flat" style="margin-bottom:20px">
+  <div class="card__body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button id="filter-category" class="btn btn--outline btn--sm"><i class="material-icons-outlined">category</i> 카테고리</button>
+      <button id="filter-sort" class="btn btn--outline btn--sm"><i class="material-icons-outlined">sort</i> 정렬</button>
+      <button id="filter-price" class="btn btn--outline btn--sm"><i class="material-icons-outlined">payments</i> 가격대</button>
+      <div style="display:flex;gap:4px">
+        <button class="btn btn--sm btn--primary" id="view-btn-grid" onclick="setProductView('grid')"><i class="material-icons-outlined">grid_view</i></button>
+        <button class="btn btn--sm btn--outline" id="view-btn-list" onclick="setProductView('list')"><i class="material-icons-outlined">view_list</i></button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="text" class="form-input form-input--sm" placeholder="상품 검색..." id="product-search" style="width:200px" oninput="ecFilterProducts()">
+      <span class="body2 text-muted" id="product-count">12개 상품</span>
+    </div>
+  </div>
+</div>
+
+<!-- 상품 목록 -->
+<div id="product-grid" class="card-grid"></div>
+
+<!-- 페이지네이션 -->
+<div id="product-pagination" style="margin-top:20px"></div>
+
+<!-- 장바구니 플로팅 버튼 -->
+<div style="position:fixed;bottom:24px;right:24px;z-index:50">
+  <button class="btn btn--primary" style="border-radius:50%;width:56px;height:56px;box-shadow:0 4px 12px rgba(0,0,0,0.2);position:relative" onclick="showCart()">
+    <i class="material-icons-outlined">shopping_cart</i>
+    <span id="cart-badge" class="badge badge--danger badge--pill" style="position:absolute;top:-4px;right:-4px;font-size:0.625rem;display:none">0</span>
+  </button>
+</div>
+
+<script>
+  var allProducts = [
+    { id: 1, name: 'IMCAT Pro 라이선스', category: '소프트웨어', price: 89000, rating: 4.8, reviews: 124, image: 'assets/images/140-800x400.jpg', badge: '베스트' },
+    { id: 2, name: 'Team 플랜 (5인)', category: '소프트웨어', price: 249000, rating: 4.9, reviews: 67, image: 'assets/images/375-800x400.jpg', badge: '' },
+    { id: 3, name: 'UI 디자인 키트', category: '디자인', price: 45000, rating: 4.5, reviews: 89, image: 'assets/images/614-800x400.jpg', badge: 'NEW' },
+    { id: 4, name: 'Enterprise 라이선스', category: '소프트웨어', price: 490000, rating: 4.7, reviews: 32, image: 'assets/images/204-800x400.jpg', badge: '' },
+    { id: 5, name: '아이콘 팩 Premium', category: '디자인', price: 29000, rating: 4.6, reviews: 156, image: 'assets/images/672-800x400.jpg', badge: '할인' },
+    { id: 6, name: 'SCSS 테마 번들', category: '디자인', price: 67000, rating: 4.4, reviews: 43, image: 'assets/images/780-800x400.jpg', badge: '' },
+    { id: 7, name: '온라인 강의: 기초', category: '교육', price: 55000, rating: 4.8, reviews: 210, image: 'assets/images/818-800x400.jpg', badge: '베스트' },
+    { id: 8, name: '온라인 강의: 심화', category: '교육', price: 79000, rating: 4.9, reviews: 98, image: 'assets/images/83-800x400.jpg', badge: 'NEW' },
+    { id: 9, name: '컴포넌트 확장팩', category: '소프트웨어', price: 35000, rating: 4.3, reviews: 71, image: 'assets/images/1025-800x400.jpg', badge: '' },
+    { id: 10, name: '1:1 컨설팅 (1시간)', category: '서비스', price: 150000, rating: 5.0, reviews: 15, image: 'assets/images/1071-800x400.jpg', badge: '' },
+    { id: 11, name: '코드 리뷰 서비스', category: '서비스', price: 120000, rating: 4.7, reviews: 28, image: 'assets/images/221-800x600.jpg', badge: '' },
+    { id: 12, name: '올인원 번들', category: '소프트웨어', price: 590000, rating: 4.9, reviews: 45, image: 'assets/images/795-800x600.jpg', badge: '할인' }
+  ];
+
+  var ecCart = [];
+  var ecCategory = '전체';
+  var ecSort = 'popular';
+  var ecView = 'grid';
+  var ecFiltered = allProducts.slice();
+
+  (async function() {
+    // 캐러셀
+    var CM = await IMCAT.use('carousel');
+    new CM.Carousel('#promo-carousel', {
+      items: [
+        { content: '<div style="background:linear-gradient(135deg,var(--primary),#7c3aed);padding:48px 40px;color:#fff;text-align:center"><h2 style="margin:0 0 8px;font-size:1.75rem">봄맞이 30% 할인</h2><p style="margin:0;opacity:0.9">전 상품 할인 코드: SPRING2025</p></div>' },
+        { content: '<div style="background:linear-gradient(135deg,#059669,#0891b2);padding:48px 40px;color:#fff;text-align:center"><h2 style="margin:0 0 8px;font-size:1.75rem">Enterprise 출시</h2><p style="margin:0;opacity:0.9">대규모 팀을 위한 최적의 솔루션</p></div>' },
+        { content: '<div style="background:linear-gradient(135deg,#db2777,#ea580c);padding:48px 40px;color:#fff;text-align:center"><h2 style="margin:0 0 8px;font-size:1.75rem">신규 강의 오픈</h2><p style="margin:0;opacity:0.9">IMCAT UI 심화 과정 지금 등록하세요</p></div>' }
+      ],
+      autoplay: true, autoplaySpeed: 4000,
+      arrows: true, dots: true
+    });
+
+    // 카테고리 드롭다운
+    var Dropdown = await IMCAT.use('dropdown');
+    new Dropdown(document.getElementById('filter-category'), {
+      items: [
+        { text: '전체', active: true, action: function() { ecCategory = '전체'; document.getElementById('filter-category').innerHTML = '<i class="material-icons-outlined">category</i> 전체'; ecFilterProducts(); } },
+        { text: '소프트웨어', action: function() { ecCategory = '소프트웨어'; document.getElementById('filter-category').innerHTML = '<i class="material-icons-outlined">category</i> 소프트웨어'; ecFilterProducts(); } },
+        { text: '디자인', action: function() { ecCategory = '디자인'; document.getElementById('filter-category').innerHTML = '<i class="material-icons-outlined">category</i> 디자인'; ecFilterProducts(); } },
+        { text: '교육', action: function() { ecCategory = '교육'; document.getElementById('filter-category').innerHTML = '<i class="material-icons-outlined">category</i> 교육'; ecFilterProducts(); } },
+        { text: '서비스', action: function() { ecCategory = '서비스'; document.getElementById('filter-category').innerHTML = '<i class="material-icons-outlined">category</i> 서비스'; ecFilterProducts(); } }
+      ]
+    });
+
+    // 정렬 드롭다운
+    new Dropdown(document.getElementById('filter-sort'), {
+      items: [
+        { text: '인기순', active: true, action: function() { ecSort = 'popular'; document.getElementById('filter-sort').innerHTML = '<i class="material-icons-outlined">sort</i> 인기순'; ecFilterProducts(); } },
+        { text: '최신순', action: function() { ecSort = 'newest'; document.getElementById('filter-sort').innerHTML = '<i class="material-icons-outlined">sort</i> 최신순'; ecFilterProducts(); } },
+        { text: '가격 낮은순', action: function() { ecSort = 'price-asc'; document.getElementById('filter-sort').innerHTML = '<i class="material-icons-outlined">sort</i> 가격 낮은순'; ecFilterProducts(); } },
+        { text: '가격 높은순', action: function() { ecSort = 'price-desc'; document.getElementById('filter-sort').innerHTML = '<i class="material-icons-outlined">sort</i> 가격 높은순'; ecFilterProducts(); } },
+        { text: '평점순', action: function() { ecSort = 'rating'; document.getElementById('filter-sort').innerHTML = '<i class="material-icons-outlined">sort</i> 평점순'; ecFilterProducts(); } }
+      ]
+    });
+
+    // 가격대 드롭다운
+    new Dropdown(document.getElementById('filter-price'), {
+      items: [
+        { text: '전체 가격', active: true, action: function() { document.getElementById('filter-price').innerHTML = '<i class="material-icons-outlined">payments</i> 전체 가격'; document.getElementById('filter-price').dataset.value = 'all'; ecFilterProducts(); } },
+        { text: '~5만원', action: function() { document.getElementById('filter-price').innerHTML = '<i class="material-icons-outlined">payments</i> ~5만원'; document.getElementById('filter-price').dataset.value = '0-50000'; ecFilterProducts(); } },
+        { text: '5~10만원', action: function() { document.getElementById('filter-price').innerHTML = '<i class="material-icons-outlined">payments</i> 5~10만원'; document.getElementById('filter-price').dataset.value = '50000-100000'; ecFilterProducts(); } },
+        { text: '10~30만원', action: function() { document.getElementById('filter-price').innerHTML = '<i class="material-icons-outlined">payments</i> 10~30만원'; document.getElementById('filter-price').dataset.value = '100000-300000'; ecFilterProducts(); } },
+        { text: '30만원~', action: function() { document.getElementById('filter-price').innerHTML = '<i class="material-icons-outlined">payments</i> 30만원~'; document.getElementById('filter-price').dataset.value = '300000-'; ecFilterProducts(); } }
+      ]
+    });
+
+    // 페이지네이션
+    var Pag = await IMCAT.use('pagination');
+    new Pag.Pagination('#product-pagination', {
+      totalItems: allProducts.length,
+      itemsPerPage: 6,
+      currentPage: 1,
+      onChange: function(pageData) { ecRenderProducts(pageData.currentPage); }
+    });
+
+    ecRenderProducts(1);
+  })();
+
+  function ecFilterProducts() {
+    var query = (document.getElementById('product-search').value || '').toLowerCase();
+    var priceRange = (document.getElementById('filter-price').dataset.value || 'all');
+
+    ecFiltered = allProducts.filter(function(p) {
+      if (ecCategory !== '전체' && p.category !== ecCategory) return false;
+      if (query && !p.name.toLowerCase().includes(query)) return false;
+      if (priceRange !== 'all') {
+        var parts = priceRange.split('-');
+        var min = parseInt(parts[0]) || 0;
+        var max = parseInt(parts[1]) || Infinity;
+        if (p.price < min || p.price > max) return false;
+      }
+      return true;
+    });
+
+    // 정렬
+    if (ecSort === 'price-asc') ecFiltered.sort(function(a,b){ return a.price - b.price; });
+    else if (ecSort === 'price-desc') ecFiltered.sort(function(a,b){ return b.price - a.price; });
+    else if (ecSort === 'rating') ecFiltered.sort(function(a,b){ return b.rating - a.rating; });
+    else ecFiltered.sort(function(a,b){ return b.reviews - a.reviews; });
+
+    document.getElementById('product-count').textContent = ecFiltered.length + '개 상품';
+    ecRenderProducts(1);
+  }
+
+  function ecRenderProducts(page) {
+    var perPage = 6;
+    var start = (page - 1) * perPage;
+    var items = ecFiltered.slice(start, start + perPage);
+    var grid = document.getElementById('product-grid');
+
+    if (ecView === 'grid') {
+      grid.className = 'card-grid';
+      grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+      grid.innerHTML = items.map(function(p) {
+        var badgeHtml = p.badge ? '<span class="badge badge--' + (p.badge === 'NEW' ? 'primary' : p.badge === '할인' ? 'danger' : 'warning') + '" style="position:absolute;top:8px;left:8px">' + IMCAT.security.escape(p.badge) + '</span>' : '';
+        var stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
+        return '<div class="card card--outlined card--hover" style="cursor:pointer" onclick="showProductDetail(' + p.id + ')">' +
+          '<div style="position:relative;overflow:hidden;border-radius:var(--radius-md) var(--radius-md) 0 0">' +
+          '<img src="' + p.image + '" alt="' + IMCAT.security.escape(p.name) + '" style="width:100%;height:180px;object-fit:cover;display:block">' + badgeHtml + '</div>' +
+          '<div class="card__body">' +
+          '<p class="body2 text-muted" style="margin:0">' + IMCAT.security.escape(p.category) + '</p>' +
+          '<h4 class="card__title" style="margin:4px 0 8px;font-size:1rem">' + IMCAT.security.escape(p.name) + '</h4>' +
+          '<div style="display:flex;align-items:center;gap:4px;margin-bottom:8px"><span style="color:var(--warning-color, #EAB308)">' + stars + '</span><span class="body2 text-muted">' + p.rating + ' (' + p.reviews + ')</span></div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between">' +
+          '<strong style="font-size:1.125rem">₩' + p.price.toLocaleString() + '</strong>' +
+          '<button class="btn btn--sm btn--primary" onclick="event.stopPropagation();addToCart(' + p.id + ')"><i class="material-icons-outlined">add_shopping_cart</i></button>' +
+          '</div></div></div>';
+      }).join('');
+    } else {
+      grid.className = '';
+      grid.style.gridTemplateColumns = '';
+      grid.innerHTML = items.map(function(p) {
+        var stars = '★'.repeat(Math.floor(p.rating));
+        return '<div class="card card--outlined card--hover" style="cursor:pointer;margin-bottom:8px" onclick="showProductDetail(' + p.id + ')">' +
+          '<div class="card__body" style="display:flex;gap:16px;align-items:center">' +
+          '<img src="' + p.image + '" alt="" style="width:120px;height:80px;object-fit:cover;border-radius:var(--radius-md)">' +
+          '<div style="flex:1">' +
+          '<p class="body2 text-muted" style="margin:0">' + IMCAT.security.escape(p.category) + (p.badge ? ' <span class="badge badge--primary badge--pill">' + p.badge + '</span>' : '') + '</p>' +
+          '<h4 style="margin:2px 0 4px">' + IMCAT.security.escape(p.name) + '</h4>' +
+          '<span style="color:var(--warning-color, #EAB308);font-size:0.875rem">' + stars + ' ' + p.rating + '</span> <span class="body2 text-muted">(' + p.reviews + '개 리뷰)</span></div>' +
+          '<div style="text-align:right">' +
+          '<strong style="font-size:1.125rem;display:block">₩' + p.price.toLocaleString() + '</strong>' +
+          '<button class="btn btn--sm btn--primary" style="margin-top:8px" onclick="event.stopPropagation();addToCart(' + p.id + ')"><i class="material-icons-outlined">add_shopping_cart</i> 담기</button>' +
+          '</div></div></div>';
+      }).join('');
+    }
+
+    if (items.length === 0) {
+      grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-secondary)"><i class="material-icons-outlined" style="font-size:48px;display:block;margin-bottom:8px">search_off</i>검색 결과가 없습니다.</div>';
+    }
+  }
+
+  function setProductView(view) {
+    ecView = view;
+    document.getElementById('view-btn-grid').className = 'btn btn--sm ' + (view === 'grid' ? 'btn--primary' : 'btn--outline');
+    document.getElementById('view-btn-list').className = 'btn btn--sm ' + (view === 'list' ? 'btn--primary' : 'btn--outline');
+    ecRenderProducts(1);
+  }
+
+  function addToCart(id) {
+    var product = allProducts.find(function(p) { return p.id === id; });
+    if (!product) return;
+    var existing = ecCart.find(function(c) { return c.id === id; });
+    if (existing) { existing.qty++; }
+    else { ecCart.push({ id: id, name: product.name, price: product.price, qty: 1 }); }
+    updateCartBadge();
+    IMCAT.toast.success(IMCAT.security.escape(product.name) + ' 장바구니에 추가');
+  }
+
+  function updateCartBadge() {
+    var total = ecCart.reduce(function(s, c) { return s + c.qty; }, 0);
+    var badge = document.getElementById('cart-badge');
+    badge.textContent = total;
+    badge.style.display = total > 0 ? '' : 'none';
+  }
+
+  async function showCart() {
+    if (ecCart.length === 0) { IMCAT.toast.info('장바구니가 비어있습니다'); return; }
+    var total = ecCart.reduce(function(s, c) { return s + c.price * c.qty; }, 0);
+    var html = '<div class="list list--divided">' + ecCart.map(function(c) {
+      return '<div class="list__item" style="display:flex;align-items:center;gap:12px">' +
+        '<div style="flex:1"><strong>' + IMCAT.security.escape(c.name) + '</strong><p class="body2 text-muted" style="margin:0">₩' + c.price.toLocaleString() + ' × ' + c.qty + '</p></div>' +
+        '<strong>₩' + (c.price * c.qty).toLocaleString() + '</strong></div>';
+    }).join('') + '</div>' +
+    '<div style="border-top:2px solid var(--border-color);padding-top:12px;margin-top:12px;display:flex;justify-content:space-between">' +
+    '<strong style="font-size:1.125rem">합계</strong><strong style="font-size:1.125rem;color:var(--primary)">₩' + total.toLocaleString() + '</strong></div>';
+
+    var Modal = await IMCAT.use('overlays/modal');
+    new Modal({
+      title: '장바구니 (' + ecCart.reduce(function(s,c){return s+c.qty;},0) + '개)',
+      content: html,
+      size: 'md',
+      buttons: [
+        { text: '계속 쇼핑', variant: 'secondary', close: true },
+        { text: '결제하기', variant: 'primary', action: function() {
+          ecCart = [];
+          updateCartBadge();
+          IMCAT.toast.success('결제가 완료되었습니다! 🎉');
+        }}
+      ]
+    }).show();
+  }
+
+  async function showProductDetail(id) {
+    var p = allProducts.find(function(x){return x.id === id;});
+    if (!p) return;
+    var stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
+    var html = '<div style="display:flex;gap:20px;flex-wrap:wrap">' +
+      '<img src="' + p.image + '" alt="" style="width:100%;max-width:300px;height:200px;object-fit:cover;border-radius:var(--radius-md)">' +
+      '<div style="flex:1;min-width:200px">' +
+      '<p class="body2 text-muted">' + IMCAT.security.escape(p.category) + '</p>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin:8px 0"><span style="color:var(--warning-color, #EAB308)">' + stars + '</span><span>' + p.rating + '</span><span class="text-muted">(' + p.reviews + '개 리뷰)</span></div>' +
+      '<div style="font-size:1.5rem;font-weight:700;color:var(--primary);margin:12px 0">₩' + p.price.toLocaleString() + '</div>' +
+      '<p class="body2">고품질 ' + IMCAT.security.escape(p.category) + ' 상품입니다. IMCAT UI 프레임워크와 완벽하게 호환되며, 지속적인 업데이트를 제공합니다.</p>' +
+      '<div style="display:flex;gap:8px;margin-top:12px">' +
+      '<button class="btn btn--primary" onclick="addToCart(' + p.id + ')"><i class="material-icons-outlined">add_shopping_cart</i> 장바구니</button>' +
+      '<button class="btn btn--outline" onclick="IMCAT.toast.info(\'위시리스트에 추가됨\')"><i class="material-icons-outlined">favorite_border</i></button>' +
+      '</div></div></div>';
+
+    var Modal = await IMCAT.use('overlays/modal');
+    new Modal({
+      title: IMCAT.security.escape(p.name),
+      content: html,
+      size: 'lg'
+    }).show();
+  }
+</script>
