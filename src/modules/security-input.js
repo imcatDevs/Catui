@@ -4,6 +4,8 @@
  * @module security-input
  */
 
+import { Config } from '../core/config.js';
+
 /**
  * OTP 입력 컴포넌트
  * 6자리 인증 코드 입력에 최적화
@@ -46,7 +48,7 @@ class OTPInput {
       OTPInput.instances.get(this.container).destroy();
     }
 
-    this.options = { ...OTPInput.defaults(), ...options };
+    this.options = Config.getFor('otpInput', { ...OTPInput.defaults(), ...options });
     this.inputs = [];
     this.value = '';
 
@@ -352,7 +354,7 @@ class PinInput {
       PinInput.instances.get(this.container).destroy();
     }
 
-    this.options = { ...PinInput.defaults(), ...options };
+    this.options = Config.getFor('pinInput', { ...PinInput.defaults(), ...options });
     this.inputs = [];
     this.value = '';
     this.isVisible = false;

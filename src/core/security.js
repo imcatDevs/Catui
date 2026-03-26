@@ -265,6 +265,44 @@ export class Security {
   }
 
   /**
+   * 색상값 검증 (CSS 인젝션 방지)
+   * @param {string} value - 색상값
+   * @returns {string} 유효한 색상값 또는 빈 문자열
+   *
+   * @example
+   * Security.validateColor('#ff0000'); // '#ff0000'
+   * Security.validateColor('rgb(255,0,0)'); // 'rgb(255,0,0)'
+   * Security.validateColor('red'); // 'red'
+   * Security.validateColor('url(javascript:alert(1))'); // ''
+   */
+  static validateColor(value) {
+    if (typeof value !== 'string') return '';
+    const trimmed = value.trim();
+
+    // hex: #RGB, #RRGGBB, #RRGGBBAA
+    if (/^#([0-9A-Fa-f]{3,4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(trimmed)) {
+      return trimmed;
+    }
+
+    // rgb/rgba: rgb(r,g,b) 또는 rgba(r,g,b,a) — 숫자/공백/쉼표/슬래시/퍼센트만 허용
+    if (/^rgba?\(\s*[\d\s,./%]+\)$/i.test(trimmed)) {
+      return trimmed;
+    }
+
+    // hsl/hsla: hsl(h,s%,l%) 또는 hsla(h,s%,l%,a)
+    if (/^hsla?\(\s*[\d\s,./%deg]+\)$/i.test(trimmed)) {
+      return trimmed;
+    }
+
+    // CSS 명명 색상: 영문 소문자만 허용 (transparent, currentColor 포함)
+    if (/^[a-zA-Z]{1,24}$/.test(trimmed)) {
+      return trimmed;
+    }
+
+    return '';
+  }
+
+  /**
    * CSS 값 새니타이징 (CSS 인젝션 방지)
    * @param {string} value - CSS 값
    * @returns {string} 새니타이징된 CSS 값

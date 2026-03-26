@@ -9,6 +9,19 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
+
+// body 스크롤 락 참조 카운팅 (전역 공유)
+function _lockBodyScroll() {
+  window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
+  document.body.style.overflow = 'hidden';
+}
+function _unlockBodyScroll() {
+  window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 0) - 1);
+  if (window.__scrollLockCount === 0) {
+    document.body.style.overflow = '';
+  }
+}
 
 // ============================================
 // ImageList - 이미지 그리드
@@ -48,7 +61,7 @@ class ImageList {
       return;
     }
 
-    this.options = { ...ImageList.defaults(), ...options };
+    this.options = Config.getFor('imageList', { ...ImageList.defaults(), ...options });
     this._lightbox = null;
     this._observer = null;
     this._onClick = null;
@@ -328,7 +341,7 @@ class ImageLightbox {
       ImageLightbox.instance.destroy();
     }
 
-    this.options = { ...ImageLightbox.defaults(), ...options };
+    this.options = Config.getFor('imageLightbox', { ...ImageLightbox.defaults(), ...options });
     this.currentIndex = this.options.startIndex;
     this.isOpen = false;
     this.isZoomed = false;
@@ -550,7 +563,7 @@ class ImageLightbox {
     this.currentIndex = index;
     this._loadImage(index);
 
-    document.body.style.overflow = 'hidden';
+    _lockBodyScroll();
     this.isOpen = true;
 
     requestAnimationFrame(() => {
@@ -568,7 +581,7 @@ class ImageLightbox {
     this.element.style.opacity = '0';
 
     setTimeout(() => {
-      document.body.style.overflow = '';
+      _unlockBodyScroll();
       this.isOpen = false;
 
       if (this.options.onClose) {
@@ -638,8 +651,8 @@ class ImageLightbox {
       this.element.remove();
     }
 
-    // body 스크롤 복원
-    document.body.style.overflow = '';
+    // body 스크롤 복원 (참조 카운팅)
+    _unlockBodyScroll();
 
     // 싱글톤 해제
     ImageLightbox.instance = null;
@@ -691,7 +704,7 @@ class ImageCompare {
       return;
     }
 
-    this.options = { ...ImageCompare.defaults(), ...options };
+    this.options = Config.getFor('imageCompare', { ...ImageCompare.defaults(), ...options });
     this.position = this.options.initialPosition;
     this.isDragging = false;
 
@@ -948,7 +961,7 @@ class LazyImage {
   }
 
   constructor(options = {}) {
-    this.options = { ...LazyImage.defaults(), ...options };
+    this.options = Config.getFor('lazyImage', { ...LazyImage.defaults(), ...options });
     this._observer = null;
     this._images = [];
 

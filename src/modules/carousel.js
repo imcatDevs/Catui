@@ -7,6 +7,18 @@
 import { Security } from '../core/security.js';
 import { Config } from '../core/config.js';
 
+// body 스크롤 락 참조 카운팅 (전역 공유)
+function _lockBodyScroll() {
+  window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
+  document.body.style.overflow = 'hidden';
+}
+function _unlockBodyScroll() {
+  window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 0) - 1);
+  if (window.__scrollLockCount === 0) {
+    document.body.style.overflow = '';
+  }
+}
+
 // ============================================
 // 내장 이징 함수 (코어 AnimationUtil과 호환)
 // 참고: AnimationUtil.cssEasings와 동일한 cubic-bezier 값을 사용합니다.
@@ -1046,7 +1058,7 @@ class Lightbox {
     this.isOpen = true;
 
     this.lightbox.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+    _lockBodyScroll();
 
     this._showSlide(index);
 
@@ -1060,7 +1072,7 @@ class Lightbox {
 
     this.isOpen = false;
     this.lightbox.classList.remove('is-open');
-    document.body.style.overflow = '';
+    _unlockBodyScroll();
 
     if (this.options.onClose) {
       this.options.onClose(this);

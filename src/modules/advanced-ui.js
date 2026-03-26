@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // SplitPane - 분할 패널
@@ -51,7 +52,7 @@ class SplitPane {
       return;
     }
 
-    this.options = { ...SplitPane.defaults(), ...options };
+    this.options = Config.getFor('splitPane', { ...SplitPane.defaults(), ...options });
     this._sizes = [...this.options.initialSizes];
     this._dragging = false;
     this._startPos = 0;
@@ -361,7 +362,7 @@ class QRCode {
       return;
     }
 
-    this.options = { ...QRCode.defaults(), ...options };
+    this.options = Config.getFor('qrCode', { ...QRCode.defaults(), ...options });
     this.image = null;
     this._imageUrl = '';
 
@@ -538,7 +539,7 @@ class CopyToClipboard {
       return;
     }
 
-    this.options = { ...CopyToClipboard.defaults(), ...options };
+    this.options = Config.getFor('copyToClipboard', { ...CopyToClipboard.defaults(), ...options });
     this._originalText = this.trigger.textContent;
     this._feedbackTimer = null;
     this._onClick = null;
@@ -690,7 +691,7 @@ class CodeBlock {
       return;
     }
 
-    this.options = { ...CodeBlock.defaults(), ...options };
+    this.options = Config.getFor('codeBlock', { ...CodeBlock.defaults(), ...options });
     // lineNumbers 별칭 지원
     if (this.options.lineNumbers && !this.options.showLineNumbers) {
       this.options.showLineNumbers = true;
@@ -843,7 +844,7 @@ class SimpleColorPicker {
       return;
     }
 
-    this.options = { ...SimpleColorPicker.defaults(), ...options };
+    this.options = Config.getFor('simpleColorPicker', { ...SimpleColorPicker.defaults(), ...options });
     this._value = this.options.value;
     this._onSwatchClick = null;
     this._onInputChange = null;
@@ -862,15 +863,18 @@ class SimpleColorPicker {
 
     this.container.className = 'simple-color-picker';
 
-    const swatches = colors.map(color => `
+    const swatches = colors.map(color => {
+      const safe = Security.validateColor(color) || '#000000';
+      return `
       <button 
         type="button" 
         class="simple-color-picker__swatch ${color === this._value ? 'is-active' : ''}" 
-        data-color="${color}"
-        style="background: ${color};"
-        aria-label="${color}"
+        data-color="${Security.escape(safe)}"
+        style="background: ${Security.sanitizeCSS(safe)};"
+        aria-label="${Security.escape(safe)}"
       ></button>
-    `).join('');
+    `;
+    }).join('');
 
     this.container.innerHTML = `
       <div class="simple-color-picker__swatches">${swatches}</div>
@@ -907,37 +911,40 @@ class SimpleColorPicker {
 
     this.container.addEventListener('click', this._onSwatchClick);
 
-    // 입력 변경
+    // 입력 변경 (참조 보관하여 destroy 시 제거)
     if (this._nativeInput) {
-      this._nativeInput.addEventListener('input', (e) => {
+      this._onNativeInput = (e) => {
         this._setValue(e.target.value);
-      });
+      };
+      this._nativeInput.addEventListener('input', this._onNativeInput);
     }
 
     if (this._textInput) {
-      this._textInput.addEventListener('change', (e) => {
+      this._onTextChange = (e) => {
         const value = e.target.value;
-        if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+        if (Security.validateColor(value)) {
           this._setValue(value);
         }
-      });
+      };
+      this._textInput.addEventListener('change', this._onTextChange);
     }
   }
 
   _setValue(color) {
-    this._value = color;
+    const safe = Security.validateColor(color) || this.options.value;
+    this._value = safe;
 
     // 스와치 업데이트
     this._swatches.forEach(swatch => {
-      swatch.classList.toggle('is-active', swatch.dataset.color === color);
+      swatch.classList.toggle('is-active', swatch.dataset.color === safe);
     });
 
     // 입력 업데이트
-    if (this._nativeInput) this._nativeInput.value = color;
-    if (this._textInput) this._textInput.value = color;
+    if (this._nativeInput) this._nativeInput.value = safe;
+    if (this._textInput) this._textInput.value = safe;
 
     if (this.options.onChange) {
-      this.options.onChange(color);
+      this.options.onChange(safe);
     }
   }
 
@@ -960,6 +967,12 @@ class SimpleColorPicker {
   destroy() {
     if (this._onSwatchClick) {
       this.container.removeEventListener('click', this._onSwatchClick);
+    }
+    if (this._onNativeInput && this._nativeInput) {
+      this._nativeInput.removeEventListener('input', this._onNativeInput);
+    }
+    if (this._onTextChange && this._textInput) {
+      this._textInput.removeEventListener('change', this._onTextChange);
     }
 
     SimpleColorPicker.instances.delete(this.container);

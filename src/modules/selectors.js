@@ -6,6 +6,7 @@
 
 import { EventEmitterMixin } from '../core/event.js';
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // Autocomplete - 자동완성
@@ -30,7 +31,7 @@ class Autocomplete {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...Autocomplete.defaults(), ...options };
+    this.options = Config.getFor('autocomplete', { ...Autocomplete.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isOpen = false;
     this.selectedIndex = -1;
@@ -253,7 +254,7 @@ class MultiSelect {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...MultiSelect.defaults(), ...options };
+    this.options = Config.getFor('multiSelect', { ...MultiSelect.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.selectedValues = [...this.options.selected];
     this.isOpen = false;
@@ -449,7 +450,7 @@ class RangeSlider {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...RangeSlider.defaults(), ...options };
+    this.options = Config.getFor('rangeSlider', { ...RangeSlider.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isDragging = false;
     this.activeHandle = null;

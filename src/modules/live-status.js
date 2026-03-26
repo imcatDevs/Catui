@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // OnlineStatus - 온라인/오프라인 상태
@@ -47,7 +48,7 @@ class OnlineStatus {
       return;
     }
 
-    this.options = { ...OnlineStatus.defaults(), ...options };
+    this.options = Config.getFor('onlineStatus', { ...OnlineStatus.defaults(), ...options });
     this._status = this.options.status;
     this.indicator = null;
 
@@ -184,7 +185,7 @@ class TypingIndicator {
       return;
     }
 
-    this.options = { ...TypingIndicator.defaults(), ...options };
+    this.options = Config.getFor('typingIndicator', { ...TypingIndicator.defaults(), ...options });
     this._users = [...this.options.users];
     this._hideTimer = null;
 
@@ -360,7 +361,7 @@ class ActivityStatus {
       return;
     }
 
-    this.options = { ...ActivityStatus.defaults(), ...options };
+    this.options = Config.getFor('activityStatus', { ...ActivityStatus.defaults(), ...options });
     this._lastActivity = this.options.lastActivity
       ? new Date(this.options.lastActivity)
       : null;
@@ -493,7 +494,7 @@ class LiveCounter {
       return;
     }
 
-    this.options = { ...LiveCounter.defaults(), ...options };
+    this.options = Config.getFor('liveCounter', { ...LiveCounter.defaults(), ...options });
     this._value = this.options.value;
     this._displayValue = this.options.value;
     this._animationFrame = null;
@@ -648,7 +649,7 @@ class ConnectionStatus {
       return ConnectionStatus.instance;
     }
 
-    this.options = { ...ConnectionStatus.defaults(), ...options };
+    this.options = Config.getFor('connectionStatus', { ...ConnectionStatus.defaults(), ...options });
     this._isOnline = navigator.onLine;
     this._banner = null;
     this._hideTimer = null;

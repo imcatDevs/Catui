@@ -6,6 +6,7 @@
 
 import { EventEmitterMixin } from '../core/event.js';
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // FileUpload - 파일 업로드
@@ -34,7 +35,7 @@ class FileUpload {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...FileUpload.defaults(), ...options };
+    this.options = Config.getFor('fileUpload', { ...FileUpload.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.files = [];
     this._init();
@@ -323,7 +324,7 @@ class Rating {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...Rating.defaults(), ...options };
+    this.options = Config.getFor('rating', { ...Rating.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.value = this.options.value;
     this._init();
@@ -427,7 +428,7 @@ class SignaturePad {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...SignaturePad.defaults(), ...options };
+    this.options = Config.getFor('signaturePad', { ...SignaturePad.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isDrawing = false;
     this.points = [];
@@ -605,7 +606,7 @@ class FormWizard {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...FormWizard.defaults(), ...options };
+    this.options = Config.getFor('formWizard', { ...FormWizard.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.currentStep = this.options.startStep;
     this._init();

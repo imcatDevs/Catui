@@ -28,6 +28,8 @@
     "docs": "jsdoc -c jsdoc.json",
     "docs:clean": "rimraf docs/jsdoc",
     "docs:serve": "http-server docs/jsdoc -p 8080 -o",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "audit": "pnpm audit",
     "audit:fix": "pnpm audit --fix",
     "release": "npm run build && node scripts/create-release.cjs",

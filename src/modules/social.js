@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // ChatUI - 채팅 인터페이스
@@ -49,7 +50,7 @@ class ChatUI {
       return;
     }
 
-    this.options = { ...ChatUI.defaults(), ...options };
+    this.options = Config.getFor('chatUI', { ...ChatUI.defaults(), ...options });
     this._messages = [...this.options.messages];
     this._typingUsers = [];
 
@@ -338,7 +339,7 @@ class Comments {
       return;
     }
 
-    this.options = { ...Comments.defaults(), ...options };
+    this.options = Config.getFor('comments', { ...Comments.defaults(), ...options });
     this._comments = [...this.options.comments];
 
     this.init();
@@ -768,7 +769,7 @@ class ShareButtons {
       return;
     }
 
-    this.options = { ...ShareButtons.defaults(), ...options };
+    this.options = Config.getFor('shareButtons', { ...ShareButtons.defaults(), ...options });
 
     // URL 기본값
     if (!this.options.url) {
@@ -968,7 +969,7 @@ class Reactions {
       return;
     }
 
-    this.options = { ...Reactions.defaults(), ...options };
+    this.options = Config.getFor('reactions', { ...Reactions.defaults(), ...options });
     this._reactions = [...this.options.reactions];
 
     this.init();
@@ -1089,7 +1090,7 @@ class SocialFeed {
       return;
     }
 
-    this.options = { ...SocialFeed.defaults(), ...options };
+    this.options = Config.getFor('socialFeed', { ...SocialFeed.defaults(), ...options });
     this._posts = [...this.options.posts];
 
     this.init();

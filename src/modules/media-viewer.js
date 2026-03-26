@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // VideoPlayer - 비디오 플레이어
@@ -55,7 +56,7 @@ class VideoPlayer {
       return;
     }
 
-    this.options = { ...VideoPlayer.defaults(), ...options };
+    this.options = Config.getFor('videoPlayer', { ...VideoPlayer.defaults(), ...options });
     this.video = null;
     this.controls = null;
     this._isPlaying = false;
@@ -541,7 +542,7 @@ class AudioPlayer {
       return;
     }
 
-    this.options = { ...AudioPlayer.defaults(), ...options };
+    this.options = Config.getFor('audioPlayer', { ...AudioPlayer.defaults(), ...options });
     this.audio = null;
     this._isPlaying = false;
 
@@ -758,7 +759,7 @@ class ImageViewer {
       return;
     }
 
-    this.options = { ...ImageViewer.defaults(), ...options };
+    this.options = Config.getFor('imageViewer', { ...ImageViewer.defaults(), ...options });
     this._zoom = 1;
     this._rotation = 0;
 
@@ -967,7 +968,7 @@ class EmbedVideo {
       return;
     }
 
-    this.options = { ...EmbedVideo.defaults(), ...options };
+    this.options = Config.getFor('embedVideo', { ...EmbedVideo.defaults(), ...options });
     this.iframe = null;
 
     this.init();

@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 class Gantt {
   static instances = new Map();
@@ -57,7 +58,7 @@ class Gantt {
       Gantt.instances.get(this.container).destroy();
     }
 
-    this.options = { ...Gantt.defaults(), ...options };
+    this.options = Config.getFor('gantt', { ...Gantt.defaults(), ...options });
     this.tasks = this._normalizeTasks(this.options.tasks);
     this.dateRange = this._calculateDateRange();
     this.cellWidth = this._getCellWidth();

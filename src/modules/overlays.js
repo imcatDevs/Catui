@@ -174,7 +174,7 @@ class OverlayBase {
    * @private
    */
   _preventBodyScroll() {
-    OverlayBase._scrollLockCount = (OverlayBase._scrollLockCount || 0) + 1;
+    window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
     document.body.style.overflow = 'hidden';
   }
 
@@ -183,8 +183,8 @@ class OverlayBase {
    * @private
    */
   _restoreBodyScroll() {
-    OverlayBase._scrollLockCount = Math.max(0, (OverlayBase._scrollLockCount || 0) - 1);
-    if (OverlayBase._scrollLockCount === 0) {
+    window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 0) - 1);
+    if (window.__scrollLockCount === 0) {
       document.body.style.overflow = '';
     }
   }

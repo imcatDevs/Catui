@@ -4,6 +4,8 @@
  * @module modules/text-editors
  */
 
+import { Config } from '../core/config.js';
+
 // ============================================
 // RichTextEditor - 리치 텍스트 에디터
 // ============================================
@@ -70,7 +72,7 @@ class RichTextEditor {
       return;
     }
 
-    this.options = { ...RichTextEditor.defaults(), ...options };
+    this.options = Config.getFor('richTextEditor', { ...RichTextEditor.defaults(), ...options });
     this.toolbar = null;
     this.editor = null;
     this._onInput = null;
@@ -329,7 +331,7 @@ class MarkdownEditor {
       return;
     }
 
-    this.options = { ...MarkdownEditor.defaults(), ...options };
+    this.options = Config.getFor('markdownEditor', { ...MarkdownEditor.defaults(), ...options });
     this.toolbar = null;
     this.textarea = null;
     this.preview = null;
@@ -738,7 +740,7 @@ class TextareaAutosize {
       return;
     }
 
-    this.options = { ...TextareaAutosize.defaults(), ...options };
+    this.options = Config.getFor('textareaAutosize', { ...TextareaAutosize.defaults(), ...options });
     this.wrapper = null;
     this.toolbarEl = null;
     this.footerEl = null;

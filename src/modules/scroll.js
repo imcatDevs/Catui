@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // VirtualScroll - 가상 스크롤
@@ -47,7 +48,7 @@ class VirtualScroll {
       return;
     }
 
-    this.options = { ...VirtualScroll.defaults(), ...options };
+    this.options = Config.getFor('virtualScroll', { ...VirtualScroll.defaults(), ...options });
     this._scrollTop = 0;
     this._visibleRange = { start: 0, end: 0 };
     this._onScroll = null;
@@ -221,7 +222,7 @@ class Scrollspy {
       return;
     }
 
-    this.options = { ...Scrollspy.defaults(), ...options };
+    this.options = Config.getFor('scrollspy', { ...Scrollspy.defaults(), ...options });
     this.navContainer = this.options.target
       ? document.querySelector(this.options.target)
       : null;
@@ -449,7 +450,7 @@ class InfiniteScroll {
       return;
     }
 
-    this.options = { ...InfiniteScroll.defaults(), ...options };
+    this.options = Config.getFor('infiniteScroll', { ...InfiniteScroll.defaults(), ...options });
     this._loading = false;
     this._hasMore = this.options.hasMore;
     this._totalLoaded = 0;
@@ -765,7 +766,7 @@ class BackToTop {
       return BackToTop.instance;
     }
 
-    this.options = { ...BackToTop.defaults(), ...options };
+    this.options = Config.getFor('backToTop', { ...BackToTop.defaults(), ...options });
     this.button = null;
     this._onScroll = null;
     this._onClick = null;

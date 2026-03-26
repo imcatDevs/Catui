@@ -5,6 +5,7 @@
  */
 
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // Stepper - 단계별 진행 표시
@@ -53,7 +54,7 @@ class Stepper {
       return;
     }
 
-    this.options = { ...Stepper.defaults(), ...options };
+    this.options = Config.getFor('stepper', { ...Stepper.defaults(), ...options });
     this._completedSteps = new Set();
     this._eventHandlers = [];
     this._timers = []; // setTimeout 추적
@@ -509,7 +510,7 @@ class VerticalStepper {
       return;
     }
 
-    this.options = { ...VerticalStepper.defaults(), ...options };
+    this.options = Config.getFor('verticalStepper', { ...VerticalStepper.defaults(), ...options });
     this._completedSteps = new Set();
     this._expandedSteps = new Set([this.options.currentStep]);
     this._eventHandlers = [];

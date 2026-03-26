@@ -6,6 +6,7 @@
 
 import { EventEmitterMixin } from '../core/event.js';
 import { Security } from '../core/security.js';
+import { Config } from '../core/config.js';
 
 // ============================================
 // DatePicker - 날짜 선택
@@ -26,7 +27,7 @@ class DatePicker {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...DatePicker.defaults(), ...options };
+    this.options = Config.getFor('datePicker', { ...DatePicker.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isOpen = false;
     this.selectedDate = null;
@@ -225,7 +226,7 @@ class TimePicker {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...TimePicker.defaults(), ...options };
+    this.options = Config.getFor('timePicker', { ...TimePicker.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isOpen = false;
     this._init();
@@ -304,7 +305,7 @@ class ColorPicker {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...ColorPicker.defaults(), ...options };
+    this.options = Config.getFor('colorPicker', { ...ColorPicker.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.isOpen = false;
     this._init();
@@ -347,7 +348,13 @@ class ColorPicker {
   toggle() { this.isOpen ? this.close() : this.open(); }
   open() { this.isOpen = true; this.picker.classList.add('is-visible'); }
   close() { this.isOpen = false; this.picker.classList.remove('is-visible'); }
-  setValue(c) { this.element.value = c; this.preview.style.backgroundColor = c; this.nativeInput.value = c; this.options.onChange?.(c); }
+  setValue(c) {
+    const safe = Security.validateColor(c) || this.options.defaultColor;
+    this.element.value = safe;
+    this.preview.style.backgroundColor = safe;
+    this.nativeInput.value = safe;
+    this.options.onChange?.(safe);
+  }
   getValue() { return this.element.value; }
   destroy() {
     // 이벤트 리스너 제거
@@ -393,7 +400,7 @@ class Countdown {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...Countdown.defaults(), ...options };
+    this.options = Config.getFor('countdown', { ...Countdown.defaults(), ...options });
     this.events = EventEmitterMixin.create();
     this.intervalId = null;
     this._init();
@@ -475,7 +482,7 @@ class DDay {
   constructor(element, options = {}) {
     this.element = typeof element === 'string' ? document.querySelector(element) : element;
     if (!this.element) return;
-    this.options = { ...DDay.defaults(), ...options };
+    this.options = Config.getFor('dday', { ...DDay.defaults(), ...options });
     this._init();
   }
 
