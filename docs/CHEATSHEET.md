@@ -313,7 +313,7 @@ IMCAT.utils.clone(obj)
 | `stepper` | `IMCAT.use('stepper')` | Stepper, VerticalStepper |
 | `scroll` | `IMCAT.use('scroll')` | VirtualScroll, Scrollspy, InfiniteScroll, SmoothScroll, BackToTop |
 | `pagination` | `IMCAT.use('pagination')` | Pagination |
-| `theme` | `IMCAT.use('theme')` | Theme, initTheme |
+| `theme` | `IMCAT.use('theme')` | Theme, createTheme, initTheme |
 | `advanced-ui` | `IMCAT.use('advanced-ui')` | SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker |
 | `social` | `IMCAT.use('social')` | ChatUI, Comments, Reactions, SocialFeed, ShareButtons |
 | `imagelist` | `IMCAT.use('imagelist')` | ImageList, ImageLightbox, ImageCompare, LazyImage |

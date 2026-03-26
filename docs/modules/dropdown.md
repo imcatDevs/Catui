@@ -10,13 +10,13 @@
 ## 로드 방법
 
 ```javascript
-const { Dropdown } = await IMCAT.use('dropdown');
+const Dropdown = await IMCAT.use('dropdown');
 ```
 
 ## 기본 사용
 
 ```javascript
-const { Dropdown } = await IMCAT.use('dropdown');
+const Dropdown = await IMCAT.use('dropdown');
 const dd = new Dropdown('#menuBtn', {
   items: [
     { text: '수정', icon: 'edit', action: () => edit() },

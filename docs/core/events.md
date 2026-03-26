@@ -44,19 +44,24 @@ unsubscribe();
 // 모듈 개발 시 사용 (프레임워크 확장용)
 import { EventEmitterMixin } from '../core/event.js';
 
+// 방법 1: apply — 객체에 on/off/emit/once 직접 추가 (권장)
 class MyComponent {
   constructor() {
-    this.events = EventEmitterMixin.create();
+    EventEmitterMixin.apply(this);
   }
 
   doSomething() {
-    this.events.emit('change', { value: 42 });
+    this.emit('change', { value: 42 });
   }
 }
 
-// 사용 측
 const comp = new MyComponent();
-comp.events.on('change', (data) => console.log(data.value));
+comp.on('change', (data) => console.log(data.value));
+
+// 방법 2: create — 독립 이벤트 버스 생성
+const bus = EventEmitterMixin.create();
+bus.on('update', (val) => console.log(val));
+bus.emit('update', 42);
 ```
 
 ## 사용 구분

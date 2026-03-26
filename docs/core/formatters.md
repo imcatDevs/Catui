@@ -37,12 +37,14 @@ IMCAT.format.truncate('긴 문자열입니다', 5);  // "긴 문자열..."
 
 | 메서드 | 파라미터 | 반환값 | 설명 |
 | --- | --- | --- | --- |
-| `.date(date, format?)` | Date, string? | string | 날짜 포맷 |
-| `.time(date)` | Date | string | 시간 포맷 |
+| `.date(date, options?)` | Date, string/object? | string | 날짜 포맷 (프리셋: `'short'`/`'medium'`/`'long'`/`'iso'` 또는 Intl 옵션 객체) |
+| `.time(date, options?)` | Date, object? | string | 시간 포맷 |
 | `.relative(date)` | Date | string | 상대 시간 ("3분 전") |
 
 ```javascript
-IMCAT.format.date(new Date(), 'long');  // "2025년 1월 15일 수요일"
+IMCAT.format.date(new Date());           // "2025. 01. 15." (기본)
+IMCAT.format.date(new Date(), 'long');   // "2025년 1월 15일 수요일"
+IMCAT.format.date(new Date(), 'iso');    // "2025-01-15"
 IMCAT.format.relative(new Date(Date.now() - 180000));  // "3분 전"
 ```
 

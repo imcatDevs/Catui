@@ -120,9 +120,10 @@ tracker.getCurrent(); // 현재 단계 반환
 ```javascript
 const { Skeleton } = await IMCAT.use('feedback');
 const skeleton = new Skeleton('#container', {
-  rows: 5,
-  avatar: true,
-  animation: 'pulse'
+  type: 'list',    // 'text' | 'avatar' | 'card' | 'image' | 'list'
+  lines: 5,
+  animated: true,
+  width: '100%'
 });
 // 데이터 로드 후
 skeleton.destroy();

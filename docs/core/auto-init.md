@@ -87,8 +87,6 @@ IMCAT.autoInit.register('my-widget', (element, options) => {
 
 ```javascript
 const instance = IMCAT.autoInit.getInstance(element);
-// 또는
-const instance = element._imcatInstance;
 ```
 
 ## ⚠️ 주의사항

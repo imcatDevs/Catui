@@ -69,7 +69,7 @@
 | [Stepper](modules/stepper.md) | `stepper` | Stepper, VerticalStepper |
 | [Scroll](modules/scroll.md) | `scroll` | VirtualScroll, Scrollspy, InfiniteScroll, SmoothScroll, BackToTop |
 | [Pagination](modules/pagination.md) | `pagination` | Pagination |
-| [Theme](modules/theme.md) | `theme` | Theme, initTheme |
+| [Theme](modules/theme.md) | `theme` | Theme, createTheme, initTheme |
 | [Advanced UI](modules/advanced-ui.md) | `advanced-ui` | SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker |
 | [Social](modules/social.md) | `social` | ChatUI, Comments, Reactions, SocialFeed, ShareButtons |
 | [ImageList](modules/imagelist.md) | `imagelist` | ImageList, ImageLightbox, ImageCompare, LazyImage |
