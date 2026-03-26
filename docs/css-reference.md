@@ -3,7 +3,7 @@
 IMCAT UI 프레임워크에 구현된 모든 CSS 클래스 목록입니다.
 
 > 이 문서는 `node scripts/generate-css-docs.js`로 자동 생성됩니다.
-> 마지막 생성: 2026-03-26 09:50
+> 마지막 생성: 2026-03-26 09:54
 
 ## 목차
 
@@ -45,6 +45,33 @@ IMCAT UI 프레임워크에 구현된 모든 CSS 클래스 목록입니다.
   - [text-editors](#text-editors) (25개)
   - [theme](#theme) (20개)
   - [tooltips](#tooltips) (21개)
+- [JS 코어 모듈 (Core)](#js-코어-모듈-core)
+  - [auto-init](#auto-init) (2개)
+  - [loading](#loading) (8개)
+  - [shortcuts](#shortcuts) (1개)
+- [JS 확장 모듈 (Modules)](#js-확장-모듈-modules)
+  - [advanced-ui](#advanced-ui) (26개)
+  - [carousel](#carousel) (41개)
+  - [data-viz](#data-viz) (113개)
+  - [dropdown](#dropdown) (11개)
+  - [feedback](#feedback) (32개)
+  - [forms](#forms) (42개)
+  - [gantt](#gantt) (35개)
+  - [imagelist](#imagelist) (36개)
+  - [live-status](#live-status) (15개)
+  - [media-viewer](#media-viewer) (61개)
+  - [navigation](#navigation) (35개)
+  - [overlays](#overlays) (3개)
+  - [pagination](#pagination) (19개)
+  - [pickers](#pickers) (44개)
+  - [scroll](#scroll) (17개)
+  - [security-input](#security-input) (25개)
+  - [selectors](#selectors) (28개)
+  - [social](#social) (78개)
+  - [stepper](#stepper) (36개)
+  - [text-editors](#text-editors) (29개)
+  - [theme](#theme) (3개)
+  - [tooltips](#tooltips) (20개)
 
 ---
 
@@ -3315,16 +3342,1611 @@ Tooltips Module SCSS
 | --- | --- | --- |
 | `.hint` | 블록 | — |
 
+## JS 코어 모듈 (Core)
+
+코어 JS에서 동적으로 생성/사용하는 CSS 클래스
+
+### auto-init
+
+> 소스: `src/core/auto-init.js` | 클래스: **2개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-hidden` | 블록 | — |
+| `.is-visible` | 블록 | — |
+
+### loading
+
+> 소스: `src/core/loading.js` | 클래스: **8개**
+
+#### imcat-loading
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading` | 블록 | — |
+
+#### imcat-loading-bar
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-bar` | 블록 | — |
+
+#### imcat-loading-bar-fill
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-bar-fill` | 블록 | — |
+
+#### imcat-loading-dots
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-dots` | 블록 | — |
+
+#### imcat-loading-message
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-message` | 블록 | — |
+
+#### imcat-loading-show
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-show` | 블록 | — |
+
+#### imcat-loading-spinner
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-loading-spinner` | 블록 | — |
+
+#### imcat-spinner
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-spinner` | 블록 | — |
+
+### shortcuts
+
+> 소스: `src/core/shortcuts.js` | 클래스: **1개**
+
+#### form-input
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.form-input` | 블록 | — |
+
+## JS 확장 모듈 (Modules)
+
+확장 모듈 JS에서 동적으로 생성/사용하는 CSS 클래스
+
+### advanced-ui
+
+> 소스: `src/modules/advanced-ui.js` | 클래스: **26개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-dragging` | 블록 | — |
+| `.is-copied` | 블록 | — |
+| `.is-active` | 블록 | — |
+
+#### code-block
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.code-block` | 블록 | — |
+| `.code-block__line-number` | 요소 | — |
+| `.code-block__header` | 요소 | — |
+| `.code-block__language` | 요소 | — |
+| `.code-block__copy` | 요소 | — |
+| `.code-block__pre` | 요소 | — |
+| `.code-block__code` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### qr-code
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.qr-code` | 블록 | — |
+
+#### simple-color-picker
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.simple-color-picker` | 블록 | — |
+| `.simple-color-picker__swatch` | 요소 | — |
+| `.simple-color-picker__swatches` | 요소 | — |
+| `.simple-color-picker__input-wrap` | 요소 | — |
+| `.simple-color-picker__native` | 요소 | — |
+| `.simple-color-picker__input` | 요소 | — |
+
+#### spinner
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.spinner` | 블록 | — |
+
+#### split-pane
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.split-pane` | 블록 | — |
+| `.split-pane__gutter` | 요소 | — |
+| `.split-pane__panel` | 요소 | — |
+| `.split-pane__panel--first` | 요소 | — |
+| `.split-pane__panel--second` | 요소 | — |
+| `.split-pane--horizontal` | 변형 | — |
+| `.split-pane--vertical` | 변형 | — |
+
+### carousel
+
+> 소스: `src/modules/carousel.js` | 클래스: **41개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-active` | 블록 | — |
+| `.is-open` | 블록 | — |
+| `.is-loading` | 블록 | — |
+
+#### carousel
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.carousel` | 블록 | — |
+| `.carousel__track` | 요소 | — |
+| `.carousel__slide` | 요소 | — |
+| `.carousel__image` | 요소 | — |
+| `.carousel__content` | 요소 | — |
+| `.carousel__caption` | 요소 | — |
+| `.carousel__title` | 요소 | — |
+| `.carousel__description` | 요소 | — |
+| `.carousel__slide--clone` | 요소 | — |
+| `.carousel__arrow` | 요소 | — |
+| `.carousel__arrow--prev` | 요소 | — |
+| `.carousel__arrow--next` | 요소 | — |
+| `.carousel__dots` | 요소 | — |
+| `.carousel__dot` | 요소 | — |
+| `.carousel__counter` | 요소 | — |
+| `.carousel__current` | 요소 | — |
+| `.carousel__total` | 요소 | — |
+| `.carousel__thumbnails` | 요소 | — |
+| `.carousel__thumbnail` | 요소 | — |
+| `.carousel__track--jumping` | 요소 | — |
+| `.carousel--slide` | 변형 | — |
+| `.carousel--fade` | 변형 | — |
+| `.carousel--scale` | 변형 | — |
+| `.carousel--flip` | 변형 | — |
+| `.carousel--cube` | 변형 | — |
+
+#### lightbox
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.lightbox` | 블록 | — |
+| `.lightbox__backdrop` | 요소 | — |
+| `.lightbox__container` | 요소 | — |
+| `.lightbox__close` | 요소 | — |
+| `.lightbox__arrow` | 요소 | — |
+| `.lightbox__arrow--prev` | 요소 | — |
+| `.lightbox__arrow--next` | 요소 | — |
+| `.lightbox__content` | 요소 | — |
+| `.lightbox__image` | 요소 | — |
+| `.lightbox__footer` | 요소 | — |
+| `.lightbox__caption` | 요소 | — |
+| `.lightbox__counter` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+### data-viz
+
+> 소스: `src/modules/data-viz.js` | 클래스: **113개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-selected` | 블록 | — |
+
+#### calendar
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.calendar` | 블록 | — |
+| `.calendar__header` | 요소 | — |
+| `.calendar__nav` | 요소 | — |
+| `.calendar__nav-btn` | 요소 | — |
+| `.calendar__today-btn` | 요소 | — |
+| `.calendar__title` | 요소 | — |
+| `.calendar__view-toggle` | 요소 | — |
+| `.calendar__view-btn` | 요소 | — |
+| `.calendar__weekdays` | 요소 | — |
+| `.calendar__weekday` | 요소 | — |
+| `.calendar__grid` | 요소 | — |
+| `.calendar__cell` | 요소 | — |
+| `.calendar__day` | 요소 | — |
+| `.calendar__events` | 요소 | — |
+| `.calendar__event` | 요소 | — |
+| `.calendar__more` | 요소 | — |
+| `.calendar__week-view` | 요소 | — |
+| `.calendar__week-day` | 요소 | — |
+| `.calendar__week-day-header` | 요소 | — |
+| `.calendar__week-day-name` | 요소 | — |
+| `.calendar__week-day-num` | 요소 | — |
+| `.calendar__week-day-events` | 요소 | — |
+
+#### chart
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.chart` | 블록 | — |
+| `.chart__grid-line` | 요소 | — |
+| `.chart__grid-line--vertical` | 요소 | — |
+| `.chart__grid-value` | 요소 | — |
+| `.chart__hbar` | 요소 | — |
+| `.chart__hbar-value` | 요소 | — |
+| `.chart__y-labels` | 요소 | — |
+| `.chart__y-label` | 요소 | — |
+| `.chart__area` | 요소 | — |
+| `.chart__area--horizontal` | 요소 | — |
+| `.chart__bar` | 요소 | — |
+| `.chart__bar-value` | 요소 | — |
+| `.chart__label` | 요소 | — |
+| `.chart__labels` | 요소 | — |
+| `.chart__area-fill` | 요소 | — |
+| `.chart__line` | 요소 | — |
+| `.chart__point` | 요소 | — |
+| `.chart__line-svg` | 요소 | — |
+| `.chart__pie-segment` | 요소 | — |
+| `.chart__pie-svg` | 요소 | — |
+| `.chart__doughnut-center` | 요소 | — |
+| `.chart__doughnut-total` | 요소 | — |
+| `.chart__doughnut-label` | 요소 | — |
+| `.chart__legend` | 요소 | — |
+| `.chart__legend-item` | 요소 | — |
+| `.chart__legend-color` | 요소 | — |
+| `.chart__legend-label` | 요소 | — |
+| `.chart__tooltip` | 요소 | — |
+| `.chart--horizontal-bar` | 변형 | — |
+| `.chart--bar` | 변형 | — |
+
+#### chart-wrapper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.chart-wrapper` | 블록 | — |
+
+#### datatable
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.datatable` | 블록 | — |
+| `.datatable__header` | 요소 | — |
+| `.datatable__search` | 요소 | — |
+| `.datatable__actions` | 요소 | — |
+| `.datatable__action-btn` | 요소 | — |
+| `.datatable__container` | 요소 | — |
+| `.datatable__table` | 요소 | — |
+| `.datatable__thead` | 요소 | — |
+| `.datatable__checkbox` | 요소 | — |
+| `.datatable__select-all` | 요소 | — |
+| `.datatable__sort` | 요소 | — |
+| `.datatable__tbody` | 요소 | — |
+| `.datatable__row-select` | 요소 | — |
+| `.datatable__empty` | 요소 | — |
+| `.datatable__empty-text` | 요소 | — |
+| `.datatable__footer` | 요소 | — |
+| `.datatable__per-page` | 요소 | — |
+| `.datatable__info` | 요소 | — |
+| `.datatable__pagination` | 요소 | — |
+| `.datatable__page-btn` | 요소 | — |
+| `.datatable--striped` | 변형 | — |
+| `.datatable--bordered` | 변형 | — |
+| `.datatable--compact` | 변형 | — |
+| `.datatable--responsive` | 변형 | — |
+
+#### drag-over
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.drag-over` | 블록 | — |
+
+#### dragging
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.dragging` | 블록 | — |
+
+#### kanban
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.kanban` | 블록 | — |
+| `.kanban__column` | 요소 | — |
+| `.kanban__column-header` | 요소 | — |
+| `.kanban__column-title-group` | 요소 | — |
+| `.kanban__column-dot` | 요소 | — |
+| `.kanban__column-title` | 요소 | — |
+| `.kanban__column-count` | 요소 | — |
+| `.kanban__column-menu-btn` | 요소 | — |
+| `.kanban__cards` | 요소 | — |
+| `.kanban__add-card` | 요소 | — |
+| `.kanban__card` | 요소 | — |
+| `.kanban__card-header` | 요소 | — |
+| `.kanban__priority` | 요소 | — |
+| `.kanban__card-delete` | 요소 | — |
+| `.kanban__card-body` | 요소 | — |
+| `.kanban__card-check` | 요소 | — |
+| `.kanban__card-content` | 요소 | — |
+| `.kanban__card-title` | 요소 | — |
+| `.kanban__card-desc` | 요소 | — |
+| `.kanban__card-tags` | 요소 | — |
+| `.kanban__tag` | 요소 | — |
+| `.kanban__card-footer` | 요소 | — |
+| `.kanban__card-date` | 요소 | — |
+| `.kanban__card-assignees` | 요소 | — |
+| `.kanban__avatar` | 요소 | — |
+| `.kanban__avatar--initial` | 요소 | — |
+| `.kanban__avatar--more` | 요소 | — |
+| `.kanban__card--done` | 요소 | — |
+| `.kanban__column--over-wip` | 요소 | — |
+
+#### masonry
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.masonry` | 블록 | — |
+| `.masonry__item` | 요소 | — |
+| `.masonry--animated` | 변형 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+### dropdown
+
+> 소스: `src/modules/dropdown.js` | 클래스: **11개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+
+#### dropdown
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.dropdown` | 블록 | — |
+| `.dropdown__divider` | 요소 | — |
+| `.dropdown__header` | 요소 | — |
+| `.dropdown__item` | 요소 | — |
+| `.dropdown__item--disabled` | 요소 | — |
+| `.dropdown__item--active` | 요소 | — |
+| `.dropdown__item--danger` | 요소 | — |
+| `.dropdown__item-icon` | 요소 | — |
+| `.dropdown__item-text` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+### feedback
+
+> 소스: `src/modules/feedback.js` | 클래스: **32개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+| `.is-hiding` | 블록 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### notification
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.notification` | 블록 | — |
+| `.notification__actions` | 요소 | — |
+| `.notification__action` | 요소 | — |
+| `.notification__icon` | 요소 | — |
+| `.notification__content` | 요소 | — |
+| `.notification__title` | 요소 | — |
+| `.notification__message` | 요소 | — |
+| `.notification__close` | 요소 | — |
+
+#### notification-container
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.notification-container` | 블록 | — |
+
+#### progress-tracker
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.progress-tracker` | 블록 | — |
+| `.progress-tracker__step` | 요소 | — |
+| `.progress-tracker__indicator` | 요소 | — |
+| `.progress-tracker__label` | 요소 | — |
+| `.progress-tracker--vertical` | 변형 | — |
+
+#### skeleton
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.skeleton` | 블록 | — |
+| `.skeleton__body` | 요소 | — |
+| `.skeleton__content` | 요소 | — |
+| `.skeleton--avatar` | 변형 | — |
+| `.skeleton--image` | 변형 | — |
+| `.skeleton--card` | 변형 | — |
+| `.skeleton--title` | 변형 | — |
+| `.skeleton--text` | 변형 | — |
+| `.skeleton--list-item` | 변형 | — |
+
+#### skeleton-wrapper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.skeleton-wrapper` | 블록 | — |
+
+#### toast
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.toast` | 블록 | — |
+| `.toast__icon` | 요소 | — |
+| `.toast__message` | 요소 | — |
+| `.toast__close` | 요소 | — |
+
+#### toast-container
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.toast-container` | 블록 | — |
+
+### forms
+
+> 소스: `src/modules/forms.js` | 클래스: **42개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-dragover` | 블록 | — |
+| `.is-complete` | 블록 | — |
+| `.is-filled` | 블록 | — |
+| `.is-active` | 블록 | — |
+
+#### active
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.active` | 블록 | — |
+
+#### completed
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.completed` | 블록 | — |
+
+#### file-upload
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.file-upload` | 블록 | — |
+| `.file-upload__dropzone` | 요소 | — |
+| `.file-upload__text` | 요소 | — |
+| `.file-upload__hint` | 요소 | — |
+| `.file-upload__input` | 요소 | — |
+| `.file-upload__preview` | 요소 | — |
+| `.file-upload__item` | 요소 | — |
+| `.file-upload__progress` | 요소 | — |
+| `.file-upload__progress-bar` | 요소 | — |
+| `.file-upload__thumb` | 요소 | — |
+| `.file-upload__info` | 요소 | — |
+| `.file-upload__name` | 요소 | — |
+| `.file-upload__size` | 요소 | — |
+| `.file-upload__remove` | 요소 | — |
+| `.file-upload__icon` | 요소 | — |
+
+#### form-wizard
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.form-wizard` | 블록 | — |
+| `.form-wizard__progress` | 요소 | — |
+| `.form-wizard__step` | 요소 | — |
+| `.form-wizard__step-number` | 요소 | — |
+| `.form-wizard__step-title` | 요소 | — |
+| `.form-wizard__content` | 요소 | — |
+| `.form-wizard__panel` | 요소 | — |
+| `.form-wizard__nav` | 요소 | — |
+| `.form-wizard__btn` | 요소 | — |
+| `.form-wizard__btn--prev` | 요소 | — |
+| `.form-wizard__btn--next` | 요소 | — |
+| `.form-wizard__btn--primary` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### rating
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.rating` | 블록 | — |
+| `.rating__star` | 요소 | — |
+| `.rating--readonly` | 변형 | — |
+
+#### signature-pad
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.signature-pad` | 블록 | — |
+| `.signature-pad__canvas` | 요소 | — |
+| `.signature-pad__toolbar` | 요소 | — |
+| `.signature-pad__btn` | 요소 | — |
+| `.signature-pad__btn--primary` | 요소 | — |
+
+### gantt
+
+> 소스: `src/modules/gantt.js` | 클래스: **35개**
+
+#### gantt
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.gantt` | 블록 | — |
+| `.gantt__header` | 요소 | — |
+| `.gantt__controls` | 요소 | — |
+| `.gantt__view-buttons` | 요소 | — |
+| `.gantt__view-btn` | 요소 | — |
+| `.gantt__today-btn` | 요소 | — |
+| `.gantt__body` | 요소 | — |
+| `.gantt__sidebar` | 요소 | — |
+| `.gantt__sidebar-header` | 요소 | — |
+| `.gantt__sidebar-content` | 요소 | — |
+| `.gantt__chart-wrapper` | 요소 | — |
+| `.gantt__timeline` | 요소 | — |
+| `.gantt__chart` | 요소 | — |
+| `.gantt__timeline-cells` | 요소 | — |
+| `.gantt__timeline-label` | 요소 | — |
+| `.gantt__task-row` | 요소 | — |
+| `.gantt__task-name` | 요소 | — |
+| `.gantt__collapse-btn` | 요소 | — |
+| `.gantt__task-bullet` | 요소 | — |
+| `.gantt__task-title` | 요소 | — |
+| `.gantt__task-assignee` | 요소 | — |
+| `.gantt__bar-row` | 요소 | — |
+| `.gantt__bar` | 요소 | — |
+| `.gantt__bar-progress` | 요소 | — |
+| `.gantt__bar-label` | 요소 | — |
+| `.gantt__bar-handle` | 요소 | — |
+| `.gantt__bar-handle--left` | 요소 | — |
+| `.gantt__bar-handle--right` | 요소 | — |
+| `.gantt__grid-cell` | 요소 | — |
+| `.gantt__today-line` | 요소 | — |
+| `.gantt__today-marker` | 요소 | — |
+| `.gantt__dependencies` | 요소 | — |
+| `.gantt__dependency-line` | 요소 | — |
+| `.gantt__bar--dragging` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+### imagelist
+
+> 소스: `src/modules/imagelist.js` | 클래스: **36개**
+
+#### active
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.active` | 블록 | — |
+
+#### image-compare
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.image-compare` | 블록 | — |
+| `.image-compare__after` | 요소 | — |
+| `.image-compare__label` | 요소 | — |
+| `.image-compare__label--after` | 요소 | — |
+| `.image-compare__before` | 요소 | — |
+| `.image-compare__label--before` | 요소 | — |
+| `.image-compare__handle` | 요소 | — |
+| `.image-compare__handle-icon` | 요소 | — |
+
+#### image-list
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.image-list` | 블록 | — |
+| `.image-list__item` | 요소 | — |
+| `.image-list__img` | 요소 | — |
+| `.image-list__overlay` | 요소 | — |
+| `.image-list__title` | 요소 | — |
+
+#### lazy
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.lazy` | 블록 | — |
+
+#### lazy-error
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.lazy-error` | 블록 | — |
+
+#### lazy-loaded
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.lazy-loaded` | 블록 | — |
+
+#### lightbox
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.lightbox` | 블록 | — |
+| `.lightbox__header` | 요소 | — |
+| `.lightbox__counter` | 요소 | — |
+| `.lightbox__actions` | 요소 | — |
+| `.lightbox__btn` | 요소 | — |
+| `.lightbox__main` | 요소 | — |
+| `.lightbox__nav` | 요소 | — |
+| `.lightbox__nav--prev` | 요소 | — |
+| `.lightbox__content` | 요소 | — |
+| `.lightbox__img` | 요소 | — |
+| `.lightbox__loading` | 요소 | — |
+| `.lightbox__nav--next` | 요소 | — |
+| `.lightbox__thumbnails` | 요소 | — |
+| `.lightbox__thumb` | 요소 | — |
+| `.lightbox__caption` | 요소 | — |
+
+#### loaded
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.loaded` | 블록 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### spinner
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.spinner` | 블록 | — |
+
+#### zoomed
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.zoomed` | 블록 | — |
+
+### live-status
+
+> 소스: `src/modules/live-status.js` | 클래스: **15개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+
+#### activity-status
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.activity-status` | 블록 | — |
+
+#### connection-status
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.connection-status` | 블록 | — |
+| `.connection-status--online` | 변형 | — |
+| `.connection-status--offline` | 변형 | — |
+
+#### live-counter
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.live-counter` | 블록 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### online-status
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.online-status` | 블록 | — |
+| `.online-status__label` | 요소 | — |
+| `.online-status--pulse` | 변형 | — |
+
+#### online-status-wrapper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.online-status-wrapper` | 블록 | — |
+
+#### typing-indicator
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.typing-indicator` | 블록 | — |
+| `.typing-indicator__dots` | 요소 | — |
+| `.typing-indicator__dot` | 요소 | — |
+| `.typing-indicator__text` | 요소 | — |
+
+### media-viewer
+
+> 소스: `src/modules/media-viewer.js` | 클래스: **61개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-playing` | 블록 | — |
+| `.is-visible` | 블록 | — |
+
+#### audio-player
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.audio-player` | 블록 | — |
+| `.audio-player__cover` | 요소 | — |
+| `.audio-player__info` | 요소 | — |
+| `.audio-player__title` | 요소 | — |
+| `.audio-player__artist` | 요소 | — |
+| `.audio-player__controls` | 요소 | — |
+| `.audio-player__progress` | 요소 | — |
+| `.audio-player__time` | 요소 | — |
+| `.audio-player__current` | 요소 | — |
+| `.audio-player__progress-bar` | 요소 | — |
+| `.audio-player__progress-fill` | 요소 | — |
+| `.audio-player__duration` | 요소 | — |
+| `.audio-player__buttons` | 요소 | — |
+| `.audio-player__btn` | 요소 | — |
+| `.audio-player__btn--prev` | 요소 | — |
+| `.audio-player__btn--play` | 요소 | — |
+| `.audio-player__btn--next` | 요소 | — |
+| `.audio-player__volume` | 요소 | — |
+| `.audio-player__btn--volume` | 요소 | — |
+| `.audio-player__volume-slider` | 요소 | — |
+
+#### controls-hidden
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.controls-hidden` | 블록 | — |
+
+#### image-viewer
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.image-viewer` | 블록 | — |
+| `.image-viewer__wrapper` | 요소 | — |
+| `.image-viewer__image` | 요소 | — |
+| `.image-viewer__toolbar` | 요소 | — |
+| `.image-viewer__btn` | 요소 | — |
+| `.image-viewer__zoom-level` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### ratio
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.ratio` | 블록 | — |
+
+#### video-player
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.video-player` | 블록 | — |
+| `.video-player__wrapper` | 요소 | — |
+| `.video-player__video` | 요소 | — |
+| `.video-player__overlay` | 요소 | — |
+| `.video-player__big-play` | 요소 | — |
+| `.video-player__loading` | 요소 | — |
+| `.video-player__spinner` | 요소 | — |
+| `.video-player__controls` | 요소 | — |
+| `.video-player__progress` | 요소 | — |
+| `.video-player__progress-bar` | 요소 | — |
+| `.video-player__progress-buffered` | 요소 | — |
+| `.video-player__progress-played` | 요소 | — |
+| `.video-player__progress-handle` | 요소 | — |
+| `.video-player__controls-bar` | 요소 | — |
+| `.video-player__controls-left` | 요소 | — |
+| `.video-player__btn` | 요소 | — |
+| `.video-player__btn--play` | 요소 | — |
+| `.video-player__volume` | 요소 | — |
+| `.video-player__btn--volume` | 요소 | — |
+| `.video-player__volume-slider` | 요소 | — |
+| `.video-player__volume-input` | 요소 | — |
+| `.video-player__time` | 요소 | — |
+| `.video-player__current` | 요소 | — |
+| `.video-player__separator` | 요소 | — |
+| `.video-player__duration` | 요소 | — |
+| `.video-player__controls-right` | 요소 | — |
+| `.video-player__speed` | 요소 | — |
+| `.video-player__btn--speed` | 요소 | — |
+| `.video-player__btn--pip` | 요소 | — |
+| `.video-player__btn--fullscreen` | 요소 | — |
+
+### navigation
+
+> 소스: `src/modules/navigation.js` | 클래스: **35개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-active` | 블록 | — |
+| `.is-open` | 블록 | — |
+| `.has-submenu` | 블록 | — |
+| `.is-active-parent` | 블록 | — |
+
+#### accordion
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.accordion__trigger` | 블록 | — |
+| `.accordion__trigger-icon` | 블록 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### megamenu
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.megamenu__item--active` | 블록 | — |
+
+#### sidebar
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.sidebar` | 블록 | — |
+| `.sidebar__logo` | 요소 | — |
+| `.sidebar__logo-text` | 요소 | — |
+| `.sidebar__user` | 요소 | — |
+| `.sidebar__user-avatar` | 요소 | — |
+| `.sidebar__user-avatar--initial` | 요소 | — |
+| `.sidebar__user-info` | 요소 | — |
+| `.sidebar__user-name` | 요소 | — |
+| `.sidebar__user-role` | 요소 | — |
+| `.sidebar__toggle` | 요소 | — |
+| `.sidebar__nav` | 요소 | — |
+| `.sidebar__menu` | 요소 | — |
+| `.sidebar__menu-title` | 요소 | — |
+| `.sidebar__menu-item` | 요소 | — |
+| `.sidebar__menu-link` | 요소 | — |
+| `.sidebar__menu-icon` | 요소 | — |
+| `.sidebar__menu-text` | 요소 | — |
+| `.sidebar__badge` | 요소 | — |
+| `.sidebar__menu-arrow` | 요소 | — |
+| `.sidebar__submenu` | 요소 | — |
+
+#### tabs
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.tabs` | 블록 | — |
+| `.tabs__list` | 요소 | — |
+| `.tabs__tab` | 요소 | — |
+| `.tabs__panel` | 요소 | — |
+| `.tabs__content` | 요소 | — |
+
+#### treeview
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.treeview__item--expanded` | 블록 | — |
+| `.treeview__label--selected` | 블록 | — |
+
+### overlays
+
+> 소스: `src/modules/overlays.js` | 클래스: **3개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### offcanvas
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.offcanvas` | 블록 | — |
+
+### pagination
+
+> 소스: `src/modules/pagination.js` | 클래스: **19개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-disabled` | 블록 | — |
+| `.is-active` | 블록 | — |
+
+#### data-paginator
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.data-paginator` | 블록 | — |
+| `.data-paginator__content` | 요소 | — |
+| `.data-paginator__pagination` | 요소 | — |
+| `.data-paginator__empty` | 요소 | — |
+| `.data-paginator__item` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### pagination
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination` | 블록 | — |
+| `.pagination__item` | 요소 | — |
+| `.pagination__link` | 요소 | — |
+| `.pagination__item--dots` | 요소 | — |
+
+#### pagination-info
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination-info` | 블록 | — |
+
+#### pagination-lg
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination-lg` | 블록 | — |
+
+#### pagination-rounded
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination-rounded` | 블록 | — |
+
+#### pagination-sm
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination-sm` | 블록 | — |
+
+#### pagination-wrapper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pagination-wrapper` | 블록 | — |
+| `.pagination-wrapper--center` | 변형 | — |
+| `.pagination-wrapper--end` | 변형 | — |
+
+### pickers
+
+> 소스: `src/modules/pickers.js` | 클래스: **44개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+| `.is-selected` | 블록 | — |
+
+#### colorpicker
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.colorpicker` | 블록 | — |
+| `.colorpicker__input` | 요소 | — |
+| `.colorpicker__preview` | 요소 | — |
+| `.colorpicker__dropdown` | 요소 | — |
+| `.colorpicker__presets` | 요소 | — |
+| `.colorpicker__preset` | 요소 | — |
+| `.colorpicker__custom` | 요소 | — |
+| `.colorpicker__native` | 요소 | — |
+
+#### countdown
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.countdown` | 블록 | — |
+| `.countdown__item` | 요소 | — |
+| `.countdown__value` | 요소 | — |
+| `.countdown__label` | 요소 | — |
+| `.countdown__sep` | 요소 | — |
+| `.countdown--complete` | 변형 | — |
+
+#### datepicker
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.datepicker` | 블록 | — |
+| `.datepicker__input` | 요소 | — |
+| `.datepicker__icon` | 요소 | — |
+| `.datepicker__dropdown` | 요소 | — |
+| `.datepicker__header` | 요소 | — |
+| `.datepicker__nav-btn` | 요소 | — |
+| `.datepicker__title` | 요소 | — |
+| `.datepicker__year` | 요소 | — |
+| `.datepicker__month` | 요소 | — |
+| `.datepicker__weekdays` | 요소 | — |
+| `.datepicker__weekday` | 요소 | — |
+| `.datepicker__days` | 요소 | — |
+| `.datepicker__footer` | 요소 | — |
+| `.datepicker__today-btn` | 요소 | — |
+| `.datepicker__years` | 요소 | — |
+| `.datepicker__months` | 요소 | — |
+| `.datepicker__day` | 요소 | — |
+| `.datepicker__day--empty` | 요소 | — |
+
+#### dday
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.dday` | 블록 | — |
+| `.dday__title` | 요소 | — |
+| `.dday__date` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### timepicker
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.timepicker` | 블록 | — |
+| `.timepicker__input` | 요소 | — |
+| `.timepicker__icon` | 요소 | — |
+| `.timepicker__dropdown` | 요소 | — |
+| `.timepicker__list` | 요소 | — |
+| `.timepicker__option` | 요소 | — |
+
+### scroll
+
+> 소스: `src/modules/scroll.js` | 클래스: **17개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+
+#### back-to-top
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.back-to-top` | 블록 | — |
+
+#### infinite-scroll
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.infinite-scroll` | 블록 | — |
+| `.infinite-scroll__loading` | 요소 | — |
+| `.infinite-scroll__end` | 요소 | — |
+| `.infinite-scroll__error` | 요소 | — |
+| `.infinite-scroll__retry` | 요소 | — |
+| `.infinite-scroll__items` | 요소 | — |
+| `.infinite-scroll__sentinel` | 요소 | — |
+| `.infinite-scroll__status` | 요소 | — |
+| `.infinite-scroll__item` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### spinner
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.spinner` | 블록 | — |
+
+#### virtual-scroll
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.virtual-scroll` | 블록 | — |
+| `.virtual-scroll__spacer` | 요소 | — |
+| `.virtual-scroll__content` | 요소 | — |
+| `.virtual-scroll__item` | 요소 | — |
+
+### security-input
+
+> 소스: `src/modules/security-input.js` | 클래스: **25개**
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### otp-input
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.otp-input` | 블록 | — |
+| `.otp-input__fields` | 요소 | — |
+| `.otp-input__separator` | 요소 | — |
+| `.otp-input__field` | 요소 | — |
+| `.otp-input__error` | 요소 | — |
+| `.otp-input--error` | 변형 | — |
+| `.otp-input--disabled` | 변형 | — |
+| `.otp-input--success` | 변형 | — |
+
+#### pin-input
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.pin-input` | 블록 | — |
+| `.pin-input__wrapper` | 요소 | — |
+| `.pin-input__fields` | 요소 | — |
+| `.pin-input__field-wrapper` | 요소 | — |
+| `.pin-input__field` | 요소 | — |
+| `.pin-input__dot` | 요소 | — |
+| `.pin-input__toggle` | 요소 | — |
+| `.pin-input__error` | 요소 | — |
+| `.pin-input__keypad` | 요소 | — |
+| `.pin-input__key` | 요소 | — |
+| `.pin-input__key--empty` | 요소 | — |
+| `.pin-input__key--backspace` | 요소 | — |
+| `.pin-input__dot--hidden` | 요소 | — |
+| `.pin-input--error` | 변형 | — |
+| `.pin-input--disabled` | 변형 | — |
+| `.pin-input--success` | 변형 | — |
+
+### selectors
+
+> 소스: `src/modules/selectors.js` | 클래스: **28개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-loading` | 블록 | — |
+| `.is-selected` | 블록 | — |
+| `.is-visible` | 블록 | — |
+| `.is-dragging` | 블록 | — |
+
+#### autocomplete
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.autocomplete` | 블록 | — |
+| `.autocomplete__input` | 요소 | — |
+| `.autocomplete__dropdown` | 요소 | — |
+| `.autocomplete__no-results` | 요소 | — |
+| `.autocomplete__item` | 요소 | — |
+
+#### multiselect
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.multiselect` | 블록 | — |
+| `.multiselect__tags` | 요소 | — |
+| `.multiselect__dropdown` | 요소 | — |
+| `.multiselect__tag` | 요소 | — |
+| `.multiselect__tag-remove` | 요소 | — |
+| `.multiselect__input` | 요소 | — |
+| `.multiselect__option` | 요소 | — |
+| `.multiselect__option--create` | 요소 | — |
+| `.multiselect__no-options` | 요소 | — |
+
+#### range-slider
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.range-slider` | 블록 | — |
+| `.range-slider__track` | 요소 | — |
+| `.range-slider__fill` | 요소 | — |
+| `.range-slider__handle` | 요소 | — |
+| `.range-slider__handle--min` | 요소 | — |
+| `.range-slider__tooltip` | 요소 | — |
+| `.range-slider__handle--max` | 요소 | — |
+| `.range-slider__labels` | 요소 | — |
+| `.range-slider__label--min` | 요소 | — |
+| `.range-slider__label--max` | 요소 | — |
+
+### social
+
+> 소스: `src/modules/social.js` | 클래스: **78개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+| `.is-copied` | 블록 | — |
+
+#### btn
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.btn` | 블록 | — |
+| `.btn--primary` | 변형 | — |
+| `.btn--sm` | 변형 | — |
+| `.btn--outline-secondary` | 변형 | — |
+
+#### chat-ui
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.chat-ui` | 블록 | — |
+| `.chat-ui__messages` | 요소 | — |
+| `.chat-ui__typing` | 요소 | — |
+| `.chat-ui__input-area` | 요소 | — |
+| `.chat-ui__btn` | 요소 | — |
+| `.chat-ui__btn--attach` | 요소 | — |
+| `.chat-ui__input-wrapper` | 요소 | — |
+| `.chat-ui__input` | 요소 | — |
+| `.chat-ui__btn--emoji` | 요소 | — |
+| `.chat-ui__btn--send` | 요소 | — |
+| `.chat-ui__date-divider` | 요소 | — |
+| `.chat-ui__message` | 요소 | — |
+| `.chat-ui__avatar` | 요소 | — |
+| `.chat-ui__bubble` | 요소 | — |
+| `.chat-ui__sender` | 요소 | — |
+| `.chat-ui__text` | 요소 | — |
+| `.chat-ui__time` | 요소 | — |
+| `.chat-ui__typing-indicator` | 요소 | — |
+| `.chat-ui__typing-dot` | 요소 | — |
+
+#### comments
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.comments` | 블록 | — |
+| `.comments__header` | 요소 | — |
+| `.comments__title` | 요소 | — |
+| `.comments__count` | 요소 | — |
+| `.comments__form` | 요소 | — |
+| `.comments__form--main` | 요소 | — |
+| `.comments__avatar` | 요소 | — |
+| `.comments__input-area` | 요소 | — |
+| `.comments__input` | 요소 | — |
+| `.comments__form-actions` | 요소 | — |
+| `.comments__submit` | 요소 | — |
+| `.comments__list` | 요소 | — |
+| `.comments__replies` | 요소 | — |
+| `.comments__item` | 요소 | — |
+| `.comments__content` | 요소 | — |
+| `.comments__meta` | 요소 | — |
+| `.comments__author` | 요소 | — |
+| `.comments__date` | 요소 | — |
+| `.comments__edited` | 요소 | — |
+| `.comments__text` | 요소 | — |
+| `.comments__actions` | 요소 | — |
+| `.comments__action` | 요소 | — |
+| `.comments__action--like` | 요소 | — |
+| `.comments__reply-form` | 요소 | — |
+| `.comments__input--reply` | 요소 | — |
+| `.comments__cancel` | 요소 | — |
+| `.comments__reply-submit` | 요소 | — |
+
+#### feed-post
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.feed-post` | 블록 | — |
+| `.feed-post__compose` | 요소 | — |
+| `.feed-post__compose-actions` | 요소 | — |
+| `.feed-post__compose-tools` | 요소 | — |
+| `.feed-post__compose-tool` | 요소 | — |
+| `.feed-post__submit` | 요소 | — |
+| `.feed-post__images` | 요소 | — |
+| `.feed-post__actions` | 요소 | — |
+| `.feed-post__action-btn` | 요소 | — |
+| `.feed-post__header` | 요소 | — |
+| `.feed-post__avatar` | 요소 | — |
+| `.feed-post__user-info` | 요소 | — |
+| `.feed-post__user-name` | 요소 | — |
+| `.feed-post__time` | 요소 | — |
+| `.feed-post__body` | 요소 | — |
+| `.feed-post__text` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### reactions
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.reactions` | 블록 | — |
+| `.reactions__btn` | 요소 | — |
+| `.reactions__emoji` | 요소 | — |
+| `.reactions__count` | 요소 | — |
+
+#### share-buttons
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.share-buttons` | 블록 | — |
+| `.share-buttons__btn` | 요소 | — |
+| `.share-buttons__icon-text` | 요소 | — |
+| `.share-buttons__label` | 요소 | — |
+
+#### social-feed
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.social-feed` | 블록 | — |
+
+### stepper
+
+> 소스: `src/modules/stepper.js` | 클래스: **36개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-active` | 블록 | — |
+| `.is-completed` | 블록 | — |
+| `.is-disabled` | 블록 | — |
+| `.is-changing` | 블록 | — |
+
+#### btn
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.btn` | 블록 | — |
+| `.btn--outline-secondary` | 변형 | — |
+| `.btn--primary` | 변형 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### stepper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.stepper` | 블록 | — |
+| `.stepper__steps` | 요소 | — |
+| `.stepper__content` | 요소 | — |
+| `.stepper__step` | 요소 | — |
+| `.stepper__indicator` | 요소 | — |
+| `.stepper__number` | 요소 | — |
+| `.stepper__check` | 요소 | — |
+| `.stepper__connector` | 요소 | — |
+| `.stepper__connector-line` | 요소 | — |
+| `.stepper__label` | 요소 | — |
+| `.stepper__title` | 요소 | — |
+| `.stepper__subtitle` | 요소 | — |
+| `.stepper__panel` | 요소 | — |
+| `.stepper--clickable` | 변형 | — |
+
+#### vertical-stepper
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.vertical-stepper` | 블록 | — |
+| `.vertical-stepper__item` | 요소 | — |
+| `.vertical-stepper__header` | 요소 | — |
+| `.vertical-stepper__indicator` | 요소 | — |
+| `.vertical-stepper__number` | 요소 | — |
+| `.vertical-stepper__check` | 요소 | — |
+| `.vertical-stepper__label` | 요소 | — |
+| `.vertical-stepper__title` | 요소 | — |
+| `.vertical-stepper__subtitle` | 요소 | — |
+| `.vertical-stepper__edit` | 요소 | — |
+| `.vertical-stepper__connector` | 요소 | — |
+| `.vertical-stepper__content` | 요소 | — |
+| `.vertical-stepper__body` | 요소 | — |
+| `.vertical-stepper__actions` | 요소 | — |
+
+### text-editors
+
+> 소스: `src/modules/text-editors.js` | 클래스: **29개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-focused` | 블록 | — |
+| `.is-active` | 블록 | — |
+| `.is-over` | 블록 | — |
+
+#### markdown-content
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.markdown-content` | 블록 | — |
+
+#### markdown-editor
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.markdown-editor` | 블록 | — |
+| `.markdown-editor__toolbar` | 요소 | — |
+| `.markdown-editor__tabs` | 요소 | — |
+| `.markdown-editor__tab` | 요소 | — |
+| `.markdown-editor__body` | 요소 | — |
+| `.markdown-editor__input` | 요소 | — |
+| `.markdown-editor__preview` | 요소 | — |
+| `.markdown-editor__pane` | 요소 | — |
+| `.markdown-editor__pane--edit` | 요소 | — |
+| `.markdown-editor__pane--preview` | 요소 | — |
+| `.markdown-editor__separator` | 요소 | — |
+| `.markdown-editor__btn` | 요소 | — |
+
+#### material-icons-outlined
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.material-icons-outlined` | 블록 | — |
+
+#### rich-text-editor
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.rich-text-editor` | 블록 | — |
+| `.rich-text-editor__toolbar` | 요소 | — |
+| `.rich-text-editor__content` | 요소 | — |
+| `.rich-text-editor__separator` | 요소 | — |
+| `.rich-text-editor__btn` | 요소 | — |
+
+#### task-item
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.task-item` | 블록 | — |
+
+#### textarea-autosize
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.textarea-autosize` | 블록 | — |
+| `.textarea-autosize__input` | 요소 | — |
+| `.textarea-autosize__toolbar` | 요소 | — |
+| `.textarea-autosize__footer` | 요소 | — |
+| `.textarea-autosize__separator` | 요소 | — |
+| `.textarea-autosize__btn` | 요소 | — |
+
+### theme
+
+> 소스: `src/modules/theme.js` | 클래스: **3개**
+
+#### imcat-theme-transition-overlay
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.imcat-theme-transition-overlay` | 블록 | — |
+
+#### theme-dark
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.theme-dark` | 블록 | — |
+
+#### theme-light
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.theme-light` | 블록 | — |
+
+### tooltips
+
+> 소스: `src/modules/tooltips.js` | 클래스: **20개**
+
+#### 공통 상태 클래스
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.is-visible` | 블록 | — |
+
+#### popover
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.popover` | 블록 | — |
+| `.popover__arrow` | 요소 | — |
+| `.popover__header` | 요소 | — |
+| `.popover__title` | 요소 | — |
+| `.popover__close` | 요소 | — |
+| `.popover__body` | 요소 | — |
+| `.popover--animated` | 변형 | — |
+| `.popover--top` | 변형 | — |
+| `.popover--bottom` | 변형 | — |
+| `.popover--left` | 변형 | — |
+| `.popover--right` | 변형 | — |
+
+#### tooltip
+
+| 클래스 | 유형 | 설명 |
+| --- | --- | --- |
+| `.tooltip` | 블록 | — |
+| `.tooltip__arrow` | 요소 | — |
+| `.tooltip__content` | 요소 | — |
+| `.tooltip--animated` | 변형 | — |
+| `.tooltip--top` | 변형 | — |
+| `.tooltip--bottom` | 변형 | — |
+| `.tooltip--left` | 변형 | — |
+| `.tooltip--right` | 변형 | — |
+
 ---
 
 ## 통계
 
 | 항목 | 수 |
 | --- | --- |
-| **전체 클래스** | 1702개 |
+| **전체 클래스** | 2462개 |
 | 아이콘 (Material Icons) | 20개 |
 | 베이스 (Base) | 435개 |
 | 컴포넌트 (Components) | 338개 |
 | 모듈 (Modules) | 909개 |
+| JS 코어 모듈 (Core) | 11개 |
+| JS 확장 모듈 (Modules) | 749개 |
 
 > 빌드된 `dist/imcat-ui.css`에서 추출된 고유 클래스: **851개**

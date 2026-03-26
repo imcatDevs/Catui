@@ -1,6 +1,6 @@
 /**
  * CSS 클래스 문서 자동 생성 스크립트
- * SCSS 소스에서 모든 CSS 클래스를 추출하여 Markdown 문서를 생성합니다.
+ * SCSS 소스 + JS 모듈에서 모든 CSS 클래스를 추출하여 Markdown 문서를 생성합니다.
  *
  * 사용법: node scripts/generate-css-docs.js
  * 출력: docs/css-reference.md
@@ -15,6 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
 const STYLES_DIR = join(ROOT, 'src', 'styles');
+const CORE_DIR = join(ROOT, 'src', 'core');
+const MODULES_DIR = join(ROOT, 'src', 'modules');
 const OUTPUT_FILE = join(ROOT, 'docs', 'css-reference.md');
 
 // ============================================
@@ -253,6 +255,188 @@ function parseScssFile(filePath) {
 }
 
 // ============================================
+// JS 파일에서 CSS 클래스 추출
+// ============================================
+
+/**
+ * JS 파일에서 사용되는 CSS 클래스를 추출
+ * 패턴: className=, classList.add/remove/toggle/contains, class="..."
+ * @param {string} filePath - JS 파일 경로
+ * @returns {Object} { fileName, relPath, sections: [{ title, classes }] }
+ */
+function parseJsFile(filePath) {
+  const content = readFileSync(filePath, 'utf-8');
+  const relPath = relative(ROOT, filePath).replace(/\\/g, '/');
+  const fileName = basename(filePath, '.js');
+  const classSet = new Map(); // className -> { contexts, line }
+
+  const lines = content.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // 패턴 1: className = 'cls1 cls2'
+    const classNameAssign = line.match(/\.className\s*=\s*[`'"]([^`'"]+)[`'"]/);
+    if (classNameAssign) {
+      extractClassNames(classNameAssign[1]).forEach(c => addJsClass(classSet, c, i + 1, 'className'));
+    }
+
+    // 패턴 1b: className = `cls ${var}`
+    const classNameTemplate = line.match(/\.className\s*=\s*`([^`]+)`/);
+    if (classNameTemplate && !classNameAssign) {
+      extractClassNames(classNameTemplate[1]).forEach(c => addJsClass(classSet, c, i + 1, 'className'));
+    }
+
+    // 패턴 2: classList.add('cls'), classList.add('cls1', 'cls2')
+    const classListMethods = [...line.matchAll(/classList\.(?:add|remove|toggle|contains)\(([^)]+)\)/g)];
+    for (const m of classListMethods) {
+      const args = m[1];
+      const strings = [...args.matchAll(/['"]([^'"]+)['"]/g)];
+      for (const s of strings) {
+        extractClassNames(s[1]).forEach(c => addJsClass(classSet, c, i + 1, 'classList'));
+      }
+      // 템플릿 리터럴: `tabs--${...}`
+      const templates = [...args.matchAll(/`([^`]+)`/g)];
+      for (const t of templates) {
+        extractClassNames(t[1]).forEach(c => addJsClass(classSet, c, i + 1, 'classList'));
+      }
+    }
+
+    // 패턴 3: class="cls1 cls2" (innerHTML 템플릿 내부)
+    const classAttrs = [...line.matchAll(/class="([^"]+)"/g)];
+    for (const m of classAttrs) {
+      extractClassNames(m[1]).forEach(c => addJsClass(classSet, c, i + 1, 'HTML'));
+    }
+
+    // 패턴 4: class=\\"cls\\" (escaped quotes in template literals)
+    const escapedClassAttrs = [...line.matchAll(/class=\\["']([^\\]+)\\["']/g)];
+    for (const m of escapedClassAttrs) {
+      extractClassNames(m[1]).forEach(c => addJsClass(classSet, c, i + 1, 'HTML'));
+    }
+  }
+
+  // 결과 정리: BEM 계층별로 그룹화
+  const grouped = groupByComponent(classSet);
+
+  return {
+    fileName,
+    relPath,
+    fileComment: '',
+    sections: grouped
+  };
+}
+
+/**
+ * CSS 클래스명 추출 (템플릿 변수 제거)
+ */
+function extractClassNames(str) {
+  // 템플릿 변수 ${...} 제거
+  const cleaned = str.replace(/\$\{[^}]*\}/g, '').trim();
+  // 공백으로 분리하여 개별 클래스명 추출
+  return cleaned.split(/\s+/).filter(c => {
+    // 유효한 CSS 클래스명: 영문자로 시작, 영숫자/하이픈/언더스코어로 구성
+    // trailing dash/underscore 제거 (템플릿 잔여물)
+    return c && /^[a-zA-Z][\w-]*[a-zA-Z0-9]$/.test(c) && c.length > 1;
+  });
+}
+
+function addJsClass(map, className, line, context) {
+  if (!map.has(className)) {
+    map.set(className, { line, contexts: new Set() });
+  }
+  map.get(className).contexts.add(context);
+}
+
+/**
+ * BEM 컴포넌트별 그룹화
+ */
+function groupByComponent(classMap) {
+  const components = new Map(); // 블록명 -> { block, elements, modifiers, states }
+
+  for (const [cls] of classMap) {
+    let blockName;
+    let type = 'block';
+
+    if (cls.includes('__')) {
+      blockName = cls.split('__')[0];
+      type = 'element';
+    } else if (cls.includes('--')) {
+      blockName = cls.split('--')[0];
+      type = 'modifier';
+    } else if (cls.startsWith('is-') || cls.startsWith('has-')) {
+      blockName = '__states__';
+      type = 'state';
+    } else {
+      blockName = cls;
+      type = 'block';
+    }
+
+    if (!components.has(blockName)) {
+      components.set(blockName, { blocks: [], elements: [], modifiers: [], states: [] });
+    }
+
+    const group = components.get(blockName);
+    const entry = { name: '.' + cls, type };
+
+    if (type === 'block') group.blocks.push(entry);
+    else if (type === 'element') group.elements.push(entry);
+    else if (type === 'modifier') group.modifiers.push(entry);
+    else if (type === 'state') group.states.push(entry);
+  }
+
+  // 섹션으로 변환
+  const sections = [];
+  const sortedKeys = [...components.keys()].sort();
+
+  // 상태 클래스 별도 섹션
+  const stateGroup = components.get('__states__');
+  if (stateGroup && stateGroup.states.length > 0) {
+    sections.push({
+      title: '공통 상태 클래스',
+      classes: stateGroup.states.map(s => ({
+        name: s.name,
+        description: '',
+        children: [],
+        type: 'state'
+      }))
+    });
+  }
+
+  for (const key of sortedKeys) {
+    if (key === '__states__') continue;
+    const group = components.get(key);
+    const all = [...group.blocks, ...group.elements, ...group.modifiers];
+    if (all.length === 0) continue;
+
+    const classes = [];
+    // 블록 클래스
+    for (const b of group.blocks) {
+      classes.push({
+        name: b.name,
+        description: '',
+        children: [
+          ...group.elements.map(e => ({ name: e.name, description: '', type: 'element' })),
+          ...group.modifiers.map(m => ({ name: m.name, description: '', type: 'modifier' }))
+        ]
+      });
+    }
+
+    // 블록 없이 element/modifier만 있는 경우
+    if (group.blocks.length === 0) {
+      for (const item of all) {
+        classes.push({ name: item.name, description: '', children: [] });
+      }
+    }
+
+    if (classes.length > 0) {
+      sections.push({ title: key, classes });
+    }
+  }
+
+  return sections;
+}
+
+// ============================================
 // 빌드된 CSS에서 추가 클래스 추출 (검증용)
 // ============================================
 
@@ -416,6 +600,21 @@ function getScssFiles(dirPath) {
   return files.sort();
 }
 
+function getJsFiles(dirPath) {
+  const files = [];
+  try {
+    for (const entry of readdirSync(dirPath)) {
+      const fullPath = join(dirPath, entry);
+      if (statSync(fullPath).isFile() && entry.endsWith('.js')) {
+        files.push(fullPath);
+      }
+    }
+  } catch {
+    // 디렉토리가 없으면 무시
+  }
+  return files.sort();
+}
+
 // ============================================
 // 메인 실행
 // ============================================
@@ -456,6 +655,46 @@ function main() {
     }
 
     categories.push(cat);
+  }
+
+  // JS 모듈에서 CSS 클래스 추출
+  console.log('\n📜 JS 모듈 CSS 클래스 추출...\n');
+
+  const jsCategories = [
+    {
+      title: 'JS 코어 모듈 (Core)',
+      description: '코어 JS에서 동적으로 생성/사용하는 CSS 클래스',
+      dir: CORE_DIR
+    },
+    {
+      title: 'JS 확장 모듈 (Modules)',
+      description: '확장 모듈 JS에서 동적으로 생성/사용하는 CSS 클래스',
+      dir: MODULES_DIR
+    }
+  ];
+
+  for (const jsCatDef of jsCategories) {
+    const jsCat = {
+      title: jsCatDef.title,
+      description: jsCatDef.description,
+      parsedFiles: []
+    };
+
+    const jsFiles = getJsFiles(jsCatDef.dir);
+    for (const fp of jsFiles) {
+      try {
+        const parsed = parseJsFile(fp);
+        const classCount = countClasses(parsed);
+        if (classCount > 0) {
+          jsCat.parsedFiles.push(parsed);
+          console.log(`  ✅ ${parsed.relPath} — ${classCount}개 클래스`);
+        }
+      } catch (err) {
+        console.error(`  ❌ ${relative(ROOT, fp).replace(/\\/g, '/')}: ${err.message}`);
+      }
+    }
+
+    categories.push(jsCat);
   }
 
   const markdown = generateMarkdown(categories);
