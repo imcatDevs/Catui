@@ -29,7 +29,8 @@
     "docs:clean": "rimraf docs/jsdoc",
     "docs:serve": "http-server docs/jsdoc -p 8080 -o",
     "release": "npm run build && node scripts/create-release.cjs",
-    "release:only": "node scripts/create-release.cjs"
+    "release:only": "node scripts/create-release.cjs",
+    "docs:css": "node scripts/generate-css-docs.js"
   },
   "keywords": [
     "framework",
