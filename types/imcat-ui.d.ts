@@ -32,6 +32,7 @@ declare interface DOMElement {
   text(value: string): DOMElement;
   html(): string;
   html(value: string): DOMElement;
+  rawHtml(value: string): DOMElement;
   val(): string;
   val(value: string | number): DOMElement;
 
@@ -54,6 +55,7 @@ declare interface DOMElement {
   // DOM 조작
   append(content: string | HTMLElement | DOMElement): DOMElement;
   prepend(content: string | HTMLElement | DOMElement): DOMElement;
+  appendTo(parent: string | HTMLElement): DOMElement;
   before(content: string | HTMLElement | DOMElement): DOMElement;
   after(content: string | HTMLElement | DOMElement): DOMElement;
   remove(): DOMElement;
@@ -67,15 +69,22 @@ declare interface DOMElement {
   closest(selector: string): DOMElement;
   children(selector?: string): DOMElement;
   siblings(selector?: string): DOMElement;
+  next(): DOMElement;
+  prev(): DOMElement;
   first(): DOMElement;
   last(): DOMElement;
   eq(index: number): DOMElement;
+  get(): HTMLElement[];
+  get(index: number): HTMLElement;
 
   // 위치/크기
   offset(): { top: number; left: number };
   position(): { top: number; left: number };
   width(): number;
   height(): number;
+
+  // 이벤트 트리거
+  trigger(event: string, data?: any): DOMElement;
 }
 
 // ===== Config Types =====
@@ -629,8 +638,8 @@ declare interface IMCAT {
   };
 
   // Event Bus
-  on(event: string, handler: (...args: any[]) => void): void;
-  once(event: string, handler: (...args: any[]) => void): void;
+  on(event: string, handler: (...args: any[]) => void): () => void;
+  once(event: string, handler: (...args: any[]) => void): () => void;
   off(event: string, handler?: (...args: any[]) => void): void;
   emit(event: string, ...args: any[]): void;
 

@@ -41,6 +41,10 @@ class OverlayBase {
    */
   constructor(options = {}) {
     this.options = Config.getFor('overlay', Utils.extend({}, this.constructor.defaults(), options));
+    // Config.escapeClose → keyboard 폴백 (하위 호환)
+    if (this.options.keyboard === undefined && this.options.escapeClose !== undefined) {
+      this.options.keyboard = this.options.escapeClose;
+    }
     this.id = Utils.randomId('overlay');
     this.isOpen = false;
     this.element = null;
@@ -532,6 +536,34 @@ class Modal extends OverlayBase {
     }
 
     await super.hide();
+  }
+
+  /**
+   * 모달 콘텐츠 변경
+   * @param {string|HTMLElement} content - 새 콘텐츠
+   */
+  setContent(content) {
+    if (!this.element) return;
+    const body = this.element.querySelector('.modal__body');
+    if (!body) return;
+    if (typeof content === 'string') {
+      body.innerHTML = Security.sanitize(content);
+    } else if (content instanceof HTMLElement) {
+      body.innerHTML = '';
+      body.appendChild(content);
+    }
+  }
+
+  /**
+   * 모달 제목 변경
+   * @param {string} title - 새 제목
+   */
+  setTitle(title) {
+    if (!this.element) return;
+    const titleEl = this.element.querySelector('.modal__title');
+    if (titleEl) {
+      titleEl.textContent = title;
+    }
   }
 
   /**

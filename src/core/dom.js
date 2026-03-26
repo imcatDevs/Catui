@@ -450,6 +450,155 @@ class DOMElement {
   get(index) {
     return index === undefined ? this.elements : this.elements[index];
   }
+
+  /**
+   * input/select/textarea 값 설정/조회
+   * @param {string|number} [value] - 설정할 값
+   * @returns {string|DOMElement}
+   */
+  val(value) {
+    if (value === undefined) {
+      return this.elements[0]?.value ?? '';
+    }
+    return this.each(el => { el.value = value; });
+  }
+
+  /**
+   * 요소 앞에 콘텐츠 삽입
+   * @param {string|HTMLElement|DOMElement} content - 삽입할 콘텐츠
+   * @returns {DOMElement}
+   */
+  before(content) {
+    return this.each(el => {
+      if (typeof content === 'string') {
+        const sanitized = Security.sanitize(content);
+        el.insertAdjacentHTML('beforebegin', sanitized);
+      } else if (content instanceof DOMElement) {
+        content.elements.forEach(child => el.parentNode?.insertBefore(child.cloneNode(true), el));
+      } else if (content instanceof HTMLElement) {
+        el.parentNode?.insertBefore(content.cloneNode(true), el);
+      }
+    });
+  }
+
+  /**
+   * 요소 뒤에 콘텐츠 삽입
+   * @param {string|HTMLElement|DOMElement} content - 삽입할 콘텐츠
+   * @returns {DOMElement}
+   */
+  after(content) {
+    return this.each(el => {
+      if (typeof content === 'string') {
+        const sanitized = Security.sanitize(content);
+        el.insertAdjacentHTML('afterend', sanitized);
+      } else if (content instanceof DOMElement) {
+        content.elements.forEach(child => el.parentNode?.insertBefore(child.cloneNode(true), el.nextSibling));
+      } else if (content instanceof HTMLElement) {
+        el.parentNode?.insertBefore(content.cloneNode(true), el.nextSibling);
+      }
+    });
+  }
+
+  /**
+   * 요소 복제
+   * @param {boolean} [deep=true] - 자식 포함 여부
+   * @returns {DOMElement}
+   */
+  clone(deep = true) {
+    const cloned = this.elements.map(el => el.cloneNode(deep));
+    return new DOMElement(cloned);
+  }
+
+  /**
+   * 자식 요소 조회
+   * @param {string} [selector] - 필터 선택자
+   * @returns {DOMElement}
+   */
+  children(selector) {
+    const children = [];
+    this.each(el => {
+      Array.from(el.children).forEach(child => {
+        if (!selector || child.matches(selector)) {
+          children.push(child);
+        }
+      });
+    });
+    return new DOMElement(children);
+  }
+
+  /**
+   * 모든 조상 요소 조회
+   * @param {string} [selector] - 필터 선택자
+   * @returns {DOMElement}
+   */
+  parents(selector) {
+    const parents = [];
+    this.each(el => {
+      let current = el.parentElement;
+      while (current) {
+        if (!selector || current.matches(selector)) {
+          if (!parents.includes(current)) {
+            parents.push(current);
+          }
+        }
+        current = current.parentElement;
+      }
+    });
+    return new DOMElement(parents);
+  }
+
+  /**
+   * 요소의 문서 기준 좌표
+   * @returns {{ top: number, left: number }}
+   */
+  offset() {
+    const el = this.elements[0];
+    if (!el) return { top: 0, left: 0 };
+    const rect = el.getBoundingClientRect();
+    return {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX
+    };
+  }
+
+  /**
+   * 요소의 오프셋 부모 기준 좌표
+   * @returns {{ top: number, left: number }}
+   */
+  position() {
+    const el = this.elements[0];
+    if (!el) return { top: 0, left: 0 };
+    return { top: el.offsetTop, left: el.offsetLeft };
+  }
+
+  /**
+   * 요소 너비 반환
+   * @returns {number}
+   */
+  width() {
+    const el = this.elements[0];
+    return el ? el.offsetWidth : 0;
+  }
+
+  /**
+   * 요소 높이 반환
+   * @returns {number}
+   */
+  height() {
+    const el = this.elements[0];
+    return el ? el.offsetHeight : 0;
+  }
+
+  /**
+   * 커스텀 이벤트 트리거
+   * @param {string} event - 이벤트 이름
+   * @param {*} [data] - 이벤트 데이터
+   * @returns {DOMElement}
+   */
+  trigger(event, data) {
+    const evt = new CustomEvent(event, { bubbles: true, detail: data });
+    return this.each(el => el.dispatchEvent(evt));
+  }
 }
 
 /**
