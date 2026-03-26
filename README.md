@@ -6,6 +6,8 @@
 [![Version](https://img.shields.io/badge/version-1.1.2-green.svg)](https://github.com/imcatDevs/imcat_ui)
 [![npm](https://img.shields.io/npm/v/@imcat-ckim/catui.svg)](https://www.npmjs.com/package/@imcat-ckim/catui)
 
+> 한국어 | **[English](README.en.md)**
+
 ---
 
 ## ⚡ 특징

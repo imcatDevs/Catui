@@ -2,6 +2,21 @@
 
 기여해주셔서 감사합니다! 아래 가이드를 읽고 참여해주세요.
 
+> **[English version below](#english)**
+
+---
+
+## 기여 방법
+
+| 기여 유형 | 설명 |
+| --------- | ---- |
+| **버그 리포트** | [GitHub Issues](https://github.com/imcatDevs/Catui/issues)에 버그 신고 |
+| **기능 제안** | Issues에 `enhancement` 라벨로 등록 |
+| **코드 기여** | PR 제출 (아래 절차 참조) |
+| **문서 개선** | `docs/` 폴더 수정 또는 오타 교정 |
+| **플러그인 개발** | [플러그인 가이드](docs/community/plugin-guide.md) 참조 |
+| **번역** | `docs/en/` 영어 문서 기여 환영 |
+
 ---
 
 ## 개발 환경 설정
@@ -130,4 +145,39 @@ export default [
 
 ## 보안 취약점 신고
 
-공개 이슈 대신 **[이메일 또는 비공개 채널]** 로 보고해주세요.
+공개 이슈 대신 **[security@imcat.dev](mailto:security@imcat.dev)** 로 보고해주세요.
+보고 내용에는 재현 절차, 영향 범위, 가능한 해결 방안을 포함해 주세요.
+
+---
+
+## 행동 강령 (Code of Conduct)
+
+- 모든 참여자에게 존중과 예의를 갖춥니다
+- 건설적인 피드백을 제공합니다
+- 차별적/공격적 언어를 사용하지 않습니다
+- 질문은 언제든 환영합니다 — 초보자도 편하게 참여할 수 있는 환경을 만듭니다
+
+---
+
+## English
+
+### How to Contribute
+
+1. Fork the repository and create a branch from `develop`
+2. Install dependencies: `pnpm install`
+3. Make your changes
+4. Run tests: `pnpm exec vitest run`
+5. Run lint: `pnpm run lint`
+6. Submit a Pull Request with a clear description
+
+### Commit Message Format
+
+```text
+<type>(<scope>): <message>
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+### Security
+
+Report vulnerabilities to **[security@imcat.dev](mailto:security@imcat.dev)** (do not use public issues).

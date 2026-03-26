@@ -79,6 +79,13 @@
 | [Text Editors](modules/text-editors.md) | `text-editors` | RichTextEditor, MarkdownEditor, TextareaAutosize |
 | [Media Viewer](modules/media-viewer.md) | `media-viewer` | VideoPlayer, AudioPlayer, ImageViewer, EmbedVideo |
 
+### 성능, 보안, 커뮤니티, 영어 문서
+
+- [성능 최적화 가이드](performance/optimization-guide.md) — VirtualScroll, 무한 스크롤, 캐싱, 압축
+- [보안 가이드](security/csp-guide.md) — CSP, XSS, CSRF, 보안 업데이트
+- [커뮤니티 가이드](community/plugin-guide.md) — 플러그인 개발, 커뮤니티 참여
+- [영어 문서](../README.en.md) — 프로젝트 개요, 시작하기
+
 ### AI / 레퍼런스
 
 - [치트시트 (전체 요약)](CHEATSHEET.md) — AI가 하나만 읽어도 코드 생성 가능
