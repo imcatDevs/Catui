@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMCAT UI — Documentation</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --card-bg: #f8fafc;
+      --border: #e2e8f0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --accent: #60a5fa;
+        --accent-hover: #93bbfc;
+        --card-bg: #1e293b;
+        --border: #334155;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { text-align: center; padding: 3rem 0 2rem; }
+    header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    header p { color: var(--muted); font-size: 1.1rem; }
+    .badges { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    .badges img { height: 20px; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .feature {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .feature strong { display: block; margin-bottom: 0.25rem; }
+    .feature span { color: var(--muted); font-size: 0.9rem; }
+    h2 {
+      font-size: 1.4rem;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th { font-weight: 600; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); text-decoration: underline; }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      margin: 0.25rem;
+    }
+    .btn:hover { background: var(--accent-hover); color: #fff; text-decoration: none; }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .actions { text-align: center; margin: 2rem 0; }
+    code {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.9em;
+    }
+    footer { text-align: center; color: var(--muted); padding: 2rem 0; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>IMCAT UI</h1>
+      <p>경량 제로빌드 ES6+ 웹 프레임워크</p>
+      <div class="badges">
+        <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+        <img src="https://img.shields.io/npm/v/@imcat-ckim/catui.svg" alt="npm version">
+        <img src="https://img.shields.io/badge/modules-22-green.svg" alt="22 modules">
+      </div>
+    </header>
+
+    <div class="actions">
+      <a href="getting-started.md" class="btn">시작하기</a>
+      <a href="CHEATSHEET.md" class="btn btn-outline">치트시트</a>
+      <a href="https://github.com/imcatDevs/Catui" class="btn btn-outline">GitHub</a>
+    </div>
+
+    <div class="features">
+      <div class="feature"><strong>제로 빌드</strong><span>NPM, Webpack 없이 바로 사용</span></div>
+      <div class="feature"><strong>경량</strong><span>코어 21KB gzipped</span></div>
+      <div class="feature"><strong>동적 로딩</strong><span>IMCAT.use()로 필요한 것만</span></div>
+      <div class="feature"><strong>보안 우선</strong><span>XSS 자동 방어 내장</span></div>
+      <div class="feature"><strong>SPA 라우팅</strong><span>catui-href 기반 내장 라우터</span></div>
+      <div class="feature"><strong>22개 모듈</strong><span>Modal, Chart, Gantt 등</span></div>
+    </div>
+
+    <h2>Core API</h2>
+    <table>
+      <thead><tr><th>문서</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><a href="core/dom.md">DOM</a></td><td>jQuery 스타일 DOM 조작, 체이닝, 자동 XSS 방어</td></tr>
+        <tr><td><a href="core/router.md">Router</a></td><td>SPA 라우팅, <code>catui-href</code> 속성, 뷰 관리</td></tr>
+        <tr><td><a href="core/events.md">Events</a></td><td>EventBus (글로벌) + EventEmitterMixin (컴포넌트)</td></tr>
+        <tr><td><a href="core/state.md">State</a></td><td>Proxy 기반 리액티브 상태 관리</td></tr>
+        <tr><td><a href="core/api.md">API</a></td><td>HTTP 클라이언트 (fetch 래퍼, 인터셉터)</td></tr>
+        <tr><td><a href="core/config.md">Config</a></td><td>글로벌 설정, 컴포넌트별 기본값</td></tr>
+        <tr><td><a href="core/formatters.md">Formatters</a></td><td>숫자, 날짜, 통화, 전화번호 포맷</td></tr>
+        <tr><td><a href="core/template.md">Template</a></td><td>머스태시 템플릿 엔진, 자동 이스케이프</td></tr>
+        <tr><td><a href="core/storage.md">Storage</a></td><td>localStorage/sessionStorage + TTL</td></tr>
+        <tr><td><a href="core/auto-init.md">Auto Init</a></td><td><code>data-imcat</code> 선언적 초기화</td></tr>
+      </tbody>
+    </table>
+
+    <h2>확장 모듈 (22개)</h2>
+    <table>
+      <thead><tr><th>문서</th><th>모듈</th><th>컴포넌트</th></tr></thead>
+      <tbody>
+        <tr><td><a href="modules/overlays.md">Overlays</a></td><td><code>overlays</code></td><td>Modal, Drawer, Offcanvas</td></tr>
+        <tr><td><a href="modules/dropdown.md">Dropdown</a></td><td><code>dropdown</code></td><td>Dropdown</td></tr>
+        <tr><td><a href="modules/tooltips.md">Tooltips</a></td><td><code>tooltips</code></td><td>Tooltip, Popover</td></tr>
+        <tr><td><a href="modules/navigation.md">Navigation</a></td><td><code>navigation</code></td><td>Tabs, Accordion, Collapse, MegaMenu, TreeView, Sidebar</td></tr>
+        <tr><td><a href="modules/feedback.md">Feedback</a></td><td><code>feedback</code></td><td>Toast, Notification, ProgressTracker, Skeleton</td></tr>
+        <tr><td><a href="modules/carousel.md">Carousel</a></td><td><code>carousel</code></td><td>Carousel, Lightbox</td></tr>
+        <tr><td><a href="modules/pickers.md">Pickers</a></td><td><code>pickers</code></td><td>DatePicker, TimePicker, ColorPicker, Countdown, DDay</td></tr>
+        <tr><td><a href="modules/selectors.md">Selectors</a></td><td><code>selectors</code></td><td>Autocomplete, MultiSelect, RangeSlider</td></tr>
+        <tr><td><a href="modules/forms.md">Forms</a></td><td><code>forms</code></td><td>FileUpload, Rating, SignaturePad, FormWizard</td></tr>
+        <tr><td><a href="modules/data-viz.md">Data Viz</a></td><td><code>data-viz</code></td><td>DataTable, Chart, Masonry, Kanban, Calendar</td></tr>
+        <tr><td><a href="modules/stepper.md">Stepper</a></td><td><code>stepper</code></td><td>Stepper, VerticalStepper</td></tr>
+        <tr><td><a href="modules/scroll.md">Scroll</a></td><td><code>scroll</code></td><td>VirtualScroll, Scrollspy, InfiniteScroll, SmoothScroll, BackToTop</td></tr>
+        <tr><td><a href="modules/pagination.md">Pagination</a></td><td><code>pagination</code></td><td>Pagination</td></tr>
+        <tr><td><a href="modules/theme.md">Theme</a></td><td><code>theme</code></td><td>Theme, createTheme, initTheme</td></tr>
+        <tr><td><a href="modules/advanced-ui.md">Advanced UI</a></td><td><code>advanced-ui</code></td><td>SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker</td></tr>
+        <tr><td><a href="modules/social.md">Social</a></td><td><code>social</code></td><td>ChatUI, Comments, Reactions, SocialFeed, ShareButtons</td></tr>
+        <tr><td><a href="modules/imagelist.md">ImageList</a></td><td><code>imagelist</code></td><td>ImageList, ImageLightbox, ImageCompare, LazyImage</td></tr>
+        <tr><td><a href="modules/gantt.md">Gantt</a></td><td><code>gantt</code></td><td>Gantt</td></tr>
+        <tr><td><a href="modules/live-status.md">Live Status</a></td><td><code>live-status</code></td><td>OnlineStatus, TypingIndicator, ActivityStatus, LiveCounter, ConnectionStatus</td></tr>
+        <tr><td><a href="modules/security-input.md">Security Input</a></td><td><code>security-input</code></td><td>OTPInput, PinInput</td></tr>
+        <tr><td><a href="modules/text-editors.md">Text Editors</a></td><td><code>text-editors</code></td><td>RichTextEditor, MarkdownEditor, TextareaAutosize</td></tr>
+        <tr><td><a href="modules/media-viewer.md">Media Viewer</a></td><td><code>media-viewer</code></td><td>VideoPlayer, AudioPlayer, ImageViewer, EmbedVideo</td></tr>
+      </tbody>
+    </table>
+
+    <h2>참고 자료</h2>
+    <table>
+      <thead><tr><th>문서</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><a href="CHEATSHEET.md">치트시트</a></td><td>AI가 하나만 읽어도 코드 생성 가능한 전체 요약</td></tr>
+        <tr><td><a href="PATTERNS.md">구현 패턴</a></td><td>CRUD, 폼 검증, SPA 레이아웃 등 완전한 코드</td></tr>
+        <tr><td><a href="jsdoc/index.html">JSDoc API</a></td><td>자동 생성 상세 API 레퍼런스</td></tr>
+        <tr><td><a href="performance/optimization-guide.md">성능 최적화</a></td><td>VirtualScroll, 캐싱, 압축</td></tr>
+        <tr><td><a href="security/csp-guide.md">보안 가이드</a></td><td>CSP, XSS, CSRF, 보안 업데이트</td></tr>
+      </tbody>
+    </table>
+
+    <footer>
+      <p>IMCAT UI &copy; 2024-2026 IMCAT Team — MIT License</p>
+      <p>
+        <a href="https://github.com/imcatDevs/Catui">GitHub</a> &middot;
+        <a href="https://www.npmjs.com/package/@imcat-ckim/catui">npm</a> &middot;
+        <a href="https://imcat.dev">Homepage</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
