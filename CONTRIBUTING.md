@@ -22,10 +22,10 @@
 ## 개발 환경 설정
 
 ```bash
-git clone https://github.com/imcatDevs/imcat_ui.git
-cd imcat_ui
-npm install
-npm run dev
+git clone https://github.com/imcatDevs/Catui.git
+cd Catui
+pnpm install
+pnpm run dev
 ```
 
 ---
@@ -106,40 +106,14 @@ fix(auto-init): new Function() 제거, CustomEvent 방식으로 대체
 
 ---
 
-## ESLint v9 마이그레이션 계획
+## ESLint 설정
 
-현재 프로젝트는 ESLint v8(`eslint@8.x`)을 사용하며 `.eslintrc.cjs` 형식(Legacy config)으로 설정되어 있습니다.
-ESLint v8은 2024년 EOL이며, v9 업그레이드 시 **flat config** 시스템으로 전환이 필요합니다.
+프로젝트는 ESLint v9 **flat config** (`eslint.config.js`)를 사용합니다.
 
-### 전환 작업 개요
-
-1. `eslint` 버전을 `^9.x`로 업그레이드
-2. `.eslintrc.cjs` → `eslint.config.js` (flat config) 형식으로 변환
-
-```js
-// eslint.config.js (v9 flat config 형식)
-import js from '@eslint/js';
-import globals from 'globals';
-
-export default [
-  js.configs.recommended,
-  {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: { ...globals.browser, ...globals.node }
-    },
-    rules: {
-      'no-eval': 'error',
-      'no-new-func': 'error',
-      // ... 기존 rules 이전
-    }
-  }
-];
+```bash
+pnpm run lint       # 검사
+pnpm run lint:fix   # 자동 수정
 ```
-
-1. `package.json` `lint` 스크립트 확인 (`eslint src/`)
-2. 별도 브랜치에서 진행하여 기존 CI 영향 최소화
 
 ---
 

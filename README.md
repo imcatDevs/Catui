@@ -145,8 +145,8 @@ MIT License - 자유롭게 사용, 수정, 배포 가능
 
 ## 🔗 링크
 
-- **Issues**: GitHub Issues
-- **Discussions**: GitHub Discussions
+- **Issues**: [GitHub Issues](https://github.com/imcatDevs/Catui/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/imcatDevs/Catui/discussions)
 
 ---
 

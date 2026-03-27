@@ -99,25 +99,34 @@ import IMCAT from '@imcat-ckim/catui';
 | **Config** | Global settings, per-component defaults |
 | **Security** | XSS defense, path validation, HTML sanitization |
 
-## Extension Modules
+## Extension Modules (22)
 
 Load on demand with `IMCAT.use('moduleName')`:
 
 | Module | Components |
 | ------ | ---------- |
-| **overlays** | Modal, Drawer, Lightbox, Popover |
-| **dropdown** | Dropdown, ContextMenu |
-| **tooltip** | Tooltip |
-| **navigation** | Tabs, Accordion, Breadcrumb, Sidebar, MegaMenu |
-| **scroll** | VirtualScroll, InfiniteScroll, Scrollspy |
-| **data-viz** | SimpleChart, DataTable, Kanban, Calendar, Timeline |
-| **forms** | FormValidator, InputMask, DatePicker, RangeSlider |
-| **selectors** | Autocomplete, TagInput, TreeView, ColorPicker |
-| **imagelist** | ImageList, Carousel, LazyImage |
-| **social** | Reactions, Comments, ShareButtons, SocialFeed |
-| **gantt** | GanttChart |
-| **live-status** | LiveStatus, Notifications |
-| **stepper** | Stepper, Wizard |
+| **overlays** | Modal, Drawer, Offcanvas |
+| **dropdown** | Dropdown |
+| **tooltips** | Tooltip, Popover |
+| **navigation** | Tabs, Accordion, Collapse, MegaMenu, TreeView, Sidebar |
+| **feedback** | Toast, Notification, ProgressTracker, Skeleton |
+| **carousel** | Carousel, Lightbox |
+| **pickers** | DatePicker, TimePicker, ColorPicker, Countdown, DDay |
+| **selectors** | Autocomplete, MultiSelect, RangeSlider |
+| **forms** | FileUpload, Rating, SignaturePad, FormWizard |
+| **data-viz** | DataTable, Chart, Masonry, Kanban, Calendar |
+| **stepper** | Stepper, VerticalStepper |
+| **scroll** | VirtualScroll, Scrollspy, InfiniteScroll, SmoothScroll, BackToTop |
+| **pagination** | Pagination |
+| **theme** | Theme, createTheme, initTheme |
+| **advanced-ui** | SplitPane, QRCode, CopyToClipboard, CodeBlock, SimpleColorPicker |
+| **social** | ChatUI, Comments, Reactions, SocialFeed, ShareButtons |
+| **imagelist** | ImageList, ImageLightbox, ImageCompare, LazyImage |
+| **gantt** | Gantt |
+| **live-status** | OnlineStatus, TypingIndicator, ActivityStatus, LiveCounter, ConnectionStatus |
+| **security-input** | OTPInput, PinInput |
+| **text-editors** | RichTextEditor, MarkdownEditor, TextareaAutosize |
+| **media-viewer** | VideoPlayer, AudioPlayer, ImageViewer, EmbedVideo |
 
 ---
 
