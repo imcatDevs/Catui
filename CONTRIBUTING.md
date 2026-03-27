@@ -117,6 +117,54 @@ pnpm run lint:fix   # 자동 수정
 
 ---
 
+## 버전 관리 정책
+
+프로젝트는 [Semantic Versioning 2.0.0](https://semver.org/lang/ko/)을 따릅니다.
+
+```text
+MAJOR.MINOR.PATCH  (예: 1.1.2)
+```
+
+| 변경 유형 | 버전 | 예시 |
+| --- | --- | --- |
+| 하위 호환 버그 수정 | PATCH | `1.1.2` → `1.1.3` |
+| 하위 호환 기능 추가 | MINOR | `1.1.2` → `1.2.0` |
+| 하위 호환성 깨지는 변경 | MAJOR | `1.1.2` → `2.0.0` |
+
+### Breaking Changes 규칙
+
+- **MAJOR** 버전 변경 시 반드시 마이그레이션 가이드 작성
+- 공개 API (`IMCAT.*`, 모듈 `export`) 시그니처 변경은 MAJOR
+- 옵션 기본값 변경은 MINOR (기존 동작 유지 시) 또는 MAJOR (동작 변경 시)
+- CSS 클래스명 변경/제거는 MAJOR
+
+### 릴리스 절차
+
+```bash
+# 1. develop 브랜치에서 최종 확인
+pnpm run lint
+pnpm exec vitest run
+pnpm run build
+
+# 2. package.json 버전 업데이트
+# 3. CHANGELOG 작성
+
+# 4. 빌드 + 패키징
+pnpm run release
+
+# 5. npm 퍼블리시
+npm publish --access public
+```
+
+### 번들 크기 기준
+
+| 파일 | 목표 (gzip) |
+| --- | --- |
+| `imcat-ui.min.js` | < 25 KB |
+| `imcat-ui.css` | < 20 KB |
+
+---
+
 ## 보안 취약점 신고
 
 공개 이슈 대신 **[security@imcat.dev](mailto:security@imcat.dev)** 로 보고해주세요.
