@@ -3,7 +3,7 @@
 **Lightweight, Zero-Build, ES6+ JavaScript Web Framework**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.1.2-green.svg)](https://github.com/imcatDevs/imcat_ui)
+[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](https://github.com/imcatDevs/Catui)
 [![npm](https://img.shields.io/npm/v/@imcat-ckim/catui.svg)](https://www.npmjs.com/package/@imcat-ckim/catui)
 
 > 한국어 | **[English](README.en.md)**
@@ -26,15 +26,15 @@
 ### CDN (unpkg)
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@imcat-ckim/catui@1.1.2/dist/imcat-ui.css">
-<script src="https://unpkg.com/@imcat-ckim/catui@1.1.2/dist/imcat-ui.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@imcat-ckim/catui@1.2.0/dist/imcat-ui.css">
+<script src="https://unpkg.com/@imcat-ckim/catui@1.2.0/dist/imcat-ui.js"></script>
 ```
 
 ### CDN (jsDelivr)
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@imcat-ckim/catui@1.1.2/dist/imcat-ui.css">
-<script src="https://cdn.jsdelivr.net/npm/@imcat-ckim/catui@1.1.2/dist/imcat-ui.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@imcat-ckim/catui@1.2.0/dist/imcat-ui.css">
+<script src="https://cdn.jsdelivr.net/npm/@imcat-ckim/catui@1.2.0/dist/imcat-ui.js"></script>
 ```
 
 ### NPM
