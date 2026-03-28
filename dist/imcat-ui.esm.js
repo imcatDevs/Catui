@@ -7903,7 +7903,7 @@ _defineProperty(AutoInit, "_initialized", false);
 /**
  * IMCAT UI Framework - Core Entry Point
  * @module imcat-ui
- * @version 1.1.2
+ * @version 1.2.0
  */
 
 
@@ -8278,7 +8278,7 @@ class IMCATCore {
 
   /** 버전 정보 */
   get version() {
-    return '1.1.2';
+    return '1.2.0';
   }
 
   // ===== Shortcuts API (자동 바인딩) =====
