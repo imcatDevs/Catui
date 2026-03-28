@@ -68,7 +68,7 @@
     "archiver": "^7.0.1",
     "cross-env": "^10.1.0",
     "docdash": "^2.0.2",
-    "eslint": "^9.0.0",
+    "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "gzip-size-cli": "^5.1.0",
     "http-server": "^14.1.1",
