@@ -27,6 +27,7 @@ IMCAT.config.get('animationDuration'); // 200
 | `animation` | boolean | `true` | 애니메이션 활성화 |
 | `animationDuration` | number | `300` | 애니메이션 시간 (ms) |
 | `autoLoadModuleCSS` | boolean | `true` | `IMCAT.use()` 시 모듈 CSS 자동 로드 |
+| `serverRender` | boolean | `false` | 서버 렌더링 모드 (Catphp 등 서버 라우터 호환) |
 | `backdrop` | boolean | `true` | 오버레이 백드롭 표시 |
 | `backdropClose` | boolean | `true` | 백드롭 클릭 시 닫기 |
 | `escapeClose` | boolean | `true` | ESC 키 닫기 |
