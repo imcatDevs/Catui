@@ -316,26 +316,45 @@ describe('Core Index (IMCAT)', () => {
       link.remove();
     });
 
-    it('serverRender 모드에서 href="#" 플레이스홀더를 교체', () => {
+    it('serverRender 모드에서 href="#" 또는 href 없는 링크 직접 네비게이션', () => {
       // serverRender 모드 활성화
       IMCAT.config.set('serverRender', true);
 
-      // href="#"이 있는 링크 생성 (Catphp 실제 사용 패턴)
-      const link = document.createElement('a');
-      link.setAttribute('href', '#');
-      link.setAttribute('catui-href', '/login');
-      document.body.appendChild(link);
+      // href="#"이 있는 링크 (Catphp 실제 사용 패턴)
+      const link1 = document.createElement('a');
+      link1.setAttribute('href', '#');
+      link1.setAttribute('catui-href', '/login');
+      document.body.appendChild(link1);
 
-      // 클릭 이벤트 시뮬레이션
-      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
-      link.dispatchEvent(clickEvent);
+      // href 없는 링크
+      const link2 = document.createElement('a');
+      link2.setAttribute('catui-href', '/register');
+      document.body.appendChild(link2);
 
-      // href가 catui-href 값으로 교체되어야 함
-      expect(link.getAttribute('href')).toBe('/login');
+      // 클릭 시 preventDefault 호출 확인 (직접 네비게이션하므로 기본 동작 방지)
+      const event1 = new MouseEvent('click', { bubbles: true, cancelable: true });
+      link1.dispatchEvent(event1);
+      expect(event1.defaultPrevented).toBe(true);
+
+      const event2 = new MouseEvent('click', { bubbles: true, cancelable: true });
+      link2.dispatchEvent(event2);
+      expect(event2.defaultPrevented).toBe(true);
+
+      // 이미 유효한 href가 있는 링크는 기본 동작 허용
+      const link3 = document.createElement('a');
+      link3.setAttribute('href', '/dashboard');
+      link3.setAttribute('catui-href', '/dashboard');
+      document.body.appendChild(link3);
+
+      const event3 = new MouseEvent('click', { bubbles: true, cancelable: true });
+      link3.dispatchEvent(event3);
+      expect(event3.defaultPrevented).toBe(false);
 
       // 정리
       IMCAT.config.set('serverRender', false);
-      link.remove();
+      link1.remove();
+      link2.remove();
+      link3.remove();
     });
 
     it('serverRender 모드에서 안전한 URL 허용', () => {

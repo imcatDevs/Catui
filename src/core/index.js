@@ -159,18 +159,20 @@ class IMCATCore {
             const path = link.getAttribute('catui-href');
             const currentHref = link.getAttribute('href');
 
-            // href가 없거나 '#' 같은 플레이스홀더면 catui-href 값으로 교체
-            if (!currentHref || currentHref === '#' || currentHref === '#!') {
-              // URL 보안 검증 (javascript:, data: 등 위험한 프로토콜 차단)
-              if (Security.isSafeUrl(path)) {
-                link.setAttribute('href', path);
-              } else {
-                e.preventDefault();
-                console.warn('IMCAT: Unsafe URL blocked:', path);
-                return;
-              }
+            // URL 보안 검증
+            if (!Security.isSafeUrl(path)) {
+              e.preventDefault();
+              console.warn('IMCAT: Unsafe URL blocked:', path);
+              return;
             }
-            return; // 기본 링크 동작 허용 (서버 라우터가 처리)
+
+            // href가 없거나 '#' 같은 플레이스홀더면 직접 네비게이션
+            if (!currentHref || currentHref === '#' || currentHref === '#!') {
+              e.preventDefault();
+              window.location.href = path;
+              return;
+            }
+            return; // 이미 유효한 href가 있으면 기본 링크 동작 허용
           }
 
           // 이벤트 기본 동작 방지 (SPA 모드)
