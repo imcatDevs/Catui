@@ -27,7 +27,7 @@ IMCAT.config.get('animationDuration'); // 200
 | `animation` | boolean | `true` | 애니메이션 활성화 |
 | `animationDuration` | number | `300` | 애니메이션 시간 (ms) |
 | `autoLoadModuleCSS` | boolean | `true` | `IMCAT.use()` 시 모듈 CSS 자동 로드 |
-| `serverRender` | boolean | `false` | 서버 렌더링 모드 (Catphp 등 서버 라우터 호환) |
+| `serverRender` | boolean | `false` | 서버 렌더링 모드 (아래 참고) |
 | `backdrop` | boolean | `true` | 오버레이 백드롭 표시 |
 | `backdropClose` | boolean | `true` | 백드롭 클릭 시 닫기 |
 | `escapeClose` | boolean | `true` | ESC 키 닫기 |
@@ -71,11 +71,30 @@ IMCAT.config.set('zIndex.modal', 2000);
 IMCAT.config.get('zIndex.modal');  // 2000
 ```
 
+## serverRender 설정
+
+Catphp 등 서버 사이드 라우터와 함께 사용할 때 활성화합니다.
+
+```javascript
+IMCAT.config.set('serverRender', true);
+```
+
+**`catui-href` 링크 동작 비교:**
+
+| 모드 | `catui-target` 있음 | `catui-target` 없음 |
+| --- | --- | --- |
+| SPA (`false`) | 로컬 HTML → 타겟에 렌더링 | 로컬 HTML → 기본 컨테이너에 렌더링 |
+| 서버 (`true`) | `fetch` → 타겟에 렌더링 | `window.location.href`로 페이지 이동 |
+
+- IMCAT 로드 후 설정해도 **동적으로 반영**됨 (Config에서 실시간 참조)
+- 상세 사용법은 [Router 문서](router.md#서버-렌더링-모드) 참고
+
 ## ⚠️ 주의사항
 
 - z-index 변경 시 `src/styles/abstracts/_variables.scss`의 `$z-index-*` 변수도 함께 수정 필수
 
 ## 관련 문서
 
+- [Router](router.md) — `serverRender` 모드 라우팅 상세
 - [Formatters](formatters.md) — locale, currency 설정 영향
 - [Theme 모듈](../modules/theme.md) — 테마 설정

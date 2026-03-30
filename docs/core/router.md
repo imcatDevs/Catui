@@ -71,27 +71,92 @@ Catphp 등 서버 사이드 라우터와 함께 사용할 때 `serverRender` 모
 IMCAT.config.set('serverRender', true);
 ```
 
-**serverRender: true 시 동작:**
-- `catui-href`가 일반 링크처럼 동작
-- `preventDefault()` 하지 않음
-- 서버 라우터가 페이지 전환 처리
+### catui-target이 있는 경우 (AJAX 부분 렌더링)
+
+서버에서 HTML을 `fetch`하여 지정된 타겟 컨테이너에 렌더링합니다.
+URL은 `history.pushState`로 업데이트됩니다.
 
 ```html
-<!-- Catphp 라우터와 함께 사용 -->
 <script>IMCAT.config.set('serverRender', true);</script>
 
-<!-- 일반 링크처럼 서버 라우터가 처리 -->
+<!-- 서버 HTML을 #app-content에 렌더링 -->
+<a catui-href="/login" catui-target="app-content">로그인</a>
+<a catui-href="/register" catui-target="app-content">가입</a>
+
+<!-- 렌더 타겟 -->
+<main id="app-content">
+  여기에 서버 응답 HTML이 렌더링됩니다.
+</main>
+```
+
+**동작 흐름:**
+
+1. 클릭 → `fetch('/login')` 요청
+2. 서버 응답 HTML → `#app-content`에 렌더링
+3. `history.pushState`로 URL 업데이트 (`/login`)
+4. 로딩 인디케이터 자동 표시/숨김
+
+### catui-target이 없는 경우 (전체 페이지 이동)
+
+일반 링크처럼 `window.location.href`로 전체 페이지를 이동합니다.
+
+```html
+<!-- 전체 페이지 이동 (서버 라우터가 처리) -->
 <a catui-href="/about">소개</a>
 <a catui-href="/users">사용자</a>
 ```
 
+### href 속성과의 관계
+
+| HTML | 동작 |
+| --- | --- |
+| `<a catui-href="/login">` | `window.location.href`로 직접 이동 |
+| `<a href="#" catui-href="/login">` | `window.location.href`로 직접 이동 |
+| `<a catui-href="/login" catui-target="app">` | `fetch` → `#app`에 렌더링 |
+
+### Catphp 통합 예시
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+  <header>
+    <a catui-href="/login" catui-target="content" class="btn">로그인</a>
+    <a catui-href="/register" catui-target="content" class="btn">가입</a>
+  </header>
+
+  <nav>
+    <!-- target 없으면 전체 페이지 이동 -->
+    <a catui-href="/about">소개</a>
+    <a catui-href="/docs">문서</a>
+  </nav>
+
+  <main id="content">
+    <!-- 서버 렌더링 HTML이 여기에 로드됨 -->
+  </main>
+
+  <script src="/imcatui/imcat-ui.min.js"></script>
+  <script>
+    IMCAT.config.set('serverRender', true);
+  </script>
+</body>
+</html>
+```
+
+### 보안
+
+- `javascript:`, `data:`, `vbscript:`, `file:` 프로토콜은 자동 차단됩니다
+- 위험한 URL 클릭 시 콘솔에 경고 메시지가 출력됩니다
+
 ## ⚠️ 주의사항
 
-- ❌ `views/` 이외 경로 접근 → 보안 정책으로 차단됨
+- ❌ SPA 모드에서 `views/` 이외 경로 접근 → 보안 정책으로 차단됨
 - ❌ 뷰 내 컴포넌트 미정리 → ✅ `registerInstance()` 사용
-- ❌ 서버 렌더링 모드가 아닌데 `/` 경로 사용 → ✅ `views/` 경로 사용
+- ❌ SPA 모드에서 절대 경로(`/login`) 사용 → ✅ `views/` 경로 사용 또는 `serverRender: true` 활성화
+- ⚠️ `serverRender` 설정은 `IMCAT` 로드 후 설정해도 동적으로 반영됨
 
 ## 관련 문서
 
+- [Config](config.md) — `serverRender` 설정
 - [구현 패턴](../PATTERNS.md) — SPA 레이아웃 패턴
 - [Auto Init](auto-init.md) — 뷰 로드 후 자동 초기화
