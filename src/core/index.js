@@ -152,19 +152,25 @@ class IMCATCore {
         const link = e.target.closest('[catui-href]');
 
         if (link) {
-          // 서버 렌더링 모드면 preventDefault 하지 않음 (서버 라우터가 처리)
-          if (this.router.serverRender) {
-            // href 속성이 없으면 catui-href 값을 href로 설정 (보안 검증 포함)
-            if (!link.hasAttribute('href')) {
-              const path = link.getAttribute('catui-href');
+          // 서버 렌더링 모드 (Config에서 동적 참조 — init 후 변경도 반영)
+          const isServerRender = Config.get('serverRender', false) || this.router.serverRender;
+
+          if (isServerRender) {
+            const path = link.getAttribute('catui-href');
+            const currentHref = link.getAttribute('href');
+
+            // href가 없거나 '#' 같은 플레이스홀더면 catui-href 값으로 교체
+            if (!currentHref || currentHref === '#' || currentHref === '#!') {
               // URL 보안 검증 (javascript:, data: 등 위험한 프로토콜 차단)
               if (Security.isSafeUrl(path)) {
                 link.setAttribute('href', path);
               } else {
+                e.preventDefault();
                 console.warn('IMCAT: Unsafe URL blocked:', path);
+                return;
               }
             }
-            return; // 기본 링크 동작 허용
+            return; // 기본 링크 동작 허용 (서버 라우터가 처리)
           }
 
           // 이벤트 기본 동작 방지 (SPA 모드)

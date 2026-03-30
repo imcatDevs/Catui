@@ -296,7 +296,7 @@ describe('Core Index (IMCAT)', () => {
     });
 
     it('serverRender 모드에서 위험한 URL 차단', () => {
-      // serverRender 모드 활성화
+      // serverRender 모드 활성화 (Config 동적 참조 테스트)
       IMCAT.config.set('serverRender', true);
 
       // 위험한 URL을 가진 링크 생성
@@ -316,12 +316,37 @@ describe('Core Index (IMCAT)', () => {
       link.remove();
     });
 
+    it('serverRender 모드에서 href="#" 플레이스홀더를 교체', () => {
+      // serverRender 모드 활성화
+      IMCAT.config.set('serverRender', true);
+
+      // href="#"이 있는 링크 생성 (Catphp 실제 사용 패턴)
+      const link = document.createElement('a');
+      link.setAttribute('href', '#');
+      link.setAttribute('catui-href', '/login');
+      document.body.appendChild(link);
+
+      // 클릭 이벤트 시뮬레이션
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      link.dispatchEvent(clickEvent);
+
+      // href가 catui-href 값으로 교체되어야 함
+      expect(link.getAttribute('href')).toBe('/login');
+
+      // 정리
+      IMCAT.config.set('serverRender', false);
+      link.remove();
+    });
+
     it('serverRender 모드에서 안전한 URL 허용', () => {
-      // Security.isSafeUrl()이 상대 경로를 허용하는지 확인
-      // (javascript:, data:, vbscript:, file: 프로토콜만 차단)
+      // Security.isSafeUrl()이 절대 경로/URL을 허용하는지 확인
       expect(IMCAT.security.isSafeUrl('/about')).toBe(true);
       expect(IMCAT.security.isSafeUrl('/users/profile')).toBe(true);
       expect(IMCAT.security.isSafeUrl('https://example.com')).toBe(true);
+
+      // 위험한 프로토콜 차단
+      expect(IMCAT.security.isSafeUrl('javascript:alert(1)')).toBe(false);
+      expect(IMCAT.security.isSafeUrl('vbscript:run')).toBe(false);
     });
   });
 
