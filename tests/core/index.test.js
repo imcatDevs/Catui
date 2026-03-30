@@ -294,6 +294,35 @@ describe('Core Index (IMCAT)', () => {
       const content = document.querySelector('#app').innerHTML;
       expect(content).not.toContain('<script>');
     });
+
+    it('serverRender 모드에서 위험한 URL 차단', () => {
+      // serverRender 모드 활성화
+      IMCAT.config.set('serverRender', true);
+
+      // 위험한 URL을 가진 링크 생성
+      const link = document.createElement('a');
+      link.setAttribute('catui-href', 'javascript:alert(1)');
+      document.body.appendChild(link);
+
+      // 클릭 이벤트 시뮬레이션
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      link.dispatchEvent(clickEvent);
+
+      // href가 설정되지 않아야 함 (위험한 URL 차단)
+      expect(link.hasAttribute('href')).toBe(false);
+
+      // 정리
+      IMCAT.config.set('serverRender', false);
+      link.remove();
+    });
+
+    it('serverRender 모드에서 안전한 URL 허용', () => {
+      // Security.isSafeUrl()이 상대 경로를 허용하는지 확인
+      // (javascript:, data:, vbscript:, file: 프로토콜만 차단)
+      expect(IMCAT.security.isSafeUrl('/about')).toBe(true);
+      expect(IMCAT.security.isSafeUrl('/users/profile')).toBe(true);
+      expect(IMCAT.security.isSafeUrl('https://example.com')).toBe(true);
+    });
   });
 
   describe('autoInit getter', () => {

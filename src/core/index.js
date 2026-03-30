@@ -154,9 +154,15 @@ class IMCATCore {
         if (link) {
           // 서버 렌더링 모드면 preventDefault 하지 않음 (서버 라우터가 처리)
           if (this.router.serverRender) {
-            // href 속성이 없으면 catui-href 값을 href로 설정
+            // href 속성이 없으면 catui-href 값을 href로 설정 (보안 검증 포함)
             if (!link.hasAttribute('href')) {
-              link.setAttribute('href', link.getAttribute('catui-href'));
+              const path = link.getAttribute('catui-href');
+              // URL 보안 검증 (javascript:, data: 등 위험한 프로토콜 차단)
+              if (Security.isSafeUrl(path)) {
+                link.setAttribute('href', path);
+              } else {
+                console.warn('IMCAT: Unsafe URL blocked:', path);
+              }
             }
             return; // 기본 링크 동작 허용
           }

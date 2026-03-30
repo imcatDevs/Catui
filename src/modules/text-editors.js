@@ -5,6 +5,7 @@
  */
 
 import { Config } from '../core/config.js';
+import Security from '../core/security.js';
 
 // ============================================
 // RichTextEditor - 리치 텍스트 에디터
@@ -215,10 +216,26 @@ class RichTextEditor {
 
   /**
    * HTML 내용 설정
-   * @param {string} html
+   * @param {string} html - HTML 내용
+   * @param {boolean} [trusted=false] - 신뢰할 수 있는 HTML인지 여부 (true면 sanitize 생략)
+   *
+   * @security 기본적으로 Security.sanitize()가 적용됩니다.
+   * 서버에서 렌더링된 신뢰할 수 있는 HTML만 trusted=true로 설정하세요.
+   *
+   * @example
+   * // 사용자 입력 (자동 sanitize)
+   * editor.setHTML(userInput);
+   *
+   * @example
+   * // 서버 렌더링 HTML (신뢰)
+   * editor.setHTML(serverHtml, true);
    */
-  setHTML(html) {
-    this.editor.innerHTML = html;
+  setHTML(html, trusted = false) {
+    if (trusted) {
+      this.editor.innerHTML = html;
+    } else {
+      this.editor.innerHTML = Security.sanitize(html);
+    }
   }
 
   /**

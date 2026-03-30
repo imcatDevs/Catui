@@ -74,6 +74,24 @@ describe('RichTextEditor 추가', () => {
     rte.destroy?.();
   });
 
+  it('setHTML() 기본값은 sanitize 적용', () => {
+    var rte = new RichTextEditor('#te-container');
+    // 악성 HTML 입력
+    rte.setHTML('<script>alert("XSS")</script><p>안전</p>');
+    // script 태그가 제거되어야 함
+    expect(rte.getHTML()).not.toContain('<script>');
+    expect(rte.getHTML()).toContain('<p>안전</p>');
+    rte.destroy?.();
+  });
+
+  it('setHTML(html, true)는 sanitize 생략', () => {
+    var rte = new RichTextEditor('#te-container');
+    // trusted=true로 신뢰 HTML 설정
+    rte.setHTML('<p>신뢰</p>', true);
+    expect(rte.getHTML()).toBe('<p>신뢰</p>');
+    rte.destroy?.();
+  });
+
   it('focus()', () => {
     var rte = new RichTextEditor('#te-container');
     rte.focus();
