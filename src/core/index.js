@@ -157,7 +157,7 @@ class IMCATCore {
 
           if (isServerRender) {
             const path = link.getAttribute('catui-href');
-            const currentHref = link.getAttribute('href');
+            const target = link.getAttribute('catui-target');
 
             // URL 보안 검증
             if (!Security.isSafeUrl(path)) {
@@ -166,13 +166,47 @@ class IMCATCore {
               return;
             }
 
-            // href가 없거나 '#' 같은 플레이스홀더면 직접 네비게이션
-            if (!currentHref || currentHref === '#' || currentHref === '#!') {
+            // catui-target이 있으면 서버 HTML을 fetch하여 타겟에 렌더링
+            if (target) {
               e.preventDefault();
-              window.location.href = path;
+              const container = document.getElementById(target);
+              if (!container) {
+                console.error(`IMCAT: Target "#${target}" not found`);
+                return;
+              }
+
+              // 로딩 표시
+              if (this.loadingIndicator) {
+                this.loadingIndicator.show();
+              }
+
+              fetch(path)
+                .then(res => {
+                  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                  return res.text();
+                })
+                .then(html => {
+                  container.innerHTML = html;
+                  // 스크립트 실행
+                  this.router._executeScripts(container);
+                  // History 업데이트
+                  window.history.pushState({ path }, '', path);
+                })
+                .catch(err => {
+                  console.error('IMCAT: Failed to load:', err);
+                })
+                .finally(() => {
+                  if (this.loadingIndicator) {
+                    this.loadingIndicator.hide();
+                  }
+                });
               return;
             }
-            return; // 이미 유효한 href가 있으면 기본 링크 동작 허용
+
+            // catui-target 없으면 전체 페이지 이동
+            e.preventDefault();
+            window.location.href = path;
+            return;
           }
 
           // 이벤트 기본 동작 방지 (SPA 모드)
