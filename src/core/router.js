@@ -36,6 +36,10 @@ export class ViewRouter {
 
     // History API 사용 여부 (기본값: true)
     this.useHistory = true;
+
+    // 서버 렌더링 모드 (기본값: false)
+    // true면 catui-href가 일반 링크처럼 동작하여 서버 라우터가 처리
+    this.serverRender = false;
   }
 
   /**
@@ -44,6 +48,7 @@ export class ViewRouter {
    * @param {Object} [options.loading] - 로딩 인디케이터 인스턴스
    * @param {boolean} [options.autoNavigate=true] - 초기 hash 경로 자동 로드 여부
    * @param {boolean} [options.useHistory=true] - History API 사용 여부 (false면 URL 변경 안함)
+   * @param {boolean} [options.serverRender=false] - 서버 렌더링 모드 (true면 catui-href가 일반 링크처럼 동작)
    */
   init(options = {}) {
     if (options.loading) {
@@ -53,6 +58,11 @@ export class ViewRouter {
     // History API 사용 여부 설정
     if ('useHistory' in options) {
       this.useHistory = options.useHistory;
+    }
+
+    // 서버 렌더링 모드 설정
+    if ('serverRender' in options) {
+      this.serverRender = options.serverRender;
     }
 
     // History API 이벤트 리스너 (useHistory가 true일 때만)

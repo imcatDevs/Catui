@@ -23,6 +23,10 @@ export class Config {
     // 모듈 CSS 자동 로드 (IMCAT.use() 시 해당 모듈 CSS도 자동 로드)
     autoLoadModuleCSS: true,
 
+    // 서버 렌더링 모드 (true면 catui-href가 일반 링크처럼 동작)
+    // Catphp 등 서버 사이드 라우터 사용 시 true로 설정
+    serverRender: false,
+
     // 오버레이 설정
     backdrop: true,
     backdropClose: true,

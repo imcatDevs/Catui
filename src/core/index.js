@@ -51,9 +51,12 @@ class IMCATCore {
     this._domReadyHandler = null;
 
     // Router에 Loading 통합 (URL 변경 없이 내부 렌더링만)
+    // serverRender 옵션은 config에서 자동 감지
+    const serverRender = Config.get('serverRender', false);
     this.router.init({
       loading: this.loadingIndicator,
-      useHistory: false
+      useHistory: false,
+      serverRender
     });
 
     // catui-href 자동 바인딩 (DOM ready 후)
@@ -149,7 +152,16 @@ class IMCATCore {
         const link = e.target.closest('[catui-href]');
 
         if (link) {
-          // 이벤트 기본 동작 방지 (중복 네비게이션 방지)
+          // 서버 렌더링 모드면 preventDefault 하지 않음 (서버 라우터가 처리)
+          if (this.router.serverRender) {
+            // href 속성이 없으면 catui-href 값을 href로 설정
+            if (!link.hasAttribute('href')) {
+              link.setAttribute('href', link.getAttribute('catui-href'));
+            }
+            return; // 기본 링크 동작 허용
+          }
+
+          // 이벤트 기본 동작 방지 (SPA 모드)
           e.preventDefault();
           e.stopPropagation();
 
