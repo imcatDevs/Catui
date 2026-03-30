@@ -62,6 +62,9 @@ class IMCATCore {
     // catui-href 자동 바인딩 (DOM ready 후)
     this._bindSPALinks();
 
+    // 서버 렌더링 모드: hash 기반 자동 렌더링 초기화
+    this._initServerRenderHash();
+
     // 단축 API에 IMCAT 인스턴스 바인딩
     this._initShortcuts();
 
@@ -169,37 +172,7 @@ class IMCATCore {
             // catui-target이 있으면 서버 HTML을 fetch하여 타겟에 렌더링
             if (target) {
               e.preventDefault();
-              const container = document.getElementById(target);
-              if (!container) {
-                console.error(`IMCAT: Target "#${target}" not found`);
-                return;
-              }
-
-              // 로딩 표시
-              if (this.loadingIndicator) {
-                this.loadingIndicator.show();
-              }
-
-              fetch(path)
-                .then(res => {
-                  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                  return res.text();
-                })
-                .then(html => {
-                  container.innerHTML = html;
-                  // 스크립트 실행
-                  this.router._executeScripts(container);
-                  // History 업데이트
-                  window.history.pushState({ path }, '', path);
-                })
-                .catch(err => {
-                  console.error('IMCAT: Failed to load:', err);
-                })
-                .finally(() => {
-                  if (this.loadingIndicator) {
-                    this.loadingIndicator.hide();
-                  }
-                });
+              this._serverRenderFetch(path, target);
               return;
             }
 
@@ -246,6 +219,106 @@ class IMCATCore {
     } else {
       bindLinks();
     }
+  }
+
+  /**
+   * 서버 렌더링 모드 fetch + 타겟 렌더링
+   * @param {string} path - 서버 경로
+   * @param {string} targetId - 렌더링 대상 요소 ID
+   * @private
+   */
+  _serverRenderFetch(path, targetId) {
+    const container = document.getElementById(targetId);
+    if (!container) {
+      console.error(`IMCAT: Target "#${targetId}" not found`);
+      return;
+    }
+
+    // 로딩 표시
+    if (this.loadingIndicator) {
+      this.loadingIndicator.show();
+    }
+
+    fetch(path)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.text();
+      })
+      .then(html => {
+        container.innerHTML = html;
+        // 스크립트 실행
+        if (this.router._executeScripts) {
+          this.router._executeScripts(container);
+        }
+        // hash 방식으로 URL 업데이트 (새로고침 시 Catphp 기본 페이지 유지)
+        window.location.hash = `#${path}`;
+        // 마지막 타겟 저장 (hash 복원 시 사용)
+        this._lastServerTarget = targetId;
+      })
+      .catch(err => {
+        console.error('IMCAT: Failed to load:', err);
+      })
+      .finally(() => {
+        if (this.loadingIndicator) {
+          this.loadingIndicator.hide();
+        }
+      });
+  }
+
+  /**
+   * 서버 렌더링 모드: 페이지 로드 시 hash 경로 자동 렌더링
+   * @private
+   */
+  _initServerRenderHash() {
+    const restore = () => {
+      const isServerRender = Config.get('serverRender', false) || this.router.serverRender;
+      if (!isServerRender) return;
+
+      const hash = window.location.hash;
+      // #/path 형식인지 확인
+      if (!hash || !hash.startsWith('#/')) return;
+
+      const path = hash.slice(1); // '#/login' → '/login'
+
+      // 기본 타겟 감지: catui-target 속성을 가진 첫 번째 링크의 타겟 사용
+      let targetId = this._lastServerTarget;
+      if (!targetId) {
+        const targetLink = document.querySelector('[catui-href][catui-target]');
+        if (targetLink) {
+          targetId = targetLink.getAttribute('catui-target');
+        }
+      }
+
+      if (targetId && Security.isSafeUrl(path)) {
+        this._serverRenderFetch(path, targetId);
+      }
+    };
+
+    // DOM ready 후 hash 복원
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', restore);
+    } else {
+      // Config가 설정될 시간을 확보하기 위해 다음 틱에서 실행
+      setTimeout(restore, 0);
+    }
+
+    // hash 변경 감지 (뒤로가기/앞으로가기)
+    this._hashChangeHandler = () => {
+      const isServerRender = Config.get('serverRender', false) || this.router.serverRender;
+      if (!isServerRender) return;
+
+      const hash = window.location.hash;
+      if (!hash || !hash.startsWith('#/')) return;
+
+      const path = hash.slice(1);
+      const targetId = this._lastServerTarget ||
+        document.querySelector('[catui-href][catui-target]')?.getAttribute('catui-target');
+
+      if (targetId && Security.isSafeUrl(path)) {
+        this._serverRenderFetch(path, targetId);
+      }
+    };
+    window.addEventListener('hashchange', this._hashChangeHandler);
   }
 
   /**
@@ -528,6 +601,12 @@ class IMCATCore {
     if (this._domReadyHandler) {
       document.removeEventListener('DOMContentLoaded', this._domReadyHandler);
       this._domReadyHandler = null;
+    }
+
+    // hashchange 리스너 제거 (서버 렌더링 모드)
+    if (this._hashChangeHandler) {
+      window.removeEventListener('hashchange', this._hashChangeHandler);
+      this._hashChangeHandler = null;
     }
 
     // AutoInit DOMContentLoaded 리스너 제거

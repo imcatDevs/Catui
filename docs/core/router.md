@@ -93,8 +93,18 @@ URL은 `history.pushState`로 업데이트됩니다.
 
 1. 클릭 → `fetch('/login')` 요청
 2. 서버 응답 HTML → `#app-content`에 렌더링
-3. `history.pushState`로 URL 업데이트 (`/login`)
+3. URL hash 업데이트 (`example.com/#/login`)
 4. 로딩 인디케이터 자동 표시/숨김
+
+> **hash 방식을 사용하는 이유:** `pushState`로 URL을 `/login`으로 변경하면
+> 새로고침 시 Catphp가 `/login` 전체 페이지를 렌더링합니다.
+> hash(`#/login`)는 서버로 전송되지 않으므로 기본 페이지가 유지되고,
+> 로드 시 hash를 읽어 자동으로 `fetch` → 타겟 렌더링이 복원됩니다.
+
+### 새로고침 시 자동 복원
+
+페이지 로드 시 URL에 `#/경로` 형식의 hash가 있으면 자동으로 해당 경로를
+fetch하여 타겟 컨테이너에 렌더링합니다. 뒤로가기/앞으로가기도 지원됩니다.
 
 ### catui-target이 없는 경우 (전체 페이지 이동)
 
@@ -108,11 +118,11 @@ URL은 `history.pushState`로 업데이트됩니다.
 
 ### href 속성과의 관계
 
-| HTML | 동작 |
-| --- | --- |
-| `<a catui-href="/login">` | `window.location.href`로 직접 이동 |
-| `<a href="#" catui-href="/login">` | `window.location.href`로 직접 이동 |
-| `<a catui-href="/login" catui-target="app">` | `fetch` → `#app`에 렌더링 |
+| HTML | 동작 | URL 변화 |
+| --- | --- | --- |
+| `<a catui-href="/login">` | 전체 페이지 이동 | `/login` |
+| `<a href="#" catui-href="/login">` | 전체 페이지 이동 | `/login` |
+| `<a catui-href="/login" catui-target="app">` | fetch → `#app`에 렌더링 | `#/login` |
 
 ### Catphp 통합 예시
 
