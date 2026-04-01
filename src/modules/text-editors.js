@@ -306,9 +306,10 @@ class MarkdownEditor {
       placeholder: '마크다운을 입력하세요...',
       preview: true,            // 프리뷰 표시 여부
       splitView: true,          // 분할 뷰 (false면 탭)
-      toolbar: ['bold', 'italic', 'strikethrough', '|',
-        'h1', 'h2', 'h3', '|', 'ul', 'ol', 'task', '|',
-        'link', 'image', 'code', 'codeblock', '|', 'quote', 'hr', 'table'],
+      toolbar: ['bold', 'italic', 'strikethrough', 'highlight', '|',
+        'h1', 'h2', 'h3', 'h4', '|', 'ul', 'ol', 'task', '|',
+        'link', 'image', 'code', 'codeblock', '|',
+        'quote', 'hr', 'table', '|', 'sub', 'sup', 'details'],
       minHeight: 300,
       onChange: null
     };
@@ -333,7 +334,12 @@ class MarkdownEditor {
     codeblock: { icon: 'integration_instructions', title: '코드 블록', prefix: '```\n', suffix: '\n```' },
     quote: { icon: 'format_quote', title: '인용구', prefix: '> ', suffix: '' },
     hr: { icon: 'horizontal_rule', title: '구분선', insert: '\n---\n' },
-    table: { icon: 'table_chart', title: '테이블', insert: '\n| 제목 1 | 제목 2 |\n|--------|--------|\n| 내용 1 | 내용 2 |\n' }
+    table: { icon: 'table_chart', title: '테이블', insert: '\n| 제목 1 | 제목 2 |\n|--------|--------|\n| 내용 1 | 내용 2 |\n' },
+    h4: { icon: 'looks_4', title: '제목 4', prefix: '#### ', suffix: '' },
+    highlight: { icon: 'highlight', title: '형광펜', prefix: '==', suffix: '==' },
+    sub: { icon: 'subscript', title: '아래 첨자', prefix: '~', suffix: '~' },
+    sup: { icon: 'superscript', title: '위 첨자', prefix: '^', suffix: '^' },
+    details: { icon: 'expand_more', title: '접기/펼치기', insert: '\n<details>\n<summary>제목</summary>\n\n내용\n\n</details>\n' }
   };
 
   /**
@@ -600,7 +606,8 @@ class MarkdownEditor {
     // Inline code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
-    // Headers
+    // Headers (h4 → h3 → h2 → h1 순서로 매칭해야 정확)
+    html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
     html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
     html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
     html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
@@ -613,6 +620,15 @@ class MarkdownEditor {
 
     // Strikethrough
     html = html.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+
+    // Highlight (==텍스트==)
+    html = html.replace(/==([^=]+)==/g, '<mark>$1</mark>');
+
+    // Superscript (^텍스트^) — Bold 이후에 처리
+    html = html.replace(/\^([^^]+)\^/g, '<sup>$1</sup>');
+
+    // Subscript (~텍스트~) — Strikethrough(~~) 이후에 처리
+    html = html.replace(/~([^~]+)~/g, '<sub>$1</sub>');
 
     // Blockquotes
     html = html.replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>');
@@ -649,6 +665,11 @@ class MarkdownEditor {
     // Ordered lists
     html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
 
+    // Details/Summary (접기/펼치기) — HTML 이스케이프 복원
+    html = html.replace(/&lt;details&gt;/g, '<details>');
+    html = html.replace(/&lt;\/details&gt;/g, '</details>');
+    html = html.replace(/&lt;summary&gt;(.*?)&lt;\/summary&gt;/g, '<summary>$1</summary>');
+
     // Paragraphs
     html = html.replace(/\n\n/g, '</p><p>');
     html = '<p>' + html + '</p>';
@@ -659,6 +680,8 @@ class MarkdownEditor {
     html = html.replace(/(<\/pre>)<\/p>/g, '$1');
     html = html.replace(/<p>(<ul>)/g, '$1');
     html = html.replace(/(<\/ul>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<details>)/g, '$1');
+    html = html.replace(/(<\/details>)<\/p>/g, '$1');
     html = html.replace(/<p>(<blockquote>)/g, '$1');
     html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
     html = html.replace(/<p>(<hr>)<\/p>/g, '$1');

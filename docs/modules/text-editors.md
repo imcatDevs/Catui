@@ -79,9 +79,10 @@ const md = new MarkdownEditor('#mdEditor', {
   placeholder: '마크다운을 입력하세요...',
   preview: true,
   splitView: true,
-  toolbar: ['bold', 'italic', 'strikethrough', '|',
-    'h1', 'h2', 'h3', '|', 'ul', 'ol', 'task', '|',
-    'link', 'image', 'code', 'codeblock', '|', 'quote', 'hr', 'table'],
+  toolbar: ['bold', 'italic', 'strikethrough', 'highlight', '|',
+    'h1', 'h2', 'h3', 'h4', '|', 'ul', 'ol', 'task', '|',
+    'link', 'image', 'code', 'codeblock', '|',
+    'quote', 'hr', 'table', '|', 'sub', 'sup', 'details'],
   minHeight: 300,
   onChange: (markdown) => console.log(markdown)
 });
@@ -107,7 +108,41 @@ md.focus();
 
 ### 사용 가능한 툴바 버튼
 
-`bold`, `italic`, `strikethrough`, `h1`, `h2`, `h3`, `ul`, `ol`, `task`, `link`, `image`, `code`, `codeblock`, `quote`, `hr`, `table`, `|` (구분선)
+| 버튼 | 아이콘 | 설명 | 마크다운 문법 |
+| --- | --- | --- | --- |
+| `bold` | format_bold | 굵게 | `**텍스트**` |
+| `italic` | format_italic | 기울임 | `_텍스트_` |
+| `strikethrough` | strikethrough_s | 취소선 | `~~텍스트~~` |
+| `highlight` | highlight | 형광펜 | `==텍스트==` |
+| `h1` ~ `h4` | looks_one ~ looks_4 | 제목 1~4 | `# ~ ####` |
+| `ul` | format_list_bulleted | 순서 없는 목록 | `- 항목` |
+| `ol` | format_list_numbered | 순서 목록 | `1. 항목` |
+| `task` | check_box | 체크리스트 | `- [ ] 항목` |
+| `link` | link | 링크 | `[텍스트](url)` |
+| `image` | image | 이미지 | `![alt](url)` |
+| `code` | code | 인라인 코드 | `` `코드` `` |
+| `codeblock` | integration_instructions | 코드 블록 | ` ```언어 ` |
+| `quote` | format_quote | 인용구 | `> 텍스트` |
+| `hr` | horizontal_rule | 구분선 | `---` |
+| `table` | table_chart | 테이블 | `\| 제목 \|` |
+| `sub` | subscript | 아래 첨자 | `~텍스트~` |
+| `sup` | superscript | 위 첨자 | `^텍스트^` |
+| `details` | expand_more | 접기/펼치기 | `<details>` |
+| `\|` | — | 구분선 | — |
+
+### 코드 블록 언어 표기
+
+코드 블록에 언어명을 지정하면 라벨이 표시됩니다. `c++`, `c#`, `objective-c` 등 특수문자 포함 언어도 지원합니다.
+
+````markdown
+```javascript
+console.log('hello');
+```
+
+```c++
+int main() { return 0; }
+```
+````
 
 ### MarkdownEditor 메서드
 

@@ -383,9 +383,38 @@ describe('MarkdownEditor 추가2', () => {
     mde.destroy?.();
   });
 
-  it('defaults()', () => {
+  it('마크다운 파싱 — h4, highlight, sub, sup, details', () => {
+    var mde = new MarkdownEditor('#te-container', { splitView: true });
+    mde.setValue([
+      '#### 제목 4',
+      '==형광펜==',
+      'H~2~O',
+      'E=mc^2^',
+      '<details>',
+      '<summary>접기</summary>',
+      '',
+      '내용',
+      '',
+      '</details>'
+    ].join('\n'));
+    var html = mde.getHTML();
+    expect(html).toContain('<h4>');
+    expect(html).toContain('<mark>형광펜</mark>');
+    expect(html).toContain('<sub>2</sub>');
+    expect(html).toContain('<sup>2</sup>');
+    expect(html).toContain('<details>');
+    expect(html).toContain('<summary>접기</summary>');
+    mde.destroy?.();
+  });
+
+  it('defaults() — 새 툴바 버튼 포함', () => {
     var d = MarkdownEditor.defaults();
     expect(d.splitView).toBe(true);
+    expect(d.toolbar).toContain('highlight');
+    expect(d.toolbar).toContain('h4');
+    expect(d.toolbar).toContain('sub');
+    expect(d.toolbar).toContain('sup');
+    expect(d.toolbar).toContain('details');
   });
 
   it('initial value 옵션', () => {
