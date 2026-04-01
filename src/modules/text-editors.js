@@ -589,8 +589,13 @@ class MarkdownEditor {
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
 
-    // Code blocks (triple backticks)
-    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+    // Code blocks (triple backticks) — 언어명에 +, #, - 등 특수문자 허용
+    html = html.replace(/```([^\n]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+      const trimmedLang = lang.trim();
+      const langClass = trimmedLang ? ` class="language-${trimmedLang}"` : '';
+      const langLabel = trimmedLang ? `<span class="code-lang">${trimmedLang}</span>` : '';
+      return `${langLabel}<pre><code${langClass}>${code}</code></pre>`;
+    });
 
     // Inline code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');

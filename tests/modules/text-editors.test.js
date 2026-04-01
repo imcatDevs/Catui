@@ -358,6 +358,31 @@ describe('MarkdownEditor 추가2', () => {
     mde.destroy?.();
   });
 
+  it('마크다운 파싱 — 특수문자 포함 언어명 코드 블록 (c++, c#, objective-c)', () => {
+    var mde = new MarkdownEditor('#te-container', { splitView: true });
+    mde.setValue([
+      '```c++',
+      'int main() {}',
+      '```',
+      '',
+      '```c#',
+      'Console.WriteLine();',
+      '```',
+      '',
+      '```objective-c',
+      '[obj method];',
+      '```'
+    ].join('\n'));
+    var html = mde.getHTML();
+    expect(html).toContain('language-c++');
+    expect(html).toContain('language-c#');
+    expect(html).toContain('language-objective-c');
+    expect(html).toContain('int main() {}');
+    expect(html).toContain('Console.WriteLine();');
+    expect(html).toContain('[obj method];');
+    mde.destroy?.();
+  });
+
   it('defaults()', () => {
     var d = MarkdownEditor.defaults();
     expect(d.splitView).toBe(true);
